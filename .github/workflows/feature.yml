@@ -1,0 +1,32 @@
+name: feature
+
+on:
+  pull_request:
+    types: [edited, opened, synchronize, reopened]
+    branches:
+      - staging
+
+      
+jobs:
+  spell-check:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+    permissions: read-all
+    with:
+      includes: "**/*.md"
+      modified_files_only: true
+
+  code-check:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          cache: true
+
+      - name: 🔍️ Run Checks
+        uses: ./.github/actions/code-check

@@ -1,0 +1,26 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "files.exclude": {
+        "coverage_badge.svg": true,
+        "LICENSE": true,
+        "**/.branches": true,
+        "**/.dart_tool/": true,
+        "**/.idea/": true,
+        "**/.flutter-plugins": true,
+        "**/.flutter-plugins-dependencies": true,
+        "**/.metadata": true,
+        "**/.temp": true,
+        "**/*.iml": true,
+        "**/app/.vscode/": true,
+        "**/app/analysis_options.yaml": true,
+        "**/coverage": true,
+        "**/build": true,
+        "**/packages/**/.vscode/": true,
+        "**/packages/**/analysis_options.yaml": true,
+        "**/pubspec.lock": true,
+        "**/pubspec_overrides.yaml": true,
+    },
+    "testing.automaticallyOpenPeekView": "never",
+}

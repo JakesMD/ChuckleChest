@@ -1,0 +1,34 @@
+{
+    "Beautiful test": {
+        "prefix": "btest",
+        "body": [
+            "test(",
+            "  requirement(",
+            "    Given: '${1:context}',",
+            "    When: '${2:action}',",
+            "    Then: '${3:outcome}',",
+            "  ),",
+            "  procedure(() {",
+            "    ${4:// TODO: Implement procedure}",
+            "  }),",
+            ");"
+        ],
+        "description": "Creates a beautiful test"
+    },
+    "Beautiful widget test": {
+        "prefix": "bwtest",
+        "body": [
+            "testWidgets(",
+            "  requirement(",
+            "    Given: '${1:context}',",
+            "    When: '${2:action}',",
+            "    Then: '${3:outcome}',",
+            "  ),",
+            "  widgetsProcedure((tester) async {",
+            "    ${4:// TODO: Implement prodecure}",
+            "  }),",
+            ");"
+        ],
+        "description": "Creates a beautiful widget test"
+    }
+}

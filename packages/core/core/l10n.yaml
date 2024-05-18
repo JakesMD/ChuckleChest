@@ -1,0 +1,7 @@
+arb-dir: lib/src/localization/arb
+template-arb-file: intl_en.arb
+output-localization-file: localizations.g.dart
+output-class: CCoreL10n
+nullable-getter: false
+output-dir: lib/src/localization/generated
+synthetic-package: false

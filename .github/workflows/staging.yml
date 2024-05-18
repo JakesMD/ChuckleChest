@@ -1,0 +1,39 @@
+name: staging
+
+on:
+  push:
+    branches:
+      - staging
+
+
+jobs:
+  spell-check:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+    permissions: read-all
+    with:
+      includes: "**/*.md"
+      modified_files_only: true
+
+  code-check-and-deploy:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    env:
+      GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RUN_ID: ${{ github.run_id }}
+      SHA: ${{ github.sha }}
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          cache: true
+
+      - name: 🔍️ Run Checks
+        uses: ./.github/actions/code-check
+
+      - name: 🚀 Deploy Staging
+        uses: ./.github/actions/staging

@@ -1,0 +1,22 @@
+name: production
+description: production
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: 🏗️ Build Production App
+      shell: bash
+      run: melos build_production
+
+    - name: 🔧 Setup GitHub Pages
+      uses: actions/configure-pages@v5
+
+    - name: 📤 Upload Production App
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: "./app/build/web"
+
+    - name: 🚀 Deploy Production App
+      id: deployment
+      uses: actions/deploy-pages@v4
