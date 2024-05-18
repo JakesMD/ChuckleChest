@@ -54,7 +54,7 @@ scripts:
   build_production:
     run: |
       cd $MELOS_ROOT_PATH/app
-      flutter build web --target=lib/main_production.dart --no-tree-shake-icons --base-href="/The-Purrfect-Flutter-Project/"
+      flutter build web --target=lib/main_production.dart --no-tree-shake-icons --base-href="/ChuckleChest/"
 
   ci:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
