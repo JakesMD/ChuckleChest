@@ -4,7 +4,6 @@ import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/pages/home/widgets/_widget.dart';
 import 'package:cpub/auto_route.dart';
-import 'package:cpub/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CHomePage}
@@ -13,9 +12,9 @@ import 'package:flutter/material.dart';
 ///
 /// {@endtemplate}
 @RoutePage()
-class CHomePage extends StatefulWidget implements AutoRouteWrapper {
+class CHomePage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CHomePage}
-  const CHomePage({super.key});
+  CHomePage({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -27,74 +26,42 @@ class CHomePage extends StatefulWidget implements AutoRouteWrapper {
     context.router.push(CGemRoute(gemID: gem.id));
   }
 
-  @override
-  State<CHomePage> createState() => _CHomePageState();
-}
-
-class _CHomePageState extends State<CHomePage> {
-  late ItemPositionsListener itemPositionsListener;
-  late ColorScheme newColorScheme;
-
-  int currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    itemPositionsListener = ItemPositionsListener.create();
-    itemPositionsListener.itemPositions.addListener(onNewGemVisible);
-
-    generateNewColorScheme();
-  }
-
-  void onNewGemVisible() {
-    final newIndex = itemPositionsListener.itemPositions.value.first.index;
-
-    if (newIndex != currentIndex) {
-      generateNewColorScheme();
-      setState(() => currentIndex = newIndex);
-    }
-  }
-
-  void generateNewColorScheme() {
-    newColorScheme = ColorScheme.fromSeed(
-      seedColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-    );
-  }
+  final _gem = CGem(
+    id: '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f',
+    number: 290,
+    occurredAt: DateTime.now(),
+    lines: [
+      CNarration(
+        id: BigInt.from(1),
+        text:
+            '''Lydia showing Mum and Dad her outfits for the Funeral and wanting their approval.''',
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
-    final gem = CGem(
-      id: '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f',
-      number: 290,
-      occurredAt: DateTime.now(),
-      lines: [
-        CNarration(
-          id: BigInt.from(1),
-          text:
-              '''Lydia showing Mum and Dad her outfits for the Funeral and wanting their approval.''',
-        ),
-      ],
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
     );
 
     return Theme(
-      data: Theme.of(context).copyWith(colorScheme: newColorScheme),
+      data: Theme.of(context).copyWith(colorScheme: colorScheme),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ChuckleChest'),
           centerTitle: true,
-          backgroundColor: newColorScheme.inversePrimary,
+          backgroundColor: colorScheme.inversePrimary,
         ),
-        body: ScrollablePositionedList.separated(
+        body: ListView.separated(
           addAutomaticKeepAlives: false,
           padding: const EdgeInsets.all(12),
           separatorBuilder: (context, index) => const SizedBox(height: 12),
           itemBuilder: (context, index) => CGemCard(
-            gem: gem,
-            onPressed: (gem) => widget.onGemPressed(context, gem),
+            gem: _gem,
+            onPressed: (gem) => onGemPressed(context, gem),
           ),
           itemCount: 20,
-          itemPositionsListener: itemPositionsListener,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},

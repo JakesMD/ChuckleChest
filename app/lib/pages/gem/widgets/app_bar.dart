@@ -26,6 +26,7 @@ class CGemPageAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      centerTitle: true,
     );
   }
 }
