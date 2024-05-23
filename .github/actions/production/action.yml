@@ -26,7 +26,6 @@ runs:
       shell: bash
       run: |
         supabase link --project-ref ${{ env.SUPABASE_PROJECT_ID }}
-        melos rename_dev_migrations
         supabase db push
 
     - name: 🚀 Deploy Production App
