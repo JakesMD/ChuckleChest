@@ -50,7 +50,7 @@ class CGemRepository {
     required String Function(String link) message,
     required String subject,
   }) async {
-    final link = 'https://github.com/JakesMD/ChuckleChest/gems/$gemID';
+    final link = 'https://jakesmd.github.io/ChuckleChest/gems/$gemID';
 
     if (platformClient.deviceType == CDeviceType.mobile) {
       final result = await platformClient.share(
