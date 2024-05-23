@@ -12,6 +12,8 @@ scripts:
       cp $MELOS_ROOT_PATH/.vscode/settings.json .vscode/
       if test -d test; then cp $MELOS_ROOT_PATH/.vscode/test.code-snippets .vscode/; fi
       cp $MELOS_ROOT_PATH/analysis_options.yaml analysis_options.yaml
+    packageFilters:
+      fileExists: pubspec.yaml
 
   setup:
     description: Sets up the development environment. Run this after pulling from a branch.
@@ -72,7 +74,11 @@ scripts:
   outdated:
     description: Shows outdated packages in the specified package(s).
     exec: flutter pub outdated && flutter pub upgrade
+    packageFilters:
+      fileExists: pubspec.yaml
 
   build_runner:
     description: Runs build runner in the specified package(s).
     exec: dart run build_runner build --delete-conflicting-outputs
+    packageFilters:
+      fileExists: pubspec.yaml

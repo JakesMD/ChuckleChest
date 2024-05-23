@@ -17,6 +17,18 @@ runs:
       with:
         path: "./app/build/web"
 
+    - name: ⚡️ Setup Supabase
+      uses: supabase/setup-cli@v1
+      with:
+        version: latest
+
+    - name: 🗃️ Push Database Changes
+      shell: bash
+      run: |
+        supabase link --project-ref ${{ env.SUPABASE_PROJECT_ID }}
+        melos rename_dev_migrations
+        supabase db push
+
     - name: 🚀 Deploy Production App
       id: deployment
       uses: actions/deploy-pages@v4

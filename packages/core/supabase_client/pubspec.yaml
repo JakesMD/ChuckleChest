@@ -1,0 +1,11 @@
+name: csupabase_client
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  ccore:
+  cpub:
+  cpub_dev:
+  flutter:
+    sdk: flutter
