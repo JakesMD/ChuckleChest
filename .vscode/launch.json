@@ -39,7 +39,9 @@
             "deviceId": "Chrome",
             "args": [
                 "--target",
-                "lib/main_development.dart"
+                "lib/main_development.dart",
+                "--web-renderer",
+                "canvaskit"
             ]
         },
         {
@@ -50,7 +52,9 @@
             "deviceId": "Chrome",
             "args": [
                 "--target",
-                "lib/main_staging.dart"
+                "lib/main_staging.dart",
+                "--web-renderer",
+                "canvaskit"
             ]
         },
         {
@@ -61,7 +65,9 @@
             "deviceId": "Chrome",
             "args": [
                 "--target",
-                "lib/main_production.dart"
+                "lib/main_production.dart",
+                "--web-renderer",
+                "canvaskit"
             ]
         }
     ],

@@ -31,7 +31,7 @@ abstract class _$CAppRouter extends RootStackRouter {
     CHomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const CHomePage()),
+        child: WrappedRoute(child: CHomePage()),
       );
     },
   };

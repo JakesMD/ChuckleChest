@@ -51,12 +51,12 @@ scripts:
   build_staging:
     run: |
       cd $MELOS_ROOT_PATH/app
-      flutter build web --target=lib/main_staging.dart --no-tree-shake-icons
+      flutter build web --target=lib/main_staging.dart --no-tree-shake-icons --web-renderer=canvaskit --release
 
   build_production:
     run: |
       cd $MELOS_ROOT_PATH/app
-      flutter build web --target=lib/main_production.dart --no-tree-shake-icons --base-href="/ChuckleChest/"
+      flutter build web --target=lib/main_production.dart --no-tree-shake-icons --base-href="/ChuckleChest/" --web-renderer=canvaskit --release
 
   ci:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
