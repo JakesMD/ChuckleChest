@@ -22,6 +22,16 @@
             ]
         },
         {
+            "name": "prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "app/lib/main_production.dart",
+            "args": [
+                "--target",
+                "lib/main_production.dart"
+            ]
+        },
+        {
             "name": "dev-web",
             "request": "launch",
             "type": "dart",
@@ -41,6 +51,17 @@
             "args": [
                 "--target",
                 "lib/main_staging.dart"
+            ]
+        },
+        {
+            "name": "prod-web",
+            "request": "launch",
+            "type": "dart",
+            "program": "app/lib/main_production.dart",
+            "deviceId": "Chrome",
+            "args": [
+                "--target",
+                "lib/main_production.dart"
             ]
         }
     ],

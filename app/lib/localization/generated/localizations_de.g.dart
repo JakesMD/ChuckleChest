@@ -13,8 +13,7 @@ class CAppL10nDe extends CAppL10n {
   String get stagingBanner_button => 'Zur Endversion';
 
   @override
-  String get snackBar_error_defaultMessage =>
-      'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.';
+  String get snackBar_error_defaultMessage => 'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.';
 
   @override
   String get ok => 'Ok';
