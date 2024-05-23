@@ -1,6 +1,6 @@
 {
-    "name": "Chuckle Chest",
-    "short_name": "Chuckle Chest",
+    "name": "ChuckleChest",
+    "short_name": "ChuckleChest",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

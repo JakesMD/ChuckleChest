@@ -8,7 +8,7 @@
     "close": "Schließen",
     "save": "Speichern",
     "delete": "Löschen",
-    "gem_share_message": "Schau dir dieses Gem auf Chuckle Chest an! 😂 {link}",
+    "gem_share_message": "Schau dir dieses Gem auf ChuckleChest an! 😂 {link}",
     "@greeting": {
         "placeholders": {
             "link": {}

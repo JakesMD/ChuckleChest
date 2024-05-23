@@ -55,7 +55,7 @@ class ChuckleChestApp extends StatelessWidget {
           gemClient: context.read<CGemClient>(),
         ),
         child: MaterialApp.router(
-          title: 'Chuckle Chest',
+          title: 'ChuckleChest',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
             useMaterial3: true,

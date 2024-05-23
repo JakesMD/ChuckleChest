@@ -81,7 +81,7 @@ class _CHomePageState extends State<CHomePage> {
       data: Theme.of(context).copyWith(colorScheme: newColorScheme),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Chuckle Chest'),
+          title: const Text('ChuckleChest'),
           centerTitle: true,
           backgroundColor: newColorScheme.inversePrimary,
         ),

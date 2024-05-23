@@ -13,7 +13,8 @@ class CAppL10nDe extends CAppL10n {
   String get stagingBanner_button => 'Zur Endversion';
 
   @override
-  String get snackBar_error_defaultMessage => 'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.';
+  String get snackBar_error_defaultMessage =>
+      'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.';
 
   @override
   String get ok => 'Ok';
@@ -32,7 +33,7 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String gem_share_message(Object link) {
-    return 'Schau dir dieses Gem auf Chuckle Chest an! 😂 $link';
+    return 'Schau dir dieses Gem auf ChuckleChest an! 😂 $link';
   }
 
   @override

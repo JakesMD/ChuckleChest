@@ -13,7 +13,8 @@ class CAppL10nEn extends CAppL10n {
   String get stagingBanner_button => 'Release version';
 
   @override
-  String get snackBar_error_defaultMessage => 'Oops! Something went wrong. Please check your internet connection and try again.';
+  String get snackBar_error_defaultMessage =>
+      'Oops! Something went wrong. Please check your internet connection and try again.';
 
   @override
   String get ok => 'OK';
@@ -32,7 +33,7 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String gem_share_message(Object link) {
-    return 'Checkout this gem on Chuckle Chest! 😂 $link';
+    return 'Checkout this gem on ChuckleChest! 😂 $link';
   }
 
   @override
