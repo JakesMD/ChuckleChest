@@ -1,0 +1,27 @@
+{
+    "@@locale": "en",
+    "stagingBanner_message": "You're using the staging version.",
+    "stagingBanner_button": "Release version",
+    "snackBar_error_defaultMessage": "Oops! Something went wrong. Please check your internet connection and try again.",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "gem_share_message": "Checkout this gem on ChuckleChest! 😂 {link}",
+    "@greeting": {
+        "placeholders": {
+            "link": {}
+        }
+    },
+    "gem_share_subject": "This is so good! 😂",
+    "quoteItem_connection": "{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old",
+    "@quoteItem_connection": {
+        "placeholders": {
+            "nickname": {},
+            "age": {
+                "type": "int"
+            }
+        }
+    }
+}

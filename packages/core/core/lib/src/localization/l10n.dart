@@ -4,6 +4,11 @@ import 'package:flutter/widgets.dart';
 
 export 'generated/localizations.g.dart';
 
+// coverage:ignore-start
+/// Initializes the localization system.
+Future<void> cInitializeL10n() => initializeDateFormatting();
+// coverage:ignore-end
+
 /// {@template CCoreL10nExtension}
 ///
 /// Provides access to this widget tree's [cCoreL10n] instance.
@@ -31,7 +36,7 @@ enum CDateFormat {
 /// {@endtemplate}
 extension CL10nDateExtension on DateTime {
   /// {@macro CL10nDateExtension}
-  String pLocalize(
+  String cLocalize(
     BuildContext context, {
     CDateFormat dateFormat = CDateFormat.yearMonthNumDayNum,
   }) {
@@ -39,6 +44,7 @@ extension CL10nDateExtension on DateTime {
       CDateFormat.yearMonthNumDayNum => 'yMd',
       CDateFormat.yearMonth => 'yMMMM',
     };
+    initializeDateFormatting();
 
     return DateFormat(
       pattern,
@@ -55,7 +61,7 @@ extension CL10nDateExtension on DateTime {
 /// {@endtemplate}
 extension CL10nNumExtension on num {
   /// {@macro CL10nNumExtension}
-  String pLocalize(BuildContext context, {int? decimalDigits}) {
+  String cLocalize(BuildContext context, {int? decimalDigits}) {
     return NumberFormat.decimalPatternDigits(
       locale: Localizations.localeOf(context).toLanguageTag(),
       decimalDigits: decimalDigits,
@@ -72,7 +78,7 @@ extension CL10nNumExtension on num {
 /// {@endtemplate}
 extension CL10nStringExtension on String {
   /// {@macro CL10nStringExtension}
-  num? pToLocalizedNum(BuildContext context) {
+  num? cToLocalizedNum(BuildContext context) {
     try {
       return NumberFormat.decimalPattern(
         Localizations.localeOf(context).toLanguageTag(),
