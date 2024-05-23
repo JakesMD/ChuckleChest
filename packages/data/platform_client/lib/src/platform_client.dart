@@ -54,6 +54,8 @@ class CPlatformClient {
 
   /// The operating system the app is running on.
   static COperatingSystem get operatingSystem {
+    if (kIsWeb) return COperatingSystem.web;
+
     switch (Platform.operatingSystem) {
       case 'android':
         return COperatingSystem.android;
@@ -65,8 +67,6 @@ class CPlatformClient {
         return COperatingSystem.macos;
       case 'windows':
         return COperatingSystem.windows;
-      case 'web':
-        return COperatingSystem.web;
       default:
         return COperatingSystem.unknown;
     }

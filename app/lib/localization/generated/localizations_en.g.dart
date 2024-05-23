@@ -13,8 +13,7 @@ class CAppL10nEn extends CAppL10n {
   String get stagingBanner_button => 'Release version';
 
   @override
-  String get snackBar_error_defaultMessage =>
-      'Oops! Something went wrong. Please check your internet connection and try again.';
+  String get snackBar_error_defaultMessage => 'Oops! Something went wrong. Please check your internet connection and try again.';
 
   @override
   String get ok => 'OK';
