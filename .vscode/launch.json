@@ -2,6 +2,26 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "dev",
+            "request": "launch",
+            "type": "dart",
+            "program": "app/lib/main_development.dart",
+            "args": [
+                "--target",
+                "lib/main_development.dart"
+            ]
+        },
+        {
+            "name": "stg",
+            "request": "launch",
+            "type": "dart",
+            "program": "app/lib/main_staging.dart",
+            "args": [
+                "--target",
+                "lib/main_staging.dart"
+            ]
+        },
+        {
             "name": "dev-web",
             "request": "launch",
             "type": "dart",
@@ -10,6 +30,17 @@
             "args": [
                 "--target",
                 "lib/main_development.dart"
+            ]
+        },
+        {
+            "name": "stg-web",
+            "request": "launch",
+            "type": "dart",
+            "program": "app/lib/main_staging.dart",
+            "deviceId": "Chrome",
+            "args": [
+                "--target",
+                "lib/main_staging.dart"
             ]
         }
     ],

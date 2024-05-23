@@ -45,7 +45,7 @@ void main() {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              translation = DateTime(2024, 2, 10).pLocalize(context);
+              translation = DateTime(2024, 2, 10).cLocalize(context);
               return Container();
             },
           ),
@@ -64,7 +64,7 @@ void main() {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              translation = DateTime(2024, 2, 10).pLocalize(
+              translation = DateTime(2024, 2, 10).cLocalize(
                 context,
                 dateFormat: CDateFormat.yearMonth,
               );
@@ -92,7 +92,7 @@ void main() {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              translation = 2.0399.pLocalize(context, decimalDigits: 2);
+              translation = 2.0399.cLocalize(context, decimalDigits: 2);
               return Container();
             },
           ),
@@ -116,7 +116,7 @@ void main() {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              result = '2.0399'.pToLocalizedNum(context);
+              result = '2.0399'.cToLocalizedNum(context);
               return Container();
             },
           ),
@@ -136,7 +136,7 @@ void main() {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              result = 'fsddjlsf'.pToLocalizedNum(context);
+              result = 'fsddjlsf'.cToLocalizedNum(context);
               return Container();
             },
           ),

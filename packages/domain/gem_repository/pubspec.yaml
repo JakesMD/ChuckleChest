@@ -1,0 +1,13 @@
+name: cgem_repository
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  ccore:
+  cgem_client:
+  cplatform_client:
+  cpub:
+
+dev_dependencies:
+  cpub_dev:
