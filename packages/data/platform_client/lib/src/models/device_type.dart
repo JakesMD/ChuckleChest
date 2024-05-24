@@ -6,6 +6,9 @@ enum CDeviceType {
   /// A desktop device.
   desktop,
 
-  /// A web device.
-  web,
+  /// A mobile device running on the web.
+  mobileWeb,
+
+  /// A desktop device running on the web.
+  desktopWeb,
 }

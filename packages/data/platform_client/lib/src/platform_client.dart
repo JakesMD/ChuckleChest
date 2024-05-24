@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:cplatform_client/cplatform_client.dart';
 import 'package:cpub/dartz.dart';
@@ -54,34 +53,36 @@ class CPlatformClient {
 
   /// The operating system the app is running on.
   static COperatingSystem get operatingSystem {
-    if (kIsWeb) return COperatingSystem.web;
-
-    switch (Platform.operatingSystem) {
-      case 'android':
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
         return COperatingSystem.android;
-      case 'ios':
-        return COperatingSystem.ios;
-      case 'linux':
+      case TargetPlatform.iOS:
+        return COperatingSystem.iOS;
+      case TargetPlatform.linux:
         return COperatingSystem.linux;
-      case 'macos':
-        return COperatingSystem.macos;
-      case 'windows':
+      case TargetPlatform.macOS:
+        return COperatingSystem.macOS;
+      case TargetPlatform.windows:
         return COperatingSystem.windows;
-      default:
-        return COperatingSystem.unknown;
+      case TargetPlatform.fuchsia:
+        return COperatingSystem.fuchsia;
+    }
+  }
+
+  /// The type of device the app is running on.
+  static CDeviceType get deviceType {
+    if (CPlatformClient.operatingSystem == COperatingSystem.android ||
+        CPlatformClient.operatingSystem == COperatingSystem.iOS) {
+      if (kIsWeb) return CDeviceType.mobileWeb;
+      return CDeviceType.mobile;
+    } else {
+      if (kIsWeb) return CDeviceType.desktopWeb;
+      return CDeviceType.desktop;
     }
   }
 
   /// The type of device the app is running on.
   ///
   /// This is not static for mocking purposes.
-  CDeviceType get deviceType {
-    if (kIsWeb) {
-      return CDeviceType.web;
-    } else if (Platform.isAndroid || Platform.isIOS) {
-      return CDeviceType.mobile;
-    } else {
-      return CDeviceType.desktop;
-    }
-  }
+  CDeviceType get notStaticDeviceType => CPlatformClient.deviceType;
 }
