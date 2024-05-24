@@ -167,7 +167,8 @@ void main() {
           Then: 'returns unit',
         ),
         procedure(() async {
-          when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
+          when(() => platformClient.notStaticDeviceType)
+              .thenReturn(CDeviceType.mobile);
           when(mockShare).thenAnswer((_) async => right(unit));
 
           final result = await shareGem();
@@ -182,7 +183,8 @@ void main() {
           Then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
+          when(() => platformClient.notStaticDeviceType)
+              .thenReturn(CDeviceType.mobile);
           when(mockShare).thenAnswer(
             (_) async => left(CShareException.unknown),
           );
@@ -199,7 +201,8 @@ void main() {
           Then: 'returns unit',
         ),
         procedure(() async {
-          when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
+          when(() => platformClient.notStaticDeviceType)
+              .thenReturn(CDeviceType.desktop);
           when(mockCopyToClipboard).thenAnswer((_) async => right(unit));
 
           final result = await shareGem();
@@ -214,7 +217,8 @@ void main() {
           Then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
+          when(() => platformClient.notStaticDeviceType)
+              .thenReturn(CDeviceType.desktop);
           when(mockCopyToClipboard).thenAnswer(
             (_) async => left(CClipboardCopyException.unknown),
           );

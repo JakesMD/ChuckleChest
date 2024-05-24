@@ -52,7 +52,8 @@ class CGemRepository {
   }) async {
     final link = 'https://jakesmd.github.io/ChuckleChest/#/gems/$gemID';
 
-    if (platformClient.deviceType == CDeviceType.mobile) {
+    if (platformClient.notStaticDeviceType == CDeviceType.mobile ||
+        platformClient.notStaticDeviceType == CDeviceType.mobileWeb) {
       final result = await platformClient.share(
         text: message(link),
         subject: subject,

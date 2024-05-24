@@ -4,20 +4,17 @@ enum COperatingSystem {
   android,
 
   /// The iOS operating system.
-  ios,
+  iOS,
 
   /// The Linux operating system.
   linux,
 
   /// The macOS operating system.
-  macos,
+  macOS,
 
   /// The Windows operating system.
   windows,
 
-  /// The web operating system.
-  web,
-
-  /// An unknown operating system.
-  unknown,
+  /// The Fuchsia operating system.
+  fuchsia,
 }
