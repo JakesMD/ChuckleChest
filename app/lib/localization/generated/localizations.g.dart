@@ -144,7 +144,7 @@ abstract class CAppL10n {
   /// No description provided for @gem_share_message.
   ///
   /// In en, this message translates to:
-  /// **'Checkout this gem on ChuckleChest! 😂 {link}'**
+  /// **'Check out this gem on ChuckleChest! 😂 {link}'**
   String gem_share_message(Object link);
 
   /// No description provided for @gem_share_subject.

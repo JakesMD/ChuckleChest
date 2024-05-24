@@ -36,6 +36,7 @@ app/lib/secrets.g.dart
 app/analysis_options.yaml
 packages/**/analysis_options.yaml
 **/pubspec_overrides.yaml
+**/secrets.*.json
 
 # Symbolication related
 app.*.symbols
