@@ -32,7 +32,7 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String gem_share_message(Object link) {
-    return 'Checkout this gem on ChuckleChest! 😂 $link';
+    return 'Check out this gem on ChuckleChest! 😂 $link';
   }
 
   @override

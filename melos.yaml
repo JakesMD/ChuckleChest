@@ -51,12 +51,22 @@ scripts:
   build_staging:
     run: |
       cd $MELOS_ROOT_PATH/app
-      flutter build web --target=lib/main_staging.dart --no-tree-shake-icons --web-renderer=canvaskit --release
+      flutter build web \
+        --target=lib/main_staging.dart \
+        --no-tree-shake-icons \
+        --web-renderer=canvaskit \
+        --release \
+        --dart-define-from-file=secrets.staging.json
 
   build_production:
     run: |
       cd $MELOS_ROOT_PATH/app
-      flutter build web --target=lib/main_production.dart --no-tree-shake-icons --base-href="/ChuckleChest/" --web-renderer=canvaskit --release
+      flutter build web \
+        --target=lib/main_production.dart \
+        --no-tree-shake-icons \
+        --base-href="/ChuckleChest/" \
+        --web-renderer=canvaskit \
+        --release \
 
   ci:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
@@ -69,7 +79,7 @@ scripts:
       melos clean
       melos bootstrap
       melos update_settings --no-select
-      melos format && melos analyze && melos test --no-select && melos check_coverage && melos build_staging && melos build_production
+      melos format && melos analyze && melos test --no-select && melos check_coverage && melos build_staging && melos build_production -- --dart-define-from-file=secrets.production.json
 
   outdated:
     description: Shows outdated packages in the specified package(s).

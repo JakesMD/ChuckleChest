@@ -8,9 +8,8 @@ void main() async {
 
   // debugRepaintRainbowEnabled = true;
   await Supabase.initialize(
-    url: 'https://mgopsyysiuhacmfpxpdd.supabase.co',
-    anonKey:
-        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nb3BzeXlzaXVoYWNtZnB4cGRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY0OTAwODMsImV4cCI6MjAzMjA2NjA4M30.ptP4yS8tqzKfN4IcTo2TqbN8N98hgPBjON9O-VbqfV4''',
+    url: const String.fromEnvironment('SUPABASE_PROJECT_URL'),
+    anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
   );
 
   await bootstrap(() => ChuckleChestApp(flavor: CAppFlavor.production));

@@ -8,7 +8,9 @@
             "program": "app/lib/main_development.dart",
             "args": [
                 "--target",
-                "lib/main_development.dart"
+                "lib/main_development.dart",
+                "--dart-define-from-file",
+                "secrets.development.json"
             ]
         },
         {
@@ -18,7 +20,9 @@
             "program": "app/lib/main_staging.dart",
             "args": [
                 "--target",
-                "lib/main_staging.dart"
+                "lib/main_staging.dart",
+                "--dart-define-from-file",
+                "secrets.staging.json"
             ]
         },
         {
@@ -28,7 +32,9 @@
             "program": "app/lib/main_production.dart",
             "args": [
                 "--target",
-                "lib/main_production.dart"
+                "lib/main_production.dart",
+                "--dart-define-from-file",
+                "secrets.production.json"
             ]
         },
         {
@@ -41,7 +47,9 @@
                 "--target",
                 "lib/main_development.dart",
                 "--web-renderer",
-                "canvaskit"
+                "canvaskit",
+                "--dart-define-from-file",
+                "secrets.development.json"
             ]
         },
         {
@@ -54,7 +62,9 @@
                 "--target",
                 "lib/main_staging.dart",
                 "--web-renderer",
-                "canvaskit"
+                "canvaskit",
+                "--dart-define-from-file",
+                "secrets.staging.json"
             ]
         },
         {
@@ -67,7 +77,9 @@
                 "--target",
                 "lib/main_production.dart",
                 "--web-renderer",
-                "canvaskit"
+                "canvaskit",
+                "--dart-define-from-file",
+                "secrets.production.json"
             ]
         }
     ],
