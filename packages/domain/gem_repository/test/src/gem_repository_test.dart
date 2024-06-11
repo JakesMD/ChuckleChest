@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:ccore/ccore.dart';
 import 'package:cgem_client/cgem_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
@@ -14,14 +15,14 @@ class MockCPlatformClient extends Mock implements CPlatformClient {}
 
 void main() {
   group('CGemRepository tests', () {
-    late MockCGemClient gemClient;
-    late MockCPlatformClient platformClient;
-    late CGemRepository repo;
-
-    final fakeNarration = CNarration(
-      id: BigInt.one,
-      text: 'asdfjasflk',
+    final gemClient = MockCGemClient();
+    final platformClient = MockCPlatformClient();
+    final repo = CGemRepository(
+      gemClient: gemClient,
+      platformClient: platformClient,
     );
+
+    final fakeNarration = CNarration(id: BigInt.one, text: 'asdfjasflk');
 
     final fakeQuote = CQuote(
       id: BigInt.two,
@@ -73,106 +74,87 @@ void main() {
       registerFallbackValue(Rect.zero);
     });
 
-    setUp(() {
-      gemClient = MockCGemClient();
-      platformClient = MockCPlatformClient();
-      repo = CGemRepository(
-        gemClient: gemClient,
-        platformClient: platformClient,
-      );
-    });
-
     group('fetchGem', () {
-      Future<Either<CRawGemFetchException, CRawGem>> mockFetchGem() {
-        return gemClient.fetchGem(
-          gemID: any(named: 'gemID'),
-          withAvatarURLs: any(named: 'withAvatarURLs'),
-        );
-      }
+      CJob<CRawGemFetchException, CRawGem> mockFetchGem() => gemClient.fetchGem(
+            gemID: any(named: 'gemID'),
+            withAvatarURLs: any(named: 'withAvatarURLs'),
+          );
 
-      Future<Either<CGemFetchException, CGem>> fetchGem() {
-        return repo.fetchGem(gemID: fakeGem.id);
-      }
+      CJob<CGemFetchException, CGem> fetchGemJob() =>
+          repo.fetchGem(gemID: fakeGem.id);
 
       test(
         requirement(
           When: 'fetch gem succeeds',
-          Then: 'returns gem',
+          Then: 'returns success with gem',
         ),
         procedure(() async {
-          when(mockFetchGem).thenAnswer((_) async => right(fakeRawGem));
+          when(mockFetchGem).thenReturn(cFakeSuccessJob(fakeRawGem));
 
-          final result = await fetchGem();
-          expect(result, right(fakeGem));
+          final result = await fetchGemJob().run();
+
+          cExpectSuccess(result, fakeGem);
         }),
       );
 
       test(
         requirement(
           When: 'fetch gem not found',
-          Then: 'returns [not found] exception',
+          Then: 'returns failure with [not found] exception',
         ),
         procedure(() async {
           when(mockFetchGem)
-              .thenAnswer((_) async => left(CRawGemFetchException.notFound));
+              .thenReturn(cFakeFailureJob(CRawGemFetchException.notFound));
 
-          final result = await fetchGem();
-          expect(result, left(CGemFetchException.notFound));
+          final result = await fetchGemJob().run();
+          cExpectFailure(result, CGemFetchException.notFound);
         }),
       );
 
       test(
         requirement(
           When: 'fetch gem fails',
-          Then: 'returns [unknown] exception',
+          Then: 'returns failure with [unknown] exception',
         ),
         procedure(() async {
           when(mockFetchGem)
-              .thenAnswer((_) async => left(CRawGemFetchException.unknown));
+              .thenReturn(cFakeFailureJob(CRawGemFetchException.unknown));
 
-          final result = await fetchGem();
-          expect(result, left(CGemFetchException.unknown));
+          final result = await fetchGemJob().run();
+          cExpectFailure(result, CGemFetchException.unknown);
         }),
       );
     });
 
     group('shareGem', () {
-      Future<Either<CShareException, Unit>> mockShare() {
-        return platformClient.share(
-          text: any(named: 'text'),
-          subject: any(named: 'subject'),
-          sharePositionOrigin: any(named: 'sharePositionOrigin'),
-        );
-      }
+      CJob<CShareException, Unit> mockShare() => platformClient.share(
+            text: any(named: 'text'),
+            subject: any(named: 'subject'),
+            sharePositionOrigin: any(named: 'sharePositionOrigin'),
+          );
 
-      Future<Either<CClipboardCopyException, Unit>> mockCopyToClipboard() {
-        return platformClient.copyToClipboard(
-          text: any(named: 'text'),
-        );
-      }
+      CJob<CClipboardCopyException, Unit> mockCopyToClipboard() =>
+          platformClient.copyToClipboard(text: any(named: 'text'));
 
-      Future<Either<CGemShareException, CGemShareMethod>> shareGem() {
-        return repo.shareGem(
-          gemID: fakeGem.id,
-          sharePositionOrigin: Rect.zero,
-          message: (_) => 'asdfa',
-          subject: 'sadf',
-        );
-      }
+      CJob<CGemShareException, CGemShareMethod> shareGemJob() => repo.shareGem(
+            gemID: fakeGem.id,
+            sharePositionOrigin: Rect.zero,
+            message: (_) => 'asdfa',
+            subject: 'sadf',
+          );
 
       test(
         requirement(
           Given: 'device is mobile',
           When: 'share gem succeeds',
-          Then: 'returns unit',
+          Then: 'returns success with [unit]',
         ),
         procedure(() async {
-          when(() => platformClient.notStaticDeviceType)
-              .thenReturn(CDeviceType.mobile);
-          when(mockShare).thenAnswer((_) async => right(unit));
+          when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
+          when(mockShare).thenReturn(cFakeSuccessJob(unit));
 
-          final result = await shareGem();
-          expect(result, right(CGemShareMethod.dialog));
+          final result = await shareGemJob().run();
+          cExpectSuccess(result, CGemShareMethod.dialog);
         }),
       );
 
@@ -180,17 +162,14 @@ void main() {
         requirement(
           Given: 'device is mobile',
           When: 'share gem fails',
-          Then: 'returns [unknown] exception',
+          Then: 'returns failure with [unknown] exception',
         ),
         procedure(() async {
-          when(() => platformClient.notStaticDeviceType)
-              .thenReturn(CDeviceType.mobile);
-          when(mockShare).thenAnswer(
-            (_) async => left(CShareException.unknown),
-          );
+          when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
+          when(mockShare).thenReturn(cFakeFailureJob(CShareException.unknown));
 
-          final result = await shareGem();
-          expect(result, left(CGemShareException.unknown));
+          final result = await shareGemJob().run();
+          cExpectFailure(result, CGemShareException.unknown);
         }),
       );
 
@@ -198,15 +177,14 @@ void main() {
         requirement(
           Given: 'device is desktop',
           When: 'share gem succeeds',
-          Then: 'returns unit',
+          Then: 'returns success with [unit]',
         ),
         procedure(() async {
-          when(() => platformClient.notStaticDeviceType)
-              .thenReturn(CDeviceType.desktop);
-          when(mockCopyToClipboard).thenAnswer((_) async => right(unit));
+          when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
+          when(mockCopyToClipboard).thenReturn(cFakeSuccessJob(unit));
 
-          final result = await shareGem();
-          expect(result, right(CGemShareMethod.clipboard));
+          final result = await shareGemJob().run();
+          cExpectSuccess(result, CGemShareMethod.clipboard);
         }),
       );
 
@@ -214,17 +192,15 @@ void main() {
         requirement(
           Given: 'device is desktop',
           When: 'share gem fails',
-          Then: 'returns [unknown] exception',
+          Then: 'returns failure with [unknown] exception',
         ),
         procedure(() async {
-          when(() => platformClient.notStaticDeviceType)
-              .thenReturn(CDeviceType.desktop);
-          when(mockCopyToClipboard).thenAnswer(
-            (_) async => left(CClipboardCopyException.unknown),
-          );
+          when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
+          when(mockCopyToClipboard)
+              .thenReturn(cFakeFailureJob(CClipboardCopyException.unknown));
 
-          final result = await shareGem();
-          expect(result, left(CGemShareException.unknown));
+          final result = await shareGemJob().run();
+          cExpectFailure(result, CGemShareException.unknown);
         }),
       );
     });

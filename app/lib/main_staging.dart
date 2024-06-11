@@ -10,7 +10,7 @@ void main() async {
   // debugRepaintRainbowEnabled = true;
   await Supabase.initialize(
     url: CPlatformClient.operatingSystem == COperatingSystem.android &&
-            CPlatformClient.deviceType != CDeviceType.mobileWeb
+            CPlatformClient.staticDeviceType != CDeviceType.mobileWeb
         ? 'http://10.0.2.2:54321'
         : 'http://localhost:54321',
     anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),

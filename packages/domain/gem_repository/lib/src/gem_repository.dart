@@ -1,9 +1,9 @@
 import 'dart:ui';
 
+import 'package:ccore/ccore.dart';
 import 'package:cgem_client/cgem_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
-import 'package:cpub/dartz.dart';
 
 /// {@template CGemRepository}
 ///
@@ -24,61 +24,49 @@ class CGemRepository {
   final CPlatformClient platformClient;
 
   /// Fetches the gem with the given [gemID].
-  Future<Either<CGemFetchException, CGem>> fetchGem({
-    required String gemID,
-  }) async {
-    final result = await gemClient.fetchGem(
-      gemID: gemID,
-      withAvatarURLs: false,
-    );
-
-    return result.fold(
-      (exception) => left(
-        switch (exception) {
-          CRawGemFetchException.notFound => CGemFetchException.notFound,
-          CRawGemFetchException.unknown => CGemFetchException.unknown,
-        },
-      ),
-      (rawGem) => right(CGem.fromRaw(rawGem)),
-    );
+  CJob<CGemFetchException, CGem> fetchGem({required String gemID}) {
+    return gemClient
+        .fetchGem(
+          gemID: gemID,
+          withAvatarURLs: false,
+        )
+        .thenEvaluate(
+          onFailure: CGemFetchException.fromRaw,
+          onSuccess: CGem.fromRaw,
+        );
   }
 
   /// Shares the gem with the given [gemID].
-  Future<Either<CGemShareException, CGemShareMethod>> shareGem({
+  CJob<CGemShareException, CGemShareMethod> shareGem({
     required String gemID,
     required Rect sharePositionOrigin,
     required String Function(String link) message,
     required String subject,
-  }) async {
+  }) {
     final link = 'https://jakesmd.github.io/ChuckleChest/#/gems/$gemID';
 
-    if (platformClient.notStaticDeviceType == CDeviceType.mobile ||
-        platformClient.notStaticDeviceType == CDeviceType.mobileWeb) {
-      final result = await platformClient.share(
-        text: message(link),
-        subject: subject,
-        sharePositionOrigin: sharePositionOrigin, // This is required for iPads.
-      );
-
-      return result.fold(
-        (exception) => left(
-          switch (exception) {
-            CShareException.unknown => CGemShareException.unknown
-          },
-        ),
-        (_) => right(CGemShareMethod.dialog),
-      );
+    if (platformClient.deviceType == CDeviceType.mobile ||
+        platformClient.deviceType == CDeviceType.mobileWeb) {
+      return platformClient
+          .share(
+            text: message(link),
+            subject: subject,
+            sharePositionOrigin:
+                sharePositionOrigin, // This is required for iPads.
+          )
+          .thenEvaluate(
+            onFailure: CGemShareException.fromRaw,
+            onSuccess: (_) => CGemShareMethod.dialog,
+          );
     }
 
-    final result = await platformClient.copyToClipboard(text: link);
-
-    return result.fold(
-      (exception) => left(
-        switch (exception) {
-          CClipboardCopyException.unknown => CGemShareException.unknown
-        },
-      ),
-      (_) => right(CGemShareMethod.clipboard),
-    );
+    return platformClient
+        .copyToClipboard(
+          text: link,
+        )
+        .thenEvaluate(
+          onFailure: CGemShareException.fromRaw,
+          onSuccess: (_) => CGemShareMethod.clipboard,
+        );
   }
 }
