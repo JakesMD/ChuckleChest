@@ -1,5 +1,5 @@
+import 'package:ccore/ccore.dart';
 import 'package:cgem_client/cgem_client.dart';
-import 'package:cpub/dartz.dart';
 import 'package:cpub/supabase.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
@@ -8,8 +8,8 @@ import 'package:csupabase_client/csupabase_client.dart';
 
 void main() {
   group('CGemClient tests', () {
-    late MockCSupabaseClient supabaseClient;
-    late CGemClient client;
+    final supabaseClient = MockCSupabaseClient();
+    final client = CGemClient(supabaseClient: supabaseClient);
 
     const fakeAvatarURL = CRawAvatarURL(url: 'asdfasf', age: 21);
 
@@ -38,21 +38,17 @@ void main() {
       lines: [fakeNarration, fakeQuote],
     );
 
-    setUp(() {
-      supabaseClient = MockCSupabaseClient();
-      client = CGemClient(supabaseClient: supabaseClient);
-    });
-
     group('fetchGem', () {
-      Future<Either<CRawGemFetchException, CRawGem>> fetchGem() {
-        return client.fetchGem(gemID: fakeGem.id, withAvatarURLs: true);
-      }
+      final fetchGemJob = client.fetchGem(
+        gemID: fakeGem.id,
+        withAvatarURLs: true,
+      );
 
       test(
         requirement(
           Given: 'gem in database',
           When: 'fetch gem with avatar URLs',
-          Then: 'returns gem with avatar URLs',
+          Then: 'returns success with gem and avatar URLs',
         ),
         procedure(() async {
           when(supabaseClient.mockFetchSingle).thenAnswer(
@@ -85,39 +81,39 @@ void main() {
             },
           );
 
-          final gem = await fetchGem();
+          final gem = await fetchGemJob.run();
 
-          expect(gem, right(fakeGem));
+          cExpectSuccess(gem, fakeGem);
         }),
       );
 
       test(
         requirement(
           When: 'fetch gem fails',
-          Then: 'returns [unknown] exception',
+          Then: 'returns failure with [unknown] exception',
         ),
         procedure(() async {
           when(supabaseClient.mockFetchSingle).thenThrow(Exception());
 
-          final gem = await fetchGem();
+          final gem = await fetchGemJob.run();
 
-          expect(gem, left(CRawGemFetchException.unknown));
+          cExpectFailure(gem, CRawGemFetchException.unknown);
         }),
       );
 
       test(
         requirement(
           When: 'fetch gem fails wiht unknown postgrest exception',
-          Then: 'returns [unknown] exception',
+          Then: 'returns failure with [unknown] exception',
         ),
         procedure(() async {
           when(supabaseClient.mockFetchSingle).thenThrow(
             const PostgrestException(message: ''),
           );
 
-          final gem = await fetchGem();
+          final gem = await fetchGemJob.run();
 
-          expect(gem, left(CRawGemFetchException.unknown));
+          cExpectFailure(gem, CRawGemFetchException.unknown);
         }),
       );
 
@@ -125,32 +121,32 @@ void main() {
         requirement(
           Given: 'gem with ID does not exist',
           When: 'fetch gem',
-          Then: 'returns [notFound] exception',
+          Then: 'returns failure with [notFound] exception',
         ),
         procedure(() async {
           when(supabaseClient.mockFetchSingle).thenThrow(
             const PostgrestException(message: '', code: 'PGRST116'),
           );
 
-          final gem = await fetchGem();
+          final gem = await fetchGemJob.run();
 
-          expect(gem, left(CRawGemFetchException.notFound));
+          cExpectFailure(gem, CRawGemFetchException.notFound);
         }),
       );
 
       test(
         requirement(
           When: 'fetch gem with invalid UUID',
-          Then: 'returns [notFound] exception',
+          Then: 'returns failure with [notFound] exception',
         ),
         procedure(() async {
           when(supabaseClient.mockFetchSingle).thenThrow(
             const PostgrestException(message: '', code: '22P02'),
           );
 
-          final gem = await fetchGem();
+          final gem = await fetchGemJob.run();
 
-          expect(gem, left(CRawGemFetchException.notFound));
+          cExpectFailure(gem, CRawGemFetchException.notFound);
         }),
       );
     });

@@ -129,7 +129,7 @@ packages:
     source: path
     version: "0.0.0"
   cpub_dev:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: "../pub_dev"
       relative: true

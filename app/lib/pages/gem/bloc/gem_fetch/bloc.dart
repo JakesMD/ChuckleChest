@@ -1,7 +1,7 @@
+import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cpub/bloc.dart';
 import 'package:cpub/bloc_concurrency.dart';
-import 'package:cpub/dartz.dart';
 import 'package:cpub/equatable.dart';
 import 'package:cpub/flutter_bloc.dart';
 
@@ -36,7 +36,7 @@ class CGemFetchBloc extends Bloc<_CGemFetchEvent, CGemFetchState> {
   ) async {
     emit(CGemFetchInProgress());
 
-    final result = await gemRepository.fetchGem(gemID: event.gemID);
+    final result = await gemRepository.fetchGem(gemID: event.gemID).run();
 
     add(_CGemFetchCompleted(result: result));
   }
@@ -45,9 +45,11 @@ class CGemFetchBloc extends Bloc<_CGemFetchEvent, CGemFetchState> {
     _CGemFetchCompleted event,
     Emitter<CGemFetchState> emit,
   ) {
-    event.result.fold(
-      (exception) => emit(CGemFetchFailure(exception: exception)),
-      (gem) => emit(CGemFetchSuccess(gem: gem)),
+    emit(
+      event.result.evaluate(
+        onFailure: (exception) => CGemFetchFailure(exception: exception),
+        onSuccess: (gem) => CGemFetchSuccess(gem: gem),
+      ),
     );
   }
 }
