@@ -50,7 +50,6 @@ scripts:
         --no-tree-shake-icons \
         --web-renderer=canvaskit \
         --release \
-        --dart-define-from-file=secrets.staging.json
 
   build_production:
     run: |
@@ -73,7 +72,7 @@ scripts:
       melos clean
       melos bootstrap
       melos update_settings --no-select
-      melos format && melos analyze && melos test --no-select && melos check_coverage && melos build_staging && melos build_production -- --dart-define-from-file=secrets.production.json
+      melos format && melos analyze && melos test --no-select && melos check_coverage && melos build_staging -- --dart-define-from-file=secrets.staging.json && melos build_production -- --dart-define-from-file=secrets.production.json
 
   localize:
     description: Generates the translations for the specified package(s).
