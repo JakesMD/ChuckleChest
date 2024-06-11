@@ -1,9 +1,9 @@
 import 'dart:ui';
 
+import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cpub/bloc.dart';
 import 'package:cpub/bloc_concurrency.dart';
-import 'package:cpub/dartz.dart';
 import 'package:cpub/equatable.dart';
 import 'package:cpub/flutter_bloc.dart';
 
@@ -33,12 +33,14 @@ class CGemShareBloc extends Bloc<_CGemShareEvent, CGemShareState> {
   ) async {
     emit(CGemShareInProgress());
 
-    final result = await gemRepository.shareGem(
-      gemID: event.gemID,
-      sharePositionOrigin: event.sharePositionOrigin,
-      message: event.message,
-      subject: event.subject,
-    );
+    final result = await gemRepository
+        .shareGem(
+          gemID: event.gemID,
+          sharePositionOrigin: event.sharePositionOrigin,
+          message: event.message,
+          subject: event.subject,
+        )
+        .run();
 
     add(_CGemShareCompleted(result: result));
   }
@@ -47,9 +49,11 @@ class CGemShareBloc extends Bloc<_CGemShareEvent, CGemShareState> {
     _CGemShareCompleted event,
     Emitter<CGemShareState> emit,
   ) {
-    event.result.fold(
-      (exception) => emit(CGemShareFailure(exception: exception)),
-      (method) => emit(CGemShareSuccess(method: method)),
+    emit(
+      event.result.evaluate(
+        onFailure: (exception) => CGemShareFailure(exception: exception),
+        onSuccess: (method) => CGemShareSuccess(method: method),
+      ),
     );
   }
 }

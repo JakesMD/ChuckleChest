@@ -93,30 +93,6 @@ abstract class CAppL10n {
     Locale('en')
   ];
 
-  /// No description provided for @stagingBanner_message.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'re using the staging version.'**
-  String get stagingBanner_message;
-
-  /// No description provided for @stagingBanner_button.
-  ///
-  /// In en, this message translates to:
-  /// **'Release version'**
-  String get stagingBanner_button;
-
-  /// No description provided for @snackBar_error_defaultMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Oops! Something went wrong. Please check your internet connection and try again.'**
-  String get snackBar_error_defaultMessage;
-
-  /// No description provided for @ok.
-  ///
-  /// In en, this message translates to:
-  /// **'OK'**
-  String get ok;
-
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
@@ -128,12 +104,6 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Close'**
   String get close;
-
-  /// No description provided for @save.
-  ///
-  /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
 
   /// No description provided for @delete.
   ///
@@ -153,11 +123,41 @@ abstract class CAppL10n {
   /// **'This is so good! 😂'**
   String get gem_share_subject;
 
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
   /// No description provided for @quoteItem_connection.
   ///
   /// In en, this message translates to:
   /// **'{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old'**
   String quoteItem_connection(Object nickname, int age);
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @snackBar_error_defaultMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Oops! Something went wrong. Please check your internet connection and try again.'**
+  String get snackBar_error_defaultMessage;
+
+  /// No description provided for @stagingBanner_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Release version'**
+  String get stagingBanner_button;
+
+  /// No description provided for @stagingBanner_message.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re using the staging version.'**
+  String get stagingBanner_message;
 }
 
 class _CAppL10nDelegate extends LocalizationsDelegate<CAppL10n> {

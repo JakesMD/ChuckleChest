@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:ccore/ccore.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 import 'package:cpub/dartz.dart';
 import 'package:cpub/share_plus.dart';
@@ -9,47 +8,35 @@ import 'package:flutter/services.dart';
 /// A client to interact with the platform's API.
 class CPlatformClient {
   /// Copies the given [text] to the clipboard.
-  Future<Either<CClipboardCopyException, Unit>> copyToClipboard({
+  CJob<CClipboardCopyException, Unit> copyToClipboard({
     required String text,
-  }) async {
-    try {
-      await Clipboard.setData(ClipboardData(text: text));
-      return right(unit);
-    } catch (e, s) {
-      log(
-        e.toString(),
-        error: e,
-        stackTrace: s,
-        name: 'CPlatformClient.copyToClipboard',
+  }) =>
+      CJob.attempt(
+        run: () async {
+          await Clipboard.setData(ClipboardData(text: text));
+          return unit;
+        },
+        onError: CClipboardCopyException.fromError,
       );
-      return left(CClipboardCopyException.unknown);
-    }
-  }
 
   /// Shares the given [text] and [subject] at the given [sharePositionOrigin].
 
-  Future<Either<CShareException, Unit>> share({
+  CJob<CShareException, Unit> share({
     required String text,
     required String subject,
     required Rect sharePositionOrigin,
-  }) async {
-    try {
-      await Share.share(
-        text,
-        subject: subject,
-        sharePositionOrigin: sharePositionOrigin,
+  }) =>
+      CJob.attempt(
+        run: () async {
+          await Share.share(
+            text,
+            subject: subject,
+            sharePositionOrigin: sharePositionOrigin,
+          );
+          return unit;
+        },
+        onError: CShareException.fromError,
       );
-      return right(unit);
-    } catch (e, s) {
-      log(
-        e.toString(),
-        error: e,
-        stackTrace: s,
-        name: 'CPlatformClient.share',
-      );
-      return left(CShareException.unknown);
-    }
-  }
 
   /// The operating system the app is running on.
   static COperatingSystem get operatingSystem {
@@ -70,7 +57,7 @@ class CPlatformClient {
   }
 
   /// The type of device the app is running on.
-  static CDeviceType get deviceType {
+  static CDeviceType get staticDeviceType {
     if (CPlatformClient.operatingSystem == COperatingSystem.android ||
         CPlatformClient.operatingSystem == COperatingSystem.iOS) {
       if (kIsWeb) return CDeviceType.mobileWeb;
@@ -82,7 +69,5 @@ class CPlatformClient {
   }
 
   /// The type of device the app is running on.
-  ///
-  /// This is not static for mocking purposes.
-  CDeviceType get notStaticDeviceType => CPlatformClient.deviceType;
+  CDeviceType get deviceType => CPlatformClient.staticDeviceType;
 }
