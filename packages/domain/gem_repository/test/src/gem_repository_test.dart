@@ -4,7 +4,6 @@ import 'package:ccore/ccore.dart';
 import 'package:cgem_client/cgem_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
-import 'package:cpub/dartz.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
 import 'package:cpub_dev/test_beautifier.dart';
@@ -127,13 +126,13 @@ void main() {
     });
 
     group('shareGem', () {
-      CJob<CShareException, Unit> mockShare() => platformClient.share(
+      CJob<CShareException, CNothing> mockShare() => platformClient.share(
             text: any(named: 'text'),
             subject: any(named: 'subject'),
             sharePositionOrigin: any(named: 'sharePositionOrigin'),
           );
 
-      CJob<CClipboardCopyException, Unit> mockCopyToClipboard() =>
+      CJob<CClipboardCopyException, CNothing> mockCopyToClipboard() =>
           platformClient.copyToClipboard(text: any(named: 'text'));
 
       CJob<CGemShareException, CGemShareMethod> shareGemJob() => repo.shareGem(
@@ -147,11 +146,11 @@ void main() {
         requirement(
           Given: 'device is mobile',
           When: 'share gem succeeds',
-          Then: 'returns success with [unit]',
+          Then: 'returns success with [nothing]',
         ),
         procedure(() async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
-          when(mockShare).thenReturn(cFakeSuccessJob(unit));
+          when(mockShare).thenReturn(cFakeSuccessJob(cNothing));
 
           final result = await shareGemJob().run();
           cExpectSuccess(result, CGemShareMethod.dialog);
@@ -177,11 +176,11 @@ void main() {
         requirement(
           Given: 'device is desktop',
           When: 'share gem succeeds',
-          Then: 'returns success with [unit]',
+          Then: 'returns success with [nothing]',
         ),
         procedure(() async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
-          when(mockCopyToClipboard).thenReturn(cFakeSuccessJob(unit));
+          when(mockCopyToClipboard).thenReturn(cFakeSuccessJob(cNothing));
 
           final result = await shareGemJob().run();
           cExpectSuccess(result, CGemShareMethod.clipboard);

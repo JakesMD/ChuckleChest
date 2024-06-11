@@ -1,6 +1,5 @@
 import 'package:ccore/ccore.dart';
 import 'package:cplatform_client/cplatform_client.dart';
-import 'package:cpub/dartz.dart';
 import 'package:cpub/share_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -8,20 +7,20 @@ import 'package:flutter/services.dart';
 /// A client to interact with the platform's API.
 class CPlatformClient {
   /// Copies the given [text] to the clipboard.
-  CJob<CClipboardCopyException, Unit> copyToClipboard({
+  CJob<CClipboardCopyException, CNothing> copyToClipboard({
     required String text,
   }) =>
       CJob.attempt(
         run: () async {
           await Clipboard.setData(ClipboardData(text: text));
-          return unit;
+          return cNothing;
         },
         onError: CClipboardCopyException.fromError,
       );
 
   /// Shares the given [text] and [subject] at the given [sharePositionOrigin].
 
-  CJob<CShareException, Unit> share({
+  CJob<CShareException, CNothing> share({
     required String text,
     required String subject,
     required Rect sharePositionOrigin,
@@ -33,7 +32,7 @@ class CPlatformClient {
             subject: subject,
             sharePositionOrigin: sharePositionOrigin,
           );
-          return unit;
+          return cNothing;
         },
         onError: CShareException.fromError,
       );
