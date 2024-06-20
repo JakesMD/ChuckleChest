@@ -55,7 +55,7 @@ class CQuoteItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    CAppL10n.of(context).quoteItem_connection(
+                    CAppL10n.of(context).quoteItem_person(
                       quote.nickname,
                       quote.age,
                     ),

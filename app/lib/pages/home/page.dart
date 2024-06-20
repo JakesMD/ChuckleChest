@@ -75,7 +75,7 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.family_restroom_rounded),
-              label: 'Connections',
+              label: 'People',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined),

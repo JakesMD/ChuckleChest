@@ -27,7 +27,7 @@ class CAppL10nEn extends CAppL10n {
   String get ok => 'OK';
 
   @override
-  String quoteItem_connection(Object nickname, int age) {
+  String quoteItem_person(Object nickname, int age) {
     String _temp0 = intl.Intl.pluralLogic(
       age,
       locale: localeName,

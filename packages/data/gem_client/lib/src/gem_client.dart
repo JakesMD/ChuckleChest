@@ -31,8 +31,8 @@ class CGemClient {
             *,
             lines(
               *,
-              connections(
-                *${withAvatarURLs ? ', connection_avatar_urls(*)' : ''}
+              people(
+                *${withAvatarURLs ? ', person_avatar_urls(*)' : ''}
               )
             )
             ''',
