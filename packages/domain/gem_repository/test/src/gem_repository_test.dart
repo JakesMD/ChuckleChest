@@ -42,14 +42,14 @@ void main() {
     final fakeRawNarration = CRawLine(
       id: fakeNarration.id,
       text: fakeNarration.text,
-      connection: null,
+      person: null,
     );
 
     // Made to match [fakeQuote].
     final fakeRawQuote = CRawLine(
       id: fakeQuote.id,
       text: fakeQuote.text,
-      connection: CRawConnection(
+      person: CRawPerson(
         nickname: fakeQuote.nickname,
         dateOfBirth: DateTime(2022),
         avatarURLs: [

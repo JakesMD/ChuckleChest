@@ -6,8 +6,8 @@
   "gem_share_message": "Schau dir dieses Gem auf ChuckleChest an! 😂 {link}",
   "gem_share_subject": "Das ist so gut! 😂",
   "ok": "Ok",
-  "quoteItem_connection": "{nickname} • {age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
-  "@quoteItem_connection": {
+  "quoteItem_person": "{nickname} • {age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
+  "@quoteItem_person": {
     "placeholders": {
       "nickname": {},
       "age": {

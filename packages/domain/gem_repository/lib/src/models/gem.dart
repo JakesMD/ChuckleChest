@@ -26,12 +26,12 @@ class CGem with EquatableMixin {
     final sortedRawLines = raw.lines..sort((a, b) => a.id.compareTo(b.id));
 
     for (final line in sortedRawLines) {
-      if (line.connection == null) {
+      if (line.person == null) {
         lines.add(CNarration(id: line.id, text: line.text));
       } else {
-        final age = line.connection!.dateOfBirth.cAge(raw.occurredAt);
+        final age = line.person!.dateOfBirth.cAge(raw.occurredAt);
 
-        final avatarUrl = line.connection!.avatarURLs
+        final avatarUrl = line.person!.avatarURLs
             .cFirstWhereOrNull((url) => url.age == age)
             ?.url;
 
@@ -39,7 +39,7 @@ class CGem with EquatableMixin {
           CQuote(
             id: line.id,
             text: line.text,
-            nickname: line.connection!.nickname,
+            nickname: line.person!.nickname,
             age: age,
             avatarUrl: avatarUrl,
           ),

@@ -129,11 +129,11 @@ abstract class CAppL10n {
   /// **'OK'**
   String get ok;
 
-  /// No description provided for @quoteItem_connection.
+  /// No description provided for @quoteItem_person.
   ///
   /// In en, this message translates to:
   /// **'{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old'**
-  String quoteItem_connection(Object nickname, int age);
+  String quoteItem_person(Object nickname, int age);
 
   /// No description provided for @save.
   ///

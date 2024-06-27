@@ -48,7 +48,7 @@ void main() {
         procedure(() {
           final outcome = cSuccess(1);
 
-          expect(outcome.value, 1);
+          expect((outcome as CSuccess).value, 1);
         }),
       );
     });
@@ -63,7 +63,7 @@ void main() {
         procedure(() {
           final outcome = cFailure('error');
 
-          expect(outcome.value, 'error');
+          expect((outcome as CFailure).value, 'error');
         }),
       );
     });

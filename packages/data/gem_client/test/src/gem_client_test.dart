@@ -13,7 +13,7 @@ void main() {
 
     const fakeAvatarURL = CRawAvatarURL(url: 'asdfasf', age: 21);
 
-    final fakeConnection = CRawConnection(
+    final fakePerson = CRawPerson(
       nickname: 'asfdasdf',
       dateOfBirth: DateTime(2003),
       avatarURLs: [fakeAvatarURL],
@@ -22,13 +22,13 @@ void main() {
     final fakeNarration = CRawLine(
       id: BigInt.from(123),
       text: 'gfsdgdfagsd',
-      connection: null,
+      person: null,
     );
 
     final fakeQuote = CRawLine(
       id: BigInt.from(123),
       text: 'adgfdhfagsfd',
-      connection: fakeConnection,
+      person: fakePerson,
     );
 
     final fakeGem = CRawGem(
@@ -60,16 +60,15 @@ void main() {
                 {
                   'id': fakeNarration.id.toInt(),
                   'text': fakeNarration.text,
-                  'connection': null,
+                  'person': null,
                 },
                 {
                   'id': fakeQuote.id.toInt(),
                   'text': fakeQuote.text,
-                  'connections': {
-                    'nickname': fakeConnection.nickname,
-                    'date_of_birth':
-                        fakeConnection.dateOfBirth.toIso8601String(),
-                    'connection_avatar_urls': [
+                  'people': {
+                    'nickname': fakePerson.nickname,
+                    'date_of_birth': fakePerson.dateOfBirth.toIso8601String(),
+                    'person_avatar_urls': [
                       {
                         'avatar_url': fakeAvatarURL.url,
                         'age': fakeAvatarURL.age,

@@ -11,16 +11,16 @@ class CRawLine with EquatableMixin {
   const CRawLine({
     required this.id,
     required this.text,
-    required this.connection,
+    required this.person,
   });
 
   /// {@macro CRawLine}
   CRawLine.fromJSON(Map<String, dynamic> json)
       : id = BigInt.from(json['id'] as num),
         text = json['text'] as String,
-        connection = json['connections'] != null
-            ? CRawConnection.fromJSON(
-                json['connections'] as Map<String, dynamic>,
+        person = json['people'] != null
+            ? CRawPerson.fromJSON(
+                json['people'] as Map<String, dynamic>,
               )
             : null;
 
@@ -31,8 +31,8 @@ class CRawLine with EquatableMixin {
   final String text;
 
   /// The family or friend who is being quoted.
-  final CRawConnection? connection;
+  final CRawPerson? person;
 
   @override
-  List<Object?> get props => [id, text, connection];
+  List<Object?> get props => [id, text, person];
 }

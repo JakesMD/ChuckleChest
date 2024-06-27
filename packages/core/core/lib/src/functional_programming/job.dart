@@ -85,6 +85,17 @@ class CJob<F, S> {
         },
       );
 
+  /// Evaluates the outcome of the job but only in the case of a failure.
+  CJob<F2, S> thenEvaluateOnFailure<F2>(F2 Function(F error) onFailure) => CJob(
+        run: () async {
+          final result = await this.run();
+          return result.evaluate(
+            onFailure: (failure) => CFailure<F2, S>(onFailure(failure)),
+            onSuccess: CSuccess<F2, S>.new,
+          );
+        },
+      );
+
   /// Runs the job.
   FutureOr<COutcome<F, S>> run() => _job.call();
 }
