@@ -25,12 +25,7 @@ class CGemRepository {
 
   /// Fetches the gem with the given [gemID].
   CJob<CGemFetchException, CGem> fetchGem({required String gemID}) {
-    return gemClient
-        .fetchGem(
-          gemID: gemID,
-          withAvatarURLs: false,
-        )
-        .thenEvaluate(
+    return gemClient.fetchGem(gemID: gemID, withAvatarURLs: false).thenEvaluate(
           onFailure: CGemFetchException.fromRaw,
           onSuccess: CGem.fromRaw,
         );
@@ -60,11 +55,7 @@ class CGemRepository {
           );
     }
 
-    return platformClient
-        .copyToClipboard(
-          text: link,
-        )
-        .thenEvaluate(
+    return platformClient.copyToClipboard(text: link).thenEvaluate(
           onFailure: CGemShareException.fromRaw,
           onSuccess: (_) => CGemShareMethod.clipboard,
         );

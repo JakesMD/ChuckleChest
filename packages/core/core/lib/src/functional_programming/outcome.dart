@@ -59,10 +59,10 @@ final class CFailure<F, S> extends COutcome<F, S> with EquatableMixin {
 }
 
 /// Creates a successful outcome.
-CSuccess<F, S> cSuccess<F, S>(S value) => CSuccess<F, S>(value);
+COutcome<F, S> cSuccess<F, S>(S value) => CSuccess<F, S>(value);
 
 /// Creates a failed outcome.
-CFailure<F, S> cFailure<F, S>(F value) => CFailure<F, S>(value);
+COutcome<F, S> cFailure<F, S>(F value) => CFailure<F, S>(value);
 
 /// Expects the [actual] outcome to be equal to the [expected] successful
 /// outcome.

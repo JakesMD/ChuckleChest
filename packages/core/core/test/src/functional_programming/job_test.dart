@@ -235,6 +235,44 @@ void main() {
       );
     });
 
+    group('thenEvaluateOnFailure', () {
+      test(
+        requirement(
+          Given: 'a successful job',
+          When: 'the job is evaluated',
+          Then: 'returns the first success',
+        ),
+        procedure(() async {
+          final job = CJob.attempt(
+            run: () => 1,
+            onError: (error) => 'error1',
+          ).thenEvaluateOnFailure((error) => fail('Should not be called'));
+
+          final result = await job.run();
+
+          cExpectSuccess(result, 1);
+        }),
+      );
+
+      test(
+        requirement(
+          Given: 'a failing job',
+          When: 'the job is evaluated',
+          Then: 'returns the second failure',
+        ),
+        procedure(() async {
+          final job = CJob.attempt(
+            run: () => throw Exception(),
+            onError: (error) => 'error1',
+          ).thenEvaluateOnFailure((error) => 'error2');
+
+          final result = await job.run();
+
+          cExpectFailure(result, 'error2');
+        }),
+      );
+    });
+
     group('cFakeSuccessJob', () {
       test(
         requirement(

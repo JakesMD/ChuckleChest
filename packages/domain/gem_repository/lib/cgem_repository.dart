@@ -1,4 +1,4 @@
-/// The repository for in with gems.
+/// The repository for interacting with gems.
 library cgem_repository;
 
 export 'src/exceptions/_exceptions.dart';
