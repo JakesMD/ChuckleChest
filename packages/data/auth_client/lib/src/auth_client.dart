@@ -75,23 +75,20 @@ class CAuthClient {
         onError: CRawLoginException.fromError,
       );
 
-  /// Verifies the one-time-password `token` that was sent to a user's `email`.
+  /// Verifies the one-time-pin that was sent to a user's `email`.
   ///
   /// Set `isSignUp` to true, if the user is signing up.
   CJob<CRawOTPVerificationException, CNothing> verifyOTP({
     required String email,
-    required String token,
+    required String pin,
   }) =>
       CJob.attempt(
-        run: () => authClient.verifyOTP(
-          email: email,
-          type: OtpType.email,
-          token: token,
-        ),
-        onError: CRawOTPVerificationException.fromError,
-      ).thenAttempt(
-        run: (response) async {
-          if (response.user == null) throw Exception();
+        run: () async {
+          await authClient.verifyOTP(
+            email: email,
+            type: OtpType.email,
+            token: pin,
+          );
           return cNothing;
         },
         onError: CRawOTPVerificationException.fromError,

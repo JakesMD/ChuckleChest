@@ -258,13 +258,13 @@ void main() {
       CJob<CRawOTPVerificationException, CNothing> mockVerifyOTP() =>
           authClient.verifyOTP(
             email: any(named: 'email'),
-            token: any(named: 'token'),
+            pin: any(named: 'pin'),
           );
 
       CJob<COTPVerificationException, CNothing> verifyOTPJob() =>
           repo.verifyOTP(
             email: fakeUser.email,
-            token: 'token',
+            pin: 'pin',
           );
 
       test(

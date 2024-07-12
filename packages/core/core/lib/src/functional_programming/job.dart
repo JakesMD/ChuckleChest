@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ccore/ccore.dart';
+import 'package:flutter/foundation.dart';
 
 /// {@template CJob}
 ///
@@ -10,7 +11,10 @@ import 'package:ccore/ccore.dart';
 /// {@endtemplate}
 class CJob<F, S> {
   /// {@macro CJob}
-  const CJob({required FutureOr<COutcome<F, S>> Function() run}) : _job = run;
+  const CJob({
+    required FutureOr<COutcome<F, S>> Function() run,
+    this.isAsync = false,
+  }) : _job = run;
 
   /// Creates a new job that attempts to run the given function.
   ///
@@ -20,8 +24,10 @@ class CJob<F, S> {
   factory CJob.attempt({
     required FutureOr<S> Function() run,
     required F Function(Object error) onError,
+    bool isAsync = true,
   }) =>
       CJob<F, S>(
+        isAsync: isAsync,
         run: () async {
           try {
             return CSuccess<F, S>(await run());
@@ -31,13 +37,23 @@ class CJob<F, S> {
         },
       );
 
+  /// Whether the job is asynchronous.
+  ///
+  /// If true, the job will be delayed by 500 milliseconds in debug mode.
+  final bool isAsync;
+
   final FutureOr<COutcome<F, S>> Function() _job;
 
   /// Chains a job with another job if the first job succeeds.
   ///
   /// The [run] function is the function to run with the successful outcome of
   /// the first job.
-  CJob<F, S2> then<S2>({required FutureOr<S2> Function(S) run}) => CJob(
+  CJob<F, S2> then<S2>({
+    required FutureOr<S2> Function(S) run,
+    bool isAsync = false,
+  }) =>
+      CJob(
+        isAsync: isAsync,
         run: () async {
           final result = await this.run();
           return result.evaluate(
@@ -56,8 +72,10 @@ class CJob<F, S> {
   CJob<F, S2> thenAttempt<S2>({
     required FutureOr<S2> Function(S) run,
     required F Function(Object error) onError,
+    bool isAsync = true,
   }) =>
       CJob(
+        isAsync: isAsync,
         run: () async {
           final result = await this.run();
           return result.evaluate(
@@ -97,7 +115,14 @@ class CJob<F, S> {
       );
 
   /// Runs the job.
-  FutureOr<COutcome<F, S>> run() => _job.call();
+  FutureOr<COutcome<F, S>> run() {
+    if (isAsync && kDebugMode) {
+      return Future.delayed(
+        const Duration(milliseconds: 500),
+      ).then((_) => _job.call());
+    }
+    return _job.call();
+  }
 }
 
 /// Creates a fake job that always succeeds with the given value.

@@ -42,14 +42,14 @@ class CAuthRepository {
           .logInWithOTP(email: email)
           .thenEvaluateOnFailure(CLoginException.fromRaw);
 
-  /// Verifies the one-time-password signup token that was sent to the given
+  /// Verifies the one-time-pin that was sent to the given
   /// email.
   CJob<COTPVerificationException, CNothing> verifyOTP({
     required String email,
-    required String token,
+    required String pin,
   }) =>
       authClient
-          .verifyOTP(email: email, token: token)
+          .verifyOTP(email: email, pin: pin)
           .thenEvaluateOnFailure(COTPVerificationException.fromRaw);
 
   /// Signs out the current user, if there is a logged in user.

@@ -351,7 +351,7 @@ void main() {
         );
       }
 
-      final verifyOTPJob = client.verifyOTP(email: '', token: '');
+      final verifyOTPJob = client.verifyOTP(email: '', pin: '');
 
       test(
         requirement(

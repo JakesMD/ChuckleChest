@@ -1047,3 +1047,45 @@ CREATE TRIGGER on_auth_user_updated
   FOR EACH ROW
   EXECUTE FUNCTION public.handle_auth_user_update();
 
+CREATE POLICY "Allow select access for custom_access_token_hook" ON "public"."chests" AS permissive
+  FOR SELECT TO supabase_auth_admin
+    USING (TRUE);
+
+GRANT usage ON SCHEMA public TO supabase_auth_admin;
+
+GRANT ALL ON TABLE public.user_roles TO supabase_auth_admin;
+
+GRANT ALL ON TABLE public.chests TO supabase_auth_admin;
+
+GRANT EXECUTE ON FUNCTION public.custom_access_token_hook TO supabase_auth_admin;
+
+REVOKE EXECUTE ON FUNCTION public.custom_access_token_hook FROM authenticated, anon, public;
+
+REVOKE DELETE ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE INSERT ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE REFERENCES ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE SELECT ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE TRIGGER ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE TRUNCATE ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE UPDATE ON TABLE "public"."user_roles" FROM "anon";
+
+REVOKE DELETE ON TABLE "public"."user_roles" FROM "authenticated";
+
+REVOKE INSERT ON TABLE "public"."user_roles" FROM "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."user_roles" FROM "authenticated";
+
+REVOKE SELECT ON TABLE "public"."user_roles" FROM "authenticated";
+
+REVOKE TRIGGER ON TABLE "public"."user_roles" FROM "authenticated";
+
+REVOKE TRUNCATE ON TABLE "public"."user_roles" FROM "authenticated";
+
+REVOKE UPDATE ON TABLE "public"."user_roles" FROM "authenticated";
+

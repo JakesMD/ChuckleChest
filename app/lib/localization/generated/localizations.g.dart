@@ -129,6 +129,24 @@ abstract class CAppL10n {
   /// **'OK'**
   String get ok;
 
+  /// No description provided for @otpVerificationPage_error_invalidToken.
+  ///
+  /// In en, this message translates to:
+  /// **'This pin is invalid. Please try again.'**
+  String get otpVerificationPage_error_invalidToken;
+
+  /// No description provided for @otpVerificationPage_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the pin we sent to your inbox.'**
+  String get otpVerificationPage_message;
+
+  /// No description provided for @otpVerificationPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'One-Time Pin Verification'**
+  String get otpVerificationPage_title;
+
   /// No description provided for @quoteItem_person.
   ///
   /// In en, this message translates to:
@@ -140,6 +158,48 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
+
+  /// No description provided for @signinPage_error_emailRateLimitExceeded.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve reached our hourly sign-in limit. Please try again later.'**
+  String get signinPage_error_emailRateLimitExceeded;
+
+  /// No description provided for @signinPage_error_userNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find this user.'**
+  String get signinPage_error_userNotFound;
+
+  /// No description provided for @signinPage_loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get signinPage_loginButton;
+
+  /// No description provided for @signinPage_signupButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signinPage_signupButton;
+
+  /// No description provided for @signinPage_tab_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get signinPage_tab_login;
+
+  /// No description provided for @signinPage_tab_signup.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signinPage_tab_signup;
+
+  /// No description provided for @signinPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to ChuckleChest!'**
+  String get signinPage_title;
 
   /// No description provided for @snackBar_error_defaultMessage.
   ///
@@ -158,6 +218,18 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'You\'re using the staging version.'**
   String get stagingBanner_message;
+
+  /// No description provided for @signinPage_hint_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get signinPage_hint_email;
+
+  /// No description provided for @signinPage_hint_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get signinPage_hint_username;
 }
 
 class _CAppL10nDelegate extends LocalizationsDelegate<CAppL10n> {

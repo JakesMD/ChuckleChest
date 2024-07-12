@@ -13,7 +13,7 @@ void main() {
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
-          ChuckleChestApp(flavor: CAppFlavor.development),
+          const ChuckleChestApp(flavor: CAppFlavor.development),
         );
         expect(find.byType(MaterialBanner), findsNothing);
       }),
@@ -26,7 +26,9 @@ void main() {
         Then: 'PStagingBanner is displayed',
       ),
       widgetsProcedure((tester) async {
-        await tester.pumpWidget(ChuckleChestApp(flavor: CAppFlavor.staging));
+        await tester.pumpWidget(
+          const ChuckleChestApp(flavor: CAppFlavor.staging),
+        );
         expect(find.byType(MaterialBanner), findsOneWidget);
       }),
     );
@@ -39,7 +41,7 @@ void main() {
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
-          ChuckleChestApp(flavor: CAppFlavor.production),
+          const ChuckleChestApp(flavor: CAppFlavor.production),
         );
         expect(find.byType(MaterialBanner), findsNothing);
       }),

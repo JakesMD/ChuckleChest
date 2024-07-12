@@ -27,6 +27,15 @@ class CAppL10nDe extends CAppL10n {
   String get ok => 'Ok';
 
   @override
+  String get otpVerificationPage_error_invalidToken => 'Dieses Code ist ungültig. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get otpVerificationPage_message => 'Bitte geben Sie Ihren Code ein, den wir an Ihren Posteingang gesendet haben.';
+
+  @override
+  String get otpVerificationPage_title => 'Ein-Mal-Code-Bestätigung';
+
+  @override
   String quoteItem_person(Object nickname, int age) {
     String _temp0 = intl.Intl.pluralLogic(
       age,
@@ -42,6 +51,27 @@ class CAppL10nDe extends CAppL10n {
   String get save => 'Speichern';
 
   @override
+  String get signinPage_error_emailRateLimitExceeded => 'Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuchen Sie es später erneut.';
+
+  @override
+  String get signinPage_error_userNotFound => 'Wir konnten diesen Benutzer nicht finden.';
+
+  @override
+  String get signinPage_loginButton => 'Einloggen';
+
+  @override
+  String get signinPage_signupButton => 'Registrieren';
+
+  @override
+  String get signinPage_tab_login => 'Einloggen';
+
+  @override
+  String get signinPage_tab_signup => 'Registrieren';
+
+  @override
+  String get signinPage_title => 'Willkommen!';
+
+  @override
   String get snackBar_error_defaultMessage => 'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.';
 
   @override
@@ -49,4 +79,10 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get stagingBanner_message => 'Sie nutzen die Vorabversion.';
+
+  @override
+  String get signinPage_hint_email => 'E-Mail-Addresse';
+
+  @override
+  String get signinPage_hint_username => 'Benutzername';
 }
