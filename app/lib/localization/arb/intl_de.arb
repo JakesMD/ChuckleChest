@@ -6,8 +6,11 @@
   "gem_share_message": "Schau dir dieses Gem auf ChuckleChest an! 😂 {link}",
   "gem_share_subject": "Das ist so gut! 😂",
   "ok": "Ok",
-  "quoteItem_connection": "{nickname} • {age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
-  "@quoteItem_connection": {
+  "otpVerificationPage_error_invalidToken": "Dieses Code ist ungültig. Bitte versuchen Sie es erneut.",
+  "otpVerificationPage_message": "Bitte geben Sie Ihren Code ein, den wir an Ihren Posteingang gesendet haben.",
+  "otpVerificationPage_title": "Ein-Mal-Code-Bestätigung",
+  "quoteItem_person": "{nickname} • {age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
+  "@quoteItem_person": {
     "placeholders": {
       "nickname": {},
       "age": {
@@ -16,7 +19,16 @@
     }
   },
   "save": "Speichern",
+  "signinPage_error_emailRateLimitExceeded": "Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuchen Sie es später erneut.",
+  "signinPage_error_userNotFound": "Wir konnten diesen Benutzer nicht finden.",
+  "signinPage_loginButton": "Einloggen",
+  "signinPage_signupButton": "Registrieren",
+  "signinPage_tab_login": "Einloggen",
+  "signinPage_tab_signup": "Registrieren",
+  "signinPage_title": "Willkommen!",
   "snackBar_error_defaultMessage": "Hoppla! Etwas ist schiefgelaufen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
   "stagingBanner_button": "Zur Endversion",
-  "stagingBanner_message": "Sie nutzen die Vorabversion."
+  "stagingBanner_message": "Sie nutzen die Vorabversion.",
+  "signinPage_hint_email": "E-Mail-Addresse",
+  "signinPage_hint_username": "Benutzername"
 }

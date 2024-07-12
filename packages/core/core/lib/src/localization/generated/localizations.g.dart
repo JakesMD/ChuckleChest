@@ -95,6 +95,18 @@ abstract class CCoreL10n {
     Locale('en')
   ];
 
+  /// No description provided for @inputError_email_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email address.'**
+  String get inputError_email_empty;
+
+  /// No description provided for @inputError_email_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s not a valid email address.'**
+  String get inputError_email_invalid;
+
   /// No description provided for @inputError_text_empty.
   ///
   /// In en, this message translates to:

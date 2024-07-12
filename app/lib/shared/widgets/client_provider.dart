@@ -15,6 +15,13 @@ class CClientProvider<T> extends RepositoryProvider<T> {
     super.child,
     super.lazy,
   });
+
+  /// {@macro CClientProvider}
+  CClientProvider.value({
+    required super.value,
+    super.key,
+    super.child,
+  }) : super.value();
 }
 
 /// {@template CMultiClientProvider}

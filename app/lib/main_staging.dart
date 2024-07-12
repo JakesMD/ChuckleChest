@@ -16,5 +16,5 @@ void main() async {
     anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
   );
 
-  await bootstrap(() => ChuckleChestApp(flavor: CAppFlavor.staging));
+  await bootstrap(() => const ChuckleChestApp(flavor: CAppFlavor.staging));
 }

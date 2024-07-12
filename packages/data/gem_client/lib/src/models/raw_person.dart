@@ -1,33 +1,33 @@
 import 'package:cgem_client/cgem_client.dart';
 import 'package:cpub/equatable.dart';
 
-/// {@template CRawConnection}
+/// {@template CRawPerson}
 ///
 /// The raw data that represents a friend or family member.
 ///
 /// {@endtemplate}
-class CRawConnection with EquatableMixin {
-  /// {@macro CRawConnection}
-  const CRawConnection({
+class CRawPerson with EquatableMixin {
+  /// {@macro CRawPerson}
+  const CRawPerson({
     required this.nickname,
     required this.dateOfBirth,
     required this.avatarURLs,
   });
 
-  /// {@macro CRawConnection}
+  /// {@macro CRawPerson}
   ///
-  /// Creates a [CRawConnection] from a JSON object.
-  CRawConnection.fromJSON(Map<String, dynamic> json)
+  /// Creates a [CRawPerson] from a JSON object.
+  CRawPerson.fromJSON(Map<String, dynamic> json)
       : nickname = json['nickname'] as String,
         dateOfBirth = DateTime.parse(json['date_of_birth'] as String),
         avatarURLs = List<Map<String, dynamic>>.from(
-          (json['connection_avatar_urls'] ?? []) as List<dynamic>,
+          (json['person_avatar_urls'] ?? []) as List<dynamic>,
         ).map(CRawAvatarURL.fromJSON).toList();
 
-  /// The nickname of the person who made the connection.
+  /// The nickname of the person who made the person.
   final String nickname;
 
-  /// The date of birth of the person who made the connection.
+  /// The date of birth of the person who made the person.
   final DateTime dateOfBirth;
 
   /// The URLs of the photos of the person at different ages.

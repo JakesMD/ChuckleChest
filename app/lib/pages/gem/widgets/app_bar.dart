@@ -17,7 +17,8 @@ class CGemPageAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return CAppBar(
+      context: context,
       title: BlocBuilder<CGemFetchBloc, CGemFetchState>(
         builder: (context, state) => switch (state) {
           CGemFetchInProgress() => const CCradleLoadingIndicator(),
@@ -25,8 +26,6 @@ class CGemPageAppBar extends StatelessWidget implements PreferredSizeWidget {
           CGemFetchFailure() => const Icon(Icons.error_rounded),
         },
       ),
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      centerTitle: true,
     );
   }
 }

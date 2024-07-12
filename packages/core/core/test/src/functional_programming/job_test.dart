@@ -206,12 +206,14 @@ void main() {
           Then: 'returns the second success',
         ),
         procedure(() async {
-          CJob.attempt(run: () => 1, onError: (error) => 'error1')
+          final job = CJob.attempt(run: () => 1, onError: (error) => 'error1')
               .thenEvaluate(
-                onFailure: (error) => fail('Should not be called'),
-                onSuccess: (value) => expect(value, 1),
-              )
-              .run();
+            onFailure: (error) => fail('Should not be called'),
+            onSuccess: (value) => 2,
+          );
+
+          final result = await job.run();
+          cExpectSuccess(result, 2);
         }),
       );
 
@@ -222,15 +224,55 @@ void main() {
           Then: 'returns the second failure',
         ),
         procedure(() async {
-          CJob.attempt(
+          final job = CJob.attempt(
             run: () => throw Exception(),
             onError: (error) => 'error1',
-          )
-              .thenEvaluate(
-                onFailure: (error) => expect(error, 'error1'),
-                onSuccess: (value) => fail('Should not be called'),
-              )
-              .run();
+          ).thenEvaluate(
+            onFailure: (error) => 'error2',
+            onSuccess: (value) => fail('Should not be called'),
+          );
+
+          final result = await job.run();
+
+          cExpectFailure(result, 'error2');
+        }),
+      );
+    });
+
+    group('thenEvaluateOnFailure', () {
+      test(
+        requirement(
+          Given: 'a successful job',
+          When: 'the job is evaluated',
+          Then: 'returns the first success',
+        ),
+        procedure(() async {
+          final job = CJob.attempt(
+            run: () => 1,
+            onError: (error) => 'error1',
+          ).thenEvaluateOnFailure((error) => fail('Should not be called'));
+
+          final result = await job.run();
+
+          cExpectSuccess(result, 1);
+        }),
+      );
+
+      test(
+        requirement(
+          Given: 'a failing job',
+          When: 'the job is evaluated',
+          Then: 'returns the second failure',
+        ),
+        procedure(() async {
+          final job = CJob.attempt(
+            run: () => throw Exception(),
+            onError: (error) => 'error1',
+          ).thenEvaluateOnFailure((error) => 'error2');
+
+          final result = await job.run();
+
+          cExpectFailure(result, 'error2');
         }),
       );
     });

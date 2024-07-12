@@ -15,6 +15,20 @@ abstract class _$CAppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CChestRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<CChestRouteArgs>(
+          orElse: () =>
+              CChestRouteArgs(chestID: pathParams.optString('chestID')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CChestPage(
+          chestID: args.chestID,
+          key: args.key,
+        )),
+      );
+    },
     CGemRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<CGemRouteArgs>(
@@ -28,13 +42,93 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CGetStartedRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CGetStartedPage()),
+      );
+    },
     CHomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: CHomePage()),
+        child: WrappedRoute(child: const CHomePage()),
+      );
+    },
+    CLoginRoute.name: (routeData) {
+      final args = routeData.argsAs<CLoginRouteArgs>(
+          orElse: () => const CLoginRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: CLoginTab(key: args.key)),
+      );
+    },
+    COTPVerificationRoute.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<COTPVerificationRouteArgs>(
+          orElse: () =>
+              COTPVerificationRouteArgs(email: queryParams.optString('email')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: COTPVerificationPage(
+          email: args.email,
+          key: args.key,
+        )),
+      );
+    },
+    CSigninRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CSigninPage()),
+      );
+    },
+    CSignupRoute.name: (routeData) {
+      final args = routeData.argsAs<CSignupRouteArgs>(
+          orElse: () => const CSignupRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: CSignupTab(key: args.key)),
       );
     },
   };
+}
+
+/// generated route for
+/// [CChestPage]
+class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
+  CChestRoute({
+    required String? chestID,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CChestRoute.name,
+          args: CChestRouteArgs(
+            chestID: chestID,
+            key: key,
+          ),
+          rawPathParams: {'chestID': chestID},
+          initialChildren: children,
+        );
+
+  static const String name = 'CChestRoute';
+
+  static const PageInfo<CChestRouteArgs> page = PageInfo<CChestRouteArgs>(name);
+}
+
+class CChestRouteArgs {
+  const CChestRouteArgs({
+    required this.chestID,
+    this.key,
+  });
+
+  final String? chestID;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CChestRouteArgs{chestID: $chestID, key: $key}';
+  }
 }
 
 /// generated route for
@@ -76,6 +170,20 @@ class CGemRouteArgs {
 }
 
 /// generated route for
+/// [CGetStartedPage]
+class CGetStartedRoute extends PageRouteInfo<void> {
+  const CGetStartedRoute({List<PageRouteInfo>? children})
+      : super(
+          CGetStartedRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CGetStartedRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CHomePage]
 class CHomeRoute extends PageRouteInfo<void> {
   const CHomeRoute({List<PageRouteInfo>? children})
@@ -87,4 +195,114 @@ class CHomeRoute extends PageRouteInfo<void> {
   static const String name = 'CHomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CLoginTab]
+class CLoginRoute extends PageRouteInfo<CLoginRouteArgs> {
+  CLoginRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CLoginRoute.name,
+          args: CLoginRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'CLoginRoute';
+
+  static const PageInfo<CLoginRouteArgs> page = PageInfo<CLoginRouteArgs>(name);
+}
+
+class CLoginRouteArgs {
+  const CLoginRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CLoginRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [COTPVerificationPage]
+class COTPVerificationRoute extends PageRouteInfo<COTPVerificationRouteArgs> {
+  COTPVerificationRoute({
+    String? email,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          COTPVerificationRoute.name,
+          args: COTPVerificationRouteArgs(
+            email: email,
+            key: key,
+          ),
+          rawQueryParams: {'email': email},
+          initialChildren: children,
+        );
+
+  static const String name = 'COTPVerificationRoute';
+
+  static const PageInfo<COTPVerificationRouteArgs> page =
+      PageInfo<COTPVerificationRouteArgs>(name);
+}
+
+class COTPVerificationRouteArgs {
+  const COTPVerificationRouteArgs({
+    this.email,
+    this.key,
+  });
+
+  final String? email;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'COTPVerificationRouteArgs{email: $email, key: $key}';
+  }
+}
+
+/// generated route for
+/// [CSigninPage]
+class CSigninRoute extends PageRouteInfo<void> {
+  const CSigninRoute({List<PageRouteInfo>? children})
+      : super(
+          CSigninRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CSigninRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CSignupTab]
+class CSignupRoute extends PageRouteInfo<CSignupRouteArgs> {
+  CSignupRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CSignupRoute.name,
+          args: CSignupRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'CSignupRoute';
+
+  static const PageInfo<CSignupRouteArgs> page =
+      PageInfo<CSignupRouteArgs>(name);
+}
+
+class CSignupRouteArgs {
+  const CSignupRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CSignupRouteArgs{key: $key}';
+  }
 }
