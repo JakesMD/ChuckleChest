@@ -2,16 +2,14 @@ import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
-/// {@template CDatabaseClient}
+/// {@template CGemClient}
 ///
-/// The client to interact with the database API.
+/// The client to interact with the gems API.
 ///
 /// {@endtemplate}
-class CDatabaseClient {
-  /// {@macro CDatabaseClient}
-  const CDatabaseClient({
-    required this.gemsTable,
-  });
+class CGemClient {
+  /// {@macro CGemClient}
+  const CGemClient({required this.gemsTable});
 
   /// The table that represents the `gems` table in the database.
   final CGemsTable gemsTable;

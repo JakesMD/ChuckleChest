@@ -13,23 +13,22 @@ import 'package:cplatform_client/cplatform_client.dart';
 class CGemRepository {
   /// {@macro CGemRepository}
   const CGemRepository({
-    required this.databaseClient,
+    required this.gemClient,
     required this.platformClient,
   });
 
-  /// The client for interacting with the database API.
-  final CDatabaseClient databaseClient;
+  /// The client for interacting with the gems API.
+  final CGemClient gemClient;
 
   /// The client for interacting with the platform.
   final CPlatformClient platformClient;
 
   /// Fetches the gem with the given [gemID].
-  CJob<CGemFetchException, CGem> fetchGem({required String gemID}) {
-    return databaseClient.fetchGem(gemID: gemID).thenEvaluate(
-          onFailure: CGemFetchException.fromRaw,
-          onSuccess: CGem.fromRecord,
-        );
-  }
+  CJob<CGemFetchException, CGem> fetchGem({required String gemID}) =>
+      gemClient.fetchGem(gemID: gemID).thenEvaluate(
+            onFailure: CGemFetchException.fromRaw,
+            onSuccess: CGem.fromRecord,
+          );
 
   /// Shares the gem with the given [gemID].
   CJob<CGemShareException, CGemShareMethod> shareGem({

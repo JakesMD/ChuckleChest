@@ -8,7 +8,7 @@ import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
 import 'package:cpub_dev/test_beautifier.dart';
 
-class MockCDatabaseClient extends Mock implements CDatabaseClient {}
+class MockCGemClient extends Mock implements CGemClient {}
 
 class MockCPlatformClient extends Mock implements CPlatformClient {}
 
@@ -70,10 +70,10 @@ class FakeAvatarURLRecord extends Fake implements CAvatarURLsTableRecord {
 
 void main() {
   group('CGemRepository tests', () {
-    final databaseClient = MockCDatabaseClient();
+    final gemClient = MockCGemClient();
     final platformClient = MockCPlatformClient();
     final repo = CGemRepository(
-      databaseClient: databaseClient,
+      gemClient: gemClient,
       platformClient: platformClient,
     );
 
@@ -110,7 +110,7 @@ void main() {
 
     group('fetchGem', () {
       CJob<CRawGemFetchException, CGemsTableRecord> mockFetchGem() =>
-          databaseClient.fetchGem(
+          gemClient.fetchGem(
             gemID: any(named: 'gemID'),
             withAvatarURLs: any(named: 'withAvatarURLs'),
           );
