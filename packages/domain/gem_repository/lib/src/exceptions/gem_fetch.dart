@@ -1,4 +1,4 @@
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 
 /// Represents an exception that occurs when fetching a gem fails.
 enum CGemFetchException {

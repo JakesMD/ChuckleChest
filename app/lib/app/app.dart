@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/app_flavor.dart';
 import 'package:chuckle_chest/app/router.dart';
@@ -15,7 +15,6 @@ import 'package:cpub/auto_route.dart';
 import 'package:cpub/flutter_bloc.dart';
 import 'package:cpub/flutter_localizations.dart';
 import 'package:cpub/supabase_flutter.dart';
-import 'package:csupabase_client/csupabase_client.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -41,10 +40,9 @@ class ChuckleChestApp extends StatefulWidget {
 }
 
 class _ChuckleChestAppState extends State<ChuckleChestApp> {
-  late CSupabaseClient supabaseClient;
+  late CDatabaseClient databaseClient;
   late CPlatformClient platformClient;
   late CAuthClient authClient;
-  late CGemClient gemClient;
 
   late CAuthRepository authRepository;
   late CGemRepository gemRepository;
@@ -57,16 +55,19 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
   void initState() {
     super.initState();
 
-    supabaseClient = CSupabaseClient(supabaseClient: Supabase.instance.client);
+    final supabaseClient = Supabase.instance.client;
+
+    final gemsTable = CGemsTable(supabaseClient: supabaseClient);
+
     platformClient = CPlatformClient();
-    authClient = CAuthClient(authClient: supabaseClient.authClient);
-    gemClient = CGemClient(supabaseClient: supabaseClient);
+    authClient = CAuthClient(authClient: supabaseClient.auth);
+    databaseClient = CDatabaseClient(gemsTable: gemsTable);
 
     authRepository = CAuthRepository(
-      authClient: CAuthClient(authClient: supabaseClient.authClient),
+      authClient: CAuthClient(authClient: supabaseClient.auth),
     );
     gemRepository = CGemRepository(
-      gemClient: gemClient,
+      databaseClient: databaseClient,
       platformClient: platformClient,
     );
 
@@ -80,10 +81,9 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
   Widget build(BuildContext context) {
     return CMultiClientProvider(
       providers: [
-        CClientProvider.value(value: supabaseClient),
         CClientProvider.value(value: platformClient),
         CClientProvider.value(value: authClient),
-        CClientProvider.value(value: gemClient),
+        CClientProvider.value(value: databaseClient),
       ],
       child: MultiRepositoryProvider(
         providers: [

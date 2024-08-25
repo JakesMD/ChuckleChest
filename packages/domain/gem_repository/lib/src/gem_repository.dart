@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:ccore/ccore.dart';
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 
@@ -13,21 +13,21 @@ import 'package:cplatform_client/cplatform_client.dart';
 class CGemRepository {
   /// {@macro CGemRepository}
   const CGemRepository({
-    required this.gemClient,
+    required this.databaseClient,
     required this.platformClient,
   });
 
-  /// The client for interacting with the gem API.
-  final CGemClient gemClient;
+  /// The client for interacting with the database API.
+  final CDatabaseClient databaseClient;
 
   /// The client for interacting with the platform.
   final CPlatformClient platformClient;
 
   /// Fetches the gem with the given [gemID].
   CJob<CGemFetchException, CGem> fetchGem({required String gemID}) {
-    return gemClient.fetchGem(gemID: gemID, withAvatarURLs: false).thenEvaluate(
+    return databaseClient.fetchGem(gemID: gemID).thenEvaluate(
           onFailure: CGemFetchException.fromRaw,
-          onSuccess: CGem.fromRaw,
+          onSuccess: CGem.fromRecord,
         );
   }
 

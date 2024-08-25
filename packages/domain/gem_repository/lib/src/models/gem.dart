@@ -1,5 +1,5 @@
 import 'package:ccore/ccore.dart';
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/src/models/_models.dart';
 import 'package:cpub/equatable.dart';
 
@@ -19,17 +19,17 @@ class CGem with EquatableMixin {
 
   /// {@macro CGem}
   ///
-  /// Converts a [CRawGem] to a [CGem].
-  factory CGem.fromRaw(CRawGem raw) {
+  /// Converts a [CGemsTableRecord] to a [CGem].
+  factory CGem.fromRecord(CGemsTableRecord record) {
     final lines = <CLine>[];
 
-    final sortedRawLines = raw.lines..sort((a, b) => a.id.compareTo(b.id));
+    final sortedRawLines = record.lines..sort((a, b) => a.id.compareTo(b.id));
 
     for (final line in sortedRawLines) {
       if (line.person == null) {
         lines.add(CNarration(id: line.id, text: line.text));
       } else {
-        final age = line.person!.dateOfBirth.cAge(raw.occurredAt);
+        final age = line.person!.dateOfBirth.cAge(record.occurredAt);
 
         final avatarUrl = line.person!.avatarURLs
             .cFirstWhereOrNull((url) => url.age == age)
@@ -48,9 +48,9 @@ class CGem with EquatableMixin {
     }
 
     return CGem(
-      id: raw.id,
-      number: raw.number,
-      occurredAt: raw.occurredAt,
+      id: record.id,
+      number: record.number,
+      occurredAt: record.occurredAt,
       lines: lines,
     );
   }

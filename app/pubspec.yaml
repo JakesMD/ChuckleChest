@@ -10,11 +10,10 @@ dependencies:
   cauth_client:
   cauth_repository:
   ccore:
-  cgem_client:
+  cdatabase_client:
   cgem_repository:
   cplatform_client:
   cpub:
-  csupabase_client:
   flutter:
     sdk: flutter
 

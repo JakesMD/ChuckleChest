@@ -1,5 +1,7 @@
 import 'localizations.g.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class CCoreL10nEn extends CCoreL10n {
   CCoreL10nEn([String locale = 'en']) : super(locale);
