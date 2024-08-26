@@ -1,5 +1,11 @@
+import 'package:cchest_repository/cchest_repository.dart';
+import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/shared/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:cpub/auto_route.dart';
+import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CGetStartedPage}
@@ -14,9 +20,38 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CGetStartedPage}
   const CGetStartedPage({super.key});
 
+  void _onChestCreated(BuildContext context, String chestID) {
+    context.router.replaceAll(
+      [const CHomeRoute(), CChestRoute(chestID: chestID)],
+      updateExistingRoutes: false,
+    );
+  }
+
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CChestCreationBloc(
+            chestRepository: context.read<CChestRepository>(),
+          ),
+        ),
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<CChestCreationBloc, CChestCreationState>(
+            listener: (context, state) => switch (state) {
+              CChestCreationInitial() => null,
+              CChestCreationInProgress() => null,
+              CChestCreationSuccess(chestID: final chestID) =>
+                _onChestCreated(context, chestID),
+              CChestCreationFailure() => const CErrorSnackBar().show(context),
+            },
+          ),
+        ],
+        child: this,
+      ),
+    );
   }
 
   @override
@@ -24,14 +59,14 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
     return Scaffold(
       appBar: CAppBar(
         context: context,
-        title: const Text("Let's Get Started!"),
+        title: Text(context.cAppL10n.getStartedPage_title),
         actions: [
           PopupMenuButton(
             icon: const Icon(Icons.more_vert_rounded),
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 1,
-                child: Text('Log out'),
+                child: Text(context.cAppL10n.getStartedPage_logoutButton),
               ),
             ],
           ),
@@ -40,9 +75,15 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
-          FilledButton(
-            onPressed: () {},
-            child: const Text('Create a new chest'),
+          CLoadingButton<CChestCreationBloc, CChestCreationState>(
+            text: Text(context.cAppL10n.getStartedPage_createChestButton),
+            isLoading: (state) => state is CChestCreationInProgress,
+            onPressed: (context, bloc) =>
+                CChestCreationDialog(bloc: bloc).show(context),
+            builder: (context, text, onPressed) => FilledButton(
+              onPressed: onPressed,
+              child: text,
+            ),
           ),
         ],
       ),

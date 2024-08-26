@@ -12,6 +12,15 @@ class CAppL10nEn extends CAppL10n {
   String get cancel => 'Cancel';
 
   @override
+  String get chestCreationDialog_createButton => 'Create';
+
+  @override
+  String get chestCreationDialog_label_chestName => 'Chest name';
+
+  @override
+  String get chestCreationDialog_title => 'Create a new chest';
+
+  @override
   String get close => 'Close';
 
   @override
@@ -26,6 +35,15 @@ class CAppL10nEn extends CAppL10n {
   String get gem_share_subject => 'This is so good! 😂';
 
   @override
+  String get getStartedPage_createChestButton => 'Create a new chest';
+
+  @override
+  String get getStartedPage_logoutButton => 'Log out';
+
+  @override
+  String get getStartedPage_title => 'Let\'s get started!';
+
+  @override
   String get ok => 'OK';
 
   @override
@@ -35,7 +53,7 @@ class CAppL10nEn extends CAppL10n {
   String get otpVerificationPage_message => 'Please enter the pin we sent to your inbox.';
 
   @override
-  String get otpVerificationPage_title => 'One-Time Pin Verification';
+  String get otpVerificationPage_title => 'One-Time pin verification';
 
   @override
   String quoteItem_person(Object nickname, int age) {
@@ -57,6 +75,12 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get signinPage_error_userNotFound => 'We couldn\'t find this user.';
+
+  @override
+  String get signinPage_hint_email => 'Email';
+
+  @override
+  String get signinPage_hint_username => 'Username';
 
   @override
   String get signinPage_loginButton => 'Log in';
@@ -81,10 +105,4 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get stagingBanner_message => 'You\'re using the staging version.';
-
-  @override
-  String get signinPage_hint_email => 'Email';
-
-  @override
-  String get signinPage_hint_username => 'Username';
 }

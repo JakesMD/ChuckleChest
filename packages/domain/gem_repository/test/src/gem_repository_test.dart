@@ -110,10 +110,7 @@ void main() {
 
     group('fetchGem', () {
       CJob<CRawGemFetchException, CGemsTableRecord> mockFetchGem() =>
-          gemClient.fetchGem(
-            gemID: any(named: 'gemID'),
-            withAvatarURLs: any(named: 'withAvatarURLs'),
-          );
+          gemClient.fetchGem(gemID: any(named: 'gemID'));
 
       CJob<CGemFetchException, CGem> fetchGemJob() =>
           repo.fetchGem(gemID: fakeGem.id);

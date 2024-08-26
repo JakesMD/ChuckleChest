@@ -19,7 +19,6 @@ class CGemClient {
   /// If `withAvatarURLs` is `true`, the gem will include the avatar URLs.
   CJob<CRawGemFetchException, CGemsTableRecord> fetchGem({
     required String gemID,
-    bool withAvatarURLs = false,
   }) =>
       CJob.attempt(
         run: () => gemsTable.fetch(
@@ -34,7 +33,7 @@ class CGemClient {
                 CPeopleTable.id,
                 CPeopleTable.nickname,
                 CPeopleTable.dateOfBirth,
-                if (withAvatarURLs) CPeopleTable.avatarURLs,
+                CPeopleTable.avatarURLs,
               }),
             }),
           },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:cpub/auto_route.dart';
@@ -19,6 +21,10 @@ class CNoChestsGuard implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     if (authRepository.currentUser!.chests.isNotEmpty) {
+      log(
+        '''Navigation from ${router.current.name} to ${resolver.routeName} denied. Redirecting to CChestRoute...''',
+        name: 'CNoChestsGuard',
+      );
       resolver.redirect(CChestRoute(chestID: null), replace: true);
     } else {
       resolver.next();

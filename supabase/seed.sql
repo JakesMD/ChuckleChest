@@ -1,20 +1,23 @@
-INSERT INTO chests(id, name)
-    VALUES ('01a49ad4-9785-4a56-8b11-0edff1f3212c', 'Drew Family Chest');
-
-INSERT INTO people(id, nickname, date_of_birth, chest_id)
-    VALUES (1, 'Jakes', '2003-03-10', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
-(2, 'Mike', '2016-07-22', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
-(3, 'Izzy', '2006-04-10', '01a49ad4-9785-4a56-8b11-0edff1f3212c');
-
-INSERT INTO gems(id, created_at, number, occurred_at, chest_id)
-    VALUES ('8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '2024-05-23 15:48:44.426473+00', 2, '2024-03-15', '01a49ad4-9785-4a56-8b11-0edff1f3212c');
-
-INSERT INTO lines(id, person_id, text, gem_id, chest_id)
-    VALUES (6, 3, 'Yep! Tis.', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
-(7, 2, 'That''s soooo unhealthy! No wonder you''ve shrunk!', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
-(4, NULL, 'Mike''s in Izzy''s room and sees all the chocolate wrappers on her desk.', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
-(5, 2, 'Gosh Izzy! That''s a lot of chocolate!', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c');
-
+--INSERT INTO chests(id, name)
+--    VALUES ('01a49ad4-9785-4a56-8b11-0edff1f3212c', 'Drew Family Chest');
+--
+--INSERT INTO people(id, nickname, date_of_birth, chest_id)
+--    VALUES (1, 'Jakes', '2003-03-10', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
+--(2, 'Mike', '2016-07-22', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
+--(3, 'Izzy', '2006-04-10', '01a49ad4-9785-4a56-8b11-0edff1f3212c');
+--
+--INSERT INTO gems(id, created_at, number, occurred_at, chest_id)
+--    VALUES ('8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '2024-05-23 15:48:44.426473+00', 2, '2024-03-15', '01a49ad4-9785-4a56-8b11-0edff1f3212c');
+--
+--INSERT INTO lines(id, person_id, text, gem_id, chest_id)
+--    VALUES (6, 3, 'Yep! Tis.', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
+--(7, 2, 'That''s soooo unhealthy! No wonder you''ve shrunk!', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
+--(4, NULL, 'Mike''s in Izzy''s room and sees all the chocolate wrappers on her desk.', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c'),
+--(5, 2, 'Gosh Izzy! That''s a lot of chocolate!', '8a9a6685-6dce-4c94-ad0b-76b65b0ab48f', '01a49ad4-9785-4a56-8b11-0edff1f3212c');
+--
+-- DO NOT DELETE --
+-- DO NOT DELETE --
+-- DO NOT DELETE --
 INSERT INTO role_permissions(ROLE, permission)
     VALUES ('owner', 'chests.insert'),
 ('collaborator', 'chests.insert'),

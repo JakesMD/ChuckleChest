@@ -12,6 +12,15 @@ class CAppL10nDe extends CAppL10n {
   String get cancel => 'Abbrechen';
 
   @override
+  String get chestCreationDialog_createButton => 'Erstellen';
+
+  @override
+  String get chestCreationDialog_label_chestName => 'Name der Truhe';
+
+  @override
+  String get chestCreationDialog_title => 'Neue Truhe erstellen';
+
+  @override
   String get close => 'Schließen';
 
   @override
@@ -19,11 +28,20 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String gem_share_message(Object link) {
-    return 'Schau dir dieses Gem auf ChuckleChest an! 😂 $link';
+    return 'Schau dir diese Gemme auf ChuckleChest an! 😂 $link';
   }
 
   @override
   String get gem_share_subject => 'Das ist so gut! 😂';
+
+  @override
+  String get getStartedPage_createChestButton => 'Neue Truhe erstellen';
+
+  @override
+  String get getStartedPage_logoutButton => 'Ausloggen';
+
+  @override
+  String get getStartedPage_title => 'Legen wir los!';
 
   @override
   String get ok => 'Ok';
@@ -59,6 +77,12 @@ class CAppL10nDe extends CAppL10n {
   String get signinPage_error_userNotFound => 'Wir konnten diesen Benutzer nicht finden.';
 
   @override
+  String get signinPage_hint_email => 'E-Mail-Addresse';
+
+  @override
+  String get signinPage_hint_username => 'Benutzername';
+
+  @override
   String get signinPage_loginButton => 'Einloggen';
 
   @override
@@ -81,10 +105,4 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get stagingBanner_message => 'Sie nutzen die Vorabversion.';
-
-  @override
-  String get signinPage_hint_email => 'E-Mail-Addresse';
-
-  @override
-  String get signinPage_hint_username => 'Benutzername';
 }

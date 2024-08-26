@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 part 'avatar_urls.g.dart';

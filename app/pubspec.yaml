@@ -9,6 +9,7 @@ environment:
 dependencies:
   cauth_client:
   cauth_repository:
+  cchest_repository:
   ccore:
   cdatabase_client:
   cgem_repository:

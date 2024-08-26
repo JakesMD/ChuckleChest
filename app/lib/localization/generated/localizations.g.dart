@@ -101,6 +101,24 @@ abstract class CAppL10n {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @chestCreationDialog_createButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get chestCreationDialog_createButton;
+
+  /// No description provided for @chestCreationDialog_label_chestName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest name'**
+  String get chestCreationDialog_label_chestName;
+
+  /// No description provided for @chestCreationDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get chestCreationDialog_title;
+
   /// No description provided for @close.
   ///
   /// In en, this message translates to:
@@ -125,6 +143,24 @@ abstract class CAppL10n {
   /// **'This is so good! 😂'**
   String get gem_share_subject;
 
+  /// No description provided for @getStartedPage_createChestButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get getStartedPage_createChestButton;
+
+  /// No description provided for @getStartedPage_logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get getStartedPage_logoutButton;
+
+  /// No description provided for @getStartedPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s get started!'**
+  String get getStartedPage_title;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
@@ -146,7 +182,7 @@ abstract class CAppL10n {
   /// No description provided for @otpVerificationPage_title.
   ///
   /// In en, this message translates to:
-  /// **'One-Time Pin Verification'**
+  /// **'One-Time pin verification'**
   String get otpVerificationPage_title;
 
   /// No description provided for @quoteItem_person.
@@ -172,6 +208,18 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'We couldn\'t find this user.'**
   String get signinPage_error_userNotFound;
+
+  /// No description provided for @signinPage_hint_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get signinPage_hint_email;
+
+  /// No description provided for @signinPage_hint_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get signinPage_hint_username;
 
   /// No description provided for @signinPage_loginButton.
   ///
@@ -220,18 +268,6 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'You\'re using the staging version.'**
   String get stagingBanner_message;
-
-  /// No description provided for @signinPage_hint_email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get signinPage_hint_email;
-
-  /// No description provided for @signinPage_hint_username.
-  ///
-  /// In en, this message translates to:
-  /// **'Username'**
-  String get signinPage_hint_username;
 }
 
 class _CAppL10nDelegate extends LocalizationsDelegate<CAppL10n> {

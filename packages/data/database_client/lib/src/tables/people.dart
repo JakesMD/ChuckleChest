@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
