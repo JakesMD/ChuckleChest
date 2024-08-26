@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
+import 'package:cchest_repository/cchest_repository.dart';
 import 'package:ccore/ccore.dart';
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/app_flavor.dart';
 import 'package:chuckle_chest/app/router.dart';
@@ -15,7 +16,6 @@ import 'package:cpub/auto_route.dart';
 import 'package:cpub/flutter_bloc.dart';
 import 'package:cpub/flutter_localizations.dart';
 import 'package:cpub/supabase_flutter.dart';
-import 'package:csupabase_client/csupabase_client.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -41,12 +41,13 @@ class ChuckleChestApp extends StatefulWidget {
 }
 
 class _ChuckleChestAppState extends State<ChuckleChestApp> {
-  late CSupabaseClient supabaseClient;
+  late CChestClient chestClient;
+  late CGemClient gemClient;
   late CPlatformClient platformClient;
   late CAuthClient authClient;
-  late CGemClient gemClient;
 
   late CAuthRepository authRepository;
+  late CChestRepository chestRepository;
   late CGemRepository gemRepository;
 
   late CAppRouter appRouter;
@@ -57,14 +58,20 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
   void initState() {
     super.initState();
 
-    supabaseClient = CSupabaseClient(supabaseClient: Supabase.instance.client);
+    final supabaseClient = Supabase.instance.client;
+
+    final chestsTable = CChestsTable(supabaseClient: supabaseClient);
+    final gemsTable = CGemsTable(supabaseClient: supabaseClient);
+
     platformClient = CPlatformClient();
-    authClient = CAuthClient(authClient: supabaseClient.authClient);
-    gemClient = CGemClient(supabaseClient: supabaseClient);
+    authClient = CAuthClient(authClient: supabaseClient.auth);
+    chestClient = CChestClient(chestsTable: chestsTable);
+    gemClient = CGemClient(gemsTable: gemsTable);
 
     authRepository = CAuthRepository(
-      authClient: CAuthClient(authClient: supabaseClient.authClient),
+      authClient: CAuthClient(authClient: supabaseClient.auth),
     );
+    chestRepository = CChestRepository(chestClient: chestClient);
     gemRepository = CGemRepository(
       gemClient: gemClient,
       platformClient: platformClient,
@@ -80,14 +87,15 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
   Widget build(BuildContext context) {
     return CMultiClientProvider(
       providers: [
-        CClientProvider.value(value: supabaseClient),
         CClientProvider.value(value: platformClient),
         CClientProvider.value(value: authClient),
+        CClientProvider.value(value: chestClient),
         CClientProvider.value(value: gemClient),
       ],
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider.value(value: authRepository),
+          RepositoryProvider.value(value: chestRepository),
           RepositoryProvider.value(value: gemRepository),
         ],
         child: MaterialApp.router(
@@ -108,6 +116,7 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
             ...GlobalMaterialLocalizations.delegates,
             GlobalWidgetsLocalizations.delegate,
           ],
+          locale: const Locale('de'),
           supportedLocales: CCoreL10n.supportedLocales,
           routerConfig: appRouter.config(
             reevaluateListenable: ReevaluateListenable.stream(

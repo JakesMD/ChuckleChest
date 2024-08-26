@@ -1,7 +1,6 @@
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/signin/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 enum _CSigninButtonType { login, signup }
@@ -32,40 +31,31 @@ class CSigninButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (_type == _CSigninButtonType.login) {
-      return BlocBuilder<CLoginBloc, CLoginState>(
-        builder: (context, state) => _buildButton(
-          context,
-          state is CLoginInProgress,
+      return CLoadingButton<CLoginBloc, CLoginState>(
+        isLoading: (state) => state is CLoginInProgress,
+        text: Text(
+          _type == _CSigninButtonType.login
+              ? context.cAppL10n.signinPage_loginButton
+              : context.cAppL10n.signinPage_signupButton,
+        ),
+        onPressed: (context, bloc) => onPressed(context),
+        builder: (context, text, onPressed) => FilledButton(
+          onPressed: onPressed,
+          child: text,
         ),
       );
     }
-    return BlocBuilder<CSignupBloc, CSignupState>(
-      builder: (context, state) => _buildButton(
-        context,
-        state is CSignupInProgress,
+    return CLoadingButton<CSignupBloc, CSignupState>(
+      isLoading: (state) => state is CSignupInProgress,
+      text: Text(
+        _type == _CSigninButtonType.login
+            ? context.cAppL10n.signinPage_loginButton
+            : context.cAppL10n.signinPage_signupButton,
       ),
-    );
-  }
-
-  Widget _buildButton(BuildContext context, bool isLoading) {
-    return FilledButton(
-      onPressed: !isLoading ? () => onPressed(context) : null,
-      child: SizedBox(
-        height: 44,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: isLoading
-                ? CCradleLoadingIndicator(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  )
-                : Text(
-                    _type == _CSigninButtonType.login
-                        ? context.cAppL10n.signinPage_loginButton
-                        : context.cAppL10n.signinPage_signupButton,
-                  ),
-          ),
-        ),
+      onPressed: (context, bloc) => onPressed(context),
+      builder: (context, text, onPressed) => FilledButton(
+        onPressed: onPressed,
+        child: text,
       ),
     );
   }

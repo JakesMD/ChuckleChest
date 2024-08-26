@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'localizations_de.g.dart';
 import 'localizations_en.g.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of CCoreL10n
 /// returned by `CCoreL10n.of(context)`.
 ///

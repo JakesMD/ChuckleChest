@@ -1,5 +1,7 @@
 import 'localizations.g.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for German (`de`).
 class CCoreL10nDe extends CCoreL10n {
   CCoreL10nDe([String locale = 'de']) : super(locale);

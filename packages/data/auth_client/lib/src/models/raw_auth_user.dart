@@ -55,4 +55,8 @@ class CRawAuthUser with EquatableMixin {
         email,
         chests,
       ];
+
+  @override
+  String toString() =>
+      '''CRawAuthUser(id: $id, username: $username, email: $email, chests: $chests)''';
 }

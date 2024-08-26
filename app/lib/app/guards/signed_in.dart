@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:cpub/auto_route.dart';
@@ -19,6 +21,10 @@ class CSignedInGuard implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     if (authRepository.currentUser == null) {
+      log(
+        '''Navigation from ${router.current.name} to ${resolver.routeName} denied. Redirecting to CSigninRoute...''',
+        name: 'CSignedInGuard',
+      );
       resolver.redirect(const CSigninRoute(), replace: true);
     } else {
       resolver.next();
