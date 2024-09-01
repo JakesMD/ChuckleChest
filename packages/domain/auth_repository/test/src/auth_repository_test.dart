@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
 import 'package:cpub_dev/test_beautifier.dart';
@@ -46,7 +47,7 @@ void main() {
 
     setUp(() {
       when(authClient.currentUserStream).thenAnswer(
-        (_) => Stream.fromIterable([cPresent(fakeRawUser)]),
+        (_) => Stream.fromIterable([bobsPresent(fakeRawUser)]),
       );
     });
 
@@ -77,7 +78,7 @@ void main() {
     });
 
     group('currentUserStream', () {
-      late StreamController<CMaybe<CRawAuthUser>> controller;
+      late StreamController<BobsMaybe<CRawAuthUser>> controller;
 
       setUp(() {
         controller = StreamController();
@@ -90,13 +91,13 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          var result = cAbsent<CAuthUser>();
+          var result = bobsAbsent<CAuthUser>();
           repo.currentUserStream().listen((event) => result = event);
 
-          controller.add(cPresent(fakeRawUser));
+          controller.add(bobsPresent(fakeRawUser));
           await Future.delayed(Duration.zero);
 
-          expect(result, cPresent(fakeUser));
+          expect(result, bobsPresent(fakeUser));
         }),
       );
 
@@ -106,25 +107,26 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          var result = cAbsent<CAuthUser>();
+          var result = bobsAbsent<CAuthUser>();
           repo.currentUserStream().listen((event) => result = event);
 
-          controller.add(cAbsent());
+          controller.add(bobsAbsent());
           await Future.delayed(Duration.zero);
 
-          expect(result, cAbsent());
+          expect(result, bobsAbsent());
         }),
       );
     });
 
     group('signUpWithOTP', () {
-      CJob<CRawSignupException, CNothing> mockSignUpWithOTP() =>
+      BobsJob<CRawSignupException, BobsNothing> mockSignUpWithOTP() =>
           authClient.signUpWithOTP(
             email: any(named: 'email'),
             username: any(named: 'username'),
           );
 
-      CJob<CSignupException, CNothing> signUpWithOTPJob() => repo.signUpWithOTP(
+      BobsJob<CSignupException, BobsNothing> signUpWithOTPJob() =>
+          repo.signUpWithOTP(
             email: fakeUser.email,
             username: fakeUser.username,
           );
@@ -136,11 +138,11 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockSignUpWithOTP).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockSignUpWithOTP).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await signUpWithOTPJob().run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -152,12 +154,12 @@ void main() {
         ),
         procedure(() async {
           when(mockSignUpWithOTP).thenReturn(
-            cFakeFailureJob(CRawSignupException.emailRateLimitExceeded),
+            bobsFakeFailureJob(CRawSignupException.emailRateLimitExceeded),
           );
 
           final result = await signUpWithOTPJob().run();
 
-          cExpectFailure(result, CSignupException.emailRateLimitExceeded);
+          bobsExpectFailure(result, CSignupException.emailRateLimitExceeded);
         }),
       );
 
@@ -169,21 +171,22 @@ void main() {
         ),
         procedure(() async {
           when(mockSignUpWithOTP).thenReturn(
-            cFakeFailureJob(CRawSignupException.unknown),
+            bobsFakeFailureJob(CRawSignupException.unknown),
           );
 
           final result = await signUpWithOTPJob().run();
 
-          cExpectFailure(result, CSignupException.unknown);
+          bobsExpectFailure(result, CSignupException.unknown);
         }),
       );
     });
 
     group('logInWithOTP', () {
-      CJob<CRawLoginException, CNothing> mockLogInWithOTP() =>
+      BobsJob<CRawLoginException, BobsNothing> mockLogInWithOTP() =>
           authClient.logInWithOTP(email: any(named: 'email'));
 
-      CJob<CLoginException, CNothing> logInWithOTPJob() => repo.logInWithOTP(
+      BobsJob<CLoginException, BobsNothing> logInWithOTPJob() =>
+          repo.logInWithOTP(
             email: fakeUser.email,
           );
 
@@ -194,11 +197,11 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockLogInWithOTP).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockLogInWithOTP).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await logInWithOTPJob().run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -210,12 +213,12 @@ void main() {
         ),
         procedure(() async {
           when(mockLogInWithOTP).thenReturn(
-            cFakeFailureJob(CRawLoginException.emailRateLimitExceeded),
+            bobsFakeFailureJob(CRawLoginException.emailRateLimitExceeded),
           );
 
           final result = await logInWithOTPJob().run();
 
-          cExpectFailure(result, CLoginException.emailRateLimitExceeded);
+          bobsExpectFailure(result, CLoginException.emailRateLimitExceeded);
         }),
       );
 
@@ -227,12 +230,12 @@ void main() {
         ),
         procedure(() async {
           when(mockLogInWithOTP).thenReturn(
-            cFakeFailureJob(CRawLoginException.userNotFound),
+            bobsFakeFailureJob(CRawLoginException.userNotFound),
           );
 
           final result = await logInWithOTPJob().run();
 
-          cExpectFailure(result, CLoginException.userNotFound);
+          bobsExpectFailure(result, CLoginException.userNotFound);
         }),
       );
 
@@ -244,24 +247,24 @@ void main() {
         ),
         procedure(() async {
           when(mockLogInWithOTP).thenReturn(
-            cFakeFailureJob(CRawLoginException.unknown),
+            bobsFakeFailureJob(CRawLoginException.unknown),
           );
 
           final result = await logInWithOTPJob().run();
 
-          cExpectFailure(result, CLoginException.unknown);
+          bobsExpectFailure(result, CLoginException.unknown);
         }),
       );
     });
 
     group('verifyOTP', () {
-      CJob<CRawOTPVerificationException, CNothing> mockVerifyOTP() =>
+      BobsJob<CRawOTPVerificationException, BobsNothing> mockVerifyOTP() =>
           authClient.verifyOTP(
             email: any(named: 'email'),
             pin: any(named: 'pin'),
           );
 
-      CJob<COTPVerificationException, CNothing> verifyOTPJob() =>
+      BobsJob<COTPVerificationException, BobsNothing> verifyOTPJob() =>
           repo.verifyOTP(
             email: fakeUser.email,
             pin: 'pin',
@@ -274,11 +277,11 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockVerifyOTP).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockVerifyOTP).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await verifyOTPJob().run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -290,12 +293,12 @@ void main() {
         ),
         procedure(() async {
           when(mockVerifyOTP).thenReturn(
-            cFakeFailureJob(CRawOTPVerificationException.invalidToken),
+            bobsFakeFailureJob(CRawOTPVerificationException.invalidToken),
           );
 
           final result = await verifyOTPJob().run();
 
-          cExpectFailure(result, COTPVerificationException.invalidToken);
+          bobsExpectFailure(result, COTPVerificationException.invalidToken);
         }),
       );
 
@@ -307,21 +310,21 @@ void main() {
         ),
         procedure(() async {
           when(mockVerifyOTP).thenReturn(
-            cFakeFailureJob(CRawOTPVerificationException.unknown),
+            bobsFakeFailureJob(CRawOTPVerificationException.unknown),
           );
 
           final result = await verifyOTPJob().run();
 
-          cExpectFailure(result, COTPVerificationException.unknown);
+          bobsExpectFailure(result, COTPVerificationException.unknown);
         }),
       );
     });
 
     group('signOut', () {
-      CJob<CRawSignoutException, CNothing> mockSignOut() =>
+      BobsJob<CRawSignoutException, BobsNothing> mockSignOut() =>
           authClient.signOut();
 
-      CJob<CSignoutException, CNothing> signOutJob() => repo.signOut();
+      BobsJob<CSignoutException, BobsNothing> signOutJob() => repo.signOut();
 
       test(
         requirement(
@@ -329,11 +332,11 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockSignOut).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockSignOut).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await signOutJob().run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -344,21 +347,21 @@ void main() {
         ),
         procedure(() async {
           when(mockSignOut).thenReturn(
-            cFakeFailureJob(CRawSignoutException.unknown),
+            bobsFakeFailureJob(CRawSignoutException.unknown),
           );
 
           final result = await signOutJob().run();
 
-          cExpectFailure(result, CSignoutException.unknown);
+          bobsExpectFailure(result, CSignoutException.unknown);
         }),
       );
     });
 
     group('updateUser', () {
-      CJob<CRawAuthUserUpdateException, CNothing> mockUpdateUser() =>
+      BobsJob<CRawAuthUserUpdateException, BobsNothing> mockUpdateUser() =>
           authClient.updateUser(update: any(named: 'update'));
 
-      CJob<CAuthUserUpdateException, CNothing> updateUserJob() =>
+      BobsJob<CAuthUserUpdateException, BobsNothing> updateUserJob() =>
           repo.updateUser(username: fakeUser.username);
 
       test(
@@ -368,11 +371,11 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockUpdateUser).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockUpdateUser).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await updateUserJob().run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -384,21 +387,21 @@ void main() {
         ),
         procedure(() async {
           when(mockUpdateUser).thenReturn(
-            cFakeFailureJob(CRawAuthUserUpdateException.unknown),
+            bobsFakeFailureJob(CRawAuthUserUpdateException.unknown),
           );
 
           final result = await updateUserJob().run();
 
-          cExpectFailure(result, CAuthUserUpdateException.unknown);
+          bobsExpectFailure(result, CAuthUserUpdateException.unknown);
         }),
       );
     });
 
     group('refreshSession', () {
-      CJob<CRawSessionRefreshException, CNothing> mockRefreshSession() =>
+      BobsJob<CRawSessionRefreshException, BobsNothing> mockRefreshSession() =>
           authClient.refreshSession();
 
-      CJob<CSessionRefreshException, CNothing> refreshSessionJob() =>
+      BobsJob<CSessionRefreshException, BobsNothing> refreshSessionJob() =>
           repo.refreshSession();
 
       test(
@@ -407,11 +410,11 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockRefreshSession).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockRefreshSession).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await refreshSessionJob().run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -422,12 +425,12 @@ void main() {
         ),
         procedure(() async {
           when(mockRefreshSession).thenReturn(
-            cFakeFailureJob(CRawSessionRefreshException.unknown),
+            bobsFakeFailureJob(CRawSessionRefreshException.unknown),
           );
 
           final result = await refreshSessionJob().run();
 
-          cExpectFailure(result, CSessionRefreshException.unknown);
+          bobsExpectFailure(result, CSessionRefreshException.unknown);
         }),
       );
     });

@@ -18,5 +18,5 @@ final class CChestPeopleFetchRequested extends _CChestPeopleFetchEvent {
 final class _CChestPeopleFetchCompleted extends _CChestPeopleFetchEvent {
   _CChestPeopleFetchCompleted({required this.result});
 
-  COutcome<CChestPeopleFetchException, List<CPerson>> result;
+  BobsOutcome<CChestPeopleFetchException, List<CPerson>> result;
 }

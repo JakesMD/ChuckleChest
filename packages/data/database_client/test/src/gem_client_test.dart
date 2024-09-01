@@ -1,5 +1,5 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub/supabase.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
@@ -42,7 +42,7 @@ void main() {
             modifier: any(named: 'modifier'),
           );
 
-      CJob<CRawGemFetchException, CGemsTableRecord> fetchGemJob() =>
+      BobsJob<CRawGemFetchException, CGemsTableRecord> fetchGemJob() =>
           client.fetchGem(gemID: 'adsfklj');
 
       setUp(() {
@@ -60,7 +60,7 @@ void main() {
 
           final result = await fetchGemJob().run();
 
-          cExpectSuccess(result, fakeGemRecord);
+          bobsExpectSuccess(result, fakeGemRecord);
         }),
       );
 
@@ -77,7 +77,7 @@ void main() {
 
           final result = await fetchGemJob().run();
 
-          cExpectFailure(result, CRawGemFetchException.notFound);
+          bobsExpectFailure(result, CRawGemFetchException.notFound);
         }),
       );
 
@@ -91,7 +91,7 @@ void main() {
 
           final result = await fetchGemJob().run();
 
-          cExpectFailure(result, CRawGemFetchException.unknown);
+          bobsExpectFailure(result, CRawGemFetchException.unknown);
         }),
       );
     });

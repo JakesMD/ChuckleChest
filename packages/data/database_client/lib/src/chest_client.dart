@@ -1,5 +1,5 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 /// {@template CChestClient}
@@ -15,10 +15,10 @@ class CChestClient {
   final CChestsTable chestsTable;
 
   /// Creates a new chest with the given `chestName`.
-  CJob<CRawChestCreationException, String> createChest({
+  BobsJob<CRawChestCreationException, String> createChest({
     required String chestName,
   }) =>
-      CJob.attempt(
+      BobsJob.attempt(
         run: () => chestsTable.insert(
           records: [CChestsTableInsert(name: chestName)],
           columns: {CChestsTable.id},

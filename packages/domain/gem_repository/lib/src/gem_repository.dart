@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 
 /// {@template CGemRepository}
 ///
@@ -24,14 +24,14 @@ class CGemRepository {
   final CPlatformClient platformClient;
 
   /// Fetches the gem with the given [gemID].
-  CJob<CGemFetchException, CGem> fetchGem({required String gemID}) =>
+  BobsJob<CGemFetchException, CGem> fetchGem({required String gemID}) =>
       gemClient.fetchGem(gemID: gemID).thenEvaluate(
             onFailure: CGemFetchException.fromRaw,
             onSuccess: CGem.fromRecord,
           );
 
   /// Shares the gem with the given [gemID].
-  CJob<CGemShareException, CGemShareMethod> shareGem({
+  BobsJob<CGemShareException, CGemShareMethod> shareGem({
     required String gemID,
     required Rect sharePositionOrigin,
     required String Function(String link) message,

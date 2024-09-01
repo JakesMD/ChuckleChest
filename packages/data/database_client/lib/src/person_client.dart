@@ -1,5 +1,5 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 
 /// {@template CPersonClient}
 ///
@@ -14,11 +14,8 @@ class CPersonClient {
   final CPeopleTable peopleTable;
 
   /// Fetches all the people belonging to th chest with the given `chestID`.
-  CJob<CRawChestPeopleFetchException, List<CPeopleTableRecord>>
-      fetchChestPeople({
-    required String chestID,
-  }) =>
-          CJob.attempt(
+  BobsJob<CRawChestPeopleFetchException, List<CPeopleTableRecord>>
+      fetchChestPeople({required String chestID}) => BobsJob.attempt(
             run: () => peopleTable.fetch(
               columns: {
                 CPeopleTable.id,

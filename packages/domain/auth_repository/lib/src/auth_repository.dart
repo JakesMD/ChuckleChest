@@ -1,6 +1,6 @@
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:ccore/ccore.dart';
+import 'package:cpub/bobs_jobs.dart';
 
 /// {@template CAuthRepository}
 ///
@@ -19,14 +19,14 @@ class CAuthRepository {
   }
 
   /// The stream for the currently logged in user.
-  Stream<CMaybe<CAuthUser>> currentUserStream() async* {
+  Stream<BobsMaybe<CAuthUser>> currentUserStream() async* {
     await for (final user in authClient.currentUserStream()) {
       yield user.deriveOnPresent(CAuthUser.fromRawUser);
     }
   }
 
   /// Sends a one-time-password for signup to the given email.
-  CJob<CSignupException, CNothing> signUpWithOTP({
+  BobsJob<CSignupException, BobsNothing> signUpWithOTP({
     required String email,
     required String username,
   }) =>
@@ -35,7 +35,7 @@ class CAuthRepository {
           .thenEvaluateOnFailure(CSignupException.fromRaw);
 
   /// Sends a one-time-password for login to the given email.
-  CJob<CLoginException, CNothing> logInWithOTP({
+  BobsJob<CLoginException, BobsNothing> logInWithOTP({
     required String email,
   }) =>
       authClient
@@ -44,7 +44,7 @@ class CAuthRepository {
 
   /// Verifies the one-time-pin that was sent to the given
   /// email.
-  CJob<COTPVerificationException, CNothing> verifyOTP({
+  BobsJob<COTPVerificationException, BobsNothing> verifyOTP({
     required String email,
     required String pin,
   }) =>
@@ -53,11 +53,11 @@ class CAuthRepository {
           .thenEvaluateOnFailure(COTPVerificationException.fromRaw);
 
   /// Signs out the current user, if there is a logged in user.
-  CJob<CSignoutException, CNothing> signOut() =>
+  BobsJob<CSignoutException, BobsNothing> signOut() =>
       authClient.signOut().thenEvaluateOnFailure(CSignoutException.fromRaw);
 
   /// Updates the current user's profile.
-  CJob<CAuthUserUpdateException, CNothing> updateUser({
+  BobsJob<CAuthUserUpdateException, BobsNothing> updateUser({
     required String username,
   }) =>
       authClient
@@ -67,7 +67,7 @@ class CAuthRepository {
   /// Refreshes the current user's session.
   ///
   /// This is useful for keeping custom claims up-to-date.
-  CJob<CSessionRefreshException, CNothing> refreshSession() => authClient
+  BobsJob<CSessionRefreshException, BobsNothing> refreshSession() => authClient
       .refreshSession()
       .thenEvaluateOnFailure(CSessionRefreshException.fromRaw);
 }

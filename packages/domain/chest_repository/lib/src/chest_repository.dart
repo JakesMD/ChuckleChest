@@ -1,6 +1,6 @@
 import 'package:cchest_repository/cchest_repository.dart';
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 
 /// The repository for interacting with chests.
 class CChestRepository {
@@ -11,7 +11,7 @@ class CChestRepository {
   final CChestClient chestClient;
 
   /// Creates a chest with the given [chestName].
-  CJob<CChestCreationException, String> createChest({
+  BobsJob<CChestCreationException, String> createChest({
     required String chestName,
   }) =>
       chestClient.createChest(chestName: chestName).thenEvaluate(

@@ -21,5 +21,5 @@ final class COTPVerificationSubmitted extends _COTPVerificationEvent {
 final class _COTPVerificationCompleted extends _COTPVerificationEvent {
   _COTPVerificationCompleted({required this.result});
 
-  final COutcome<COTPVerificationException, CNothing> result;
+  final BobsOutcome<COTPVerificationException, BobsNothing> result;
 }

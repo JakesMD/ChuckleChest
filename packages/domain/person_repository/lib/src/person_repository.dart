@@ -1,6 +1,6 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cperson_repository/cperson_repository.dart';
+import 'package:cpub/bobs_jobs.dart';
 
 /// {@template CPersonRepository}
 ///
@@ -17,7 +17,7 @@ class CPersonRepository {
   final CPersonClient personClient;
 
   /// Fetches all the people belonging to the chest with the given `chestID`.
-  CJob<CChestPeopleFetchException, List<CPerson>> fetchChestPeople({
+  BobsJob<CChestPeopleFetchException, List<CPerson>> fetchChestPeople({
     required String chestID,
   }) =>
       personClient.fetchChestPeople(chestID: chestID).thenEvaluate(

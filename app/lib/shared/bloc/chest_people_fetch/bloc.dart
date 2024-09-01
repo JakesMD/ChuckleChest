@@ -2,6 +2,7 @@ import 'package:ccore/ccore.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:cpub/bloc.dart';
 import 'package:cpub/bloc_concurrency.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub/equatable.dart';
 import 'package:cpub/flutter_bloc.dart';
 

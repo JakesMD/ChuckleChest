@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:cauth_client/cauth_client.dart';
-import 'package:ccore/ccore.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub/supabase.dart';
 
 /// {@template CAuthClient}
@@ -23,33 +23,33 @@ class CAuthClient {
   }
 
   /// The stream for the currently logged in user.
-  Stream<CMaybe<CRawAuthUser>> currentUserStream() async* {
+  Stream<BobsMaybe<CRawAuthUser>> currentUserStream() async* {
     try {
       await for (final authState in authClient.onAuthStateChange) {
         if (authState.session != null) {
           final user = CRawAuthUser.fromSupabaseSession(authState.session!);
           log(user.toString(), name: 'CAuthClient.currentUserStream');
-          yield cPresent(user);
+          yield bobsPresent(user);
         } else {
           log('No user', name: 'CAuthClient.currentUserStream');
-          yield cAbsent();
+          yield bobsAbsent();
         }
       }
     } catch (e) {
       log(e.toString(), error: e, name: 'CAuthClient.currentUserStream');
-      yield cAbsent();
+      yield bobsAbsent();
     }
   }
 
   /// Sends a one-time-password to the given `email`.
   ///
   /// A new user will be created.
-  CJob<CRawSignupException, CNothing> signUpWithOTP({
+  BobsJob<CRawSignupException, BobsNothing> signUpWithOTP({
     required String email,
     required String username,
     String? avatarURL,
   }) =>
-      CJob.attempt(
+      BobsJob.attempt(
         run: () async {
           await authClient.signInWithOtp(
             email: email,
@@ -59,7 +59,7 @@ class CAuthClient {
               if (avatarURL != null) 'avatar_url': avatarURL,
             },
           );
-          return cNothing;
+          return bobsNothing;
         },
         onError: CRawSignupException.fromError,
       );
@@ -67,13 +67,13 @@ class CAuthClient {
   /// Sends a one-time-password to the given `email`.
   ///
   /// No user will be created.
-  CJob<CRawLoginException, CNothing> logInWithOTP({
+  BobsJob<CRawLoginException, BobsNothing> logInWithOTP({
     required String email,
   }) =>
-      CJob.attempt(
+      BobsJob.attempt(
         run: () async {
           await authClient.signInWithOtp(email: email, shouldCreateUser: false);
-          return cNothing;
+          return bobsNothing;
         },
         onError: CRawLoginException.fromError,
       );
@@ -81,39 +81,39 @@ class CAuthClient {
   /// Verifies the one-time-pin that was sent to a user's `email`.
   ///
   /// Set `isSignUp` to true, if the user is signing up.
-  CJob<CRawOTPVerificationException, CNothing> verifyOTP({
+  BobsJob<CRawOTPVerificationException, BobsNothing> verifyOTP({
     required String email,
     required String pin,
   }) =>
-      CJob.attempt(
+      BobsJob.attempt(
         run: () async {
           await authClient.verifyOTP(
             email: email,
             type: OtpType.email,
             token: pin,
           );
-          return cNothing;
+          return bobsNothing;
         },
         onError: CRawOTPVerificationException.fromError,
       );
 
   /// Signs out the current user, if there is a logged in user.
-  CJob<CRawSignoutException, CNothing> signOut() => CJob.attempt(
+  BobsJob<CRawSignoutException, BobsNothing> signOut() => BobsJob.attempt(
         run: () async {
           await authClient.signOut();
-          return cNothing;
+          return bobsNothing;
         },
         onError: CRawSignoutException.fromError,
       );
 
   /// Updates the user's profile.
-  CJob<CRawAuthUserUpdateException, CNothing> updateUser({
+  BobsJob<CRawAuthUserUpdateException, BobsNothing> updateUser({
     required CRawAuthUserUpdate update,
   }) =>
-      CJob.attempt(
+      BobsJob.attempt(
         run: () async {
           await authClient.updateUser(UserAttributes(data: update.toJson()));
-          return cNothing;
+          return bobsNothing;
         },
         onError: CRawAuthUserUpdateException.fromError,
       );
@@ -121,10 +121,11 @@ class CAuthClient {
   /// Refreshes the current user's session.
   ///
   /// This is useful for keeping custom claims up-to-date.
-  CJob<CRawSessionRefreshException, CNothing> refreshSession() => CJob.attempt(
+  BobsJob<CRawSessionRefreshException, BobsNothing> refreshSession() =>
+      BobsJob.attempt(
         run: () async {
           await authClient.refreshSession();
-          return cNothing;
+          return bobsNothing;
         },
         onError: CRawSessionRefreshException.fromError,
       );
