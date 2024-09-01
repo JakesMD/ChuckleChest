@@ -29,7 +29,7 @@ class CRawAuthUser with EquatableMixin {
       id: session.user.id,
       username: (session.user.userMetadata?['username'] ?? '') as String,
       email: session.user.email,
-      chests: ((jwt['chests'] ?? {}) as Map<String, dynamic>)
+      chests: Map<String, dynamic>.from((jwt['chests'] ?? {}) as Map)
           .entries
           .map(CRawAuthUserChest.fromMapEntry)
           .toList(),
