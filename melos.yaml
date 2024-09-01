@@ -57,7 +57,6 @@ scripts:
       flutter build web \
         --target=lib/main_production.dart \
         --no-tree-shake-icons \
-        --base-href="/ChuckleChest/" \
         --web-renderer=canvaskit \
         --release \
 
