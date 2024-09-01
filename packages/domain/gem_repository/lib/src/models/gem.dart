@@ -1,5 +1,4 @@
-import 'package:ccore/ccore.dart';
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/src/models/_models.dart';
 import 'package:cpub/equatable.dart';
 
@@ -19,39 +18,22 @@ class CGem with EquatableMixin {
 
   /// {@macro CGem}
   ///
-  /// Converts a [CRawGem] to a [CGem].
-  factory CGem.fromRaw(CRawGem raw) {
-    final lines = <CLine>[];
-
-    final sortedRawLines = raw.lines..sort((a, b) => a.id.compareTo(b.id));
-
-    for (final line in sortedRawLines) {
-      if (line.connection == null) {
-        lines.add(CNarration(id: line.id, text: line.text));
-      } else {
-        final age = line.connection!.dateOfBirth.cAge(raw.occurredAt);
-
-        final avatarUrl = line.connection!.avatarURLs
-            .cFirstWhereOrNull((url) => url.age == age)
-            ?.url;
-
-        lines.add(
-          CQuote(
-            id: line.id,
-            text: line.text,
-            nickname: line.connection!.nickname,
-            age: age,
-            avatarUrl: avatarUrl,
-          ),
-        );
-      }
-    }
+  /// Converts a [CGemsTableRecord] to a [CGem].
+  factory CGem.fromRecord(CGemsTableRecord record) {
+    final sortedRawLines = record.lines..sort((a, b) => a.id.compareTo(b.id));
 
     return CGem(
-      id: raw.id,
-      number: raw.number,
-      occurredAt: raw.occurredAt,
-      lines: lines,
+      id: record.id,
+      number: record.number,
+      occurredAt: record.occurredAt,
+      lines: [
+        for (final line in sortedRawLines)
+          CLine(
+            id: line.id,
+            text: line.text,
+            personID: line.personID,
+          ),
+      ],
     );
   }
 
@@ -66,6 +48,16 @@ class CGem with EquatableMixin {
 
   /// The lines of the gem.
   final List<CLine> lines;
+
+  /// {@macro CGem}
+  ///
+  /// Returns a new [CGem] with the given fields replaced.
+  CGem copyWith({DateTime? occurredAt}) => CGem(
+        id: id,
+        number: number,
+        occurredAt: occurredAt ?? this.occurredAt,
+        lines: lines,
+      );
 
   @override
   List<Object?> get props => [id, number, occurredAt, lines];

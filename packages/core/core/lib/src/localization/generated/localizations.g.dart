@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'localizations_de.g.dart';
 import 'localizations_en.g.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of CCoreL10n
 /// returned by `CCoreL10n.of(context)`.
 ///
@@ -94,6 +96,24 @@ abstract class CCoreL10n {
     Locale('de'),
     Locale('en')
   ];
+
+  /// No description provided for @inputError_dropdown_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an option.'**
+  String get inputError_dropdown_empty;
+
+  /// No description provided for @inputError_email_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email address.'**
+  String get inputError_email_empty;
+
+  /// No description provided for @inputError_email_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s not a valid email address.'**
+  String get inputError_email_invalid;
 
   /// No description provided for @inputError_text_empty.
   ///

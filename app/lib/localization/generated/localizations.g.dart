@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'localizations_de.g.dart';
 import 'localizations_en.g.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of CAppL10n
 /// returned by `CAppL10n.of(context)`.
 ///
@@ -99,6 +101,36 @@ abstract class CAppL10n {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @chestCreationDialog_createButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get chestCreationDialog_createButton;
+
+  /// No description provided for @chestCreationDialog_label_chestName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest name'**
+  String get chestCreationDialog_label_chestName;
+
+  /// No description provided for @chestCreationDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get chestCreationDialog_title;
+
+  /// No description provided for @chestPage_bottomNav_gems.
+  ///
+  /// In en, this message translates to:
+  /// **'Gems'**
+  String get chestPage_bottomNav_gems;
+
+  /// No description provided for @chestPage_bottomNav_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get chestPage_bottomNav_settings;
+
   /// No description provided for @close.
   ///
   /// In en, this message translates to:
@@ -110,6 +142,78 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @editGemPage_addNarrationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a narration'**
+  String get editGemPage_addNarrationButton;
+
+  /// No description provided for @editGemPage_addQuoteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a quote'**
+  String get editGemPage_addQuoteButton;
+
+  /// No description provided for @editGemPage_dateTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get editGemPage_dateTile_title;
+
+  /// No description provided for @editGemPage_editLineDialog_hint_line.
+  ///
+  /// In en, this message translates to:
+  /// **'Line'**
+  String get editGemPage_editLineDialog_hint_line;
+
+  /// No description provided for @editGemPage_editLineDialog_hint_person.
+  ///
+  /// In en, this message translates to:
+  /// **'Person'**
+  String get editGemPage_editLineDialog_hint_person;
+
+  /// No description provided for @editGemPage_editLineDialog_title_createNarration.
+  ///
+  /// In en, this message translates to:
+  /// **'New narration'**
+  String get editGemPage_editLineDialog_title_createNarration;
+
+  /// No description provided for @editGemPage_editLineDialog_title_createQuote.
+  ///
+  /// In en, this message translates to:
+  /// **'New quote'**
+  String get editGemPage_editLineDialog_title_createQuote;
+
+  /// No description provided for @editGemPage_editLineDialog_title_editNarration.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit narration'**
+  String get editGemPage_editLineDialog_title_editNarration;
+
+  /// No description provided for @editGemPage_editLineDialog_title_editQuote.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit quote'**
+  String get editGemPage_editLineDialog_title_editQuote;
+
+  /// No description provided for @editGemPage_helperMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anything to edit.'**
+  String get editGemPage_helperMessage;
+
+  /// No description provided for @editGemPage_title_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a gem'**
+  String get editGemPage_title_create;
+
+  /// No description provided for @editGemPage_title_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the gem'**
+  String get editGemPage_title_edit;
 
   /// No description provided for @gem_share_message.
   ///
@@ -123,23 +227,113 @@ abstract class CAppL10n {
   /// **'This is so good! 😂'**
   String get gem_share_subject;
 
+  /// No description provided for @getStartedPage_createChestButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get getStartedPage_createChestButton;
+
+  /// No description provided for @getStartedPage_logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get getStartedPage_logoutButton;
+
+  /// No description provided for @getStartedPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s get started!'**
+  String get getStartedPage_title;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
 
-  /// No description provided for @quoteItem_connection.
+  /// No description provided for @otpVerificationPage_error_invalidToken.
+  ///
+  /// In en, this message translates to:
+  /// **'This pin is invalid. Please try again.'**
+  String get otpVerificationPage_error_invalidToken;
+
+  /// No description provided for @otpVerificationPage_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the pin we sent to your inbox.'**
+  String get otpVerificationPage_message;
+
+  /// No description provided for @otpVerificationPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'One-Time pin verification'**
+  String get otpVerificationPage_title;
+
+  /// No description provided for @quoteItem_person.
   ///
   /// In en, this message translates to:
   /// **'{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old'**
-  String quoteItem_connection(Object nickname, int age);
+  String quoteItem_person(Object nickname, int age);
 
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
+
+  /// No description provided for @signinPage_error_emailRateLimitExceeded.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve reached our hourly sign-in limit. Please try again later.'**
+  String get signinPage_error_emailRateLimitExceeded;
+
+  /// No description provided for @signinPage_error_userNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find this user.'**
+  String get signinPage_error_userNotFound;
+
+  /// No description provided for @signinPage_hint_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get signinPage_hint_email;
+
+  /// No description provided for @signinPage_hint_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get signinPage_hint_username;
+
+  /// No description provided for @signinPage_loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get signinPage_loginButton;
+
+  /// No description provided for @signinPage_signupButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signinPage_signupButton;
+
+  /// No description provided for @signinPage_tab_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get signinPage_tab_login;
+
+  /// No description provided for @signinPage_tab_signup.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signinPage_tab_signup;
+
+  /// No description provided for @signinPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to ChuckleChest!'**
+  String get signinPage_title;
 
   /// No description provided for @snackBar_error_defaultMessage.
   ///

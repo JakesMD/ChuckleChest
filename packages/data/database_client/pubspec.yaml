@@ -1,0 +1,13 @@
+name: cdatabase_client
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  ccore:
+  cpub:
+  typesafe_supabase: ^0.0.1-dev.12
+
+dev_dependencies:
+  build_runner: ^2.4.12
+  cpub_dev:

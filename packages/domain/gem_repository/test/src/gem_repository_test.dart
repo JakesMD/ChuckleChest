@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:ccore/ccore.dart';
-import 'package:cgem_client/cgem_client.dart';
+import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
 import 'package:cpub_dev/test_beautifier.dart';
@@ -11,6 +11,34 @@ import 'package:cpub_dev/test_beautifier.dart';
 class MockCGemClient extends Mock implements CGemClient {}
 
 class MockCPlatformClient extends Mock implements CPlatformClient {}
+
+class FakeGemRecord extends Fake implements CGemsTableRecord {
+  @override
+  String get id => 'adsad';
+
+  @override
+  int get number => 24;
+
+  @override
+  DateTime get occurredAt => DateTime(2024);
+
+  @override
+  List<CLinesTableRecord> get lines => [FakeLineRecord()];
+}
+
+class FakeLineRecord extends Fake implements CLinesTableRecord {
+  @override
+  BigInt get id => BigInt.one;
+
+  @override
+  String get text => 'asdfjasflk';
+
+  @override
+  CPeopleTableRecord? get person => null;
+
+  @override
+  BigInt get personID => BigInt.one;
+}
 
 void main() {
   group('CGemRepository tests', () {
@@ -21,52 +49,19 @@ void main() {
       platformClient: platformClient,
     );
 
-    final fakeNarration = CNarration(id: BigInt.one, text: 'asdfjasflk');
+    final fakeLineRecord = FakeLineRecord();
 
-    final fakeQuote = CQuote(
-      id: BigInt.two,
-      text: 'asdfjasflk',
-      nickname: 'asdfjakl',
-      age: 2,
-      avatarUrl: 'asdfasd',
+    final fakeNarration = CLine(
+      id: fakeLineRecord.id,
+      text: fakeLineRecord.text,
+      personID: fakeLineRecord.personID,
     );
 
     final fakeGem = CGem(
       id: 'adsad',
       number: 24,
       occurredAt: DateTime(2024),
-      lines: [fakeNarration, fakeQuote],
-    );
-
-    // Made to match [fakeNarration].
-    final fakeRawNarration = CRawLine(
-      id: fakeNarration.id,
-      text: fakeNarration.text,
-      connection: null,
-    );
-
-    // Made to match [fakeQuote].
-    final fakeRawQuote = CRawLine(
-      id: fakeQuote.id,
-      text: fakeQuote.text,
-      connection: CRawConnection(
-        nickname: fakeQuote.nickname,
-        dateOfBirth: DateTime(2022),
-        avatarURLs: [
-          CRawAvatarURL(
-            age: 2,
-            url: fakeQuote.avatarUrl!,
-          ),
-        ],
-      ),
-    );
-
-    // Made to match [fakeGem].
-    final fakeRawGem = CRawGem(
-      id: fakeGem.id,
-      number: fakeGem.number,
-      occurredAt: fakeGem.occurredAt,
-      lines: [fakeRawNarration, fakeRawQuote],
+      lines: [fakeNarration],
     );
 
     setUpAll(() {
@@ -74,12 +69,10 @@ void main() {
     });
 
     group('fetchGem', () {
-      CJob<CRawGemFetchException, CRawGem> mockFetchGem() => gemClient.fetchGem(
-            gemID: any(named: 'gemID'),
-            withAvatarURLs: any(named: 'withAvatarURLs'),
-          );
+      BobsJob<CRawGemFetchException, CGemsTableRecord> mockFetchGem() =>
+          gemClient.fetchGem(gemID: any(named: 'gemID'));
 
-      CJob<CGemFetchException, CGem> fetchGemJob() =>
+      BobsJob<CGemFetchException, CGem> fetchGemJob() =>
           repo.fetchGem(gemID: fakeGem.id);
 
       test(
@@ -88,11 +81,11 @@ void main() {
           Then: 'returns success with gem',
         ),
         procedure(() async {
-          when(mockFetchGem).thenReturn(cFakeSuccessJob(fakeRawGem));
+          when(mockFetchGem).thenReturn(bobsFakeSuccessJob(FakeGemRecord()));
 
           final result = await fetchGemJob().run();
 
-          cExpectSuccess(result, fakeGem);
+          bobsExpectSuccess(result, fakeGem);
         }),
       );
 
@@ -103,10 +96,10 @@ void main() {
         ),
         procedure(() async {
           when(mockFetchGem)
-              .thenReturn(cFakeFailureJob(CRawGemFetchException.notFound));
+              .thenReturn(bobsFakeFailureJob(CRawGemFetchException.notFound));
 
           final result = await fetchGemJob().run();
-          cExpectFailure(result, CGemFetchException.notFound);
+          bobsExpectFailure(result, CGemFetchException.notFound);
         }),
       );
 
@@ -117,25 +110,26 @@ void main() {
         ),
         procedure(() async {
           when(mockFetchGem)
-              .thenReturn(cFakeFailureJob(CRawGemFetchException.unknown));
+              .thenReturn(bobsFakeFailureJob(CRawGemFetchException.unknown));
 
           final result = await fetchGemJob().run();
-          cExpectFailure(result, CGemFetchException.unknown);
+          bobsExpectFailure(result, CGemFetchException.unknown);
         }),
       );
     });
 
     group('shareGem', () {
-      CJob<CShareException, CNothing> mockShare() => platformClient.share(
+      BobsJob<CShareException, BobsNothing> mockShare() => platformClient.share(
             text: any(named: 'text'),
             subject: any(named: 'subject'),
             sharePositionOrigin: any(named: 'sharePositionOrigin'),
           );
 
-      CJob<CClipboardCopyException, CNothing> mockCopyToClipboard() =>
+      BobsJob<CClipboardCopyException, BobsNothing> mockCopyToClipboard() =>
           platformClient.copyToClipboard(text: any(named: 'text'));
 
-      CJob<CGemShareException, CGemShareMethod> shareGemJob() => repo.shareGem(
+      BobsJob<CGemShareException, CGemShareMethod> shareGemJob() =>
+          repo.shareGem(
             gemID: fakeGem.id,
             sharePositionOrigin: Rect.zero,
             message: (_) => 'asdfa',
@@ -150,10 +144,10 @@ void main() {
         ),
         procedure(() async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
-          when(mockShare).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockShare).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await shareGemJob().run();
-          cExpectSuccess(result, CGemShareMethod.dialog);
+          bobsExpectSuccess(result, CGemShareMethod.dialog);
         }),
       );
 
@@ -165,10 +159,11 @@ void main() {
         ),
         procedure(() async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
-          when(mockShare).thenReturn(cFakeFailureJob(CShareException.unknown));
+          when(mockShare)
+              .thenReturn(bobsFakeFailureJob(CShareException.unknown));
 
           final result = await shareGemJob().run();
-          cExpectFailure(result, CGemShareException.unknown);
+          bobsExpectFailure(result, CGemShareException.unknown);
         }),
       );
 
@@ -180,10 +175,10 @@ void main() {
         ),
         procedure(() async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
-          when(mockCopyToClipboard).thenReturn(cFakeSuccessJob(cNothing));
+          when(mockCopyToClipboard).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await shareGemJob().run();
-          cExpectSuccess(result, CGemShareMethod.clipboard);
+          bobsExpectSuccess(result, CGemShareMethod.clipboard);
         }),
       );
 
@@ -196,10 +191,10 @@ void main() {
         procedure(() async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
           when(mockCopyToClipboard)
-              .thenReturn(cFakeFailureJob(CClipboardCopyException.unknown));
+              .thenReturn(bobsFakeFailureJob(CClipboardCopyException.unknown));
 
           final result = await shareGemJob().run();
-          cExpectFailure(result, CGemShareException.unknown);
+          bobsExpectFailure(result, CGemShareException.unknown);
         }),
       );
     });

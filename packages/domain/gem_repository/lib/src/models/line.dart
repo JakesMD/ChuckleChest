@@ -10,6 +10,7 @@ base class CLine with EquatableMixin {
   const CLine({
     required this.id,
     required this.text,
+    required this.personID,
   });
 
   /// The unique identifier of the line.
@@ -18,47 +19,23 @@ base class CLine with EquatableMixin {
   /// The text of the line.
   final String text;
 
-  @override
-  List<Object?> get props => [id, text];
-}
+  /// The unique identifier of the person who said the line.
+  ///
+  /// If `null`, the line is a narration.
+  final BigInt? personID;
 
-/// {@template CNarration}
-///
-/// Represents a narration line.
-///
-/// {@endtemplate}
-final class CNarration extends CLine {
-  /// {@macro CNarration}
-  const CNarration({
-    required super.id,
-    required super.text,
-  });
-}
+  /// {@macro CLine}
+  ///
+  /// Returns a new [CLine] with the given fields replaced.
+  CLine copyWith({String? text, BigInt? personID}) => CLine(
+        id: id,
+        text: text ?? this.text,
+        personID: personID ?? this.personID,
+      );
 
-/// {@template CQuote}
-///
-/// Represents a quote line.
-///
-/// {@endtemplate}
-final class CQuote extends CLine {
-  /// {@macro CQuote}
-  const CQuote({
-    required super.id,
-    required super.text,
-    required this.nickname,
-    required this.age,
-    this.avatarUrl,
-  });
-
-  /// The name of the person who is being quoted.
-  final String nickname;
-
-  /// The age of the person who is being quoted.
-  final int age;
-
-  /// The URL of the photo of the person at that age.
-  final String? avatarUrl;
+  /// Whether the line is a quote.
+  bool get isQuote => personID != null;
 
   @override
-  List<Object?> get props => [id, text, nickname, age, avatarUrl];
+  List<Object?> get props => [id, text, personID];
 }

@@ -1,18 +1,21 @@
 name: chuckle_chest
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.2.0+1
+version: 0.3.0+1
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
+  cauth_client:
+  cauth_repository:
+  cchest_repository:
   ccore:
-  cgem_client:
+  cdatabase_client:
   cgem_repository:
+  cperson_repository:
   cplatform_client:
   cpub:
-  csupabase_client:
   flutter:
     sdk: flutter
 

@@ -32,5 +32,5 @@ final class CGemShareTriggered extends _CGemShareEvent {
 final class _CGemShareCompleted extends _CGemShareEvent {
   _CGemShareCompleted({required this.result});
 
-  COutcome<CGemShareException, CGemShareMethod> result;
+  BobsOutcome<CGemShareException, CGemShareMethod> result;
 }
