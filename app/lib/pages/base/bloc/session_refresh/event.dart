@@ -8,5 +8,5 @@ final class CSessionRefreshRequested extends _CSessionRefreshEvent {}
 final class _CSessionRefreshCompleted extends _CSessionRefreshEvent {
   _CSessionRefreshCompleted({required this.result});
 
-  final COutcome<CSessionRefreshException, CNothing> result;
+  final BobsOutcome<CSessionRefreshException, BobsNothing> result;
 }

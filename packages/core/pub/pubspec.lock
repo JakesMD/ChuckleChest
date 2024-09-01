@@ -86,6 +86,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.1.7"
+  bobs_jobs:
+    dependency: "direct main"
+    description:
+      name: bobs_jobs
+      sha256: ce61d2c788a4e0d32a4d8bf08e35a87fa2796e603950e294ef3d8e09d0628548
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-dev.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -826,10 +834,10 @@ packages:
     dependency: transitive
     description:
       name: test_beautifier
-      sha256: "0ac3d3d317c25c01d99e1d834b2b75237315c9d7acc5b1fcb2812697a70d23c6"
+      sha256: "97b6ec1d8ba13806c6956066c0f66569c9536c38601895e43f52d88e8a0557e0"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0+1"
+    version: "1.1.0"
   test_core:
     dependency: transitive
     description:
@@ -946,10 +954,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.4"
+    version: "14.2.5"
   watcher:
     dependency: transitive
     description:

@@ -18,5 +18,5 @@ final class CGemFetchTriggered extends _CGemFetchEvent {
 final class _CGemFetchCompleted extends _CGemFetchEvent {
   _CGemFetchCompleted({required this.result});
 
-  COutcome<CGemFetchException, CGem> result;
+  BobsOutcome<CGemFetchException, CGem> result;
 }

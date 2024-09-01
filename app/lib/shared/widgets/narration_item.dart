@@ -1,38 +1,31 @@
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/signed_spacing_flex.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CNarrationItem}
 ///
-/// A widget that displays a narration.
+/// A widget that displays a line.
 ///
 /// {@endtemplate}
 class CNarrationItem extends StatelessWidget {
   /// {@macro CNarrationItem}
   const CNarrationItem({
-    required this.narration,
+    required this.line,
     this.onAnimationCompleted,
-    bool? isAnimated,
-    this.isEditable = false,
+    this.isAnimated = true,
     super.key,
-  }) : isAnimated = isAnimated ?? !isEditable;
+  });
 
-  /// The narration to display.
-  final CNarration narration;
+  /// The line to display.
+  final CLine line;
 
   /// The callback when the animation is completed.
   final void Function()? onAnimationCompleted;
 
   /// Whether the animation is enabled.
   ///
-  /// Defaults to true if [isEditable] is false.
+  /// Defaults to true.
   final bool isAnimated;
-
-  /// Whether the narration is editable.
-  ///
-  /// If true, an edit button is displayed.
-  final bool isEditable;
 
   @override
   Widget build(BuildContext context) {
@@ -40,23 +33,11 @@ class CNarrationItem extends StatelessWidget {
       isAnimated: isAnimated,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
-        child: SignedSpacingRow(
-          spacing: 16,
-          children: [
-            Expanded(
-              child: CAnimatedLine(
-                isAnimated: isAnimated,
-                text: narration.text,
-                onCompleted: onAnimationCompleted,
-                textStyle: Theme.of(context).textTheme.bodyLarge!,
-              ),
-            ),
-            if (isEditable)
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.edit_rounded),
-              ),
-          ],
+        child: CAnimatedLine(
+          isAnimated: isAnimated,
+          text: line.text,
+          onCompleted: onAnimationCompleted,
+          textStyle: Theme.of(context).textTheme.bodyLarge!,
         ),
       ),
     );

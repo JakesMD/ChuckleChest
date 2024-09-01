@@ -1,5 +1,6 @@
 {
   "@@locale": "de",
+  "inputError_dropdown_empty": "Bitte wählen Sie eine Option aus.",
   "inputError_email_empty": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
   "inputError_email_invalid": "Das ist keine gültige E-Mail-Adresse.",
   "inputError_text_empty": "Bitte geben Sie einen Text ein."

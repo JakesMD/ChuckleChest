@@ -15,17 +15,41 @@ abstract class _$CAppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CBaseRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CBasePage()),
+      );
+    },
     CChestRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<CChestRouteArgs>(
           orElse: () =>
-              CChestRouteArgs(chestID: pathParams.optString('chestID')));
+              CChestRouteArgs(chestID: pathParams.optString('chest-id')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
             child: CChestPage(
           chestID: args.chestID,
           key: args.key,
+        )),
+      );
+    },
+    CCreateGemRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CCreateGemPage()),
+      );
+    },
+    CEditGemRoute.name: (routeData) {
+      final args = routeData.argsAs<CEditGemRouteArgs>(
+          orElse: () => const CEditGemRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CEditGemPage(
+          key: args.key,
+          isNewGem: args.isNewGem,
         )),
       );
     },
@@ -42,6 +66,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CGemsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CGemsPage()),
+      );
+    },
     CGetStartedRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -49,9 +79,16 @@ abstract class _$CAppRouter extends RootStackRouter {
       );
     },
     CHomeRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args =
+          routeData.argsAs<CHomeRouteArgs>(orElse: () => CHomeRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const CHomePage()),
+        child: WrappedRoute(
+            child: CHomePage(
+          chestID: pathParams.getString('chest-id'),
+          key: args.key,
+        )),
       );
     },
     CLoginRoute.name: (routeData) {
@@ -76,6 +113,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CSettingsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CSettingsPage()),
+      );
+    },
     CSigninRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -94,6 +137,20 @@ abstract class _$CAppRouter extends RootStackRouter {
 }
 
 /// generated route for
+/// [CBasePage]
+class CBaseRoute extends PageRouteInfo<void> {
+  const CBaseRoute({List<PageRouteInfo>? children})
+      : super(
+          CBaseRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CBaseRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CChestPage]
 class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
   CChestRoute({
@@ -106,7 +163,7 @@ class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
             chestID: chestID,
             key: key,
           ),
-          rawPathParams: {'chestID': chestID},
+          rawPathParams: {'chest-id': chestID},
           initialChildren: children,
         );
 
@@ -128,6 +185,58 @@ class CChestRouteArgs {
   @override
   String toString() {
     return 'CChestRouteArgs{chestID: $chestID, key: $key}';
+  }
+}
+
+/// generated route for
+/// [CCreateGemPage]
+class CCreateGemRoute extends PageRouteInfo<void> {
+  const CCreateGemRoute({List<PageRouteInfo>? children})
+      : super(
+          CCreateGemRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CCreateGemRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CEditGemPage]
+class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
+  CEditGemRoute({
+    Key? key,
+    bool isNewGem = false,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CEditGemRoute.name,
+          args: CEditGemRouteArgs(
+            key: key,
+            isNewGem: isNewGem,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CEditGemRoute';
+
+  static const PageInfo<CEditGemRouteArgs> page =
+      PageInfo<CEditGemRouteArgs>(name);
+}
+
+class CEditGemRouteArgs {
+  const CEditGemRouteArgs({
+    this.key,
+    this.isNewGem = false,
+  });
+
+  final Key? key;
+
+  final bool isNewGem;
+
+  @override
+  String toString() {
+    return 'CEditGemRouteArgs{key: $key, isNewGem: $isNewGem}';
   }
 }
 
@@ -170,6 +279,20 @@ class CGemRouteArgs {
 }
 
 /// generated route for
+/// [CGemsPage]
+class CGemsRoute extends PageRouteInfo<void> {
+  const CGemsRoute({List<PageRouteInfo>? children})
+      : super(
+          CGemsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CGemsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CGetStartedPage]
 class CGetStartedRoute extends PageRouteInfo<void> {
   const CGetStartedRoute({List<PageRouteInfo>? children})
@@ -185,16 +308,30 @@ class CGetStartedRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CHomePage]
-class CHomeRoute extends PageRouteInfo<void> {
-  const CHomeRoute({List<PageRouteInfo>? children})
-      : super(
+class CHomeRoute extends PageRouteInfo<CHomeRouteArgs> {
+  CHomeRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           CHomeRoute.name,
+          args: CHomeRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CHomeRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CHomeRouteArgs> page = PageInfo<CHomeRouteArgs>(name);
+}
+
+class CHomeRouteArgs {
+  const CHomeRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CHomeRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -262,6 +399,20 @@ class COTPVerificationRouteArgs {
   String toString() {
     return 'COTPVerificationRouteArgs{email: $email, key: $key}';
   }
+}
+
+/// generated route for
+/// [CSettingsPage]
+class CSettingsRoute extends PageRouteInfo<void> {
+  const CSettingsRoute({List<PageRouteInfo>? children})
+      : super(
+          CSettingsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CSettingsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

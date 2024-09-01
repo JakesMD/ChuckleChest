@@ -17,18 +17,18 @@ class CAvatarURLsTable
       : super(
           CAvatarURLsTableRecord.new,
           tableName: 'person_avatar_urls',
-          primaryKey: 'person_id_age',
+          primaryKey: const ['person_id', 'age'],
         );
 
   /// The unique identifier of the person.
   @SupaColumnHere<BigInt>()
   static const personID =
-      SupaColumn<CAvatarURLsTableCore, BigInt, int>(name: 'personID');
+      SupaColumn<CAvatarURLsTableCore, BigInt, int>(name: 'person_id');
 
   /// The URL of the photo of the person at that age.
   @SupaColumnHere<String>()
   static const url =
-      SupaColumn<CAvatarURLsTableCore, String, String>(name: 'url');
+      SupaColumn<CAvatarURLsTableCore, String, String>(name: 'avatar_url');
 
   /// The age of the person at the time the photo was taken.
   @SupaColumnHere<int>()

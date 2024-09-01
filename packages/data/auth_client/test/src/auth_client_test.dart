@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cauth_client/cauth_client.dart';
 import 'package:ccore/ccore.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub/dart_jsonwebtoken.dart';
 import 'package:cpub/supabase.dart';
 import 'package:cpub_dev/flutter_test.dart';
@@ -105,13 +106,13 @@ void main() {
           Then: 'returns [absent]',
         ),
         procedure(() async {
-          late CMaybe<CRawAuthUser> result;
+          late BobsMaybe<CRawAuthUser> result;
           client.currentUserStream().listen((event) => result = event);
 
           controller.add(AuthState(AuthChangeEvent.signedOut, null));
           await Future.delayed(Duration.zero);
 
-          expect(result, cAbsent());
+          expect(result, bobsAbsent());
         }),
       );
 
@@ -121,13 +122,13 @@ void main() {
           Then: 'returns [absent]',
         ),
         procedure(() async {
-          late CMaybe<CRawAuthUser> result;
+          late BobsMaybe<CRawAuthUser> result;
           client.currentUserStream().listen((event) => result = event);
 
           controller.add(AuthState(AuthChangeEvent.userDeleted, null));
           await Future.delayed(Duration.zero);
 
-          expect(result, cAbsent());
+          expect(result, bobsAbsent());
         }),
       );
 
@@ -137,13 +138,13 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          late CMaybe<CRawAuthUser> result;
+          late BobsMaybe<CRawAuthUser> result;
           client.currentUserStream().listen((event) => result = event);
 
           controller.add(AuthState(AuthChangeEvent.signedIn, FakeSession()));
           await Future.delayed(Duration.zero);
 
-          expect(result, cPresent(fakeUser));
+          expect(result, bobsPresent(fakeUser));
         }),
       );
 
@@ -153,7 +154,7 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          late CMaybe<CRawAuthUser> result;
+          late BobsMaybe<CRawAuthUser> result;
           client.currentUserStream().listen((event) => result = event);
 
           controller.add(
@@ -161,7 +162,7 @@ void main() {
           );
           await Future.delayed(Duration.zero);
 
-          expect(result, cPresent(fakeUser));
+          expect(result, bobsPresent(fakeUser));
         }),
       );
 
@@ -171,13 +172,13 @@ void main() {
           Then: 'returns [absent]',
         ),
         procedure(() async {
-          late CMaybe<CRawAuthUser> result;
+          late BobsMaybe<CRawAuthUser> result;
           client.currentUserStream().listen((event) => result = event);
 
           controller.addError(Exception());
           await Future.delayed(Duration.zero);
 
-          expect(result, cAbsent());
+          expect(result, bobsAbsent());
         }),
       );
 
@@ -205,7 +206,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -219,7 +220,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          cExpectFailure(result, CRawLoginException.unknown);
+          bobsExpectFailure(result, CRawLoginException.unknown);
         }),
       );
 
@@ -234,7 +235,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          cExpectFailure(result, CRawLoginException.userNotFound);
+          bobsExpectFailure(result, CRawLoginException.userNotFound);
         }),
       );
 
@@ -249,7 +250,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          cExpectFailure(result, CRawLoginException.emailRateLimitExceeded);
+          bobsExpectFailure(result, CRawLoginException.emailRateLimitExceeded);
         }),
       );
 
@@ -263,7 +264,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          cExpectFailure(result, CRawLoginException.unknown);
+          bobsExpectFailure(result, CRawLoginException.unknown);
         }),
       );
     });
@@ -294,7 +295,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -308,7 +309,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          cExpectFailure(result, CRawSignupException.unknown);
+          bobsExpectFailure(result, CRawSignupException.unknown);
         }),
       );
 
@@ -323,7 +324,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          cExpectFailure(result, CRawSignupException.emailRateLimitExceeded);
+          bobsExpectFailure(result, CRawSignupException.emailRateLimitExceeded);
         }),
       );
 
@@ -337,7 +338,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          cExpectFailure(result, CRawSignupException.unknown);
+          bobsExpectFailure(result, CRawSignupException.unknown);
         }),
       );
     });
@@ -365,7 +366,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -381,7 +382,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          cExpectFailure(result, CRawOTPVerificationException.invalidToken);
+          bobsExpectFailure(result, CRawOTPVerificationException.invalidToken);
         }),
       );
 
@@ -395,7 +396,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          cExpectFailure(result, CRawOTPVerificationException.unknown);
+          bobsExpectFailure(result, CRawOTPVerificationException.unknown);
         }),
       );
 
@@ -409,7 +410,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          cExpectFailure(result, CRawOTPVerificationException.unknown);
+          bobsExpectFailure(result, CRawOTPVerificationException.unknown);
         }),
       );
     });
@@ -429,7 +430,7 @@ void main() {
 
           final result = await signOutJob.run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -444,7 +445,7 @@ void main() {
 
           final result = await signOutJob.run();
 
-          cExpectFailure(result, CRawSignoutException.unknown);
+          bobsExpectFailure(result, CRawSignoutException.unknown);
         }),
       );
     });
@@ -468,7 +469,7 @@ void main() {
 
           final result = await updateUserJob.run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -482,7 +483,7 @@ void main() {
 
           final result = await updateUserJob.run();
 
-          cExpectFailure(result, CRawAuthUserUpdateException.unknown);
+          bobsExpectFailure(result, CRawAuthUserUpdateException.unknown);
         }),
       );
     });
@@ -504,7 +505,7 @@ void main() {
 
           final result = await refreshSessionJob.run();
 
-          cExpectSuccess(result, cNothing);
+          bobsExpectSuccess(result, bobsNothing);
         }),
       );
 
@@ -518,7 +519,7 @@ void main() {
 
           final result = await refreshSessionJob.run();
 
-          cExpectFailure(result, CRawSessionRefreshException.unknown);
+          bobsExpectFailure(result, CRawSessionRefreshException.unknown);
         }),
       );
     });

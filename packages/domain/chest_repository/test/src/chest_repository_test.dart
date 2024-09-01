@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:cchest_repository/cchest_repository.dart';
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
 import 'package:cpub_dev/test_beautifier.dart';
@@ -26,10 +26,10 @@ void main() {
     });
 
     group('createChest', () {
-      CJob<CRawChestCreationException, String> mockCreateChest() =>
+      BobsJob<CRawChestCreationException, String> mockCreateChest() =>
           chestClient.createChest(chestName: any(named: 'chestName'));
 
-      CJob<CChestCreationException, String> createChestJob() =>
+      BobsJob<CChestCreationException, String> createChestJob() =>
           repo.createChest(chestName: fakeChestRecord.id);
 
       test(
@@ -38,11 +38,12 @@ void main() {
           Then: 'returns success with chest ID',
         ),
         procedure(() async {
-          when(mockCreateChest).thenReturn(cFakeSuccessJob(fakeChestRecord.id));
+          when(mockCreateChest)
+              .thenReturn(bobsFakeSuccessJob(fakeChestRecord.id));
 
           final result = await createChestJob().run();
 
-          cExpectSuccess(result, fakeChestRecord.id);
+          bobsExpectSuccess(result, fakeChestRecord.id);
         }),
       );
 
@@ -52,11 +53,12 @@ void main() {
           Then: 'returns failure with [unknown] exception',
         ),
         procedure(() async {
-          when(mockCreateChest)
-              .thenReturn(cFakeFailureJob(CRawChestCreationException.unknown));
+          when(mockCreateChest).thenReturn(
+            bobsFakeFailureJob(CRawChestCreationException.unknown),
+          );
 
           final result = await createChestJob().run();
-          cExpectFailure(result, CChestCreationException.unknown);
+          bobsExpectFailure(result, CChestCreationException.unknown);
         }),
       );
     });

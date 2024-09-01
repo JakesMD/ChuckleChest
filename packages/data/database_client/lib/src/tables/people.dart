@@ -14,11 +14,20 @@ part 'people.g.dart';
 class CPeopleTable extends SupaTable<CPeopleTableCore, CPeopleTableRecord> {
   /// {@macro CPeopleTable}
   const CPeopleTable({required super.supabaseClient})
-      : super(CPeopleTableRecord.new, tableName: 'people', primaryKey: 'id');
+      : super(
+          CPeopleTableRecord.new,
+          tableName: 'people',
+          primaryKey: const ['id'],
+        );
 
   /// The unique identifier of the line.
   @SupaColumnHere<BigInt>()
   static const id = SupaColumn<CPeopleTableCore, BigInt, int>(name: 'id');
+
+  /// The unique identifier of the chest to which the person belongs.
+  @SupaColumnHere<String>()
+  static const chestID =
+      SupaColumn<CPeopleTableCore, String, String>(name: 'chest_id');
 
   /// The nickname of the person who made the person.
   @SupaColumnHere<String>()
@@ -43,5 +52,6 @@ class CPeopleTable extends SupaTable<CPeopleTableCore, CPeopleTableRecord> {
     joiningColumn: CPeopleTable.id,
     record: CAvatarURLsTableRecord.new,
     joinType: SupaJoinType.oneToMany,
+    foreignKey: 'connection_avatar_urls_connection_id_fkey',
   );
 }

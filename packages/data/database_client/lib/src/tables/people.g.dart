@@ -29,6 +29,11 @@ class CPeopleTableRecord extends SupaRecord<CPeopleTableCore> {
   /// This will throw an exception if the column was not fetched.
   BigInt get id => call(CPeopleTable.id);
 
+  /// The unique identifier of the chest to which the person belongs.
+  ///
+  /// This will throw an exception if the column was not fetched.
+  String get chestID => call(CPeopleTable.chestID);
+
   /// The nickname of the person who made the person.
   ///
   /// This will throw an exception if the column was not fetched.
@@ -56,12 +61,16 @@ class CPeopleTableInsert extends SupaInsert<CPeopleTableCore> {
   /// {@macro CPeopleTableInsert}
   const CPeopleTableInsert({
     required this.id,
+    required this.chestID,
     required this.nickname,
     required this.dateOfBirth,
   });
 
   /// The unique identifier of the line.
   final BigInt id;
+
+  /// The unique identifier of the chest to which the person belongs.
+  final String chestID;
 
   /// The nickname of the person who made the person.
   final String nickname;
@@ -72,6 +81,7 @@ class CPeopleTableInsert extends SupaInsert<CPeopleTableCore> {
   @override
   Set<SupaValue<CPeopleTableCore, dynamic, dynamic>> get values => {
         CPeopleTable.id(id),
+        CPeopleTable.chestID(chestID),
         CPeopleTable.nickname(nickname),
         CPeopleTable.dateOfBirth(dateOfBirth),
       };

@@ -7,6 +7,9 @@ class CCoreL10nDe extends CCoreL10n {
   CCoreL10nDe([String locale = 'de']) : super(locale);
 
   @override
+  String get inputError_dropdown_empty => 'Bitte wählen Sie eine Option aus.';
+
+  @override
   String get inputError_email_empty =>
       'Bitte geben Sie Ihre E-Mail-Adresse ein.';
 

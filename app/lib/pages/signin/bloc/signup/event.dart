@@ -24,5 +24,5 @@ final class CSignupFormSubmitted extends _CSignupEvent {
 final class _CSignupCompleted extends _CSignupEvent {
   _CSignupCompleted({required this.result});
 
-  final COutcome<CSignupException, CNothing> result;
+  final BobsOutcome<CSignupException, BobsNothing> result;
 }

@@ -1,5 +1,5 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 /// {@template CGemClient}
@@ -17,10 +17,10 @@ class CGemClient {
   /// Fetches the gem with the given `gemID` from the database.
   ///
   /// If `withAvatarURLs` is `true`, the gem will include the avatar URLs.
-  CJob<CRawGemFetchException, CGemsTableRecord> fetchGem({
+  BobsJob<CRawGemFetchException, CGemsTableRecord> fetchGem({
     required String gemID,
   }) =>
-      CJob.attempt(
+      BobsJob.attempt(
         run: () => gemsTable.fetch(
           columns: {
             CGemsTable.id,
@@ -29,12 +29,7 @@ class CGemClient {
             CGemsTable.lines({
               CLinesTable.id,
               CLinesTable.text,
-              CLinesTable.person({
-                CPeopleTable.id,
-                CPeopleTable.nickname,
-                CPeopleTable.dateOfBirth,
-                CPeopleTable.avatarURLs,
-              }),
+              CLinesTable.personID,
             }),
           },
           filter: gemsTable.equal(CGemsTable.id(gemID)),

@@ -97,6 +97,12 @@ abstract class CCoreL10n {
     Locale('en')
   ];
 
+  /// No description provided for @inputError_dropdown_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an option.'**
+  String get inputError_dropdown_empty;
+
   /// No description provided for @inputError_email_empty.
   ///
   /// In en, this message translates to:

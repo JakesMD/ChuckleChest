@@ -1,5 +1,6 @@
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CAnimatedGem}
@@ -45,15 +46,22 @@ class _CAnimatedGemState extends State<CAnimatedGem> {
       children: lines.isNotEmpty
           ? [
               for (final line in lines)
-                if (line is CNarration)
+                if (line.personID == null)
                   CNarrationItem(
-                    narration: line,
+                    line: line,
                     onAnimationCompleted: onLineAnimationCompleted,
                     isAnimated: widget.isAnimated,
                   )
                 else
                   CQuoteItem(
-                    quote: line as CQuote,
+                    line: line,
+                    occurredAt: widget.gem.occurredAt,
+                    person: CPerson(
+                      id: BigInt.one,
+                      nickname: 'Lydia',
+                      dateOfBirth: DateTime(2001),
+                      avatarURLs: [],
+                    ),
                     onAnimationCompleted: onLineAnimationCompleted,
                     isAnimated: widget.isAnimated,
                   ),

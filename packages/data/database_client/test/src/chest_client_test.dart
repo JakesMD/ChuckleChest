@@ -1,5 +1,5 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:cpub/bobs_jobs.dart';
 import 'package:cpub_dev/flutter_test.dart';
 import 'package:cpub_dev/mocktail.dart';
 import 'package:cpub_dev/test_beautifier.dart';
@@ -39,7 +39,7 @@ void main() {
             modifier: any(named: 'modifier'),
           );
 
-      CJob<CRawChestCreationException, String> createChestJob() =>
+      BobsJob<CRawChestCreationException, String> createChestJob() =>
           client.createChest(chestName: 'asdjkl');
 
       setUp(() {
@@ -56,7 +56,7 @@ void main() {
 
           final result = await createChestJob().run();
 
-          cExpectSuccess(result, fakeChestRecord.id);
+          bobsExpectSuccess(result, fakeChestRecord.id);
         }),
       );
 
@@ -70,7 +70,7 @@ void main() {
 
           final result = await createChestJob().run();
 
-          cExpectFailure(result, CRawChestCreationException.unknown);
+          bobsExpectFailure(result, CRawChestCreationException.unknown);
         }),
       );
     });

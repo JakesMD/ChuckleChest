@@ -18,5 +18,5 @@ final class CLoginFormSubmitted extends _CLoginEvent {
 final class _CLoginCompleted extends _CLoginEvent {
   _CLoginCompleted({required this.result});
 
-  final COutcome<CLoginException, CNothing> result;
+  final BobsOutcome<CLoginException, BobsNothing> result;
 }

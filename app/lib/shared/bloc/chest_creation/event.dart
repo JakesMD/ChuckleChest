@@ -18,5 +18,5 @@ final class CChestCreationTriggered extends _CChestCreationEvent {
 final class _CChestCreationCompleted extends _CChestCreationEvent {
   _CChestCreationCompleted({required this.result});
 
-  COutcome<CChestCreationException, String> result;
+  BobsOutcome<CChestCreationException, String> result;
 }

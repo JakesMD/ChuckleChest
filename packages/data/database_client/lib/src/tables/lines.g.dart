@@ -34,6 +34,11 @@ class CLinesTableRecord extends SupaRecord<CLinesTableCore> {
   /// This will throw an exception if the column was not fetched.
   String get text => call(CLinesTable.text);
 
+  /// The unique identifier of the person who said the line.
+  ///
+  /// This will throw an exception if the column was not fetched.
+  BigInt get personID => call(CLinesTable.personID);
+
   /// The family or friend who is being quoted.
   ///
   /// This will throw an exception if no joined columns were fetched.
@@ -50,6 +55,7 @@ class CLinesTableInsert extends SupaInsert<CLinesTableCore> {
   const CLinesTableInsert({
     required this.id,
     required this.text,
+    required this.personID,
   });
 
   /// The unique identifier of the line.
@@ -58,9 +64,13 @@ class CLinesTableInsert extends SupaInsert<CLinesTableCore> {
   /// The text of the line.
   final String text;
 
+  /// The unique identifier of the person who said the line.
+  final BigInt personID;
+
   @override
   Set<SupaValue<CLinesTableCore, dynamic, dynamic>> get values => {
         CLinesTable.id(id),
         CLinesTable.text(text),
+        CLinesTable.personID(personID),
       };
 }
