@@ -13,6 +13,7 @@ dependencies:
   ccore:
   cdatabase_client:
   cgem_repository:
+  cperson_repository:
   cplatform_client:
   cpub:
   flutter:

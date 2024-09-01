@@ -39,7 +39,7 @@ class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   void _onVerificationCompleted(BuildContext context) {
-    context.router.replaceAll(const [CHomeRoute()]);
+    context.router.replaceAll([const CBaseRoute()]);
   }
 
   @override

@@ -13,7 +13,11 @@ part 'chests.g.dart';
 class CChestsTable extends SupaTable<CChestsTableCore, CChestsTableRecord> {
   /// {@macro CChestsTable}
   const CChestsTable({required super.supabaseClient})
-      : super(CChestsTableRecord.new, tableName: 'chests', primaryKey: 'id');
+      : super(
+          CChestsTableRecord.new,
+          tableName: 'chests',
+          primaryKey: const ['id'],
+        );
 
   /// The unique identifier of the chests.
   @SupaColumnHere<String>(hasDefault: true)

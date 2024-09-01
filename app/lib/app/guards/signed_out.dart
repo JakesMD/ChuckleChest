@@ -25,7 +25,7 @@ class CSignedOutGuard implements AutoRouteGuard {
         '''Navigation from ${router.current.name} to ${resolver.routeName} denied. Redirecting to CSigninRoute...''',
         name: 'CHomeRoute',
       );
-      resolver.redirect(const CHomeRoute(), replace: true);
+      resolver.redirect(const CBaseRoute(), replace: true);
     } else {
       resolver.next();
     }

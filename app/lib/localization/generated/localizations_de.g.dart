@@ -21,10 +21,52 @@ class CAppL10nDe extends CAppL10n {
   String get chestCreationDialog_title => 'Neue Truhe erstellen';
 
   @override
+  String get chestPage_bottomNav_gems => 'Gemmen';
+
+  @override
+  String get chestPage_bottomNav_settings => 'Einstellungen';
+
+  @override
   String get close => 'Schließen';
 
   @override
   String get delete => 'Löschen';
+
+  @override
+  String get editGemPage_addNarrationButton => 'Neue Erzählung';
+
+  @override
+  String get editGemPage_addQuoteButton => 'Neues Zitat';
+
+  @override
+  String get editGemPage_dateTile_title => 'Datum';
+
+  @override
+  String get editGemPage_editLineDialog_hint_line => 'Dialogzeile';
+
+  @override
+  String get editGemPage_editLineDialog_hint_person => 'Person';
+
+  @override
+  String get editGemPage_editLineDialog_title_createNarration => 'Neue Erzählung';
+
+  @override
+  String get editGemPage_editLineDialog_title_createQuote => 'Neues Zitat';
+
+  @override
+  String get editGemPage_editLineDialog_title_editNarration => 'Erzählung bearbeiten';
+
+  @override
+  String get editGemPage_editLineDialog_title_editQuote => 'Zitat bearbeiten';
+
+  @override
+  String get editGemPage_helperMessage => 'Tippen Sie auf etwas, um es zu bearbeiten.';
+
+  @override
+  String get editGemPage_title_create => 'Gemme erstellen';
+
+  @override
+  String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
   String gem_share_message(Object link) {

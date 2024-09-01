@@ -10,8 +10,8 @@ final class CTextInput extends CFormInput<String> {
 
   @override
   String? validator({required String? input, required BuildContext context}) {
-    onChanged(input);
     final text = input?.trim();
+    onChanged(text);
 
     if (text == null || text.isEmpty) {
       return context.cCoreL10n.inputError_text_empty;

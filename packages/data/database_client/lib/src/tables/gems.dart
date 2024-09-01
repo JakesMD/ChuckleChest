@@ -14,7 +14,11 @@ part 'gems.g.dart';
 class CGemsTable extends SupaTable<CGemsTableCore, CGemsTableRecord> {
   /// {@macro CGemsTable}
   const CGemsTable({required super.supabaseClient})
-      : super(CGemsTableRecord.new, tableName: 'gems', primaryKey: 'id');
+      : super(
+          CGemsTableRecord.new,
+          tableName: 'gems',
+          primaryKey: const ['id'],
+        );
 
   /// The unique identifier of the gem.
   @SupaColumnHere<String>(hasDefault: true)

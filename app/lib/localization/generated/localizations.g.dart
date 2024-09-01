@@ -119,6 +119,18 @@ abstract class CAppL10n {
   /// **'Create a new chest'**
   String get chestCreationDialog_title;
 
+  /// No description provided for @chestPage_bottomNav_gems.
+  ///
+  /// In en, this message translates to:
+  /// **'Gems'**
+  String get chestPage_bottomNav_gems;
+
+  /// No description provided for @chestPage_bottomNav_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get chestPage_bottomNav_settings;
+
   /// No description provided for @close.
   ///
   /// In en, this message translates to:
@@ -130,6 +142,78 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @editGemPage_addNarrationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a narration'**
+  String get editGemPage_addNarrationButton;
+
+  /// No description provided for @editGemPage_addQuoteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a quote'**
+  String get editGemPage_addQuoteButton;
+
+  /// No description provided for @editGemPage_dateTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get editGemPage_dateTile_title;
+
+  /// No description provided for @editGemPage_editLineDialog_hint_line.
+  ///
+  /// In en, this message translates to:
+  /// **'Line'**
+  String get editGemPage_editLineDialog_hint_line;
+
+  /// No description provided for @editGemPage_editLineDialog_hint_person.
+  ///
+  /// In en, this message translates to:
+  /// **'Person'**
+  String get editGemPage_editLineDialog_hint_person;
+
+  /// No description provided for @editGemPage_editLineDialog_title_createNarration.
+  ///
+  /// In en, this message translates to:
+  /// **'New narration'**
+  String get editGemPage_editLineDialog_title_createNarration;
+
+  /// No description provided for @editGemPage_editLineDialog_title_createQuote.
+  ///
+  /// In en, this message translates to:
+  /// **'New quote'**
+  String get editGemPage_editLineDialog_title_createQuote;
+
+  /// No description provided for @editGemPage_editLineDialog_title_editNarration.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit narration'**
+  String get editGemPage_editLineDialog_title_editNarration;
+
+  /// No description provided for @editGemPage_editLineDialog_title_editQuote.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit quote'**
+  String get editGemPage_editLineDialog_title_editQuote;
+
+  /// No description provided for @editGemPage_helperMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anything to edit.'**
+  String get editGemPage_helperMessage;
+
+  /// No description provided for @editGemPage_title_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a gem'**
+  String get editGemPage_title_create;
+
+  /// No description provided for @editGemPage_title_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the gem'**
+  String get editGemPage_title_edit;
 
   /// No description provided for @gem_share_message.
   ///

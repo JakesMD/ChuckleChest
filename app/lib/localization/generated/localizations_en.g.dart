@@ -21,10 +21,52 @@ class CAppL10nEn extends CAppL10n {
   String get chestCreationDialog_title => 'Create a new chest';
 
   @override
+  String get chestPage_bottomNav_gems => 'Gems';
+
+  @override
+  String get chestPage_bottomNav_settings => 'Settings';
+
+  @override
   String get close => 'Close';
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get editGemPage_addNarrationButton => 'Add a narration';
+
+  @override
+  String get editGemPage_addQuoteButton => 'Add a quote';
+
+  @override
+  String get editGemPage_dateTile_title => 'Date';
+
+  @override
+  String get editGemPage_editLineDialog_hint_line => 'Line';
+
+  @override
+  String get editGemPage_editLineDialog_hint_person => 'Person';
+
+  @override
+  String get editGemPage_editLineDialog_title_createNarration => 'New narration';
+
+  @override
+  String get editGemPage_editLineDialog_title_createQuote => 'New quote';
+
+  @override
+  String get editGemPage_editLineDialog_title_editNarration => 'Edit narration';
+
+  @override
+  String get editGemPage_editLineDialog_title_editQuote => 'Edit quote';
+
+  @override
+  String get editGemPage_helperMessage => 'Tap anything to edit.';
+
+  @override
+  String get editGemPage_title_create => 'Create a gem';
+
+  @override
+  String get editGemPage_title_edit => 'Edit the gem';
 
   @override
   String gem_share_message(Object link) {

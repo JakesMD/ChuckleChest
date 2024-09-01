@@ -30,7 +30,7 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
   List<AutoRoute> get routes => [
         AutoRoute(
           path: '/',
-          page: CHomeRoute.page,
+          page: CBaseRoute.page,
           initial: true,
           guards: [CSignedInGuard(authRepository: authRepository)],
           children: [
@@ -40,14 +40,36 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
               guards: [CNoChestsGuard(authRepository: authRepository)],
             ),
             AutoRoute(
-              path: 'chest',
+              path: 'chest/:chest-id',
               page: CChestRoute.page,
               initial: true,
               guards: [CChestsGuard(authRepository: authRepository)],
-            ),
-            AutoRoute(
-              path: 'gems/:gemID',
-              page: CGemRoute.page,
+              children: [
+                AutoRoute(
+                  path: 'home',
+                  page: CHomeRoute.page,
+                  initial: true,
+                  children: [
+                    AutoRoute(
+                      path: 'gems',
+                      page: CGemsRoute.page,
+                      initial: true,
+                    ),
+                    AutoRoute(path: 'settings', page: CSettingsRoute.page),
+                  ],
+                ),
+                AutoRoute(path: 'create-gem', page: CCreateGemRoute.page),
+                AutoRoute(
+                  path: 'gems/:gemID',
+                  page: CGemRoute.page,
+                  children: [
+                    AutoRoute(
+                      path: 'edit',
+                      page: CEditGemRoute.page,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

@@ -23,11 +23,10 @@ class FakeGemRecord extends Fake implements CGemsTableRecord {
   DateTime get occurredAt => DateTime(2024);
 
   @override
-  List<CLinesTableRecord> get lines =>
-      [FakeNarrationRecord(), FakeQuoteRecord()];
+  List<CLinesTableRecord> get lines => [FakeLineRecord()];
 }
 
-class FakeNarrationRecord extends Fake implements CLinesTableRecord {
+class FakeLineRecord extends Fake implements CLinesTableRecord {
   @override
   BigInt get id => BigInt.one;
 
@@ -36,36 +35,6 @@ class FakeNarrationRecord extends Fake implements CLinesTableRecord {
 
   @override
   CPeopleTableRecord? get person => null;
-}
-
-class FakeQuoteRecord extends Fake implements CLinesTableRecord {
-  @override
-  BigInt get id => BigInt.two;
-
-  @override
-  String get text => 'asdsdk';
-
-  @override
-  CPeopleTableRecord? get person => FakePersonRecord();
-}
-
-class FakePersonRecord extends Fake implements CPeopleTableRecord {
-  @override
-  String get nickname => 'asdf';
-
-  @override
-  DateTime get dateOfBirth => DateTime(2022);
-
-  @override
-  List<CAvatarURLsTableRecord> get avatarURLs => [FakeAvatarURLRecord()];
-}
-
-class FakeAvatarURLRecord extends Fake implements CAvatarURLsTableRecord {
-  @override
-  String get url => 'asdf';
-
-  @override
-  int get age => 2;
 }
 
 void main() {
@@ -77,31 +46,19 @@ void main() {
       platformClient: platformClient,
     );
 
-    final fakeNarrationRecord = FakeNarrationRecord();
-    final fakeQuoteRecord = FakeQuoteRecord();
+    final fakeLineRecord = FakeLineRecord();
 
-    final fakeNarration = CNarration(
-      id: fakeNarrationRecord.id,
-      text: fakeNarrationRecord.text,
-    );
-
-    final fakeQuote = CQuote(
-      id: fakeQuoteRecord.id,
-      text: fakeQuoteRecord.text,
-      nickname: fakeQuoteRecord.person!.nickname,
-      age: fakeQuoteRecord.person!.dateOfBirth.cAge(
-        fakeQuoteRecord.person!.dateOfBirth.add(const Duration(days: 366 * 2)),
-      ),
-      avatarUrl: fakeQuoteRecord.person!.avatarURLs
-          .cFirstWhereOrNull((e) => e.age == 2)
-          ?.url,
+    final fakeNarration = CLine(
+      id: fakeLineRecord.id,
+      text: fakeLineRecord.text,
+      personID: fakeLineRecord.personID,
     );
 
     final fakeGem = CGem(
       id: 'adsad',
       number: 24,
       occurredAt: DateTime(2024),
-      lines: [fakeNarration, fakeQuote],
+      lines: [fakeNarration],
     );
 
     setUpAll(() {

@@ -1,4 +1,3 @@
-import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/src/models/_models.dart';
 import 'package:cpub/equatable.dart';
@@ -21,37 +20,20 @@ class CGem with EquatableMixin {
   ///
   /// Converts a [CGemsTableRecord] to a [CGem].
   factory CGem.fromRecord(CGemsTableRecord record) {
-    final lines = <CLine>[];
-
     final sortedRawLines = record.lines..sort((a, b) => a.id.compareTo(b.id));
-
-    for (final line in sortedRawLines) {
-      if (line.person == null) {
-        lines.add(CNarration(id: line.id, text: line.text));
-      } else {
-        final age = line.person!.dateOfBirth.cAge(record.occurredAt);
-
-        final avatarUrl = line.person!.avatarURLs
-            .cFirstWhereOrNull((url) => url.age == age)
-            ?.url;
-
-        lines.add(
-          CQuote(
-            id: line.id,
-            text: line.text,
-            nickname: line.person!.nickname,
-            age: age,
-            avatarUrl: avatarUrl,
-          ),
-        );
-      }
-    }
 
     return CGem(
       id: record.id,
       number: record.number,
       occurredAt: record.occurredAt,
-      lines: lines,
+      lines: [
+        for (final line in sortedRawLines)
+          CLine(
+            id: line.id,
+            text: line.text,
+            personID: line.personID,
+          ),
+      ],
     );
   }
 
@@ -66,6 +48,16 @@ class CGem with EquatableMixin {
 
   /// The lines of the gem.
   final List<CLine> lines;
+
+  /// {@macro CGem}
+  ///
+  /// Returns a new [CGem] with the given fields replaced.
+  CGem copyWith({DateTime? occurredAt}) => CGem(
+        id: id,
+        number: number,
+        occurredAt: occurredAt ?? this.occurredAt,
+        lines: lines,
+      );
 
   @override
   List<Object?> get props => [id, number, occurredAt, lines];

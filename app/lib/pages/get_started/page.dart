@@ -22,7 +22,7 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
 
   void _onChestCreated(BuildContext context, String chestID) {
     context.router.replaceAll(
-      [const CHomeRoute(), CChestRoute(chestID: chestID)],
+      [const CBaseRoute(), CChestRoute(chestID: chestID)],
       updateExistingRoutes: false,
     );
   }

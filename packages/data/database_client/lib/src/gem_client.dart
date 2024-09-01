@@ -29,12 +29,7 @@ class CGemClient {
             CGemsTable.lines({
               CLinesTable.id,
               CLinesTable.text,
-              CLinesTable.person({
-                CPeopleTable.id,
-                CPeopleTable.nickname,
-                CPeopleTable.dateOfBirth,
-                CPeopleTable.avatarURLs,
-              }),
+              CLinesTable.personID,
             }),
           },
           filter: gemsTable.equal(CGemsTable.id(gemID)),

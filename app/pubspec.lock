@@ -264,6 +264,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
+  cperson_repository:
+    dependency: "direct main"
+    description:
+      path: "../packages/domain/person_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   cplatform_client:
     dependency: "direct main"
     description:
@@ -1050,10 +1057,10 @@ packages:
     dependency: transitive
     description:
       name: typesafe_supabase
-      sha256: "55633febf2e676bc48c5ca378dc9fba96787054a3ba949f68a3709fdf55c7783"
+      sha256: "2d1c7d8a051a9487bc7a517534ebc66ac10bafe9a1dd9a7e5795b48ccf3cdcde"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.10"
+    version: "0.0.1-dev.12"
   universal_platform:
     dependency: transitive
     description:
@@ -1154,10 +1161,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.4"
+    version: "14.2.5"
   watcher:
     dependency: transitive
     description:

@@ -7,20 +7,21 @@ import 'package:flutter/widgets.dart';
 /// and parsing to a typed value. Subclasses should implement parsing and
 /// validation logic.
 base class CFormInput<T> {
-  String? _input;
+  T? _input;
 
   /// Returns the raw input string entered by the user.
-  String? get input => _input;
+  T? get input => _input;
 
   // coverage:ignore-start
 
   /// Returns the parsed and validated value for this input,
   /// given the current context.
+  // ignore: null_check_on_nullable_type_parameter
   T value(BuildContext context) => parse(input: _input!, context: context);
 
   /// Parses the raw input string into the typed [T] value for this input.
   @mustBeOverridden
-  T parse({required String input, required BuildContext context}) {
+  T parse({required T input, required BuildContext context}) {
     throw UnimplementedError();
   }
 
@@ -28,12 +29,13 @@ base class CFormInput<T> {
   ///
   /// Returns and error text if validation fails, null if valid.
   @mustBeOverridden
-  String? validator({required String? input, required BuildContext context}) {
+  String? validator({required T? input, required BuildContext context}) {
     throw UnimplementedError();
   }
 
   // coverage:ignore-end
 
-  /// Updates the raw input value, trimming whitespace.
-  void onChanged(String? input) => _input = input?.trim();
+  /// Updates the raw input value.
+  // ignore: use_setters_to_change_properties
+  void onChanged(T? input) => _input = input;
 }

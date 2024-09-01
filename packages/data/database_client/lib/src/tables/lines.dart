@@ -14,7 +14,11 @@ part 'lines.g.dart';
 class CLinesTable extends SupaTable<CLinesTableCore, CLinesTableRecord> {
   /// {@macro CLinesTable}
   const CLinesTable({required super.supabaseClient})
-      : super(CLinesTableRecord.new, tableName: 'lines', primaryKey: 'id');
+      : super(
+          CLinesTableRecord.new,
+          tableName: 'lines',
+          primaryKey: const ['id'],
+        );
 
   /// The unique identifier of the line.
   @SupaColumnHere<BigInt>()
@@ -24,16 +28,18 @@ class CLinesTable extends SupaTable<CLinesTableCore, CLinesTableRecord> {
   @SupaColumnHere<String>()
   static const text = SupaColumn<CLinesTableCore, String, String>(name: 'text');
 
+  /// The unique identifier of the person who said the line.
+  @SupaColumnHere<BigInt>()
+  static const personID =
+      SupaColumn<CLinesTableCore, BigInt, int>(name: 'personID');
+
   /// The family or friend who is being quoted.
   @SupaTableJoinHere('CPeopleTable', 'people', SupaJoinType.oneToOne)
   static final person = SupaTableJoin<CLinesTableCore, CPeopleTableCore>(
     tableName: 'people',
-    joiningColumn: CLinesTable.id,
+    joiningColumn: CLinesTable.personID,
     record: CPeopleTableRecord.new,
     joinType: SupaJoinType.oneToOne,
+    foreignKey: 'lines_person_id_fkey',
   );
-}
-
-void main() {
-  throw Error();
 }
