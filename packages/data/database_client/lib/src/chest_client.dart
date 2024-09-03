@@ -1,5 +1,5 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
-import 'package:cpub/bobs_jobs.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 /// {@template CChestClient}

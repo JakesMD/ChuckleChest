@@ -1,5 +1,5 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
-import 'package:cpub/bobs_jobs.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 /// {@template CGemClient}
@@ -9,14 +9,50 @@ import 'package:typesafe_supabase/typesafe_supabase.dart';
 /// {@endtemplate}
 class CGemClient {
   /// {@macro CGemClient}
-  const CGemClient({required this.gemsTable});
+  const CGemClient({required this.gemsTable, required this.linesTable});
 
   /// The table that represents the `gems` table in the database.
   final CGemsTable gemsTable;
 
+  /// The table that represents the `lines` table in the database.
+  final CLinesTable linesTable;
+
+  /// Fetches the gem years for the given `chestID` from the database.
+  BobsJob<CRawGemYearsFetchException, List<int>> fetchGemYears({
+    required String chestID,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          final response = await gemsTable.supabaseClient.rpc<List<dynamic>>(
+            'fetch_destinct_gem_years',
+            params: {'chest_id_param': chestID},
+          );
+          return response.cast<int>();
+        },
+        onError: CRawGemYearsFetchException.fromError,
+      );
+
+  /// Fetches the gem IDs for the given `chestID` and `year` from the database.
+  BobsJob<CRawGemIDsFetchException, List<String>> fetchGemIDsForYear({
+    required String chestID,
+    required int year,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          final response = await gemsTable.fetch(
+            columns: {CGemsTable.id},
+            filter: gemsTable
+                .equal(CGemsTable.chestID(chestID))
+                .greaterOrEqual(CGemsTable.occurredAt(DateTime(year)))
+                .less(CGemsTable.occurredAt(DateTime(year))),
+            modifier: gemsTable.all(),
+          );
+          return response.map((r) => r.id).toList();
+        },
+        onError: CRawGemIDsFetchException.fromError,
+      );
+
   /// Fetches the gem with the given `gemID` from the database.
-  ///
-  /// If `withAvatarURLs` is `true`, the gem will include the avatar URLs.
   BobsJob<CRawGemFetchException, CGemsTableRecord> fetchGem({
     required String gemID,
   }) =>
@@ -37,4 +73,56 @@ class CGemClient {
         ),
         onError: CRawGemFetchException.fromError,
       );
+
+  /// Saves the gem to the database.
+  ///
+  /// If the gem already exists, it will be updated. If the gem does not exist,
+  /// it will be created.
+  BobsJob<CRawGemSaveException, String> saveGem({
+    required CGemsTableInsert gem,
+    required List<BigInt> deletedLineIDs,
+    required List<CLinesTableInsert> newLines,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          final response = await gemsTable.upsert(
+            records: [gem],
+            columns: {CGemsTable.id},
+            modifier: gemsTable.limit(1).single(),
+          );
+          return response.id;
+        },
+        onError: CRawGemSaveException.fromError,
+      )
+          .thenAttempt(
+            run: (gemID) async {
+              await linesTable.delete(
+                filter: linesTable.includedIn(CLinesTable.id, deletedLineIDs),
+                modifier: linesTable.none(),
+              );
+
+              return gemID;
+            },
+            onError: CRawGemSaveException.fromError,
+          )
+          .thenAttempt(
+            run: (gemID) async {
+              await linesTable.insert(
+                records: newLines
+                    .map(
+                      (line) => CLinesTableInsert(
+                        id: line.id,
+                        gemID: gemID,
+                        chestID: gem.chestID,
+                        text: line.text,
+                        personID: line.personID,
+                      ),
+                    )
+                    .toList(),
+                modifier: linesTable.none(),
+              );
+              return gemID;
+            },
+            onError: CRawGemSaveException.fromError,
+          );
 }

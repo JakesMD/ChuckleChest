@@ -21,7 +21,7 @@ class CLinesTable extends SupaTable<CLinesTableCore, CLinesTableRecord> {
         );
 
   /// The unique identifier of the line.
-  @SupaColumnHere<BigInt>()
+  @SupaColumnHere<BigInt>(hasDefault: true)
   static const id = SupaColumn<CLinesTableCore, BigInt, int>(name: 'id');
 
   /// The text of the line.
@@ -29,9 +29,9 @@ class CLinesTable extends SupaTable<CLinesTableCore, CLinesTableRecord> {
   static const text = SupaColumn<CLinesTableCore, String, String>(name: 'text');
 
   /// The unique identifier of the person who said the line.
-  @SupaColumnHere<BigInt>()
+  @SupaColumnHere<BigInt?>()
   static const personID =
-      SupaColumn<CLinesTableCore, BigInt, int>(name: 'personID');
+      SupaColumn<CLinesTableCore, BigInt?, int?>(name: 'person_id');
 
   /// The family or friend who is being quoted.
   @SupaTableJoinHere('CPeopleTable', 'people', SupaJoinType.oneToOne)
@@ -41,5 +41,17 @@ class CLinesTable extends SupaTable<CLinesTableCore, CLinesTableRecord> {
     record: CPeopleTableRecord.new,
     joinType: SupaJoinType.oneToOne,
     foreignKey: 'lines_person_id_fkey',
+  );
+
+  /// The unique identifier of the gem the line belongs to.
+  @SupaColumnHere<String>()
+  static const gemID = SupaColumn<CGemsTableCore, String, String>(
+    name: 'gem_id',
+  );
+
+  /// The unique identifier of the chest the line belongs to.
+  @SupaColumnHere<String>()
+  static const chestID = SupaColumn<CGemsTableCore, String, String>(
+    name: 'chest_id',
   );
 }

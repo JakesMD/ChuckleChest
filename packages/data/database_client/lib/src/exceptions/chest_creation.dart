@@ -5,8 +5,13 @@ enum CRawChestCreationException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawChestCreationException.fromError(Object e) {
-    log(e.toString(), error: e, name: 'CRawChestCreationException');
+  factory CRawChestCreationException.fromError(Object e, StackTrace s) {
+    log(
+      e.toString(),
+      error: e,
+      stackTrace: s,
+      name: 'CRawChestCreationException',
+    );
     return CRawChestCreationException.unknown;
   }
 }

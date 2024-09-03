@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cpub/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 /// Represents an exception that occurs when fetching chest people fails.
 enum CRawChestPeopleFetchException {
@@ -10,14 +10,24 @@ enum CRawChestPeopleFetchException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawChestPeopleFetchException.fromError(Object e) {
+  factory CRawChestPeopleFetchException.fromError(Object e, StackTrace s) {
     if (e is PostgrestException) {
-      log(e.message, error: e, name: 'CRawChestPeopleFetchException');
+      log(
+        e.message,
+        error: e,
+        stackTrace: s,
+        name: 'CRawChestPeopleFetchException',
+      );
       if (e.code == 'PGRST116' || e.code == '22P02') {
         return CRawChestPeopleFetchException.chestNotFound;
       }
     } else {
-      log(e.toString(), error: e, name: 'CRawChestPeopleFetchException');
+      log(
+        e.toString(),
+        error: e,
+        stackTrace: s,
+        name: 'CRawChestPeopleFetchException',
+      );
     }
     return CRawChestPeopleFetchException.unknown;
   }

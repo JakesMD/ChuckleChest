@@ -39,9 +39,16 @@ class CGemsTableRecord extends SupaRecord<CGemsTableCore> {
   /// This will throw an exception if the column was not fetched.
   DateTime get occurredAt => call(CGemsTable.occurredAt);
 
+  /// The unique identifier of the chest the gem belongs to.
+  ///
+  /// This will throw an exception if the column was not fetched.
+  String get chestID => call(CGemsTable.chestID);
+
   /// The lines of the story.
   ///
   /// This will throw an exception if no joined columns were fetched.
+  ///
+  /// An InvalidType error here is often caused by a misspelling of the prefix in the @SupaTableJoinHere annotation.
   List<CLinesTableRecord> get lines => reference(CGemsTable.lines);
 }
 
@@ -56,6 +63,7 @@ class CGemsTableInsert extends SupaInsert<CGemsTableCore> {
     this.id,
     required this.number,
     required this.occurredAt,
+    required this.chestID,
   });
 
   /// The unique identifier of the gem.
@@ -67,10 +75,14 @@ class CGemsTableInsert extends SupaInsert<CGemsTableCore> {
   /// The date and time when the story occurred.
   final DateTime occurredAt;
 
+  /// The unique identifier of the chest the gem belongs to.
+  final String chestID;
+
   @override
   Set<SupaValue<CGemsTableCore, dynamic, dynamic>> get values => {
         if (id != null) CGemsTable.id(id!),
         CGemsTable.number(number),
         CGemsTable.occurredAt(occurredAt),
+        CGemsTable.chestID(chestID),
       };
 }

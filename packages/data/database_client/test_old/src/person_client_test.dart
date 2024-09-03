@@ -1,9 +1,9 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub/supabase.dart';
-import 'package:cpub_dev/flutter_test.dart';
-import 'package:cpub_dev/mocktail.dart';
-import 'package:cpub_dev/test_beautifier.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:supabase/supabase.dart';
+import 'package:test_beautifier/test_beautifier.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 class MockCPeopleTable extends Mock implements CPeopleTable {}

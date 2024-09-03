@@ -1,12 +1,14 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub/supabase.dart';
-import 'package:cpub_dev/flutter_test.dart';
-import 'package:cpub_dev/mocktail.dart';
-import 'package:cpub_dev/test_beautifier.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:supabase/supabase.dart';
+import 'package:test_beautifier/test_beautifier.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 class MockCGemsTable extends Mock implements CGemsTable {}
+
+class MockCLinesTable extends Mock implements CLinesTable {}
 
 class FakeCGemsTableRecord extends Fake implements CGemsTableRecord {}
 
@@ -23,8 +25,9 @@ class FakeSupaLimitModifier extends Fake
 
 void main() {
   group('CGemClient Tests', () {
-    final table = MockCGemsTable();
-    final client = CGemClient(gemsTable: table);
+    final gemsTable = MockCGemsTable();
+    final linesTable = MockCLinesTable();
+    final client = CGemClient(gemsTable: gemsTable, linesTable: linesTable);
 
     final fakeGemRecord = FakeCGemsTableRecord();
 
@@ -36,7 +39,7 @@ void main() {
     });
 
     group('fetchGem', () {
-      Future<CGemsTableRecord> mockFetch() => table.fetch(
+      Future<CGemsTableRecord> mockFetch() => gemsTable.fetch(
             columns: any(named: 'columns'),
             filter: any(named: 'filter'),
             modifier: any(named: 'modifier'),
@@ -46,8 +49,8 @@ void main() {
           client.fetchGem(gemID: 'adsfklj');
 
       setUp(() {
-        when(() => table.equal(any())).thenReturn(FakeSupaFilter());
-        when(() => table.limit(any())).thenReturn(FakeSupaLimitModifier());
+        when(() => gemsTable.equal(any())).thenReturn(FakeSupaFilter());
+        when(() => gemsTable.limit(any())).thenReturn(FakeSupaLimitModifier());
       });
 
       test(

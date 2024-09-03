@@ -87,13 +87,13 @@ packages:
     source: hosted
     version: "9.1.7"
   bobs_jobs:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: bobs_jobs
-      sha256: ce61d2c788a4e0d32a4d8bf08e35a87fa2796e603950e294ef3d8e09d0628548
+      sha256: dc7937f6a06f960c231a354310ff18cde33663a176e7f66db1ef53f6ee5ef843
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.2"
+    version: "0.0.1-dev.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -230,14 +230,14 @@ packages:
     source: hosted
     version: "1.8.0"
   cpub:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "../../core/pub"
       relative: true
     source: path
     version: "0.0.0"
   cpub_dev:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "../../core/pub_dev"
       relative: true
@@ -350,7 +350,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_test:
-    dependency: transitive
+    dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -371,10 +371,10 @@ packages:
     dependency: transitive
     description:
       name: functions_client
-      sha256: "48659e5c6a4bbe02659102bf6406a0cf39142202deae65aacfa78688f2e68946"
+      sha256: e63f49cd3b41727f47b3bde284a11a4ac62839e0604f64077d4257487510e484
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.2"
   glob:
     dependency: transitive
     description:
@@ -387,10 +387,10 @@ packages:
     dependency: transitive
     description:
       name: gotrue
-      sha256: aaefc58b168723f8b5ca2a70ee8c0a051cba16f112be50f41c1ff8fb96b6a6df
+      sha256: "8703db795511f69194fe77125a0c838bbb6befc2f95717b6e40331784a8bdecb"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.0"
+    version: "2.8.4"
   graphs:
     dependency: transitive
     description:
@@ -544,13 +544,13 @@ packages:
     source: hosted
     version: "1.0.5"
   mocktail:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: mocktail
-      sha256: c4b5007d91ca4f67256e720cb1b6d704e79a510183a12fa551021f652577dce6
+      sha256: "890df3f9688106f25755f26b1c60589a92b3ab91a22b8b224947ad041bf172d8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
   nested:
     dependency: transitive
     description:
@@ -675,10 +675,10 @@ packages:
     dependency: transitive
     description:
       name: postgrest
-      sha256: f1f78470a74c611811132ff12acdef9c08b3ec65b61e88161a057d6cc5fbbd83
+      sha256: c4197238601c7c3103b03a4bb77f2050b17d0064bf8b968309421abdebbb7f0e
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.4"
   provider:
     dependency: transitive
     description:
@@ -707,10 +707,10 @@ packages:
     dependency: transitive
     description:
       name: realtime_client
-      sha256: "492a1ab568b3812cb345aad8dd09b3936877edba81a6ab6f5fdf365c155797e1"
+      sha256: d897a65ee3b1b5ddc1cf606f0b83792262d38fd5679c2df7e38da29c977513da
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.2.1"
   retry:
     dependency: transitive
     description:
@@ -896,10 +896,10 @@ packages:
     dependency: transitive
     description:
       name: storage_client
-      sha256: bf5589d5de61a2451edb1b8960a0e673d4bb5c42ecc4dddf7c051a93789ced34
+      sha256: "28c147c805304dbc2b762becd1fc26ee0cb621ace3732b9ae61ef979aab8b367"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.3"
   stream_channel:
     dependency: transitive
     description:
@@ -925,13 +925,13 @@ packages:
     source: hosted
     version: "1.2.0"
   supabase:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: supabase
-      sha256: cd3d6bcc6b15ffd6eacea92ec2a2d9f09bf72c8a95c09a14f3b523ae9ee99cb6
+      sha256: "4ed1cf3298f39865c05b2d8557f92eb131a9b9af70e32e218672a0afce01a6bc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.3.0"
   supabase_flutter:
     dependency: transitive
     description:
@@ -965,7 +965,7 @@ packages:
     source: hosted
     version: "0.7.2"
   test_beautifier:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: test_beautifier
       sha256: "97b6ec1d8ba13806c6956066c0f66569c9536c38601895e43f52d88e8a0557e0"
@@ -1000,10 +1000,10 @@ packages:
     dependency: "direct main"
     description:
       name: typesafe_supabase
-      sha256: "2d1c7d8a051a9487bc7a517534ebc66ac10bafe9a1dd9a7e5795b48ccf3cdcde"
+      sha256: "978ec8de3f0208bc5fb3e6c6a5f1142083500a5e351a4e5d7a395e4d1af25a1f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.12"
+    version: "0.0.1-dev.18"
   universal_platform:
     dependency: transitive
     description:
@@ -1168,10 +1168,10 @@ packages:
     dependency: transitive
     description:
       name: yet_another_json_isolate
-      sha256: e727502a2640d65b4b8a8a6cb48af9dd0cbe644ba4b3ee667c7f4afa0c1d6069
+      sha256: "47ed3900e6b0e4dfe378811a4402e85b7fc126a7daa94f840fef65ea9c8e46f4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.2"
 sdks:
   dart: ">=3.5.0-259.0.dev <4.0.0"
   flutter: ">=3.19.0"

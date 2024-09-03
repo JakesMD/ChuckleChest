@@ -21,13 +21,8 @@ class CPeopleTable extends SupaTable<CPeopleTableCore, CPeopleTableRecord> {
         );
 
   /// The unique identifier of the line.
-  @SupaColumnHere<BigInt>()
+  @SupaColumnHere<BigInt>(hasDefault: true)
   static const id = SupaColumn<CPeopleTableCore, BigInt, int>(name: 'id');
-
-  /// The unique identifier of the chest to which the person belongs.
-  @SupaColumnHere<String>()
-  static const chestID =
-      SupaColumn<CPeopleTableCore, String, String>(name: 'chest_id');
 
   /// The nickname of the person who made the person.
   @SupaColumnHere<String>()
@@ -42,16 +37,20 @@ class CPeopleTable extends SupaTable<CPeopleTableCore, CPeopleTableRecord> {
   /// The URLs of the photos of the person at different ages.
   /// The family or friend who is being quoted.
   @SupaTableJoinHere(
-    'CAvatarURLsTable',
-    'person_avatar_urls',
+    'CAvatarsTable',
+    'avatars',
     SupaJoinType.oneToMany,
   )
-  static final avatarURLs =
-      SupaTableJoin<CPeopleTableCore, CAvatarURLsTableCore>(
-    tableName: 'person_avatar_urls',
+  static final avatarURLs = SupaTableJoin<CPeopleTableCore, CAvatarsTableCore>(
+    tableName: 'avatars',
     joiningColumn: CPeopleTable.id,
-    record: CAvatarURLsTableRecord.new,
+    record: CAvatarsTableRecord.new,
     joinType: SupaJoinType.oneToMany,
     foreignKey: 'connection_avatar_urls_connection_id_fkey',
   );
+
+  /// The unique identifier of the chest to which the person belongs.
+  @SupaColumnHere<String>()
+  static const chestID =
+      SupaColumn<CPeopleTableCore, String, String>(name: 'chest_id');
 }

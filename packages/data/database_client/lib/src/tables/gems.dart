@@ -42,4 +42,10 @@ class CGemsTable extends SupaTable<CGemsTableCore, CGemsTableRecord> {
     record: CLinesTableRecord.new,
     joinType: SupaJoinType.oneToMany,
   );
+
+  /// The unique identifier of the chest the gem belongs to.
+  @SupaColumnHere<String>()
+  static const chestID = SupaColumn<CGemsTableCore, String, String>(
+    name: 'chest_id',
+  );
 }
