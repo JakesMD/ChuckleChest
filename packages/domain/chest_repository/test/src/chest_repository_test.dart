@@ -1,11 +1,11 @@
 import 'dart:ui';
 
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub_dev/flutter_test.dart';
-import 'package:cpub_dev/mocktail.dart';
-import 'package:cpub_dev/test_beautifier.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:test_beautifier/test_beautifier.dart';
 
 class MockCChestClient extends Mock implements CChestClient {}
 
