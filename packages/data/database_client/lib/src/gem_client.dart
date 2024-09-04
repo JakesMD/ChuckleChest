@@ -81,7 +81,7 @@ class CGemClient {
   BobsJob<CRawGemSaveException, String> saveGem({
     required CGemsTableInsert gem,
     required List<BigInt> deletedLineIDs,
-    required List<CLinesTableInsert> newLines,
+    required List<CLinesTableInsert> lines,
   }) =>
       BobsJob.attempt(
         run: () async {
@@ -108,7 +108,7 @@ class CGemClient {
           .thenAttempt(
             run: (gemID) async {
               await linesTable.insert(
-                records: newLines
+                records: lines
                     .map(
                       (line) => CLinesTableInsert(
                         id: line.id,
