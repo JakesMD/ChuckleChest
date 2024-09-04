@@ -1,6 +1,6 @@
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/src/models/_models.dart';
-import 'package:cpub/equatable.dart';
+import 'package:equatable/equatable.dart';
 
 /// {@template CGem}
 ///
@@ -14,6 +14,7 @@ class CGem with EquatableMixin {
     required this.number,
     required this.occurredAt,
     required this.lines,
+    required this.chestID,
   });
 
   /// {@macro CGem}
@@ -26,14 +27,8 @@ class CGem with EquatableMixin {
       id: record.id,
       number: record.number,
       occurredAt: record.occurredAt,
-      lines: [
-        for (final line in sortedRawLines)
-          CLine(
-            id: line.id,
-            text: line.text,
-            personID: line.personID,
-          ),
-      ],
+      lines: sortedRawLines.map(CLine.fromRecord).toList(),
+      chestID: record.chestID,
     );
   }
 
@@ -49,6 +44,9 @@ class CGem with EquatableMixin {
   /// The lines of the gem.
   final List<CLine> lines;
 
+  /// The unique identifier of the chest the gem belongs to.
+  final String chestID;
+
   /// {@macro CGem}
   ///
   /// Returns a new [CGem] with the given fields replaced.
@@ -57,8 +55,17 @@ class CGem with EquatableMixin {
         number: number,
         occurredAt: occurredAt ?? this.occurredAt,
         lines: lines,
+        chestID: chestID,
+      );
+
+  /// Converts the gem to a [CGemsTableInsert].
+  CGemsTableInsert toInsert() => CGemsTableInsert(
+        id: id,
+        number: number,
+        occurredAt: occurredAt,
+        chestID: chestID,
       );
 
   @override
-  List<Object?> get props => [id, number, occurredAt, lines];
+  List<Object?> get props => [id, number, occurredAt, lines, chestID];
 }
