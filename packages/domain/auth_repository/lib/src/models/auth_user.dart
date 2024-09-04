@@ -1,7 +1,7 @@
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/src/models/auth_user_chest.dart';
-import 'package:cpub/equatable.dart';
-import 'package:cpub/meta.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 /// {@template CAuthUser}
 ///

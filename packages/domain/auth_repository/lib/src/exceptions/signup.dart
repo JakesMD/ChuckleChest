@@ -1,5 +1,5 @@
 import 'package:cauth_client/cauth_client.dart';
-import 'package:cpub/meta.dart';
+import 'package:meta/meta.dart';
 
 /// A exception thrown when a signup fails.
 enum CSignupException {

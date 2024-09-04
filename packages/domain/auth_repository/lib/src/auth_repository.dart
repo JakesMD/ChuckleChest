@@ -1,6 +1,6 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:cpub/bobs_jobs.dart';
 
 /// {@template CAuthRepository}
 ///
