@@ -5,8 +5,13 @@ enum CRawSessionRefreshException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawSessionRefreshException.fromError(Object e) {
-    log(e.toString(), error: e, name: 'CRawSessionRefreshException');
+  factory CRawSessionRefreshException.fromError(Object e, StackTrace s) {
+    log(
+      e.toString(),
+      error: e,
+      stackTrace: s,
+      name: 'CRawSessionRefreshException',
+    );
     return CRawSessionRefreshException.unknown;
   }
 }

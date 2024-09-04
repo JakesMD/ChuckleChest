@@ -1,5 +1,5 @@
 import 'package:ccore/ccore.dart';
-import 'package:cpub/equatable.dart';
+import 'package:equatable/equatable.dart';
 
 /// {@template CUserRole}
 ///

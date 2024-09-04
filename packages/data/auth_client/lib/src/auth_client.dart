@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_client/cauth_client.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 /// {@template CAuthClient}
 ///

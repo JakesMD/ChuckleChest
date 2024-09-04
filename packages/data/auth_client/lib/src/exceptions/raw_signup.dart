@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cpub/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 /// An exception thrown when a sign-up fails.
 enum CRawSignupException {
@@ -11,14 +11,24 @@ enum CRawSignupException {
   unknown;
 
   /// Converts an error into a [CRawSignupException].
-  static CRawSignupException fromError(Object error) {
+  static CRawSignupException fromError(Object error, StackTrace s) {
     if (error is AuthException) {
-      log(error.message, error: error, name: 'CRawSignupException');
+      log(
+        error.message,
+        error: error,
+        stackTrace: s,
+        name: 'CRawSignupException',
+      );
       if (error.statusCode == '429') {
         return CRawSignupException.emailRateLimitExceeded;
       }
     }
-    log(error.toString(), error: error, name: 'CRawSignupException');
+    log(
+      error.toString(),
+      error: error,
+      stackTrace: s,
+      name: 'CRawSignupException',
+    );
     return CRawSignupException.unknown;
   }
 }
