@@ -1,14 +1,107 @@
+// ignore_for_file: unused_element
+
+import 'package:ccore/ccore.dart';
+import 'package:cgem_repository/cgem_repository.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/shared/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CAnimatedLine}
 ///
-/// A widget that animates text like a typewriter.
+/// A widget that displays a line.
 ///
 /// {@endtemplate}
 class CAnimatedLine extends StatelessWidget {
   /// {@macro CAnimatedLine}
   const CAnimatedLine({
+    required this.line,
+    required this.occurredAt,
+    this.onPressed,
+    this.onDeletePressed,
+    this.isDeleteEnabled = false,
+    this.onAnimationCompleted,
+    this.isAnimated = true,
+    super.key,
+  });
+
+  /// The line to display.
+  final CLine line;
+
+  /// The date the line occurred.
+  final DateTime occurredAt;
+
+  /// Called when the line is pressed.
+  final void Function()? onPressed;
+
+  /// Called when the delete button is pressed.
+  final void Function()? onDeletePressed;
+
+  /// Whether the delete button is enabled.
+  final bool isDeleteEnabled;
+
+  /// The callback when the animation is completed.
+  final void Function()? onAnimationCompleted;
+
+  /// Whether the animation is enabled.
+  final bool isAnimated;
+
+  @override
+  Widget build(BuildContext context) {
+    CPerson? person;
+
+    if (line.isQuote) {
+      person = context.read<CChestPeopleFetchBloc>().fetchPerson(
+            line.personID!,
+          );
+    }
+
+    return CFadeIn(
+      isAnimated: isAnimated,
+      child: ListTile(
+        minVerticalPadding: 16,
+        onTap: onPressed,
+        titleAlignment: line.isQuote ? ListTileTitleAlignment.top : null,
+        leading: line.isQuote
+            ? CAvatar.fromPerson(person: person, date: occurredAt)
+            : null,
+        title: line.isQuote
+            ? Text(
+                CAppL10n.of(context).quoteItem_person(
+                  person!.nickname,
+                  person.ageAtDate(occurredAt),
+                ),
+                style: context.cTextTheme.labelMedium,
+              )
+            : _CAnimatedSizedLine(
+                isAnimated: isAnimated,
+                text: line.text,
+                onCompleted: onAnimationCompleted,
+                textStyle: context.cTextTheme.bodyLarge!,
+              ),
+        subtitle: line.isQuote
+            ? _CAnimatedSizedLine(
+                isAnimated: isAnimated,
+                text: line.text,
+                onCompleted: onAnimationCompleted,
+                textStyle: Theme.of(context).textTheme.bodyLarge!,
+              )
+            : null,
+        trailing: isDeleteEnabled
+            ? IconButton(
+                onPressed: onDeletePressed,
+                icon: const Icon(Icons.close_rounded),
+              )
+            : null,
+      ),
+    );
+  }
+}
+
+class _CAnimatedSizedLine extends StatelessWidget {
+  const _CAnimatedSizedLine({
     required this.text,
     required this.textStyle,
     this.onCompleted,
@@ -17,31 +110,22 @@ class CAnimatedLine extends StatelessWidget {
     this.sizeAnimationDuration = const Duration(milliseconds: 250),
     this.sizeAnimationCurve = Curves.easeOut,
     this.isAnimated = true,
-    super.key,
   });
 
-  /// The text to animate.
   final String text;
 
-  /// The delay before the animation starts.
   final Duration delay;
 
-  /// The speed of the animation.
   final Duration speed;
 
-  /// The duration of the size animation.
   final Duration sizeAnimationDuration;
 
-  /// The curve of the size animation.
   final Curve sizeAnimationCurve;
 
-  /// A callback that is called when the animation is completed.
   final void Function()? onCompleted;
 
-  /// Whether the animation is enabled.
   final bool isAnimated;
 
-  /// A function that builds the text widget.
   final TextStyle textStyle;
 
   @override

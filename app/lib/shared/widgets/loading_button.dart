@@ -1,6 +1,6 @@
-import 'package:chuckle_chest/shared/widgets/cradle_loading_indicator.dart';
-import 'package:cpub/flutter_bloc.dart';
+import 'package:chuckle_chest/shared/widgets/loading_indicator.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CLoadingButton}
 ///
@@ -12,19 +12,21 @@ import 'package:flutter/widgets.dart';
 class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
   /// {@macro CLoadingButton}
   const CLoadingButton({
-    required this.text,
+    required this.child,
     required this.isLoading,
     required this.onPressed,
     required this.builder,
+    this.isSmall = false,
+    this.isEnabled = true,
     this.loadingIndicatorColor,
     super.key,
   });
 
   /// The text of the button.
-  final Widget text;
+  final Widget child;
 
   /// The function that will be called when the button is pressed.
-  final void Function(BuildContext context, B bloc) onPressed;
+  final void Function(BuildContext context, B bloc)? onPressed;
 
   /// The function that determines the bloc state is a loading state.
   final bool Function(S) isLoading;
@@ -35,6 +37,12 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
     Widget text,
     void Function()? onPressed,
   ) builder;
+
+  /// Whether the button is small.
+  final bool isSmall;
+
+  /// Whether the button is enabled.
+  final bool isEnabled;
 
   /// The color of the loading indicator.
   final Color? loadingIndicatorColor;
@@ -52,22 +60,29 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
           children: [
             Opacity(
               opacity: isLoading(state) ? 0 : 1,
-              child: text,
+              child: child,
             ),
             if (isLoading(state))
               Positioned.fill(
                 child: Center(
                   child: LayoutBuilder(
-                    builder: (context, constraints) => CCradleLoadingIndicator(
-                      color: loadingIndicatorColor,
-                      ballSize: constraints.maxHeight * 0.6,
-                    ),
+                    builder: (context, constraints) => isSmall
+                        ? CBouncyBallLoadingIndicator(
+                            color: loadingIndicatorColor,
+                            ballSize: constraints.maxHeight * 0.6,
+                          )
+                        : CCradleLoadingIndicator(
+                            color: loadingIndicatorColor,
+                            ballSize: constraints.maxHeight * 0.6,
+                          ),
                   ),
                 ),
               ),
           ],
         ),
-        !isLoading(state) ? () => onPressed(context, bloc) : null,
+        !isLoading(state) && isEnabled
+            ? () => onPressed?.call(context, bloc)
+            : null,
       ),
     );
   }

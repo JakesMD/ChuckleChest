@@ -45,13 +45,13 @@ class CLinesTable extends SupaTable<CLinesTableCore, CLinesTableRecord> {
 
   /// The unique identifier of the gem the line belongs to.
   @SupaColumnHere<String>()
-  static const gemID = SupaColumn<CGemsTableCore, String, String>(
+  static const gemID = SupaColumn<CLinesTableCore, String, String>(
     name: 'gem_id',
   );
 
   /// The unique identifier of the chest the line belongs to.
   @SupaColumnHere<String>()
-  static const chestID = SupaColumn<CGemsTableCore, String, String>(
+  static const chestID = SupaColumn<CLinesTableCore, String, String>(
     name: 'chest_id',
   );
 }

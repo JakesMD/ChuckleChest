@@ -1,8 +1,8 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
 import 'package:cperson_repository/cperson_repository.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CAvatar}
 ///
@@ -11,13 +11,23 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class CAvatar extends StatelessWidget {
   /// {@macro CAvatar}
-  const CAvatar({
-    this.personID,
-    this.people,
-    this.age,
-    this.date,
+  const CAvatar.fromPerson({
+    required this.person,
+    required this.date,
     super.key,
-  });
+  })  : personID = null,
+        people = null;
+
+  /// {@macro CAvatar}
+  const CAvatar.fromPersonID({
+    required this.personID,
+    required this.date,
+    this.people,
+    super.key,
+  }) : person = null;
+
+  /// The person to display.
+  final CPerson? person;
 
   /// The ID of the person.
   final BigInt? personID;
@@ -28,34 +38,25 @@ class CAvatar extends StatelessWidget {
   /// the avatar is displayed within a dialog).
   final List<CPerson>? people;
 
-  /// The age of the person.
-  ///
-  /// Use [date] if the age is not known but the date is.
-  final int? age;
-
   /// The date for the avatar.
-  ///
-  /// Use [age] if the age is known but the date is not.
-  final DateTime? date;
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
-    late String? url;
+    String? url;
 
-    if (personID != null) {
-      late CPerson? person;
+    if (person != null) {
+      url = person?.avatarURLForDate(date);
+    } else if (personID != null) {
+      CPerson? person2;
 
       if (people != null) {
-        person = people?.cFirstWhereOrNull((person) => person.id == personID);
+        person2 = people?.cFirstWhereOrNull((person) => person.id == personID);
       } else {
-        person = context.read<CChestPeopleFetchBloc>().fetchPerson(personID!);
+        person2 = context.read<CChestPeopleFetchBloc>().fetchPerson(personID!);
       }
 
-      url = age != null
-          ? person?.avatarURLForAge(age)
-          : person?.avatarURLForDate(date);
-    } else {
-      url = null;
+      url = person2?.avatarURLForDate(date);
     }
 
     return CircleAvatar(

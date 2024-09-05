@@ -1,5 +1,5 @@
-import 'package:cpub/signed_spacing_flex.dart';
 import 'package:flutter/material.dart';
+import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 
 /// {@template CCradleLoadingIndicator}
 ///
@@ -113,6 +113,84 @@ class _CCradleLoadingIndicatorState extends State<CCradleLoadingIndicator>
           },
         ),
       ],
+    );
+  }
+}
+
+/// {@template CBouncyBallLoadingIndicator}
+///
+/// A widget that displays an animated bouncing ball as a loading indicator.
+///
+/// {@endtemplate}
+class CBouncyBallLoadingIndicator extends StatefulWidget {
+  /// {@macro CBouncyBallLoadingIndicator}
+  const CBouncyBallLoadingIndicator({
+    super.key,
+    this.ballSize = 12,
+    this.color,
+  });
+
+  /// The size of the balls.
+  final double ballSize;
+
+  /// The color of the balls.
+  final Color? color;
+
+  @override
+  State<CBouncyBallLoadingIndicator> createState() =>
+      _CBouncyBallLoadingIndicatorState();
+}
+
+class _CBouncyBallLoadingIndicatorState
+    extends State<CBouncyBallLoadingIndicator> with TickerProviderStateMixin {
+  late AnimationController ballController;
+  late Animation<double> ballAnimation;
+
+  Color? ballColor;
+
+  @override
+  void initState() {
+    super.initState();
+
+    ballController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    ballAnimation = Tween<double>(
+      begin: widget.ballSize * 1.5,
+      end: -widget.ballSize * 1.5,
+    ).animate(
+      CurvedAnimation(parent: ballController, curve: Curves.easeOutSine),
+    );
+
+    ballController
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          ballController.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          ballController.forward();
+        }
+      })
+      ..forward();
+  }
+
+  @override
+  void dispose() {
+    ballController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ballColor ??= widget.color ?? Theme.of(context).colorScheme.primary;
+
+    return AnimatedBuilder(
+      animation: ballController,
+      builder: (context, child) => Transform.translate(
+        offset: Offset(0, ballAnimation.value),
+        child: _CCradleBall(size: widget.ballSize, color: ballColor!),
+      ),
     );
   }
 }

@@ -1,15 +1,13 @@
 import 'dart:math';
 
-import 'package:ccore/ccore.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
 import 'package:chuckle_chest/pages/gem/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/physics/_physics.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemPage}
 ///
@@ -19,7 +17,7 @@ import 'package:flutter/material.dart';
 @RoutePage()
 class CGemPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CGemPage}
-  CGemPage({
+  const CGemPage({
     @PathParam() required this.gemID,
     super.key,
   });
@@ -46,8 +44,6 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
       child: this,
     );
   }
-
-  final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -90,32 +86,10 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
             buildWhen: (_, state) => state is CGemFetchSuccess,
             builder: (context, state) {
               if (state is CGemFetchSuccess) {
-                return ListView(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.all(24),
-                  physics: const CAutoScrollingPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  children: [
-                    CAnimatedTypingText(
-                      delay: Duration.zero,
-                      text: state.gem.occurredAt.cLocalize(
-                        context,
-                        dateFormat: CDateFormat.yearMonth,
-                      ),
-                      textStyle: Theme.of(context).textTheme.labelMedium!,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 12),
-                    CAnimatedGem(gem: state.gem, isAnimated: true),
-                  ],
-                );
+                return CAnimatedGem(gem: state.gem);
               }
               return const SizedBox();
             },
-          ),
-          floatingActionButton: CScrollToBottomFAB(
-            scrollController: _scrollController,
           ),
           bottomNavigationBar: CGemPageBottomAppBar(gemID: gemID),
         ),

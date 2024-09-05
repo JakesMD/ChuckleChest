@@ -119,17 +119,17 @@ abstract class CAppL10n {
   /// **'Create a new chest'**
   String get chestCreationDialog_title;
 
-  /// No description provided for @chestPage_bottomNav_gems.
+  /// No description provided for @homePage_bottomNav_collections.
   ///
   /// In en, this message translates to:
-  /// **'Gems'**
-  String get chestPage_bottomNav_gems;
+  /// **'Collections'**
+  String get homePage_bottomNav_collections;
 
-  /// No description provided for @chestPage_bottomNav_settings.
+  /// No description provided for @homePage_bottomNav_settings.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
-  String get chestPage_bottomNav_settings;
+  String get homePage_bottomNav_settings;
 
   /// No description provided for @close.
   ///
@@ -280,6 +280,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
+
+  /// No description provided for @signinPage_disabledBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.'**
+  String get signinPage_disabledBanner;
 
   /// No description provided for @signinPage_error_emailRateLimitExceeded.
   ///

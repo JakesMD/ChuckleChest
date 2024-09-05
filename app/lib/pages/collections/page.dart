@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-/// {@template CSettingsPage}
+/// {@template CCollectionsPage}
 ///
-/// The settings page.
+/// The page for displaying all the collections.
 ///
 /// {@endtemplate}
 @RoutePage()
-class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
-  /// {@macro CSettingsPage}
-  const CSettingsPage({super.key});
+class CCollectionsPage extends StatelessWidget implements AutoRouteWrapper {
+  /// {@macro CCollectionsPage}
+  const CCollectionsPage({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {

@@ -1,9 +1,9 @@
+import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cgem_repository/cgem_repository.dart';
-import 'package:cpub/bloc.dart';
-import 'package:cpub/bloc_concurrency.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub/equatable.dart';
-import 'package:cpub/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'event.dart';
 part 'state.dart';

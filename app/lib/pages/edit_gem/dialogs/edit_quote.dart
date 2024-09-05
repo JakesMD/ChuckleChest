@@ -4,8 +4,8 @@ import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:cperson_repository/cperson_repository.dart';
-import 'package:cpub/signed_spacing_flex.dart';
 import 'package:flutter/material.dart';
+import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 
 /// {@template CEditQuoteDialog}
 ///
@@ -143,7 +143,7 @@ class _CPersonDropdownMenuFormField extends StatelessWidget {
       builder: (state) => SignedSpacingRow(
         spacing: 16,
         children: [
-          CAvatar(
+          CAvatar.fromPersonID(
             personID: state.value,
             people: people,
             date: occurredAt,
@@ -166,7 +166,7 @@ class _CPersonDropdownMenuFormField extends StatelessWidget {
                     (person) => DropdownMenuEntry(
                       value: person.id,
                       label: person.nickname,
-                      leadingIcon: CAvatar(
+                      leadingIcon: CAvatar.fromPersonID(
                         personID: person.id,
                         people: people,
                         date: occurredAt,

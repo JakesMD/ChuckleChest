@@ -1,9 +1,9 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/widgets/client_provider.dart';
-import 'package:cpub/flutter_bloc.dart';
-import 'package:cpub_dev/mocktail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mocktail/mocktail.dart';
 
 class MockCApp extends StatelessWidget {
   const MockCApp({

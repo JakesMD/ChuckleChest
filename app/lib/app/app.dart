@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:cchest_repository/cchest_repository.dart';
@@ -13,12 +14,11 @@ import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/widgets/client_provider.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
-import 'package:cpub/flutter_localizations.dart';
-import 'package:cpub/supabase_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 export 'app_flavor.dart';
 
@@ -65,12 +65,13 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
 
     final chestsTable = CChestsTable(supabaseClient: supabaseClient);
     final gemsTable = CGemsTable(supabaseClient: supabaseClient);
+    final linesTable = CLinesTable(supabaseClient: supabaseClient);
     final peopleTable = CPeopleTable(supabaseClient: supabaseClient);
 
     platformClient = CPlatformClient();
     authClient = CAuthClient(authClient: supabaseClient.auth);
     chestClient = CChestClient(chestsTable: chestsTable);
-    gemClient = CGemClient(gemsTable: gemsTable);
+    gemClient = CGemClient(gemsTable: gemsTable, linesTable: linesTable);
     personClient = CPersonClient(peopleTable: peopleTable);
 
     authRepository = CAuthRepository(
@@ -124,7 +125,6 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
             ...GlobalMaterialLocalizations.delegates,
             GlobalWidgetsLocalizations.delegate,
           ],
-          locale: const Locale('de'),
           supportedLocales: CCoreL10n.supportedLocales,
           routerConfig: appRouter.config(
             reevaluateListenable: ReevaluateListenable.stream(

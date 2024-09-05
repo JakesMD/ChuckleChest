@@ -1,12 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGetStartedPage}
 ///
@@ -76,7 +76,7 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
         padding: const EdgeInsets.all(24),
         children: [
           CLoadingButton<CChestCreationBloc, CChestCreationState>(
-            text: Text(context.cAppL10n.getStartedPage_createChestButton),
+            child: Text(context.cAppL10n.getStartedPage_createChestButton),
             isLoading: (state) => state is CChestCreationInProgress,
             onPressed: (context, bloc) =>
                 CChestCreationDialog(bloc: bloc).show(context),

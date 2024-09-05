@@ -1,12 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/otp_verification/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
-import 'package:cpub/pinput.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pinput/pinput.dart';
 
 /// {@template COTPVerificationPage}
 ///
@@ -82,17 +82,20 @@ class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
           onPressed: () => _onBackButtonPressed(context),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(context.cAppL10n.otpVerificationPage_message),
-            const SizedBox(height: 16),
-            Pinput(
-              length: 6,
-              onCompleted: (pin) => _onOTPSubmited(context, pin),
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(context.cAppL10n.otpVerificationPage_message),
+              const SizedBox(height: 16),
+              Pinput(
+                length: 6,
+                onCompleted: (pin) => _onOTPSubmited(context, pin),
+              ),
+            ],
+          ),
         ),
       ),
     );

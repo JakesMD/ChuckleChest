@@ -3,6 +3,7 @@
         "source.organizeImports": "explicit"
     },
     "files.exclude": {
+        "CNAME": true,
         "coverage_badge.svg": true,
         "LICENSE": true,
         "**/.branches": true,

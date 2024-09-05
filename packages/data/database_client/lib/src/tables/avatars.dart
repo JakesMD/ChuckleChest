@@ -31,7 +31,7 @@ class CAvatarsTable extends SupaTable<CAvatarsTableCore, CAvatarsTableRecord> {
   /// The URL of the photo of the person at that age.
   @SupaColumnHere<String>()
   static const imageURL =
-      SupaColumn<CAvatarsTableCore, String, String>(name: 'avatar_url');
+      SupaColumn<CAvatarsTableCore, String, String>(name: 'image_url');
 
   /// The ID of the chest the person belongs to.
   @SupaColumnHere<String>()

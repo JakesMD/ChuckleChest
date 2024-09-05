@@ -1,14 +1,16 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
+import 'package:chuckle_chest/pages/edit_gem/dialogs/edit_narration.dart';
+import 'package:chuckle_chest/pages/edit_gem/dialogs/edit_quote.dart';
 import 'package:chuckle_chest/pages/edit_gem/widgets/bottom_app_bar.dart';
 import 'package:chuckle_chest/pages/edit_gem/widgets/editable_date.dart';
-import 'package:chuckle_chest/pages/edit_gem/widgets/editable_line.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/cubit/_cubit.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CEditGemPage}
 ///
@@ -31,17 +33,36 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
           create: (context) => CGemEditBloc(
             gemRepository: context.read(),
             gem: null,
-          ),
-        ),
-        BlocProvider(
-          create: (context) => CChestPeopleFetchBloc(
-            personRepository: context.read(),
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
       ],
       child: this,
     );
+  }
+
+  void _onLinePressed(BuildContext context, CGem gem, int index) {
+    final line = gem.lines[index];
+
+    if (line.isQuote) {
+      CEditQuoteDialog(
+        line: line,
+        index: index,
+        bloc: context.read(),
+        occurredAt: gem.occurredAt,
+        people: context.read<CChestPeopleFetchBloc>().state.people,
+      ).show(context);
+    } else {
+      CEditNarrationDialog(
+        line: line,
+        index: index,
+        bloc: context.read(),
+      ).show(context);
+    }
+  }
+
+  void _onLineDeletePressed(BuildContext context, int index) {
+    context.read<CGemEditBloc>().add(CGemEditLastLineDeleted());
   }
 
   @override
@@ -71,11 +92,15 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
                   const Divider(height: 48),
                   ...List.generate(
                     state.gem.lines.length,
-                    (index) => CEditableLine(
+                    (index) => CAnimatedLine(
                       line: state.gem.lines[index],
-                      index: index,
-                      isDeleteEnabled: index == state.gem.lines.length - 1,
                       occurredAt: state.gem.occurredAt,
+                      isDeleteEnabled: index == state.gem.lines.length - 1,
+                      isAnimated: false,
+                      onPressed: () =>
+                          _onLinePressed(context, state.gem, index),
+                      onDeletePressed: () =>
+                          _onLineDeletePressed(context, index),
                     ),
                   ),
                 ],

@@ -1,5 +1,5 @@
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:cpub/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CCurrentChestCubit}
 ///

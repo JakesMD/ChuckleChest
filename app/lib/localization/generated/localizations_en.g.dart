@@ -21,10 +21,10 @@ class CAppL10nEn extends CAppL10n {
   String get chestCreationDialog_title => 'Create a new chest';
 
   @override
-  String get chestPage_bottomNav_gems => 'Gems';
+  String get homePage_bottomNav_collections => 'Collections';
 
   @override
-  String get chestPage_bottomNav_settings => 'Settings';
+  String get homePage_bottomNav_settings => 'Settings';
 
   @override
   String get close => 'Close';
@@ -111,6 +111,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get save => 'Save';
+
+  @override
+  String get signinPage_disabledBanner => 'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.';
 
   @override
   String get signinPage_error_emailRateLimitExceeded => 'We\'ve reached our hourly sign-in limit. Please try again later.';

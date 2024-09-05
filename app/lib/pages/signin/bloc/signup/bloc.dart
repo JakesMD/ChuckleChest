@@ -1,8 +1,8 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:cpub/bloc_concurrency.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub/equatable.dart';
-import 'package:cpub/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'event.dart';
 part 'state.dart';

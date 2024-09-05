@@ -1,7 +1,7 @@
 import 'package:chuckle_chest/app/app.dart';
 import 'package:chuckle_chest/bootstrap/bootstrap.dart';
-import 'package:cpub/supabase_flutter.dart';
 import 'package:flutter/widgets.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
