@@ -3,9 +3,9 @@ import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
 import 'package:chuckle_chest/pages/edit_gem/dialogs/edit_narration.dart';
 import 'package:chuckle_chest/pages/edit_gem/dialogs/edit_quote.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:cpub/flutter_bloc.dart';
-import 'package:cpub/signed_spacing_flex.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 
 /// {@template CEditGemPageBottomAppBar}
 ///

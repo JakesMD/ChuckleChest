@@ -1,7 +1,7 @@
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemPageAppBar}
 ///
@@ -21,6 +21,7 @@ class CGemPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       context: context,
       title: BlocBuilder<CGemFetchBloc, CGemFetchState>(
         builder: (context, state) => switch (state) {
+          CGemFetchInitial() => const CCradleLoadingIndicator(),
           CGemFetchInProgress() => const CCradleLoadingIndicator(),
           CGemFetchSuccess(gem: final gem) => Text(gem.number.toString()),
           CGemFetchFailure() => const Icon(Icons.error_rounded),

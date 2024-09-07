@@ -1,4 +1,4 @@
-export 'avatar_urls.dart';
+export 'avatars.dart';
 export 'chests.dart';
 export 'gems.dart';
 export 'lines.dart';

@@ -1,7 +1,7 @@
 import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cperson_repository/src/models/_models.dart';
-import 'package:cpub/equatable.dart';
+import 'package:equatable/equatable.dart';
 
 /// {@template CPerson}
 ///
@@ -25,7 +25,7 @@ class CPerson with EquatableMixin {
         nickname = record.nickname,
         dateOfBirth = record.dateOfBirth,
         avatarURLs = record.avatarURLs.map(CAvatarURL.fromRecord).toList()
-          ..sort((a, b) => a.age.compareTo(b.age));
+          ..sort((a, b) => a.year.compareTo(b.year));
 
   /// The unique identifier of the person.
   final BigInt id;
@@ -50,15 +50,9 @@ class CPerson with EquatableMixin {
     return age;
   }
 
-  /// The URL of the person's avatar for the given age.
-  String? avatarURLForAge(int? age) =>
-      avatarURLs.cFirstWhereOrNull((a) => a.age == age)?.url;
-
   /// The URL of the person's avatar for the given date.
-  String? avatarURLForDate(DateTime? date) {
-    final age = date != null ? ageAtDate(date) : null;
-    return avatarURLs.cFirstWhereOrNull((a) => a.age == age)?.url;
-  }
+  String? avatarURLForDate(DateTime? date) =>
+      avatarURLs.cFirstWhereOrNull((a) => a.year == date?.year)?.url;
 
   @override
   List<Object?> get props => [id, nickname, dateOfBirth, avatarURLs];

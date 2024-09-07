@@ -1,5 +1,5 @@
 import 'package:cauth_client/cauth_client.dart';
-import 'package:cpub/meta.dart';
+import 'package:meta/meta.dart';
 
 /// An exception thrown when a sign-out fails.
 enum CSignoutException {

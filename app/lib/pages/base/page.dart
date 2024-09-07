@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/base/bloc/session_refresh/bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CBasePage}
 ///
@@ -27,18 +28,25 @@ class CBasePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CSessionRefreshBloc, CSessionRefreshState>(
-      builder: (context, state) {
-        if (state is CSessionRefreshSuccess) return const AutoRouter();
-
-        return Scaffold(
-          body: Center(
-            child: CCradleLoadingIndicator(
-              color: Theme.of(context).colorScheme.primary,
+    return Scaffold(
+      body: BlocBuilder<CSessionRefreshBloc, CSessionRefreshState>(
+        builder: (context, state) => Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Center(
+                child: state is! CSessionRefreshFailure
+                    ? CCradleLoadingIndicator(
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                    : Text(context.cAppL10n.snackBar_error_defaultMessage),
+              ),
             ),
-          ),
-        );
-      },
+            if (state is CSessionRefreshSuccess)
+              const Positioned.fill(child: AutoRouter()),
+          ],
+        ),
+      ),
     );
   }
 }

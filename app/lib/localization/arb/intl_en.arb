@@ -4,8 +4,8 @@
   "chestCreationDialog_createButton": "Create",
   "chestCreationDialog_label_chestName": "Chest name",
   "chestCreationDialog_title": "Create a new chest",
-  "chestPage_bottomNav_gems": "Gems",
-  "chestPage_bottomNav_settings": "Settings",
+  "homePage_bottomNav_collections": "Collections",
+  "homePage_bottomNav_settings": "Settings",
   "close": "Close",
   "delete": "Delete",
   "editGemPage_addNarrationButton": "Add a narration",
@@ -39,6 +39,7 @@
     }
   },
   "save": "Save",
+  "signinPage_disabledBanner": "Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.",
   "signinPage_error_emailRateLimitExceeded": "We've reached our hourly sign-in limit. Please try again later.",
   "signinPage_error_userNotFound": "We couldn't find this user.",
   "signinPage_hint_email": "Email",

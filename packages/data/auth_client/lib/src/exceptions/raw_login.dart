@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cpub/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 /// An exception thrown when a login fails.
 enum CRawLoginException {
@@ -14,9 +14,14 @@ enum CRawLoginException {
   unknown;
 
   /// Converts an error into a [CRawLoginException].
-  static CRawLoginException fromError(Object error) {
+  static CRawLoginException fromError(Object error, StackTrace s) {
     if (error is AuthException) {
-      log(error.message, error: error, name: 'CRawLoginException');
+      log(
+        error.message,
+        error: error,
+        stackTrace: s,
+        name: 'CRawLoginException',
+      );
       if (error.statusCode == '422') {
         return CRawLoginException.userNotFound;
       }
@@ -24,7 +29,12 @@ enum CRawLoginException {
         return CRawLoginException.emailRateLimitExceeded;
       }
     }
-    log(error.toString(), error: error, name: 'CRawLoginException.fromError');
+    log(
+      error.toString(),
+      error: error,
+      stackTrace: s,
+      name: 'CRawLoginException.fromError',
+    );
     return CRawLoginException.unknown;
   }
 }

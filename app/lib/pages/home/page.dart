@@ -1,10 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
+import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/home/widgets/app_bar_title.dart';
+import 'package:chuckle_chest/shared/cubit/_cubit.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CHomePage}
 ///
@@ -38,20 +41,23 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    final userRole = context.read<CCurrentChestCubit>().state.userRole;
+
     return AutoTabsRouter.builder(
-      routes: const [CGemsRoute(), CSettingsRoute()],
+      routes: const [CCollectionsRoute(), CSettingsRoute()],
       builder: (context, children, tabsRouter) => Scaffold(
         appBar: CAppBar(
           context: context,
           title: CHomePageAppBarTitle(onChestSelected: _onChestSelected),
         ),
         body: children[tabsRouter.activeIndex],
-        floatingActionButton: tabsRouter.activeIndex == 0
-            ? FloatingActionButton(
-                onPressed: () => _onFABPressed(context),
-                child: const Icon(Icons.add_rounded),
-              )
-            : null,
+        floatingActionButton:
+            tabsRouter.activeIndex == 0 && userRole != CUserRole.viewer
+                ? FloatingActionButton(
+                    onPressed: () => _onFABPressed(context),
+                    child: const Icon(Icons.add_rounded),
+                  )
+                : null,
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           onTap: tabsRouter.setActiveIndex,
@@ -60,12 +66,12 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
             BottomNavigationBarItem(
               icon: const Icon(Icons.diamond_outlined),
               activeIcon: const Icon(Icons.diamond_rounded),
-              label: context.cAppL10n.chestPage_bottomNav_gems,
+              label: context.cAppL10n.homePage_bottomNav_collections,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings_outlined),
               activeIcon: const Icon(Icons.settings_rounded),
-              label: context.cAppL10n.chestPage_bottomNav_settings,
+              label: context.cAppL10n.homePage_bottomNav_settings,
             ),
           ],
         ),

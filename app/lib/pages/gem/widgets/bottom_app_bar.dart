@@ -1,7 +1,7 @@
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemPageBottomAppBar}
 ///

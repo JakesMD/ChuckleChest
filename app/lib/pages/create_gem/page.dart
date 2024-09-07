@@ -1,10 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
 import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
+import 'package:chuckle_chest/pages/edit_gem/bloc/gem_save/bloc.dart';
 import 'package:chuckle_chest/shared/cubit/_cubit.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CCreateGemPage}
 ///
@@ -24,13 +24,11 @@ class CCreateGemPage extends StatelessWidget implements AutoRouteWrapper {
           create: (context) => CGemEditBloc(
             gemRepository: context.read(),
             gem: null,
-          ),
-        ),
-        BlocProvider(
-          create: (context) => CChestPeopleFetchBloc(
-            personRepository: context.read(),
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
+        ),
+        BlocProvider<CGemSaveBloc>(
+          create: (context) => CGemSaveBloc(gemRepository: context.read()),
         ),
       ],
       child: this,

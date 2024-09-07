@@ -1,7 +1,7 @@
 import 'package:chuckle_chest/app/app.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:cpub/url_launcher.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// {@template CStagingBanner}
 ///

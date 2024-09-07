@@ -5,8 +5,8 @@ enum CClipboardCopyException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CClipboardCopyException.fromError(Object e) {
-    log(e.toString(), error: e, name: 'CClipboardCopyException');
+  factory CClipboardCopyException.fromError(Object e, StackTrace s) {
+    log(e.toString(), error: e, stackTrace: s, name: 'CClipboardCopyException');
     return CClipboardCopyException.unknown;
   }
 }

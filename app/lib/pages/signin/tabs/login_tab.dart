@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
@@ -6,9 +7,8 @@ import 'package:chuckle_chest/pages/signin/bloc/_bloc.dart';
 import 'package:chuckle_chest/pages/signin/bloc/login/bloc.dart';
 import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cpub/auto_route.dart';
-import 'package:cpub/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CLoginTab}
 ///

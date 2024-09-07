@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
-import 'package:cpub/auto_route.dart';
 
 /// {@template CNoChestsGuard}
 ///

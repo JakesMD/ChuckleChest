@@ -1,5 +1,5 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
-import 'package:cpub/bobs_jobs.dart';
 
 /// {@template CPersonClient}
 ///
@@ -22,8 +22,8 @@ class CPersonClient {
                 CPeopleTable.nickname,
                 CPeopleTable.dateOfBirth,
                 CPeopleTable.avatarURLs({
-                  CAvatarURLsTable.age,
-                  CAvatarURLsTable.url,
+                  CAvatarsTable.year,
+                  CAvatarsTable.imageURL,
                 }),
               },
               modifier: peopleTable.order(CPeopleTable.nickname),

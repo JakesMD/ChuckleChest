@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bloc/bloc.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/bootstrap/mobile_url_strategy.dart'
     if (dart.library.html) 'package:chuckle_chest/bootstrap/web_url_strategy.dart';
-import 'package:cpub/bloc.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template CAppBlocObserver}

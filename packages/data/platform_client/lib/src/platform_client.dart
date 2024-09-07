@@ -1,8 +1,8 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cplatform_client/cplatform_client.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub/share_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// A client to interact with the platform's API.
 class CPlatformClient {

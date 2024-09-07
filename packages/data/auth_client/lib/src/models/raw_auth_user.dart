@@ -1,8 +1,8 @@
 import 'package:cauth_client/cauth_client.dart';
-import 'package:cpub/dart_jsonwebtoken.dart';
-import 'package:cpub/equatable.dart';
-import 'package:cpub/meta.dart';
-import 'package:cpub/supabase.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+import 'package:supabase/supabase.dart';
 
 /// {@template CRawAuthUser}
 ///

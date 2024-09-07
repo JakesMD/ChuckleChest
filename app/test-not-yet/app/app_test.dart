@@ -1,7 +1,7 @@
 import 'package:chuckle_chest/app/app.dart';
-import 'package:cpub_dev/flutter_test.dart';
-import 'package:cpub_dev/test_beautifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:test_beautifier/test_beautifier.dart';
 
 void main() {
   group('ChuckleChestApp tests', () {

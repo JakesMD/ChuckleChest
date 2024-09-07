@@ -59,6 +59,3 @@ final class CGemEditDateUpdated extends _CGemEditEvent {
   /// The new date the gem represents.
   final DateTime occurredAt;
 }
-
-/// The event that occurs when the gem is saved.
-final class CGemEditSaved extends _CGemEditEvent {}

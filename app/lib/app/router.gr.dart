@@ -35,6 +35,23 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CCollectionRoute.name: (routeData) {
+      final args = routeData.argsAs<CCollectionRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CCollectionPage(
+          year: args.year,
+          key: args.key,
+        )),
+      );
+    },
+    CCollectionsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CCollectionsPage()),
+      );
+    },
     CCreateGemRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -64,12 +81,6 @@ abstract class _$CAppRouter extends RootStackRouter {
           gemID: args.gemID,
           key: args.key,
         )),
-      );
-    },
-    CGemsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CGemsPage()),
       );
     },
     CGetStartedRoute.name: (routeData) {
@@ -189,6 +200,58 @@ class CChestRouteArgs {
 }
 
 /// generated route for
+/// [CCollectionPage]
+class CCollectionRoute extends PageRouteInfo<CCollectionRouteArgs> {
+  CCollectionRoute({
+    required int year,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CCollectionRoute.name,
+          args: CCollectionRouteArgs(
+            year: year,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CCollectionRoute';
+
+  static const PageInfo<CCollectionRouteArgs> page =
+      PageInfo<CCollectionRouteArgs>(name);
+}
+
+class CCollectionRouteArgs {
+  const CCollectionRouteArgs({
+    required this.year,
+    this.key,
+  });
+
+  final int year;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CCollectionRouteArgs{year: $year, key: $key}';
+  }
+}
+
+/// generated route for
+/// [CCollectionsPage]
+class CCollectionsRoute extends PageRouteInfo<void> {
+  const CCollectionsRoute({List<PageRouteInfo>? children})
+      : super(
+          CCollectionsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CCollectionsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CCreateGemPage]
 class CCreateGemRoute extends PageRouteInfo<void> {
   const CCreateGemRoute({List<PageRouteInfo>? children})
@@ -276,20 +339,6 @@ class CGemRouteArgs {
   String toString() {
     return 'CGemRouteArgs{gemID: $gemID, key: $key}';
   }
-}
-
-/// generated route for
-/// [CGemsPage]
-class CGemsRoute extends PageRouteInfo<void> {
-  const CGemsRoute({List<PageRouteInfo>? children})
-      : super(
-          CGemsRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CGemsRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

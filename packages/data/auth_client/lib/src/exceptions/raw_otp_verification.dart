@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cpub/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 /// An exception thrown when an OTP verification fails.
 enum CRawOTPVerificationException {
@@ -10,14 +10,19 @@ enum CRawOTPVerificationException {
   /// Indicates the cause in unknown.
   unknown;
 
-  factory CRawOTPVerificationException.fromError(Object e) {
+  factory CRawOTPVerificationException.fromError(Object e, StackTrace s) {
     if (e is AuthException) {
       if (e.statusCode == '403') {
-        log(e.message, error: e, name: 'CAuthClient.verifyOTP');
+        log(e.message, error: e, stackTrace: s, name: 'CAuthClient.verifyOTP');
         return CRawOTPVerificationException.invalidToken;
       }
     }
-    log(e.toString(), error: e, name: 'CRawOTPVerificationException');
+    log(
+      e.toString(),
+      error: e,
+      stackTrace: s,
+      name: 'CRawOTPVerificationException',
+    );
     return CRawOTPVerificationException.unknown;
   }
 }

@@ -1,6 +1,6 @@
 // coverage:ignore-file
 
-import 'package:cpub/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CClientProvider}
 ///

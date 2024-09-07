@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
-import 'package:cpub/auto_route.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
@@ -51,14 +51,23 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                   initial: true,
                   children: [
                     AutoRoute(
-                      path: 'gems',
-                      page: CGemsRoute.page,
+                      path: 'collections',
+                      page: CCollectionsRoute.page,
                       initial: true,
                     ),
                     AutoRoute(path: 'settings', page: CSettingsRoute.page),
                   ],
                 ),
-                AutoRoute(path: 'create-gem', page: CCreateGemRoute.page),
+                AutoRoute(
+                  path: 'create-gem',
+                  page: CCreateGemRoute.page,
+                  guards: [CCollaboratorGuard(authRepository: authRepository)],
+                ),
+                AutoRoute(
+                  path: 'edit-gem',
+                  page: CEditGemRoute.page,
+                  guards: [CCollaboratorGuard(authRepository: authRepository)],
+                ),
                 AutoRoute(
                   path: 'gems/:gemID',
                   page: CGemRoute.page,
@@ -68,6 +77,10 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                       page: CEditGemRoute.page,
                     ),
                   ],
+                ),
+                AutoRoute(
+                  path: 'collection',
+                  page: CCollectionRoute.page,
                 ),
               ],
             ),

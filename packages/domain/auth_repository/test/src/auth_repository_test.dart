@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
-import 'package:cpub/bobs_jobs.dart';
-import 'package:cpub_dev/flutter_test.dart';
-import 'package:cpub_dev/mocktail.dart';
-import 'package:cpub_dev/test_beautifier.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:test_beautifier/test_beautifier.dart';
 
 class MockBAuthClient extends Mock implements CAuthClient {}
 
