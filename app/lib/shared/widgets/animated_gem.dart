@@ -1,5 +1,6 @@
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/physics/auto_scrolling.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
@@ -72,14 +73,20 @@ class _CAnimatedGemState extends State<CAnimatedGem> {
 
   int currentLineIndex = 0;
 
+  bool showPullToRestart = false;
+
   void onLineAnimationCompleted() {
-    if (currentLineIndex == widget.gem.lines.length - 1) return;
+    if (currentLineIndex == widget.gem.lines.length - 1) {
+      setState(() => showPullToRestart = true);
+      return;
+    }
     setState(() => currentLineIndex++);
   }
 
   Future<void> restart() async {
     setState(() {
       currentLineIndex = 0;
+      showPullToRestart = false;
       key = UniqueKey();
     });
   }
@@ -105,6 +112,7 @@ class _CAnimatedGemState extends State<CAnimatedGem> {
           physics: const CAutoScrollingPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           children: [
             CAnimatedTypingText(
               delay: Duration.zero,
@@ -127,6 +135,20 @@ class _CAnimatedGemState extends State<CAnimatedGem> {
                     ),
                   )
                   .toList(),
+            ),
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 300),
+              opacity: showPullToRestart ? 1 : 0,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    context.cAppL10n.gem_restartMessage,
+                    style: context.cTextTheme.labelMedium!
+                        .copyWith(fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

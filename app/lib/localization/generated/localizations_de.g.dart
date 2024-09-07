@@ -21,12 +21,6 @@ class CAppL10nDe extends CAppL10n {
   String get chestCreationDialog_title => 'Neue Truhe erstellen';
 
   @override
-  String get homePage_bottomNav_collections => 'Sammlungen';
-
-  @override
-  String get homePage_bottomNav_settings => 'Einstellungen';
-
-  @override
   String get close => 'Schließen';
 
   @override
@@ -69,6 +63,9 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
+  String get gem_restartMessage => 'Zum Neustarten ziehen.';
+
+  @override
   String gem_share_message(Object link) {
     return 'Schau dir diese Gemme auf ChuckleChest an! 😂 $link';
   }
@@ -84,6 +81,12 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get getStartedPage_title => 'Legen wir los!';
+
+  @override
+  String get homePage_bottomNav_collections => 'Sammlungen';
+
+  @override
+  String get homePage_bottomNav_settings => 'Einstellungen';
 
   @override
   String get ok => 'Ok';

@@ -119,18 +119,6 @@ abstract class CAppL10n {
   /// **'Create a new chest'**
   String get chestCreationDialog_title;
 
-  /// No description provided for @homePage_bottomNav_collections.
-  ///
-  /// In en, this message translates to:
-  /// **'Collections'**
-  String get homePage_bottomNav_collections;
-
-  /// No description provided for @homePage_bottomNav_settings.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get homePage_bottomNav_settings;
-
   /// No description provided for @close.
   ///
   /// In en, this message translates to:
@@ -215,6 +203,12 @@ abstract class CAppL10n {
   /// **'Edit the gem'**
   String get editGemPage_title_edit;
 
+  /// No description provided for @gem_restartMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to restart.'**
+  String get gem_restartMessage;
+
   /// No description provided for @gem_share_message.
   ///
   /// In en, this message translates to:
@@ -244,6 +238,18 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Let\'s get started!'**
   String get getStartedPage_title;
+
+  /// No description provided for @homePage_bottomNav_collections.
+  ///
+  /// In en, this message translates to:
+  /// **'Collections'**
+  String get homePage_bottomNav_collections;
+
+  /// No description provided for @homePage_bottomNav_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get homePage_bottomNav_settings;
 
   /// No description provided for @ok.
   ///

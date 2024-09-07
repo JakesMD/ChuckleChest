@@ -21,12 +21,6 @@ class CAppL10nEn extends CAppL10n {
   String get chestCreationDialog_title => 'Create a new chest';
 
   @override
-  String get homePage_bottomNav_collections => 'Collections';
-
-  @override
-  String get homePage_bottomNav_settings => 'Settings';
-
-  @override
   String get close => 'Close';
 
   @override
@@ -69,6 +63,9 @@ class CAppL10nEn extends CAppL10n {
   String get editGemPage_title_edit => 'Edit the gem';
 
   @override
+  String get gem_restartMessage => 'Pull to restart.';
+
+  @override
   String gem_share_message(Object link) {
     return 'Check out this gem on ChuckleChest! 😂 $link';
   }
@@ -84,6 +81,12 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get getStartedPage_title => 'Let\'s get started!';
+
+  @override
+  String get homePage_bottomNav_collections => 'Collections';
+
+  @override
+  String get homePage_bottomNav_settings => 'Settings';
 
   @override
   String get ok => 'OK';
