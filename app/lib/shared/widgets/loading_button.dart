@@ -60,7 +60,7 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
           children: [
             Opacity(
               opacity: isLoading(state) ? 0 : 1,
-              child: child,
+              child: Center(child: child),
             ),
             if (isLoading(state))
               Positioned.fill(

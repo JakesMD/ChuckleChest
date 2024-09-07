@@ -28,6 +28,7 @@ dependencies:
   pinput: ^5.0.0
   signed_spacing_flex: ^1.1.0
   supabase_flutter: ^2.6.0
+  transparent_image: ^2.0.1
   url_launcher: ^6.3.0
 
 dev_dependencies:

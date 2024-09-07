@@ -18,7 +18,7 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
     super.key,
   });
 
-  /// The ID of the chesdt to display.
+  /// The ID of the chest to display.
   final String? chestID;
 
   @override

@@ -47,9 +47,9 @@ class CGemEditBloc extends Bloc<_CGemEditEvent, CGemEditState> {
   ) {
     state.gem.lines.add(
       CLine(
+        id: null,
         gemID: state.gem.id,
         chestID: chestID,
-        id: BigInt.zero,
         text: event.text,
         personID: event.personID,
       ),

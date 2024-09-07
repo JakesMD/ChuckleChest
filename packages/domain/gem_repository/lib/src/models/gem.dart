@@ -60,7 +60,7 @@ class CGem with EquatableMixin {
 
   /// Converts the gem to a [CGemsTableInsert].
   CGemsTableInsert toInsert() => CGemsTableInsert(
-        id: id,
+        id: id.isNotEmpty ? id : null,
         number: number,
         occurredAt: occurredAt,
         chestID: chestID,

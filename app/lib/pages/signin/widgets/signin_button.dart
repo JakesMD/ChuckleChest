@@ -41,7 +41,9 @@ class CSigninButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (_type == _CSigninButtonType.login) {
       return CLoadingButton<CLoginBloc, CLoginState>(
-        isLoading: (state) => state is CLoginInProgress,
+        isLoading: (state) => true,
+
+        ///state is CLoginInProgress,
         isEnabled: isEnabled,
         onPressed: (context, bloc) => onPressed(context),
         builder: (context, text, onPressed) => FilledButton(

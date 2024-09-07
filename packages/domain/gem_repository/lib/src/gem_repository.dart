@@ -48,11 +48,10 @@ class CGemRepository {
             onSuccess: CGem.fromRecord,
           );
 
-  /// Saves the gem with the given [gem], [deletedLines], and [lines].
+  /// Saves the gem with the given [gem], [deletedLines].
   BobsJob<CGemSaveException, String> saveGem({
     required CGem gem,
     required List<CLine> deletedLines,
-    required List<CLine> lines,
   }) =>
       gemClient
           .saveGem(
@@ -61,7 +60,7 @@ class CGemRepository {
                 .where((lines) => lines.id != null)
                 .map((line) => line.id!)
                 .toList(),
-            lines: lines.map((line) => line.toInsert()).toList(),
+            lines: gem.lines.map((line) => line.toInsert()).toList(),
           )
           .thenEvaluateOnFailure(CGemSaveException.fromRaw);
 

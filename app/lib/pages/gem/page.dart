@@ -35,10 +35,7 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
           ),
         ),
         BlocProvider(
-          create: (context) => CGemFetchBloc(
-            gemRepository: context.read<CGemRepository>(),
-            gemID: gemID,
-          ),
+          create: (context) => CGemFetchBloc(gemRepository: context.read()),
         ),
       ],
       child: this,
@@ -82,15 +79,7 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
         data: Theme.of(context).copyWith(colorScheme: colorScheme),
         child: Scaffold(
           appBar: const CGemPageAppBar(),
-          body: BlocBuilder<CGemFetchBloc, CGemFetchState>(
-            buildWhen: (_, state) => state is CGemFetchSuccess,
-            builder: (context, state) {
-              if (state is CGemFetchSuccess) {
-                return CAnimatedGem(gem: state.gem);
-              }
-              return const SizedBox();
-            },
-          ),
+          body: CAnimatedGemView(gemID: gemID),
           bottomNavigationBar: CGemPageBottomAppBar(gemID: gemID),
         ),
       ),

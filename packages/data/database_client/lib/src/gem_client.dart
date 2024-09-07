@@ -24,7 +24,7 @@ class CGemClient {
       BobsJob.attempt(
         run: () async {
           final response = await gemsTable.supabaseClient.rpc<List<dynamic>>(
-            'fetch_destinct_gem_years',
+            'fetch_distinct_gem_years',
             params: {'chest_id_param': chestID},
           );
           return response.cast<int>();
@@ -44,8 +44,8 @@ class CGemClient {
             filter: gemsTable
                 .equal(CGemsTable.chestID(chestID))
                 .greaterOrEqual(CGemsTable.occurredAt(DateTime(year)))
-                .less(CGemsTable.occurredAt(DateTime(year))),
-            modifier: gemsTable.all(),
+                .less(CGemsTable.occurredAt(DateTime(year + 1))),
+            modifier: gemsTable.order(CGemsTable.occurredAt, ascending: false),
           );
           return response.map((r) => r.id).toList();
         },
@@ -60,13 +60,10 @@ class CGemClient {
         run: () => gemsTable.fetch(
           columns: {
             CGemsTable.id,
+            CGemsTable.chestID,
             CGemsTable.number,
             CGemsTable.occurredAt,
-            CGemsTable.lines({
-              CLinesTable.id,
-              CLinesTable.text,
-              CLinesTable.personID,
-            }),
+            CGemsTable.lines,
           },
           filter: gemsTable.equal(CGemsTable.id(gemID)),
           modifier: gemsTable.limit(1).single(),

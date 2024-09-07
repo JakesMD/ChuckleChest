@@ -1,5 +1,6 @@
 export 'base/page.dart';
 export 'chest/page.dart';
+export 'collection/page.dart';
 export 'collections/page.dart';
 export 'create_gem/page.dart';
 export 'edit_gem/page.dart';

@@ -78,6 +78,10 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                     ),
                   ],
                 ),
+                AutoRoute(
+                  path: 'collection',
+                  page: CCollectionRoute.page,
+                ),
               ],
             ),
           ],

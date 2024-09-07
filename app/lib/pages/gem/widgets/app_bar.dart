@@ -21,6 +21,7 @@ class CGemPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       context: context,
       title: BlocBuilder<CGemFetchBloc, CGemFetchState>(
         builder: (context, state) => switch (state) {
+          CGemFetchInitial() => const CCradleLoadingIndicator(),
           CGemFetchInProgress() => const CCradleLoadingIndicator(),
           CGemFetchSuccess(gem: final gem) => Text(gem.number.toString()),
           CGemFetchFailure() => const Icon(Icons.error_rounded),

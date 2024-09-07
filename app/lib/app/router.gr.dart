@@ -35,6 +35,17 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CCollectionRoute.name: (routeData) {
+      final args = routeData.argsAs<CCollectionRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CCollectionPage(
+          year: args.year,
+          key: args.key,
+        )),
+      );
+    },
     CCollectionsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -185,6 +196,44 @@ class CChestRouteArgs {
   @override
   String toString() {
     return 'CChestRouteArgs{chestID: $chestID, key: $key}';
+  }
+}
+
+/// generated route for
+/// [CCollectionPage]
+class CCollectionRoute extends PageRouteInfo<CCollectionRouteArgs> {
+  CCollectionRoute({
+    required int year,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CCollectionRoute.name,
+          args: CCollectionRouteArgs(
+            year: year,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CCollectionRoute';
+
+  static const PageInfo<CCollectionRouteArgs> page =
+      PageInfo<CCollectionRouteArgs>(name);
+}
+
+class CCollectionRouteArgs {
+  const CCollectionRouteArgs({
+    required this.year,
+    this.key,
+  });
+
+  final int year;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CCollectionRouteArgs{year: $year, key: $key}';
   }
 }
 
