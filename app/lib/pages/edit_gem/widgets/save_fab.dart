@@ -26,7 +26,7 @@ class CSaveGemFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CLoadingButton<CGemSaveBloc, CGemSaveState>(
-      isLoading: (state) => state is CGemSaveInProgress,
+      isLoading: (state) => true, //state is CGemSaveInProgress,
       isSmall: true,
       onPressed: _onPressed,
       child: const Icon(Icons.save_rounded),

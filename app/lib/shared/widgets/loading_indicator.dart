@@ -158,8 +158,8 @@ class _CBouncyBallLoadingIndicatorState
     );
 
     ballAnimation = Tween<double>(
-      begin: widget.ballSize * 1.5,
-      end: -widget.ballSize * 1.5,
+      begin: widget.ballSize * 0.5,
+      end: -widget.ballSize * 1,
     ).animate(
       CurvedAnimation(parent: ballController, curve: Curves.easeOutSine),
     );

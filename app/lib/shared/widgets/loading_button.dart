@@ -69,7 +69,7 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
                     builder: (context, constraints) => isSmall
                         ? CBouncyBallLoadingIndicator(
                             color: loadingIndicatorColor,
-                            ballSize: constraints.maxHeight * 0.6,
+                            ballSize: constraints.maxHeight * 0.3,
                           )
                         : CCradleLoadingIndicator(
                             color: loadingIndicatorColor,
