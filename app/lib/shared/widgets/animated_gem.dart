@@ -102,7 +102,6 @@ class _CAnimatedGemState extends State<CAnimatedGem> {
         child: ListView(
           key: key,
           controller: scrollController,
-          padding: const EdgeInsets.all(16),
           physics: const CAutoScrollingPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
