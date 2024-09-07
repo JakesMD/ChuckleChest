@@ -48,19 +48,22 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_editLineDialog_hint_person => 'Person';
 
   @override
-  String get editGemPage_editLineDialog_title_createNarration => 'Neue Erzählung';
+  String get editGemPage_editLineDialog_title_createNarration =>
+      'Neue Erzählung';
 
   @override
   String get editGemPage_editLineDialog_title_createQuote => 'Neues Zitat';
 
   @override
-  String get editGemPage_editLineDialog_title_editNarration => 'Erzählung bearbeiten';
+  String get editGemPage_editLineDialog_title_editNarration =>
+      'Erzählung bearbeiten';
 
   @override
   String get editGemPage_editLineDialog_title_editQuote => 'Zitat bearbeiten';
 
   @override
-  String get editGemPage_helperMessage => 'Tippe auf etwas, um es zu bearbeiten.';
+  String get editGemPage_helperMessage =>
+      'Tippe auf etwas, um es zu bearbeiten.';
 
   @override
   String get editGemPage_title_create => 'Gemme erstellen';
@@ -89,10 +92,12 @@ class CAppL10nDe extends CAppL10n {
   String get ok => 'Ok';
 
   @override
-  String get otpVerificationPage_error_invalidToken => 'Dieser Code ist ungültig. Bitte versuche es erneut.';
+  String get otpVerificationPage_error_invalidToken =>
+      'Dieser Code ist ungültig. Bitte versuche es erneut.';
 
   @override
-  String get otpVerificationPage_message => 'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
+  String get otpVerificationPage_message =>
+      'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
 
   @override
   String get otpVerificationPage_title => 'Ein-Mal-Code-Bestätigung';
@@ -113,10 +118,12 @@ class CAppL10nDe extends CAppL10n {
   String get save => 'Speichern';
 
   @override
-  String get signinPage_disabledBanner => 'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
+  String get signinPage_disabledBanner =>
+      'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
 
   @override
-  String get signinPage_error_emailRateLimitExceeded => 'Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuche es später erneut.';
+  String get signinPage_error_emailRateLimitExceeded =>
+      'Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuche es später erneut.';
 
   @override
   String get signinPage_error_userNotFound => 'Wir konnten dich nicht finden.';
@@ -143,7 +150,8 @@ class CAppL10nDe extends CAppL10n {
   String get signinPage_title => 'Willkommen!';
 
   @override
-  String get snackBar_error_defaultMessage => 'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
+  String get snackBar_error_defaultMessage =>
+      'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
 
   @override
   String get stagingBanner_button => 'Zur Endversion';
