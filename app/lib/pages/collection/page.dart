@@ -45,8 +45,6 @@ class CCollectionPage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     return BlocBuilder<CGemYearIDsFetchBloc, CGemYearIDsFetchState>(
       builder: (context, state) => Scaffold(
-        backgroundColor:
-            state is! CGemYearIDsFetchFailure ? Colors.transparent : null,
         appBar: CAppBar(context: context, title: Text(year.toString())),
         body: switch (state) {
           CGemYearIDsFetchInProgress() =>

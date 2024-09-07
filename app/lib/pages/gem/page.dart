@@ -80,7 +80,7 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
         child: Scaffold(
           appBar: const CGemPageAppBar(),
           body: CAnimatedGemView(gemID: gemID),
-          bottomNavigationBar: CGemPageBottomAppBar(gemID: gemID),
+          // bottomNavigationBar: CGemPageBottomAppBar(gemID: gemID),
         ),
       ),
     );
