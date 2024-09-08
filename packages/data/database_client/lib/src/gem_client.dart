@@ -104,7 +104,7 @@ class CGemClient {
           )
           .thenAttempt(
             run: (gemID) async {
-              await linesTable.insert(
+              await linesTable.upsert(
                 records: lines
                     .map(
                       (line) => CLinesTableInsert(
