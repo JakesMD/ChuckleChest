@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
-import 'package:chuckle_chest/pages/gem/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +77,6 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
       child: Theme(
         data: Theme.of(context).copyWith(colorScheme: colorScheme),
         child: Scaffold(
-          appBar: const CGemPageAppBar(),
           body: CAnimatedGemView(gemID: gemID),
           // bottomNavigationBar: CGemPageBottomAppBar(gemID: gemID),
         ),

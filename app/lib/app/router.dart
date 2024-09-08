@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
+import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
 import 'package:flutter/material.dart';

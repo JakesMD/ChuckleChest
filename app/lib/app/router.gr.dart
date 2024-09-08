@@ -59,14 +59,13 @@ abstract class _$CAppRouter extends RootStackRouter {
       );
     },
     CEditGemRoute.name: (routeData) {
-      final args = routeData.argsAs<CEditGemRouteArgs>(
-          orElse: () => const CEditGemRouteArgs());
+      final args = routeData.argsAs<CEditGemRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
             child: CEditGemPage(
+          gem: args.gem,
           key: args.key,
-          isNewGem: args.isNewGem,
         )),
       );
     },
@@ -269,14 +268,14 @@ class CCreateGemRoute extends PageRouteInfo<void> {
 /// [CEditGemPage]
 class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
   CEditGemRoute({
+    required CGem? gem,
     Key? key,
-    bool isNewGem = false,
     List<PageRouteInfo>? children,
   }) : super(
           CEditGemRoute.name,
           args: CEditGemRouteArgs(
+            gem: gem,
             key: key,
-            isNewGem: isNewGem,
           ),
           initialChildren: children,
         );
@@ -289,17 +288,17 @@ class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
 
 class CEditGemRouteArgs {
   const CEditGemRouteArgs({
+    required this.gem,
     this.key,
-    this.isNewGem = false,
   });
+
+  final CGem? gem;
 
   final Key? key;
 
-  final bool isNewGem;
-
   @override
   String toString() {
-    return 'CEditGemRouteArgs{key: $key, isNewGem: $isNewGem}';
+    return 'CEditGemRouteArgs{gem: $gem, key: $key}';
   }
 }
 

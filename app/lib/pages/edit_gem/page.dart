@@ -23,10 +23,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CEditGemPage}
-  const CEditGemPage({super.key, this.isNewGem = false});
+  const CEditGemPage({required this.gem, super.key});
 
-  /// Whether the gem is new and should be created.
-  final bool isNewGem;
+  /// The gem to edit.
+  ///
+  /// If `null`, a new gem will be created.
+  final CGem? gem;
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -35,7 +37,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
         BlocProvider<CGemEditBloc>(
           create: (context) => CGemEditBloc(
             gemRepository: context.read(),
-            gem: null,
+            gem: gem,
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
@@ -72,7 +74,11 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   void _onSaved(BuildContext context, String gemID) {
-    context.router.replace(CGemRoute(gemID: gemID));
+    if (gem == null) {
+      context.router.replace(CGemRoute(gemID: gemID));
+      return;
+    }
+    context.router.maybePop();
   }
 
   @override
@@ -88,7 +94,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
         appBar: CAppBar(
           context: context,
           title: Text(
-            isNewGem
+            gem == null
                 ? context.cAppL10n.editGemPage_title_create
                 : context.cAppL10n.editGemPage_title_edit,
           ),
