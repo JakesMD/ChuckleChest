@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
+import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/physics/auto_scrolling.dart';
@@ -38,6 +40,21 @@ class _CAnimatedGemViewState extends State<CAnimatedGemView> {
     return BlocBuilder<CGemFetchBloc, CGemFetchState>(
       buildWhen: (_, state) => state.gemID == widget.gemID,
       builder: (context, state) => Scaffold(
+        appBar: CAppBar(
+          context: context,
+          title: Text(
+            state is CGemFetchSuccess ? state.gem.number.toString() : '',
+          ),
+          actions: [
+            if (state is CGemFetchSuccess)
+              IconButton(
+                icon: const Icon(Icons.edit_rounded),
+                onPressed: () => context.router.push(
+                  CEditGemRoute(gem: state.gem),
+                ),
+              ),
+          ],
+        ),
         body: switch (state) {
           CGemFetchInitial() => const Center(child: CCradleLoadingIndicator()),
           CGemFetchInProgress() =>
@@ -66,7 +83,8 @@ class CAnimatedGem extends StatefulWidget {
   State<CAnimatedGem> createState() => _CAnimatedGemState();
 }
 
-class _CAnimatedGemState extends State<CAnimatedGem> {
+class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
+  AutoRouteObserver? observer;
   final scrollController = ScrollController();
 
   Key key = UniqueKey();
@@ -92,8 +110,19 @@ class _CAnimatedGemState extends State<CAnimatedGem> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    observer = RouterScope.of(context).firstObserverOfType<AutoRouteObserver>();
+    if (observer != null) observer!.subscribe(this, context.routeData);
+  }
+
+  @override
+  void didPopNext() => restart();
+
+  @override
   void dispose() {
     scrollController.dispose();
+    observer?.unsubscribe(this);
     super.dispose();
   }
 

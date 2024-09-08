@@ -130,6 +130,7 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
             reevaluateListenable: ReevaluateListenable.stream(
               authRepository.currentUserStream(),
             ),
+            navigatorObservers: () => [AutoRouteObserver()],
           ),
           builder: (context, child) => Column(
             children: [
