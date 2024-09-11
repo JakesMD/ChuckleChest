@@ -77,7 +77,7 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
       child: Theme(
         data: Theme.of(context).copyWith(colorScheme: colorScheme),
         child: Scaffold(
-          body: CAnimatedGemView(gemID: gemID),
+          body: CCollectionView(gemIDs: [gemID]),
           // bottomNavigationBar: CGemPageBottomAppBar(gemID: gemID),
         ),
       ),

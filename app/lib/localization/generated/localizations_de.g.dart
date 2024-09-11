@@ -24,6 +24,15 @@ class CAppL10nDe extends CAppL10n {
   String get close => 'Schließen';
 
   @override
+  String get collectionsPage_collection_recents => 'Zuletzt hinzugefügt';
+
+  @override
+  String get collectionsPage_section_title_other => 'Sonstige';
+
+  @override
+  String get collectionsPage_section_title_years => 'Springe zu Jahr';
+
+  @override
   String get delete => 'Löschen';
 
   @override

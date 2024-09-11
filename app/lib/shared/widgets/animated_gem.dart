@@ -1,71 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
-import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
 import 'package:chuckle_chest/shared/physics/auto_scrolling.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-/// {@template CAnimatedGemView}
-///
-/// The view that fetches and displays the gem with the given [gemID].
-///
-/// {@endtemplate}
-class CAnimatedGemView extends StatefulWidget {
-  /// {@macro CAnimatedGemView}
-  const CAnimatedGemView({
-    required this.gemID,
-    super.key,
-  });
-
-  /// The ID of the gem to display.
-  final String gemID;
-
-  @override
-  State<CAnimatedGemView> createState() => _CAnimatedGemViewState();
-}
-
-class _CAnimatedGemViewState extends State<CAnimatedGemView> {
-  @override
-  void initState() {
-    context.read<CGemFetchBloc>().add(CGemFetchRequested(gemID: widget.gemID));
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CGemFetchBloc, CGemFetchState>(
-      buildWhen: (_, state) => state.gemID == widget.gemID,
-      builder: (context, state) => Scaffold(
-        appBar: CAppBar(
-          context: context,
-          title: Text(
-            state is CGemFetchSuccess ? state.gem.number.toString() : '',
-          ),
-          actions: [
-            if (state is CGemFetchSuccess)
-              IconButton(
-                icon: const Icon(Icons.edit_rounded),
-                onPressed: () => context.router.push(
-                  CEditGemRoute(gem: state.gem),
-                ),
-              ),
-          ],
-        ),
-        body: switch (state) {
-          CGemFetchInitial() => const Center(child: CCradleLoadingIndicator()),
-          CGemFetchInProgress() =>
-            const Center(child: CCradleLoadingIndicator()),
-          CGemFetchFailure() => const Center(child: Icon(Icons.error_rounded)),
-          CGemFetchSuccess(gem: final gem) => CAnimatedGem(gem: gem),
-        },
-      ),
-    );
-  }
-}
 
 /// {@template CAnimatedGem}
 ///

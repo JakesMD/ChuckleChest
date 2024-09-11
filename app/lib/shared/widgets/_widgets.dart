@@ -3,6 +3,7 @@ export 'animated_line.dart';
 export 'animated_typing_text.dart';
 export 'app_bar.dart';
 export 'avatar.dart';
+export 'collection_view.dart';
 export 'dialog.dart';
 export 'error_snack_bar.dart';
 export 'fade_in.dart';

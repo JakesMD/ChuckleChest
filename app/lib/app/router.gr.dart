@@ -35,17 +35,6 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
-    CCollectionRoute.name: (routeData) {
-      final args = routeData.argsAs<CCollectionRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CCollectionPage(
-          year: args.year,
-          key: args.key,
-        )),
-      );
-    },
     CCollectionsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -123,6 +112,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CRecentsCollectionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CRecentsCollectionPage()),
+      );
+    },
     CSettingsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -141,6 +136,20 @@ abstract class _$CAppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: CSignupTab(key: args.key)),
+      );
+    },
+    CYearCollectionRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<CYearCollectionRouteArgs>(
+          orElse: () =>
+              CYearCollectionRouteArgs(year: pathParams.getInt('year')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CYearCollectionPage(
+          year: args.year,
+          key: args.key,
+        )),
       );
     },
   };
@@ -195,44 +204,6 @@ class CChestRouteArgs {
   @override
   String toString() {
     return 'CChestRouteArgs{chestID: $chestID, key: $key}';
-  }
-}
-
-/// generated route for
-/// [CCollectionPage]
-class CCollectionRoute extends PageRouteInfo<CCollectionRouteArgs> {
-  CCollectionRoute({
-    required int year,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CCollectionRoute.name,
-          args: CCollectionRouteArgs(
-            year: year,
-            key: key,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'CCollectionRoute';
-
-  static const PageInfo<CCollectionRouteArgs> page =
-      PageInfo<CCollectionRouteArgs>(name);
-}
-
-class CCollectionRouteArgs {
-  const CCollectionRouteArgs({
-    required this.year,
-    this.key,
-  });
-
-  final int year;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CCollectionRouteArgs{year: $year, key: $key}';
   }
 }
 
@@ -450,6 +421,20 @@ class COTPVerificationRouteArgs {
 }
 
 /// generated route for
+/// [CRecentsCollectionPage]
+class CRecentsCollectionRoute extends PageRouteInfo<void> {
+  const CRecentsCollectionRoute({List<PageRouteInfo>? children})
+      : super(
+          CRecentsCollectionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CRecentsCollectionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CSettingsPage]
 class CSettingsRoute extends PageRouteInfo<void> {
   const CSettingsRoute({List<PageRouteInfo>? children})
@@ -503,5 +488,44 @@ class CSignupRouteArgs {
   @override
   String toString() {
     return 'CSignupRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [CYearCollectionPage]
+class CYearCollectionRoute extends PageRouteInfo<CYearCollectionRouteArgs> {
+  CYearCollectionRoute({
+    required int year,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CYearCollectionRoute.name,
+          args: CYearCollectionRouteArgs(
+            year: year,
+            key: key,
+          ),
+          rawPathParams: {'year': year},
+          initialChildren: children,
+        );
+
+  static const String name = 'CYearCollectionRoute';
+
+  static const PageInfo<CYearCollectionRouteArgs> page =
+      PageInfo<CYearCollectionRouteArgs>(name);
+}
+
+class CYearCollectionRouteArgs {
+  const CYearCollectionRouteArgs({
+    required this.year,
+    this.key,
+  });
+
+  final int year;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CYearCollectionRouteArgs{year: $year, key: $key}';
   }
 }
