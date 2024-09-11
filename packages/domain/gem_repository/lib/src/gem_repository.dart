@@ -41,6 +41,14 @@ class CGemRepository {
           .fetchGemIDsForYear(chestID: chestID, year: year)
           .thenEvaluateOnFailure(CGemIDsFetchException.fromRaw);
 
+  /// Fetches the most recent gem IDs in the chest with the given [chestID].
+  BobsJob<CGemIDsFetchException, List<String>> fetchRecentGemIDs({
+    required String chestID,
+  }) =>
+      gemClient
+          .fetchRecentGemIDs(chestID: chestID, limit: 20)
+          .thenEvaluateOnFailure(CGemIDsFetchException.fromRaw);
+
   /// Fetches the gem with the given [gemID].
   BobsJob<CGemFetchException, CGem> fetchGem({required String gemID}) =>
       gemClient.fetchGem(gemID: gemID).thenEvaluate(

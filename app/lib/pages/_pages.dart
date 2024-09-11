@@ -1,6 +1,5 @@
 export 'base/page.dart';
 export 'chest/page.dart';
-export 'collection/page.dart';
 export 'collections/page.dart';
 export 'create_gem/page.dart';
 export 'edit_gem/page.dart';
@@ -9,5 +8,7 @@ export 'get_started/page.dart';
 export 'home/page.dart';
 export 'otp_verification/page.dart';
 export 'people/page.dart';
+export 'recents_collection/page.dart';
 export 'settings/page.dart';
 export 'signin/page.dart';
+export 'year_collection/page.dart';

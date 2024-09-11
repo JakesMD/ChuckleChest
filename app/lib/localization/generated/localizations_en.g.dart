@@ -24,6 +24,15 @@ class CAppL10nEn extends CAppL10n {
   String get close => 'Close';
 
   @override
+  String get collectionsPage_collection_recents => 'Recently added';
+
+  @override
+  String get collectionsPage_section_title_other => 'Other';
+
+  @override
+  String get collectionsPage_section_title_years => 'Jump to year';
+
+  @override
   String get delete => 'Delete';
 
   @override
