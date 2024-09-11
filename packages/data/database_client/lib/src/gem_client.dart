@@ -52,6 +52,26 @@ class CGemClient {
         onError: CRawGemIDsFetchException.fromError,
       );
 
+  /// Fetches the most recent `limit` gem IDs for the given `chestID` from the
+  /// database.
+  BobsJob<CRawGemIDsFetchException, List<String>> fetchRecentGemIDs({
+    required String chestID,
+    required int limit,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          final response = await gemsTable.fetch(
+            columns: {CGemsTable.id},
+            filter: gemsTable.equal(CGemsTable.chestID(chestID)),
+            modifier: gemsTable
+                .order(CGemsTable.occurredAt, ascending: false)
+                .limit(limit),
+          );
+          return response.map((r) => r.id).toList();
+        },
+        onError: CRawGemIDsFetchException.fromError,
+      );
+
   /// Fetches the gem with the given `gemID` from the database.
   BobsJob<CRawGemFetchException, CGemsTableRecord> fetchGem({
     required String gemID,

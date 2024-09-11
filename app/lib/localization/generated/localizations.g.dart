@@ -125,6 +125,24 @@ abstract class CAppL10n {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @collectionsPage_collection_recents.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently added'**
+  String get collectionsPage_collection_recents;
+
+  /// No description provided for @collectionsPage_section_title_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get collectionsPage_section_title_other;
+
+  /// No description provided for @collectionsPage_section_title_years.
+  ///
+  /// In en, this message translates to:
+  /// **'Jump to year'**
+  String get collectionsPage_section_title_years;
+
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:
