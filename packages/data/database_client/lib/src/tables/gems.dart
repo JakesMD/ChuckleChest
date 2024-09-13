@@ -34,6 +34,12 @@ class CGemsTable extends SupaTable<CGemsTableCore, CGemsTableRecord> {
     name: 'occurred_at',
   );
 
+  /// The time the gem was created.
+  @SupaColumnHere<DateTime>(hasDefault: true)
+  static const createdAt = SupaColumn<CGemsTableCore, DateTime, String>(
+    name: 'created_at',
+  );
+
   /// The lines of the story.
   @SupaTableJoinHere('CLinesTable', 'lines', SupaJoinType.oneToMany)
   static final lines = SupaTableJoin<CGemsTableCore, CLinesTableCore>(
