@@ -44,7 +44,7 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
     final userRole = context.read<CCurrentChestCubit>().state.userRole;
 
     return AutoTabsRouter.builder(
-      routes: const [CCollectionsRoute(), CSettingsRoute()],
+      routes: const [CCollectionsRoute(), CPeopleRoute(), CSettingsRoute()],
       builder: (context, children, tabsRouter) => Scaffold(
         appBar: CAppBar(
           context: context,
@@ -52,7 +52,7 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
         ),
         body: children[tabsRouter.activeIndex],
         floatingActionButton:
-            tabsRouter.activeIndex == 0 && userRole != CUserRole.viewer
+            tabsRouter.activeIndex != 2 && userRole != CUserRole.viewer
                 ? FloatingActionButton(
                     onPressed: () => _onFABPressed(context),
                     child: const Icon(Icons.add_rounded),
@@ -67,6 +67,11 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
               icon: const Icon(Icons.diamond_outlined),
               activeIcon: const Icon(Icons.diamond_rounded),
               label: context.cAppL10n.homePage_bottomNav_collections,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.family_restroom_outlined),
+              activeIcon: const Icon(Icons.family_restroom_rounded),
+              label: context.cAppL10n.homePage_bottomNav_people,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings_outlined),

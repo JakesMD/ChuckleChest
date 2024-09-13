@@ -28,11 +28,20 @@
   "getStartedPage_logoutButton": "Ausloggen",
   "getStartedPage_title": "Legen wir los!",
   "homePage_bottomNav_collections": "Sammlungen",
+  "homePage_bottomNav_people": "Personen",
   "homePage_bottomNav_settings": "Einstellungen",
   "ok": "Ok",
   "otpVerificationPage_error_invalidToken": "Dieser Code ist ungültig. Bitte versuche es erneut.",
   "otpVerificationPage_message": "Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.",
   "otpVerificationPage_title": "Ein-Mal-Code-Bestätigung",
+  "peoplePage_personItem_age": "{age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
+  "@peoplePage_personItem_age": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "quoteItem_person": "{nickname} • {age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
   "@quoteItem_person": {
     "placeholders": {

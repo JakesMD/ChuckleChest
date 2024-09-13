@@ -263,6 +263,12 @@ abstract class CAppL10n {
   /// **'Collections'**
   String get homePage_bottomNav_collections;
 
+  /// No description provided for @homePage_bottomNav_people.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get homePage_bottomNav_people;
+
   /// No description provided for @homePage_bottomNav_settings.
   ///
   /// In en, this message translates to:
@@ -292,6 +298,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'One-Time pin verification'**
   String get otpVerificationPage_title;
+
+  /// No description provided for @peoplePage_personItem_age.
+  ///
+  /// In en, this message translates to:
+  /// **'{age} {age, plural, =0{years} =1{year} other{years}} old'**
+  String peoplePage_personItem_age(int age);
 
   /// No description provided for @quoteItem_person.
   ///

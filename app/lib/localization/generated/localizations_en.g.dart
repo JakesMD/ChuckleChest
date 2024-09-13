@@ -95,6 +95,9 @@ class CAppL10nEn extends CAppL10n {
   String get homePage_bottomNav_collections => 'Collections';
 
   @override
+  String get homePage_bottomNav_people => 'People';
+
+  @override
   String get homePage_bottomNav_settings => 'Settings';
 
   @override
@@ -108,6 +111,18 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get otpVerificationPage_title => 'One-Time pin verification';
+
+  @override
+  String peoplePage_personItem_age(int age) {
+    String _temp0 = intl.Intl.pluralLogic(
+      age,
+      locale: localeName,
+      other: 'years',
+      one: 'year',
+      zero: 'years',
+    );
+    return '$age $_temp0 old';
+  }
 
   @override
   String quoteItem_person(Object nickname, int age) {

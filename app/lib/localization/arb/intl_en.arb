@@ -28,11 +28,20 @@
   "getStartedPage_logoutButton": "Log out",
   "getStartedPage_title": "Let's get started!",
   "homePage_bottomNav_collections": "Collections",
+  "homePage_bottomNav_people": "People",
   "homePage_bottomNav_settings": "Settings",
   "ok": "OK",
   "otpVerificationPage_error_invalidToken": "This pin is invalid. Please try again.",
   "otpVerificationPage_message": "Please enter the pin we sent to your inbox.",
   "otpVerificationPage_title": "One-Time pin verification",
+  "peoplePage_personItem_age": "{age} {age, plural, =0{years} =1{year} other{years}} old",
+  "@peoplePage_personItem_age": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "quoteItem_person": "{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old",
   "@quoteItem_person": {
     "placeholders": {
