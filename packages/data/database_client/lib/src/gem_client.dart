@@ -45,7 +45,7 @@ class CGemClient {
                 .equal(CGemsTable.chestID(chestID))
                 .greaterOrEqual(CGemsTable.occurredAt(DateTime(year)))
                 .less(CGemsTable.occurredAt(DateTime(year + 1))),
-            modifier: gemsTable.order(CGemsTable.createdAt, ascending: false),
+            modifier: gemsTable.order(CGemsTable.occurredAt, ascending: false),
           );
           return response.map((r) => r.id).toList();
         },
@@ -64,7 +64,7 @@ class CGemClient {
             columns: {CGemsTable.id},
             filter: gemsTable.equal(CGemsTable.chestID(chestID)),
             modifier: gemsTable
-                .order(CGemsTable.occurredAt, ascending: false)
+                .order(CGemsTable.createdAt, ascending: false)
                 .limit(limit),
           );
           return response.map((r) => r.id).toList();
