@@ -21,7 +21,7 @@ class CGemEditBloc extends Bloc<_CGemEditEvent, CGemEditState> {
             gem: gem ??
                 CGem(
                   id: '',
-                  number: 1,
+                  number: -1,
                   occurredAt: DateTime.now(),
                   lines: [],
                   chestID: chestID,

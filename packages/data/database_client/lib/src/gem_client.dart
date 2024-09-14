@@ -124,8 +124,30 @@ class CGemClient {
           )
           .thenAttempt(
             run: (gemID) async {
+              await linesTable.insert(
+                records: lines
+                    .where((line) => line.id == null)
+                    .map(
+                      (line) => CLinesTableInsert(
+                        id: line.id,
+                        gemID: gemID,
+                        chestID: gem.chestID,
+                        text: line.text,
+                        personID: line.personID,
+                      ),
+                    )
+                    .toList(),
+                modifier: linesTable.none(),
+              );
+              return gemID;
+            },
+            onError: CRawGemSaveException.fromError,
+          )
+          .thenAttempt(
+            run: (gemID) async {
               await linesTable.upsert(
                 records: lines
+                    .where((line) => line.id != null)
                     .map(
                       (line) => CLinesTableInsert(
                         id: line.id,
