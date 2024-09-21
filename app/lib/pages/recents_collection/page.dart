@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
 import 'package:chuckle_chest/pages/recents_collection/bloc/recent_gem_ids_fetch/bloc.dart';
 import 'package:chuckle_chest/shared/cubit/_cubit.dart';
+import 'package:chuckle_chest/shared/views/_views.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

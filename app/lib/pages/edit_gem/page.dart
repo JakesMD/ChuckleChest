@@ -78,7 +78,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
       context.router.replace(CGemRoute(gemID: gemID));
       return;
     }
-    context.router.maybePop();
+    context.router.maybePop(gem);
   }
 
   @override
@@ -101,7 +101,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
         ),
         body: BlocBuilder<CGemEditBloc, CGemEditState>(
           builder: (context, state) => ListView(
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: const EdgeInsets.only(top: 12, bottom: 80),
             children: [
               Text(
                 context.cAppL10n.editGemPage_helperMessage,

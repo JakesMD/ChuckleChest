@@ -134,6 +134,8 @@ class _CPersonDropdownMenuFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    people.sort((a, b) => b.dateOfBirth.compareTo(a.dateOfBirth));
+
     return FormField(
       initialValue: line?.personID,
       validator: (value) => personIDInput.validator(
