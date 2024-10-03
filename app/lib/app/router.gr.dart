@@ -64,7 +64,7 @@ abstract class _$CAppRouter extends RootStackRouter {
         routeData: routeData,
         child: WrappedRoute(
             child: CEditPersonPage(
-          person: args.person,
+          personID: args.personID,
           key: args.key,
         )),
       );
@@ -294,13 +294,13 @@ class CEditGemRouteArgs {
 /// [CEditPersonPage]
 class CEditPersonRoute extends PageRouteInfo<CEditPersonRouteArgs> {
   CEditPersonRoute({
-    required CPerson person,
+    required BigInt personID,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           CEditPersonRoute.name,
           args: CEditPersonRouteArgs(
-            person: person,
+            personID: personID,
             key: key,
           ),
           initialChildren: children,
@@ -314,17 +314,17 @@ class CEditPersonRoute extends PageRouteInfo<CEditPersonRouteArgs> {
 
 class CEditPersonRouteArgs {
   const CEditPersonRouteArgs({
-    required this.person,
+    required this.personID,
     this.key,
   });
 
-  final CPerson person;
+  final BigInt personID;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'CEditPersonRouteArgs{person: $person, key: $key}';
+    return 'CEditPersonRouteArgs{personID: $personID, key: $key}';
   }
 }
 

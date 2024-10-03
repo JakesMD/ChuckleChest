@@ -23,7 +23,8 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final people = context.read<CChestPeopleFetchBloc>().state.people;
+    final people = context.read<CChestPeopleFetchBloc>().state.people
+      ..sort((a, b) => b.dateOfBirth.compareTo(a.dateOfBirth));
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -40,7 +41,9 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
                 .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
           ),
           trailing: const Icon(Icons.edit_rounded),
-          onTap: () => context.router.push(CEditPersonRoute(person: person)),
+          onTap: () => context.router.push(
+            CEditPersonRoute(personID: person.id),
+          ),
         );
       },
     );

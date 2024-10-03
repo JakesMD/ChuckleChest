@@ -221,6 +221,36 @@ abstract class CAppL10n {
   /// **'Edit the gem'**
   String get editGemPage_title_edit;
 
+  /// No description provided for @editPersonPage_banner_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes will propagate to other users next time they open the app.'**
+  String get editPersonPage_banner_message;
+
+  /// No description provided for @editPersonPage_dateOfBirthTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get editPersonPage_dateOfBirthTile_title;
+
+  /// No description provided for @editPersonPage_editNicknameDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit nickname'**
+  String get editPersonPage_editNicknameDialog_title;
+
+  /// No description provided for @editPersonPage_nicknameTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get editPersonPage_nicknameTile_title;
+
+  /// No description provided for @editPersonPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit person'**
+  String get editPersonPage_title;
+
   /// No description provided for @gem_restartMessage.
   ///
   /// In en, this message translates to:

@@ -3,6 +3,7 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/pages/home/bloc/person_creation/cubit.dart';
 import 'package:chuckle_chest/pages/home/widgets/app_bar_title.dart';
 import 'package:chuckle_chest/shared/cubit/_cubit.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
@@ -28,15 +29,38 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    return BlocProvider(
+      create: (context) => CPersonCreationCubit(
+        personRepository: context.read(),
+        chestID: context.read<CCurrentChestCubit>().state.id,
+      ),
+      child: Builder(
+        builder: (context) =>
+            BlocListener<CPersonCreationCubit, CPersonCreationState>(
+          listener: (context, state) => switch (state) {
+            CPersonCreationInitial() => null,
+            CPersonCreationInProgress() => null,
+            CPersonCreationFailure() => null,
+            CPersonCreationSuccess(personID: final personID) =>
+              context.router.push(CEditPersonRoute(personID: personID))
+          },
+          child: this,
+        ),
+      ),
+    );
   }
 
   void _onChestSelected(BuildContext context, CAuthUserChest chest) {
     context.router.replace(CChestRoute(chestID: chest.id));
   }
 
-  void _onFABPressed(BuildContext context) {
-    context.router.pushNamed('create-gem');
+  void _onFABPressed(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        context.router.push(const CCreateGemRoute());
+      case 1:
+        context.read<CPersonCreationCubit>().createPerson();
+    }
   }
 
   @override
@@ -51,13 +75,13 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
           title: CHomePageAppBarTitle(onChestSelected: _onChestSelected),
         ),
         body: children[tabsRouter.activeIndex],
-        floatingActionButton:
-            tabsRouter.activeIndex != 2 && userRole != CUserRole.viewer
-                ? FloatingActionButton(
-                    onPressed: () => _onFABPressed(context),
-                    child: const Icon(Icons.add_rounded),
-                  )
-                : null,
+        floatingActionButton: tabsRouter.activeIndex != 2 &&
+                userRole != CUserRole.viewer
+            ? FloatingActionButton(
+                onPressed: () => _onFABPressed(context, tabsRouter.activeIndex),
+                child: const Icon(Icons.add_rounded),
+              )
+            : null,
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           onTap: tabsRouter.setActiveIndex,

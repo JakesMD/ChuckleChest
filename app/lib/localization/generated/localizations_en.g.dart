@@ -72,6 +72,21 @@ class CAppL10nEn extends CAppL10n {
   String get editGemPage_title_edit => 'Edit the gem';
 
   @override
+  String get editPersonPage_banner_message => 'Changes will propagate to other users next time they open the app.';
+
+  @override
+  String get editPersonPage_dateOfBirthTile_title => 'Date of birth';
+
+  @override
+  String get editPersonPage_editNicknameDialog_title => 'Edit nickname';
+
+  @override
+  String get editPersonPage_nicknameTile_title => 'Nickname';
+
+  @override
+  String get editPersonPage_title => 'Edit person';
+
+  @override
   String get gem_restartMessage => 'Pull to restart.';
 
   @override

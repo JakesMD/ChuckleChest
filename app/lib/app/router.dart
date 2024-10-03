@@ -3,7 +3,6 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
-import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';

@@ -72,6 +72,21 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
+  String get editPersonPage_banner_message => 'Änderungen werden beim nächsten Öffnen der App auf andere Benutzer übertragen.';
+
+  @override
+  String get editPersonPage_dateOfBirthTile_title => 'Geburtsdatum';
+
+  @override
+  String get editPersonPage_editNicknameDialog_title => 'Spitzname bearbeiten';
+
+  @override
+  String get editPersonPage_nicknameTile_title => 'Spitzname';
+
+  @override
+  String get editPersonPage_title => 'Person bearbeiten';
+
+  @override
   String get gem_restartMessage => 'Zum Neustarten ziehen.';
 
   @override

@@ -1,17 +1,17 @@
 import 'dart:developer';
 
 /// Represents an exception that occurs when creating chest fails.
-enum CRawChestCreationException {
+enum CRawChestInsertException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawChestCreationException.fromError(Object e, StackTrace s) {
+  factory CRawChestInsertException.fromError(Object e, StackTrace s) {
     log(
       e.toString(),
       error: e,
       stackTrace: s,
-      name: 'CRawChestCreationException',
+      name: 'CRawChestInsertException',
     );
-    return CRawChestCreationException.unknown;
+    return CRawChestInsertException.unknown;
   }
 }

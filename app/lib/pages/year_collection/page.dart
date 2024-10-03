@@ -37,7 +37,6 @@ class CYearCollectionPage extends StatelessWidget implements AutoRouteWrapper {
         BlocProvider(
           create: (context) => CGemFetchBloc(gemRepository: context.read()),
         ),
-      
       ],
       child: this,
     );
