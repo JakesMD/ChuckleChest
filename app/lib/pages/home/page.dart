@@ -3,15 +3,16 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/home/bloc/person_creation/cubit.dart';
-import 'package:chuckle_chest/pages/home/widgets/app_bar_title.dart';
+import 'package:chuckle_chest/pages/home/logic/_logic.dart';
+import 'package:chuckle_chest/pages/home/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CHomePage}
 ///
-/// The initial page that with a bottom navigation bar.
+/// The initial page that wraps the child pages with an app bar and a bottom
+/// navigation bar.
 ///
 /// {@endtemplate}
 @RoutePage()
@@ -23,7 +24,7 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
     super.key,
   });
 
-  /// The ID of the chesdt to display.
+  /// The ID of the chest to display.
   final String chestID;
 
   @override
@@ -36,12 +37,12 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
       child: Builder(
         builder: (context) =>
             BlocListener<CPersonCreationCubit, CPersonCreationState>(
-          listener: (context, state) => switch (state) {
-            CPersonCreationInitial() => null,
-            CPersonCreationInProgress() => null,
-            CPersonCreationFailure() => null,
-            CPersonCreationSuccess(personID: final personID) =>
-              context.router.push(CEditPersonRoute())
+          listener: (context, state) => switch (state.status) {
+            CRequestCubitStatus.initial => null,
+            CRequestCubitStatus.inProgress => null,
+            CRequestCubitStatus.failed => const CErrorSnackBar().show(context),
+            CRequestCubitStatus.succeeded =>
+              context.router.push(CEditPersonRoute(person: state.person))
           },
           child: this,
         ),
@@ -49,9 +50,8 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
-  void _onChestSelected(BuildContext context, CAuthUserChest chest) {
-    context.router.replace(CChestRoute(chestID: chest.id));
-  }
+  void _onChestSelected(BuildContext context, CAuthUserChest chest) =>
+      context.router.replace(CChestRoute(chestID: chest.id));
 
   void _onFABPressed(BuildContext context, int index) {
     switch (index) {

@@ -110,7 +110,7 @@ class CPersonClient {
           );
 
   /// Inserts a new person with the given `chestID`.
-  BobsJob<CRawPersonInsertException, BigInt> insertPerson({
+  BobsJob<CRawPersonInsertException, CPeopleTableRecord> insertPerson({
     required String chestID,
   }) =>
       BobsJob.attempt(
@@ -125,5 +125,5 @@ class CPersonClient {
           modifier: peopleTable.limit(1).single(),
         ),
         onError: CRawPersonInsertException.fromError,
-      ).thenEvaluate(onFailure: (e) => e, onSuccess: (person) => person.id);
+      ).thenEvaluate(onFailure: (e) => e, onSuccess: (person) => person);
 }

@@ -73,12 +73,12 @@ class CPersonRepository {
             onSuccess: (_) => bobsNothing,
           );
 
-  /// Inserts a default person with the given `chestID`.
-  BobsJob<CPersonInsertException, BigInt> insertPerson({
+  /// Creates a default person with the given `chestID`.
+  BobsJob<CPersonCreationException, CPerson> createPerson({
     required String chestID,
   }) =>
       personClient.insertPerson(chestID: chestID).thenEvaluate(
-            onFailure: CPersonInsertException.fromRaw,
-            onSuccess: (id) => id,
+            onFailure: CPersonCreationException.fromRaw,
+            onSuccess: CPerson.fromRecord,
           );
 }
