@@ -2,16 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
-import 'package:chuckle_chest/pages/edit_gem/bloc/gem_save/bloc.dart';
-import 'package:chuckle_chest/pages/edit_gem/dialogs/edit_narration.dart';
-import 'package:chuckle_chest/pages/edit_gem/dialogs/edit_quote.dart';
-import 'package:chuckle_chest/pages/edit_gem/widgets/bottom_app_bar.dart';
-import 'package:chuckle_chest/pages/edit_gem/widgets/editable_date.dart';
-import 'package:chuckle_chest/pages/edit_gem/widgets/save_fab.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/cubit/_cubit.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/pages/edit_gem/dialogs/_dialogs.dart';
+import 'package:chuckle_chest/pages/edit_gem/logic/_logic.dart';
+import 'package:chuckle_chest/pages/edit_gem/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,15 +28,14 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CGemEditBloc>(
-          create: (context) => CGemEditBloc(
-            gemRepository: context.read(),
+        BlocProvider<CGemEditCubit>(
+          create: (context) => CGemEditCubit(
             gem: gem,
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
-        BlocProvider<CGemSaveBloc>(
-          create: (context) => CGemSaveBloc(gemRepository: context.read()),
+        BlocProvider<CGemSaveCubit>(
+          create: (context) => CGemSaveCubit(gemRepository: context.read()),
         ),
       ],
       child: this,
@@ -56,22 +49,21 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
       CEditQuoteDialog(
         line: line,
         index: index,
-        bloc: context.read(),
+        cubit: context.read(),
         occurredAt: gem.occurredAt,
-        people: context.read<CChestPeopleFetchBloc>().state.people,
+        people: context.read<CChestPeopleFetchCubit>().state.people,
       ).show(context);
     } else {
       CEditNarrationDialog(
         line: line,
         index: index,
-        bloc: context.read(),
+        cubit: context.read(),
       ).show(context);
     }
   }
 
-  void _onLineDeletePressed(BuildContext context, int index) {
-    context.read<CGemEditBloc>().add(CGemEditLastLineDeleted());
-  }
+  void _onLineDeletePressed(BuildContext context, int index) =>
+      context.read<CGemEditCubit>().deleteLastLine();
 
   void _onSaved(BuildContext context, String gemID) {
     if (gem == null) {
@@ -83,12 +75,12 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CGemSaveBloc, CGemSaveState>(
-      listener: (context, state) => switch (state) {
-        CGemSaveInitial() => null,
-        CGemSaveInProgress() => null,
-        CGemSaveFailure() => const CErrorSnackBar().show(context),
-        CGemSaveSuccess(gemID: final gemID) => _onSaved(context, gemID),
+    return BlocListener<CGemSaveCubit, CGemSaveState>(
+      listener: (context, state) => switch (state.status) {
+        CRequestCubitStatus.initial => null,
+        CRequestCubitStatus.inProgress => null,
+        CRequestCubitStatus.failed => const CErrorSnackBar().show(context),
+        CRequestCubitStatus.succeeded => _onSaved(context, state.gemID),
       },
       child: Scaffold(
         appBar: CAppBar(
@@ -99,7 +91,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
                 : context.cAppL10n.editGemPage_title_edit,
           ),
         ),
-        body: BlocBuilder<CGemEditBloc, CGemEditState>(
+        body: BlocBuilder<CGemEditCubit, CGemEditState>(
           builder: (context, state) => ListView(
             padding: const EdgeInsets.only(top: 12, bottom: 80),
             children: [

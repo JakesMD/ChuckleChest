@@ -1,13 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/cubit/_cubit.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CChestPage}
 ///
-/// The initial page that displays a list of gem cards.
+/// The page that selected chest with the given `chestID` and fetches its
+/// people.
+///
+/// If the `chestID` is null, the first chest the user has access to will
+/// selected.
+///
+/// Only after the people have been fetched will the user be navigated to the
+/// [AutoRouter].
 ///
 /// {@endtemplate}
 @RoutePage()
@@ -18,7 +24,7 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
     super.key,
   });
 
-  /// The ID of the chest to display.
+  /// The ID of the chest to select.
   final String? chestID;
 
   @override
@@ -31,10 +37,11 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
         authRepository: context.read(),
       ),
       child: BlocProvider(
-        create: (context) => CChestPeopleFetchBloc(
+        create: (context) => CChestPeopleFetchCubit(
           personRepository: context.read(),
-          chestID: context.read<CCurrentChestCubit>().state.id,
-        ),
+        )..fetchChestPeople(
+            chestID: context.read<CCurrentChestCubit>().state.id,
+          ),
         child: this,
       ),
     );
@@ -42,9 +49,9 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CChestPeopleFetchBloc, CChestPeopleFetchState>(
+    return BlocBuilder<CChestPeopleFetchCubit, CChestPeopleFetchState>(
       builder: (context, state) {
-        if (state is CChestPeopleFetchFailure) {
+        if (state.status == CRequestCubitStatus.failed) {
           return Scaffold(
             body: Padding(
               padding: const EdgeInsets.all(16),
@@ -54,7 +61,9 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
             ),
           );
         }
-        if (state is CChestPeopleFetchSuccess) return const AutoRouter();
+        if (state.status == CRequestCubitStatus.succeeded) {
+          return const AutoRouter();
+        }
         return Container();
       },
     );

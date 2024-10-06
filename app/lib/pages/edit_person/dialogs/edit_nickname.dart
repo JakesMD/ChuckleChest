@@ -1,8 +1,7 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/edit_person/bloc/person_update/cubit.dart';
+import 'package:chuckle_chest/pages/edit_person/logic/_logic.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
-import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CNicknameTile}
@@ -12,16 +11,12 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class CEditNicknameDialog extends StatelessWidget with CDialogMixin {
   /// {@macro CEditNicknameDialog}
-  CEditNicknameDialog({
-    required this.person,
-    required this.cubit,
-    super.key,
-  });
+  CEditNicknameDialog({required this.cubit, super.key});
 
-  /// The person to change.
-  final CPerson person;
-
-  /// The cubit for updating people.
+  /// The cubit that will update the person.
+  ///
+  /// Because the dialog is not a part of the page's context, the cubit is
+  /// passed in as a parameter.
   final CPersonUpdateCubit cubit;
 
   final _formKey = GlobalKey<FormFieldState<String>>();
@@ -30,7 +25,7 @@ class CEditNicknameDialog extends StatelessWidget with CDialogMixin {
   void _onOkPressed(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
 
-    cubit.updateNickname(person, _name.value(context));
+    cubit.updateNickname(nickname: _name.value(context));
 
     Navigator.of(context).pop();
   }
@@ -41,11 +36,8 @@ class CEditNicknameDialog extends StatelessWidget with CDialogMixin {
       title: Text(context.cAppL10n.editPersonPage_editNicknameDialog_title),
       content: TextFormField(
         key: _formKey,
-        initialValue: person.nickname,
-        validator: (value) => _name.validator(
-          input: value,
-          context: context,
-        ),
+        initialValue: cubit.state.person.nickname,
+        validator: (value) => _name.validator(input: value, context: context),
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           labelText: context.cAppL10n.editGemPage_editLineDialog_hint_line,

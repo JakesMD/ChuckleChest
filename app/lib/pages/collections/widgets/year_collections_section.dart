@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
-import 'package:chuckle_chest/pages/collections/bloc/gem_years_fetch/bloc.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/pages/collections/logic/_logic.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:signed_spacing_flex/signed_spacing_flex.dart';
@@ -24,19 +23,20 @@ class CYearCollectionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CGemYearsFetchBloc, CGemYearsFetchState>(
-      builder: (context, state) => switch (state) {
-        CGemYearsFetchInProgress() => const Center(
-            child: CCradleLoadingIndicator(),
-          ),
-        CGemYearsFetchFailure() => const Center(
+    return BlocBuilder<CGemYearsFetchCubit, CGemYearsFetchState>(
+      builder: (context, state) => switch (state.status) {
+        CRequestCubitStatus.initial =>
+          const Center(child: CCradleLoadingIndicator()),
+        CRequestCubitStatus.inProgress =>
+          const Center(child: CCradleLoadingIndicator()),
+        CRequestCubitStatus.failed => const Center(
             child: Icon(Icons.error_rounded),
           ),
-        CGemYearsFetchSuccess(years: final years) => Wrap(
+        CRequestCubitStatus.succeeded => Wrap(
             alignment: WrapAlignment.spaceBetween,
             spacing: 8,
             runSpacing: 8,
-            children: years
+            children: state.years
                 .map(
                   (year) => _CYearCollectionCard(
                     year: year,
@@ -62,7 +62,7 @@ class _CYearCollectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final people = context.read<CChestPeopleFetchBloc>().state.people;
+    final people = context.read<CChestPeopleFetchCubit>().state.people;
 
     final avatars = people
         .map((p) => p.avatarURLForDate(DateTime(year)))

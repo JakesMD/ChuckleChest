@@ -5,8 +5,7 @@ import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/home/bloc/person_creation/cubit.dart';
 import 'package:chuckle_chest/pages/home/widgets/app_bar_title.dart';
-import 'package:chuckle_chest/shared/cubit/_cubit.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +41,7 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
             CPersonCreationInProgress() => null,
             CPersonCreationFailure() => null,
             CPersonCreationSuccess(personID: final personID) =>
-              context.router.push(CEditPersonRoute(personID: personID))
+              context.router.push(CEditPersonRoute())
           },
           child: this,
         ),

@@ -3,9 +3,7 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/views/_views.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,11 +28,6 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CGemShareBloc(
-            gemRepository: context.read<CGemRepository>(),
-          ),
-        ),
-        BlocProvider(
           create: (context) => CGemFetchBloc(gemRepository: context.read()),
         ),
       ],
@@ -50,18 +43,6 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<CGemShareBloc, CGemShareState>(
-          listener: (context, state) => switch (state) {
-            CGemShareInitial() => null,
-            CGemShareInProgress() => null,
-            CGemShareFailure() => const CErrorSnackBar().show(context),
-            CGemShareSuccess(method: final method) => switch (method) {
-                CGemShareMethod.dialog => null,
-                CGemShareMethod.clipboard =>
-                  const CInfoSnackBar(message: 'Copied!').show(context),
-              },
-          },
-        ),
         BlocListener<CGemFetchBloc, CGemFetchState>(
           listener: (context, state) {
             return switch ((state as CGemFetchFailure).exception) {

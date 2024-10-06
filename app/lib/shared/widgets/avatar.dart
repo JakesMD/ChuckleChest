@@ -1,5 +1,5 @@
 import 'package:ccore/ccore.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +40,7 @@ class CAvatar extends StatelessWidget {
 
   /// The people to select from.
   ///
-  /// This is required if the [CChestPeopleFetchBloc] is not available (because
+  /// This is required if the [CChestPeopleFetchCubit] is not available (because
   /// the avatar is displayed within a dialog).
   final List<CPerson>? people;
 
@@ -68,7 +68,7 @@ class CAvatar extends StatelessWidget {
       if (people != null) {
         person2 = people?.cFirstWhereOrNull((person) => person.id == personID);
       } else {
-        person2 = context.read<CChestPeopleFetchBloc>().fetchPerson(personID!);
+        person2 = context.read<CChestPeopleFetchCubit>().fetchPerson(personID!);
       }
 
       url = person2?.avatarURLForDate(date);

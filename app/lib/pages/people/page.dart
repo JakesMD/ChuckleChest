@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +22,7 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final people = context.read<CChestPeopleFetchBloc>().state.people
+    final people = context.read<CChestPeopleFetchCubit>().state.people
       ..sort((a, b) => b.dateOfBirth.compareTo(a.dateOfBirth));
 
     return ListView.builder(
@@ -41,9 +40,7 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
                 .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
           ),
           trailing: const Icon(Icons.edit_rounded),
-          onTap: () => context.router.push(
-            CEditPersonRoute(personID: person.id),
-          ),
+          onTap: () => context.router.push(CEditPersonRoute(person: person)),
         );
       },
     );

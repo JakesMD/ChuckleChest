@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
-import 'package:chuckle_chest/shared/cubit/_cubit.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CCollaboratorGuard}
