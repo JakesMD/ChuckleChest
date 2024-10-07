@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:chuckle_chest/shared/views/collection/logic/_logic.dart';
-import 'package:chuckle_chest/shared/views/collection/widgets/_widgets.dart';
+import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/views/collection/bloc/collection_view/bloc.dart';
+import 'package:chuckle_chest/shared/views/collection/widgets/animated_gem.dart';
+import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,25 +39,17 @@ class CCollectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CCollectionViewCubit(
+        gemRepository: context.read(),
         gemIDs: gemIDs,
         onNewGem: (gemID) =>
-            context.read<CGemFetchCubit>().fetchGem(gemID: gemID),
+            context.read<CGemFetchBloc>().add(CGemFetchRequested(gemID: gemID)),
       ),
       child: Builder(
-        builder: (context) => BlocListener<CGemFetchCubit, CGemFetchState>(
-          listener: (context, state) => switch (state.status) {
-            CRequestCubitStatus.initial => null,
-            CRequestCubitStatus.inProgress => null,
-            CRequestCubitStatus.failed => switch (state.failure) {
-                CGemFetchException.notFound =>
-                  const CErrorSnackBar(message: "We couldn't find that gem.")
-                      .show(context),
-                CGemFetchException.unknown =>
-                  const CErrorSnackBar().show(context),
-              },
-            CRequestCubitStatus.succeeded =>
-              context.read<CCollectionViewCubit>().onGemFetched(state.gem),
-          },
+        builder: (context) => BlocListener<CGemFetchBloc, CGemFetchState>(
+          listener: (context, state) => context
+              .read<CCollectionViewCubit>()
+              .onGemFetched((state as CGemFetchSuccess).gem),
+          listenWhen: (previous, current) => current is CGemFetchSuccess,
           child: Scaffold(
             appBar: CAppBar(
               context: context,
@@ -78,16 +71,17 @@ class CCollectionView extends StatelessWidget {
               onPageChanged: (index) => _onPageChanged(context, index),
               itemCount: gemIDs.length,
               itemBuilder: (context, index) =>
-                  BlocBuilder<CGemFetchCubit, CGemFetchState>(
-                buildWhen: (_, state) => state.gemID == gemIDs[index],
-                builder: (context, state) => switch (state.status) {
-                  CRequestCubitStatus.initial =>
+                  BlocBuilder<CGemFetchBloc, CGemFetchState>(
+                buildWhen: (previous, current) =>
+                    current.gemID == gemIDs[index],
+                builder: (context, state) => switch (state) {
+                  CGemFetchInitial() =>
                     const Center(child: CCradleLoadingIndicator()),
-                  CRequestCubitStatus.inProgress =>
+                  CGemFetchInProgress() =>
                     const Center(child: CCradleLoadingIndicator()),
-                  CRequestCubitStatus.failed =>
+                  CGemFetchFailure() =>
                     const Center(child: Icon(Icons.error_rounded)),
-                  CRequestCubitStatus.succeeded => CAnimatedGem(gem: state.gem),
+                  CGemFetchSuccess(gem: final gem) => CAnimatedGem(gem: gem),
                 },
               ),
             ),

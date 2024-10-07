@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/pages/year_collection/logic/_logic.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
+import 'package:chuckle_chest/pages/year_collection/bloc/gem_year_ids_fetch/bloc.dart';
+import 'package:chuckle_chest/shared/cubit/_cubit.dart';
+import 'package:chuckle_chest/shared/views/_views.dart';
+import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CYearCollectionPage}
 ///
 /// The page for displaying a collection of all the gems for a given year.
-///
-/// It fetches the IDs of the gems for the year and then displays them in a
-/// [CCollectionView] which allow the user to view the gems one by one.
 ///
 /// {@endtemplate}
 @RoutePage()
@@ -20,7 +20,7 @@ class CYearCollectionPage extends StatelessWidget implements AutoRouteWrapper {
     super.key,
   });
 
-  /// The year for which to display the gems.
+  /// The ID of the chest to display.
   final int year;
 
   @override
@@ -28,14 +28,16 @@ class CYearCollectionPage extends StatelessWidget implements AutoRouteWrapper {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CGemYearIDsFetchCubit(
+          create: (context) => CGemYearIDsFetchBloc(
             gemRepository: context.read(),
             chestID: context.read<CCurrentChestCubit>().state.id,
-          )..fetchGemIDsForYear(year: year),
+            year: year,
+          ),
         ),
         BlocProvider(
-          create: (context) => CGemFetchCubit(gemRepository: context.read()),
+          create: (context) => CGemFetchBloc(gemRepository: context.read()),
         ),
+      
       ],
       child: this,
     );
@@ -43,16 +45,15 @@ class CYearCollectionPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CGemYearIDsFetchCubit, CGemYearIDsFetchState>(
+    return BlocBuilder<CGemYearIDsFetchBloc, CGemYearIDsFetchState>(
       builder: (context, state) => Scaffold(
-        body: switch (state.status) {
-          CRequestCubitStatus.initial =>
+        body: switch (state) {
+          CGemYearIDsFetchInProgress() =>
             const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.inProgress =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.failed =>
+          CGemYearIDsFetchFailure() =>
             const Center(child: Icon(Icons.error_rounded)),
-          CRequestCubitStatus.succeeded => CCollectionView(gemIDs: state.ids),
+          CGemYearIDsFetchSuccess(ids: final ids) =>
+            CCollectionView(gemIDs: ids),
         },
       ),
     );

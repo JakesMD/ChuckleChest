@@ -1,16 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
-import 'package:chuckle_chest/pages/edit_gem/logic/_logic.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
+import 'package:chuckle_chest/pages/edit_gem/bloc/gem_save/bloc.dart';
+import 'package:chuckle_chest/shared/cubit/_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CCreateGemPage}
 ///
 /// The page for creating a gem.
-///
-/// This page is a wrapper around the [CEditGemPage] with the [CGemEditCubit]
-/// and [CGemSaveCubit] provided.
 ///
 /// {@endtemplate}
 @RoutePage()
@@ -22,14 +20,15 @@ class CCreateGemPage extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CGemEditCubit>(
-          create: (context) => CGemEditCubit(
+        BlocProvider<CGemEditBloc>(
+          create: (context) => CGemEditBloc(
+            gemRepository: context.read(),
             gem: null,
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
-        BlocProvider<CGemSaveCubit>(
-          create: (context) => CGemSaveCubit(gemRepository: context.read()),
+        BlocProvider<CGemSaveBloc>(
+          create: (context) => CGemSaveBloc(gemRepository: context.read()),
         ),
       ],
       child: this,

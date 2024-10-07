@@ -3,7 +3,8 @@
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/shared/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,8 +53,9 @@ class CAnimatedLine extends StatelessWidget {
     CPerson? person;
 
     if (line.isQuote) {
-      person =
-          context.read<CChestPeopleFetchCubit>().fetchPerson(line.personID!);
+      person = context.read<CChestPeopleFetchBloc>().fetchPerson(
+            line.personID!,
+          );
     }
 
     return CFadeIn(

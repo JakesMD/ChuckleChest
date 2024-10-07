@@ -1,6 +1,7 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/shared/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CChestCreationDialog}
@@ -11,15 +12,12 @@ import 'package:flutter/material.dart';
 class CChestCreationDialog extends StatelessWidget with CDialogMixin {
   /// {@macro CChestCreationDialog}
   CChestCreationDialog({
-    required this.cubit,
+    required this.bloc,
     super.key,
   });
 
-  /// The cubit that handles creating the chest.
-  ///
-  /// Because the dialog is not a part of the page's context, the cubit is
-  /// passed in as a parameter.
-  final CChestCreationCubit cubit;
+  /// The bloc that handles creating the chest.
+  final CChestCreationBloc bloc;
 
   final _formKey = GlobalKey<FormFieldState<String>>();
   final _nameInput = CTextInput();
@@ -28,7 +26,7 @@ class CChestCreationDialog extends StatelessWidget with CDialogMixin {
 
   void _onCreatePressed(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      cubit.createChest(chestName: _nameInput.value(context));
+      bloc.add(CChestCreationTriggered(chestName: _nameInput.value(context)));
       Navigator.of(context).pop();
     }
   }

@@ -3,26 +3,28 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/signin/logic/_logic.dart';
+import 'package:chuckle_chest/pages/signin/bloc/_bloc.dart';
 import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
+
 /// {@template CSignupTab}
 ///
-/// The tab on the signin page that allows the user to sign up.
+/// The tab that allows the user to sign up.
 ///
 /// This tab contains a form for the user to enter their username and email.
 ///
 /// {@endtemplate}
-@RoutePage()
 class CSignupTab extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CSignupTab}
   CSignupTab({super.key});
 
-  void _onCompleted(BuildContext context, String email) =>
-      context.router.push(COTPVerificationRoute(email: email));
+  void _onCompleted(BuildContext context, String email) {
+    context.router.push(COTPVerificationRoute(email: email));
+  }
 
   final _formKey = GlobalKey<FormState>();
   final _usernameInput = CTextInput();
@@ -30,9 +32,11 @@ class CSignupTab extends StatelessWidget implements AutoRouteWrapper {
 
   void _onSignupButtonPressed(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      context.read<CSignupCubit>().signUp(
-            username: _usernameInput.value(context),
-            email: _emailInput.value(context),
+      context.read<CSignupBloc>().add(
+            CSignupFormSubmitted(
+              username: _usernameInput.value(context),
+              email: _emailInput.value(context),
+            ),
           );
     }
   }
@@ -40,19 +44,21 @@ class CSignupTab extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => CSignupCubit(authRepository: context.read()),
-      child: BlocListener<CSignupCubit, CSignupState>(
-        listener: (context, state) => switch (state.status) {
-          CRequestCubitStatus.initial => null,
-          CRequestCubitStatus.inProgress => null,
-          CRequestCubitStatus.failed => switch (state.failure) {
+      create: (context) => CSignupBloc(
+        authRepository: context.read<CAuthRepository>(),
+      ),
+      child: BlocListener<CSignupBloc, CSignupState>(
+        listener: (context, state) => switch (state) {
+          CSignupInitial() => null,
+          CSignupInProgress() => null,
+          CSignupFailure(exception: final exception) => switch (exception) {
               CSignupException.emailRateLimitExceeded => CErrorSnackBar(
                   message:
                       context.cAppL10n.signinPage_error_emailRateLimitExceeded,
                 ).show(context),
               CSignupException.unknown => const CErrorSnackBar().show(context),
             },
-          CRequestCubitStatus.succeeded => _onCompleted(context, state.email),
+          CSignupSuccess(email: final email) => _onCompleted(context, email),
         },
         child: this,
       ),
