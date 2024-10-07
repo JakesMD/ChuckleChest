@@ -25,8 +25,11 @@ class CGemYearsFetchState
   /// The completed state.
   CGemYearsFetchState.completed({required super.outcome}) : super.completed();
 
-  /// The destinct years of the all gems in the chest.
-  List<int> get years => success;
+  /// The destinct years of the all gems in the chest sorted in descending
+  /// order.
+  List<int> get years => success
+    ..sort()
+    ..reversed;
 }
 
 /// {@template CGemYearsFetchCubit}
