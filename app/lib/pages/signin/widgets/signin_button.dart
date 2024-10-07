@@ -1,13 +1,13 @@
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/signin/bloc/_bloc.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/pages/signin/logic/_logic.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 
 enum _CSigninButtonType { login, signup }
 
 /// {@template CSigninButton}
 ///
-/// A button for logging in or signing up.
+/// A button on the signin page for logging in or signing up.
 ///
 /// {@endtemplate}
 class CSigninButton extends StatelessWidget {
@@ -40,8 +40,8 @@ class CSigninButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (_type == _CSigninButtonType.login) {
-      return CLoadingButton<CLoginBloc, CLoginState>(
-        isLoading: (state) => state is CLoginInProgress,
+      return CLoadingButton<CLoginCubit, CLoginState>(
+        isLoading: (state) => state.status == CRequestCubitStatus.inProgress,
         isEnabled: isEnabled,
         onPressed: (context, bloc) => onPressed(context),
         builder: (context, text, onPressed) => FilledButton(
@@ -55,8 +55,8 @@ class CSigninButton extends StatelessWidget {
         ),
       );
     }
-    return CLoadingButton<CSignupBloc, CSignupState>(
-      isLoading: (state) => state is CSignupInProgress,
+    return CLoadingButton<CSignupCubit, CSignupState>(
+      isLoading: (state) => state.status == CRequestCubitStatus.inProgress,
       isEnabled: isEnabled,
       onPressed: (context, bloc) => onPressed(context),
       builder: (context, text, onPressed) => FilledButton(

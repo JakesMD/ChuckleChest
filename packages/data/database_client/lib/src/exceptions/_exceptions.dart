@@ -1,6 +1,11 @@
-export 'chest_creation.dart';
+export 'avatar_upsert.dart';
+export 'avatars_stream.dart';
+export 'chest_insert.dart';
 export 'chest_people_fetch.dart';
 export 'gem_fetch.dart';
 export 'gem_ids_fetch.dart';
 export 'gem_save.dart';
 export 'gem_years_fetch.dart';
+export 'person_insert.dart';
+export 'person_stream.dart';
+export 'person_update.dart';

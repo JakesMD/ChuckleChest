@@ -1,12 +1,13 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
+import 'package:chuckle_chest/pages/edit_gem/logic/_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CEditableDate}
 ///
-/// A widget for editing the date of a gem.
+/// A tile on the edit gem page that allows the user to edit the `occurred at`
+/// date of the gem.
 ///
 /// {@endtemplate}
 class CEditableDate extends StatelessWidget {
@@ -28,7 +29,7 @@ class CEditableDate extends StatelessWidget {
     );
 
     if (context.mounted && date != null) {
-      context.read<CGemEditBloc>().add(CGemEditDateUpdated(occurredAt: date));
+      context.read<CGemEditCubit>().updateOccurredAt(occurredAt: date);
     }
   }
 
