@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// {@template CSettingsPage}
 ///
-/// The settings page.
+/// A tab in the home page used to display the settings of the app.
 ///
 /// {@endtemplate}
 @RoutePage()

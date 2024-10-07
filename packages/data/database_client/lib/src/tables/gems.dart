@@ -25,13 +25,19 @@ class CGemsTable extends SupaTable<CGemsTableCore, CGemsTableRecord> {
   static const id = SupaColumn<CGemsTableCore, String, String>(name: 'id');
 
   /// The number of the gem.
-  @SupaColumnHere<int>()
+  @SupaColumnHere<int>(hasDefault: true)
   static const number = SupaColumn<CGemsTableCore, int, int>(name: 'number');
 
   /// The date and time when the story occurred.
   @SupaColumnHere<DateTime>()
   static const occurredAt = SupaColumn<CGemsTableCore, DateTime, String>(
     name: 'occurred_at',
+  );
+
+  /// The time the gem was created.
+  @SupaColumnHere<DateTime>(hasDefault: true)
+  static const createdAt = SupaColumn<CGemsTableCore, DateTime, String>(
+    name: 'created_at',
   );
 
   /// The lines of the story.

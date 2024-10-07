@@ -221,6 +221,36 @@ abstract class CAppL10n {
   /// **'Edit the gem'**
   String get editGemPage_title_edit;
 
+  /// No description provided for @editPersonPage_banner_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes will propagate to other users next time they open the app.'**
+  String get editPersonPage_banner_message;
+
+  /// No description provided for @editPersonPage_dateOfBirthTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get editPersonPage_dateOfBirthTile_title;
+
+  /// No description provided for @editPersonPage_editNicknameDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit nickname'**
+  String get editPersonPage_editNicknameDialog_title;
+
+  /// No description provided for @editPersonPage_nicknameTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get editPersonPage_nicknameTile_title;
+
+  /// No description provided for @editPersonPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit person'**
+  String get editPersonPage_title;
+
   /// No description provided for @gem_restartMessage.
   ///
   /// In en, this message translates to:
@@ -263,6 +293,12 @@ abstract class CAppL10n {
   /// **'Collections'**
   String get homePage_bottomNav_collections;
 
+  /// No description provided for @homePage_bottomNav_people.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get homePage_bottomNav_people;
+
   /// No description provided for @homePage_bottomNav_settings.
   ///
   /// In en, this message translates to:
@@ -292,6 +328,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'One-Time pin verification'**
   String get otpVerificationPage_title;
+
+  /// No description provided for @peoplePage_personItem_age.
+  ///
+  /// In en, this message translates to:
+  /// **'{age} {age, plural, =0{years} =1{year} other{years}} old'**
+  String peoplePage_personItem_age(int age);
 
   /// No description provided for @quoteItem_person.
   ///

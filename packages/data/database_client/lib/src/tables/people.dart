@@ -41,7 +41,7 @@ class CPeopleTable extends SupaTable<CPeopleTableCore, CPeopleTableRecord> {
     'avatars',
     SupaJoinType.oneToMany,
   )
-  static final avatarURLs = SupaTableJoin<CPeopleTableCore, CAvatarsTableCore>(
+  static final avatars = SupaTableJoin<CPeopleTableCore, CAvatarsTableCore>(
     tableName: 'avatars',
     joiningColumn: CPeopleTable.id,
     record: CAvatarsTableRecord.new,

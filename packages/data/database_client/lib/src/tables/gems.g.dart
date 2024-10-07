@@ -39,6 +39,11 @@ class CGemsTableRecord extends SupaRecord<CGemsTableCore> {
   /// This will throw an exception if the column was not fetched.
   DateTime get occurredAt => call(CGemsTable.occurredAt);
 
+  /// The time the gem was created.
+  ///
+  /// This will throw an exception if the column was not fetched.
+  DateTime get createdAt => call(CGemsTable.createdAt);
+
   /// The unique identifier of the chest the gem belongs to.
   ///
   /// This will throw an exception if the column was not fetched.
@@ -61,8 +66,9 @@ class CGemsTableInsert extends SupaInsert<CGemsTableCore> {
   /// {@macro CGemsTableInsert}
   const CGemsTableInsert({
     this.id,
-    required this.number,
+    this.number,
     required this.occurredAt,
+    this.createdAt,
     required this.chestID,
   });
 
@@ -70,10 +76,13 @@ class CGemsTableInsert extends SupaInsert<CGemsTableCore> {
   final String? id;
 
   /// The number of the gem.
-  final int number;
+  final int? number;
 
   /// The date and time when the story occurred.
   final DateTime occurredAt;
+
+  /// The time the gem was created.
+  final DateTime? createdAt;
 
   /// The unique identifier of the chest the gem belongs to.
   final String chestID;
@@ -81,8 +90,9 @@ class CGemsTableInsert extends SupaInsert<CGemsTableCore> {
   @override
   Set<SupaValue<CGemsTableCore, dynamic, dynamic>> get values => {
         if (id != null) CGemsTable.id(id!),
-        CGemsTable.number(number),
+        if (number != null) CGemsTable.number(number!),
         CGemsTable.occurredAt(occurredAt),
+        if (createdAt != null) CGemsTable.createdAt(createdAt!),
         CGemsTable.chestID(chestID),
       };
 }

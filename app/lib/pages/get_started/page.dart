@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cchest_repository/cchest_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/shared/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,20 +30,20 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CChestCreationBloc(
-            chestRepository: context.read<CChestRepository>(),
-          ),
+          create: (context) =>
+              CChestCreationCubit(chestRepository: context.read()),
         ),
       ],
       child: MultiBlocListener(
         listeners: [
-          BlocListener<CChestCreationBloc, CChestCreationState>(
-            listener: (context, state) => switch (state) {
-              CChestCreationInitial() => null,
-              CChestCreationInProgress() => null,
-              CChestCreationSuccess(chestID: final chestID) =>
-                _onChestCreated(context, chestID),
-              CChestCreationFailure() => const CErrorSnackBar().show(context),
+          BlocListener<CChestCreationCubit, CChestCreationState>(
+            listener: (context, state) => switch (state.status) {
+              CRequestCubitStatus.initial => null,
+              CRequestCubitStatus.inProgress => null,
+              CRequestCubitStatus.succeeded =>
+                _onChestCreated(context, state.chestID),
+              CRequestCubitStatus.failed =>
+                const CErrorSnackBar().show(context),
             },
           ),
         ],
@@ -75,11 +73,12 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
-          CLoadingButton<CChestCreationBloc, CChestCreationState>(
+          CLoadingButton<CChestCreationCubit, CChestCreationState>(
             child: Text(context.cAppL10n.getStartedPage_createChestButton),
-            isLoading: (state) => state is CChestCreationInProgress,
-            onPressed: (context, bloc) =>
-                CChestCreationDialog(bloc: bloc).show(context),
+            isLoading: (state) =>
+                state.status == CRequestCubitStatus.inProgress,
+            onPressed: (context, cubit) =>
+                CChestCreationDialog(cubit: cubit).show(context),
             builder: (context, text, onPressed) => FilledButton(
               onPressed: onPressed,
               child: text,

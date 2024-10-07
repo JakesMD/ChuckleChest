@@ -72,6 +72,21 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
+  String get editPersonPage_banner_message => 'Änderungen werden beim nächsten Öffnen der App auf andere Benutzer übertragen.';
+
+  @override
+  String get editPersonPage_dateOfBirthTile_title => 'Geburtsdatum';
+
+  @override
+  String get editPersonPage_editNicknameDialog_title => 'Spitzname bearbeiten';
+
+  @override
+  String get editPersonPage_nicknameTile_title => 'Spitzname';
+
+  @override
+  String get editPersonPage_title => 'Person bearbeiten';
+
+  @override
   String get gem_restartMessage => 'Zum Neustarten ziehen.';
 
   @override
@@ -95,6 +110,9 @@ class CAppL10nDe extends CAppL10n {
   String get homePage_bottomNav_collections => 'Sammlungen';
 
   @override
+  String get homePage_bottomNav_people => 'Personen';
+
+  @override
   String get homePage_bottomNav_settings => 'Einstellungen';
 
   @override
@@ -108,6 +126,18 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get otpVerificationPage_title => 'Ein-Mal-Code-Bestätigung';
+
+  @override
+  String peoplePage_personItem_age(int age) {
+    String _temp0 = intl.Intl.pluralLogic(
+      age,
+      locale: localeName,
+      other: 'Jahre',
+      one: 'Jahr',
+      zero: 'Jahre',
+    );
+    return '$age $_temp0 alt';
+  }
 
   @override
   String quoteItem_person(Object nickname, int age) {
