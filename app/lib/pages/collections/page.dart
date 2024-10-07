@@ -26,7 +26,7 @@ class CCollectionsPage extends StatelessWidget implements AutoRouteWrapper {
       create: (context) => CGemYearsFetchCubit(
         gemRepository: context.read(),
         chestID: context.read<CCurrentChestCubit>().state.id,
-      ),
+      )..fetchGemYears(),
       child: this,
     );
   }

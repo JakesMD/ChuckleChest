@@ -22,7 +22,7 @@ class CAvatarSection extends StatelessWidget {
         runSpacing: 24,
         alignment: WrapAlignment.center,
         children: List.generate(
-          DateTime.now().year - state.person.dateOfBirth.year,
+          DateTime.now().year + 1 - state.person.dateOfBirth.year,
           (index) => SignedSpacingColumn(
             spacing: 4,
             mainAxisSize: MainAxisSize.min,

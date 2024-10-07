@@ -41,8 +41,9 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
             CRequestCubitStatus.initial => null,
             CRequestCubitStatus.inProgress => null,
             CRequestCubitStatus.failed => const CErrorSnackBar().show(context),
-            CRequestCubitStatus.succeeded =>
-              context.router.push(CEditPersonRoute(person: state.person))
+            CRequestCubitStatus.succeeded => context.router.push(
+                CEditPersonRoute(person: state.person, isPersonNew: true),
+              ),
           },
           child: this,
         ),
