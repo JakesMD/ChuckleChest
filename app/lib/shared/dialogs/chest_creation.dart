@@ -16,6 +16,9 @@ class CChestCreationDialog extends StatelessWidget with CDialogMixin {
   });
 
   /// The cubit that handles creating the chest.
+  ///
+  /// Because the dialog is not a part of the page's context, the cubit is
+  /// passed in as a parameter.
   final CChestCreationCubit cubit;
 
   final _formKey = GlobalKey<FormFieldState<String>>();

@@ -13,20 +13,29 @@ class CGemFetchState extends CRequestCubitState<CGemFetchException, CGem> {
   /// {@macro CGemFetchState}
   ///
   /// The initial state.
-  CGemFetchState.initial() : super.initial();
+  CGemFetchState.initial()
+      : gemID = '',
+        super.initial();
 
   /// {@macro CGemFetchState}
   ///
   /// The in progress state.
-  CGemFetchState.inProgress() : super.inProgress();
+  CGemFetchState.inProgress({required this.gemID}) : super.inProgress();
 
   /// {@macro CGemFetchState}
   ///
   /// The completed state.
-  CGemFetchState.completed({required super.outcome}) : super.completed();
+  CGemFetchState.completed({required super.outcome, required this.gemID})
+      : super.completed();
 
   /// The gem that was fetched.
   CGem get gem => success;
+
+  /// The ID of the gem requested to be fetched.
+  final String gemID;
+
+  @override
+  List<Object?> get props => super.props..add(gemID);
 }
 
 /// {@template CGemFetchCubit}
@@ -44,11 +53,11 @@ class CGemFetchCubit extends Cubit<CGemFetchState> {
 
   /// Fetches the gem with the given [gemID].
   Future<void> fetchGem({required String gemID}) async {
-    emit(CGemFetchState.inProgress());
+    emit(CGemFetchState.inProgress(gemID: gemID));
 
     final result =
         await gemRepository.fetchGem(gemID: gemID).run(isDebugMode: kDebugMode);
 
-    emit(CGemFetchState.completed(outcome: result));
+    emit(CGemFetchState.completed(outcome: result, gemID: gemID));
   }
 }
