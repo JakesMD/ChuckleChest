@@ -29,6 +29,9 @@ class CPersonUpdateState
 
   /// The person being updated.
   final CPerson person;
+
+  @override
+  List<Object?> get props => super.props..add(person);
 }
 
 /// {@template CPersonUpdateCubit}

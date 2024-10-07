@@ -28,19 +28,21 @@ enum CRequestCubitStatus {
 class CRequestCubitState<F, S> with EquatableMixin {
   /// {@macro CRequestCubitState}
   ///
-  /// The initial state.
+  /// The initial state. It sets `status` to `CRequestCubitStatus.initial`.
   CRequestCubitState.initial({this.outcome})
       : status = CRequestCubitStatus.initial;
 
   /// {@macro CRequestCubitState}
   ///
-  /// The in progress state.
+  /// The in progress state. It sets `status` to
+  /// `CRequestCubitStatus.inProgress`.
   CRequestCubitState.inProgress({this.outcome})
       : status = CRequestCubitStatus.inProgress;
 
   /// {@macro CRequestCubitState}
   ///
-  /// The failure state.
+  /// The completed state. It sets `status` to `CRequestCubitStatus.failed` or
+  /// `CRequestCubitStatus.succeeded` based on the outcome.
   CRequestCubitState.completed({required this.outcome})
       : status = outcome is BobsFailure<F, S>
             ? CRequestCubitStatus.failed

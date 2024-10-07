@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cgem_repository/cgem_repository.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemEditState}
@@ -7,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// The state for the [CGemEditCubit].
 ///
 /// {@endtemplate}
-class CGemEditState {
+class CGemEditState extends Equatable {
   /// {@macro CGemEditState}
   const CGemEditState({required this.gem, required this.deletedLines});
 
@@ -16,6 +17,9 @@ class CGemEditState {
 
   /// The lines that have been deleted.
   final List<CLine> deletedLines;
+
+  @override
+  List<Object?> get props => [gem, deletedLines];
 }
 
 /// {@template CGemEditCubit}

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,28 +22,9 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => CGemFetchCubit(gemRepository: context.read()),
-        ),
-      ],
-      child: MultiBlocListener(
-        listeners: [
-          BlocListener<CGemFetchCubit, CGemFetchState>(
-            listener: (context, state) => switch (state.failure) {
-              CGemFetchException.notFound =>
-                const CErrorSnackBar(message: "We couldn't find that gem.")
-                    .show(context),
-              CGemFetchException.unknown =>
-                const CErrorSnackBar().show(context),
-            },
-            listenWhen: (_, state) =>
-                state.status == CRequestCubitStatus.failed,
-          ),
-        ],
-        child: this,
-      ),
+    return BlocProvider(
+      create: (context) => CGemFetchCubit(gemRepository: context.read()),
+      child: this,
     );
   }
 

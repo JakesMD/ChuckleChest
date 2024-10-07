@@ -7,7 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CPeoplePage}
 ///
-/// A page that displays a list of the chest people to be edited.
+/// A tab on the home page page that displays a list of the chest people.
+///
+/// Pressing on a person will navigate to the edit person page.
+///
+/// Pressing the floadting action button (on the home page) will create a new
+/// person and navigate to the edit person page.
 ///
 /// {@endtemplate}
 @RoutePage()

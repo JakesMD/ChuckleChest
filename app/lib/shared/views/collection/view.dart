@@ -37,6 +37,23 @@ class CCollectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     MultiBlocListener(
+        listeners: [
+          BlocListener<CGemFetchCubit, CGemFetchState>(
+            listener: (context, state) => switch (state.failure) {
+              CGemFetchException.notFound =>
+                const CErrorSnackBar(message: "We couldn't find that gem.")
+                    .show(context),
+              CGemFetchException.unknown =>
+                const CErrorSnackBar().show(context),
+            },
+            listenWhen: (_, state) =>
+                state.status == CRequestCubitStatus.failed,
+          ),
+        ],
+        child: this,
+      ),
+      
     return BlocProvider(
       create: (context) => CCollectionViewCubit(
         gemRepository: context.read(),

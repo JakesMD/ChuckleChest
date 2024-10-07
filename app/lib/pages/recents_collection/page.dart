@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/pages/gem/bloc/_bloc.dart';
-import 'package:chuckle_chest/pages/recents_collection/bloc/recent_gem_ids_fetch/bloc.dart';
+import 'package:chuckle_chest/pages/recents_collection/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@template CRecentsCollectionPage}
 ///
 /// The page for displaying a collection of the most recent gems.
+///
+/// It fetches the IDs of the recent gems and then displays them in a
+/// [CCollectionView] which allow the user to view the gems one by one.
 ///
 /// {@endtemplate}
 @RoutePage()
@@ -21,13 +23,13 @@ class CRecentsCollectionPage extends StatelessWidget
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CRecentGemIDsFetchBloc(
+          create: (context) => CRecentGemIDsFetchCubit(
             gemRepository: context.read(),
             chestID: context.read<CCurrentChestCubit>().state.id,
-          ),
+          )..fetchRecentGemIDs(),
         ),
         BlocProvider(
-          create: (context) => CGemFetchBloc(gemRepository: context.read()),
+          create: (context) => CGemFetchCubit(gemRepository: context.read()),
         ),
       ],
       child: this,
@@ -36,15 +38,16 @@ class CRecentsCollectionPage extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CRecentGemIDsFetchBloc, CRecentGemIDsFetchState>(
+    return BlocBuilder<CRecentGemIDsFetchCubit, CRecentGemIDsFetchState>(
       builder: (context, state) => Scaffold(
-        body: switch (state) {
-          CRecentGemIDsFetchInProgress() =>
+        body: switch (state.status) {
+          CRequestCubitStatus.initial =>
             const Center(child: CCradleLoadingIndicator()),
-          CRecentGemIDsFetchFailure() =>
+          CRequestCubitStatus.inProgress =>
+            const Center(child: CCradleLoadingIndicator()),
+          CRequestCubitStatus.failed =>
             const Center(child: Icon(Icons.error_rounded)),
-          CRecentGemIDsFetchSuccess(ids: final ids) =>
-            CCollectionView(gemIDs: ids),
+          CRequestCubitStatus.succeeded => CCollectionView(gemIDs: state.ids),
         },
       ),
     );
