@@ -58,18 +58,6 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
-    CEditPersonRoute.name: (routeData) {
-      final args = routeData.argsAs<CEditPersonRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CEditPersonPage(
-          person: args.person,
-          isPersonNew: args.isPersonNew,
-          key: args.key,
-        )),
-      );
-    },
     CGemRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<CGemRouteArgs>(
@@ -122,12 +110,6 @@ abstract class _$CAppRouter extends RootStackRouter {
           email: args.email,
           key: args.key,
         )),
-      );
-    },
-    CPeopleRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CPeoplePage()),
       );
     },
     CRecentsCollectionRoute.name: (routeData) {
@@ -292,49 +274,6 @@ class CEditGemRouteArgs {
 }
 
 /// generated route for
-/// [CEditPersonPage]
-class CEditPersonRoute extends PageRouteInfo<CEditPersonRouteArgs> {
-  CEditPersonRoute({
-    required CPerson person,
-    bool isPersonNew = false,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CEditPersonRoute.name,
-          args: CEditPersonRouteArgs(
-            person: person,
-            isPersonNew: isPersonNew,
-            key: key,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'CEditPersonRoute';
-
-  static const PageInfo<CEditPersonRouteArgs> page =
-      PageInfo<CEditPersonRouteArgs>(name);
-}
-
-class CEditPersonRouteArgs {
-  const CEditPersonRouteArgs({
-    required this.person,
-    this.isPersonNew = false,
-    this.key,
-  });
-
-  final CPerson person;
-
-  final bool isPersonNew;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CEditPersonRouteArgs{person: $person, isPersonNew: $isPersonNew, key: $key}';
-  }
-}
-
-/// generated route for
 /// [CGemPage]
 class CGemRoute extends PageRouteInfo<CGemRouteArgs> {
   CGemRoute({
@@ -479,20 +418,6 @@ class COTPVerificationRouteArgs {
   String toString() {
     return 'COTPVerificationRouteArgs{email: $email, key: $key}';
   }
-}
-
-/// generated route for
-/// [CPeoplePage]
-class CPeopleRoute extends PageRouteInfo<void> {
-  const CPeopleRoute({List<PageRouteInfo>? children})
-      : super(
-          CPeopleRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CPeopleRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/otp_verification/logic/_logic.dart';
-import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/pages/otp_verification/bloc/_bloc.dart';
+import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -17,34 +17,13 @@ import 'package:pinput/pinput.dart';
 @RoutePage()
 class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro COTPVerificationPage}
-  const COTPVerificationPage({@QueryParam('email') this.email, super.key});
+  const COTPVerificationPage({
+    @QueryParam('email') this.email,
+    super.key,
+  });
 
   /// The email address to verify.
   final String? email;
-
-  @override
-  Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          COTPVerificationCubit(authRepository: context.read()),
-      child: BlocListener<COTPVerificationCubit, COTPVerificationState>(
-        listener: (context, state) => switch (state.status) {
-          CRequestCubitStatus.initial => null,
-          CRequestCubitStatus.inProgress => null,
-          CRequestCubitStatus.failed => switch (state.failure) {
-              COTPVerificationException.invalidToken => CErrorSnackBar(
-                  message:
-                      context.cAppL10n.otpVerificationPage_error_invalidToken,
-                ).show(context),
-              COTPVerificationException.unknown =>
-                const CErrorSnackBar().show(context),
-            },
-          CRequestCubitStatus.succeeded => _onVerificationCompleted(context),
-        },
-        child: this,
-      ),
-    );
-  }
 
   Future<void> _onBackButtonPressed(BuildContext context) async {
     if (!(await context.router.maybePop()) && context.mounted) {
@@ -54,24 +33,54 @@ class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
 
   void _onOTPSubmited(BuildContext context, String pin) {
     if (email == null) return;
-    context.read<COTPVerificationCubit>().verifyOTP(email: email!, pin: pin);
+    context
+        .read<COTPVerificationBloc>()
+        .add(COTPVerificationSubmitted(email: email!, pin: pin));
   }
 
-  void _onVerificationCompleted(BuildContext context) =>
-      context.router.replaceAll([const CBaseRoute()]);
+  void _onVerificationCompleted(BuildContext context) {
+    context.router.replaceAll([const CBaseRoute()]);
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => COTPVerificationBloc(
+        authRepository: context.read<CAuthRepository>(),
+      ),
+      child: BlocListener<COTPVerificationBloc, COTPVerificationState>(
+        listener: (context, state) => switch (state) {
+          COTPVerificationInitial() => null,
+          COTPVerificationInProgress() => null,
+          COTPVerificationFailure(exception: final exception) => switch (
+                exception) {
+              COTPVerificationException.invalidToken => CErrorSnackBar(
+                  message:
+                      context.cAppL10n.otpVerificationPage_error_invalidToken,
+                ).show(context),
+              COTPVerificationException.unknown =>
+                const CErrorSnackBar().show(context),
+            },
+          COTPVerificationSuccess() => _onVerificationCompleted(context),
+        },
+        child: this,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CAppBar(
         context: context,
-        title: BlocBuilder<COTPVerificationCubit, COTPVerificationState>(
-          builder: (context, state) =>
-              state.status == CRequestCubitStatus.inProgress
-                  ? const CCradleLoadingIndicator()
-                  : Text(context.cAppL10n.otpVerificationPage_title),
+        title: BlocBuilder<COTPVerificationBloc, COTPVerificationState>(
+          builder: (context, state) => state is COTPVerificationInProgress
+              ? const CCradleLoadingIndicator()
+              : Text(context.cAppL10n.otpVerificationPage_title),
         ),
-        leading: BackButton(onPressed: () => _onBackButtonPressed(context)),
+        leading: BackButton(
+          onPressed: () => _onBackButtonPressed(context),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

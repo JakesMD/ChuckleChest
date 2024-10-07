@@ -3,7 +3,6 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
-import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
@@ -57,10 +56,6 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                       page: CCollectionsRoute.page,
                       initial: true,
                     ),
-                    AutoRoute(
-                      path: 'people',
-                      page: CPeopleRoute.page,
-                    ),
                     AutoRoute(path: 'settings', page: CSettingsRoute.page),
                   ],
                 ),
@@ -91,10 +86,6 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                 AutoRoute(
                   path: 'recently-added',
                   page: CRecentsCollectionRoute.page,
-                ),
-                AutoRoute(
-                  path: 'edit-person',
-                  page: CEditPersonRoute.page,
                 ),
               ],
             ),

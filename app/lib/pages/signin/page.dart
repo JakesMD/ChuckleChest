@@ -4,7 +4,8 @@ import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 
-export 'tabs/_tabs.dart';
+export 'tabs/login_tab.dart';
+export 'tabs/signup_tab.dart';
 
 /// {@template CSigninPage}
 ///
@@ -26,7 +27,10 @@ class CSigninPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.tabBar(
-      routes: [CSignupRoute(), CLoginRoute()],
+      routes: [
+        CSignupRoute(),
+        CLoginRoute(),
+      ],
       builder: (context, child, controller) => Scaffold(
         appBar: CAppBar(
           context: context,

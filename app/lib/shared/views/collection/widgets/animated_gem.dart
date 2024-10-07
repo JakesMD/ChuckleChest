@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 
 /// {@template CAnimatedGem}
 ///
-/// A widget that displays an animated gem which is a funny conversation with
-/// narration lines and quotes.
-///
+/// A widget that displays an animated gem.
+///§
 /// {@endtemplate}
 class CAnimatedGem extends StatefulWidget {
   /// {@macro CAnimatedGem}

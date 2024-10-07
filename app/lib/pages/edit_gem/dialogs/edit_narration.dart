@@ -1,7 +1,7 @@
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/edit_gem/logic/gem_edit_cubit.dart';
+import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class CEditNarrationDialog extends StatelessWidget with CDialogMixin {
   /// {@macro CEditNarrationDialog}
   CEditNarrationDialog({
-    required this.cubit,
+    required this.bloc,
     this.line,
     this.index = 0,
     super.key,
@@ -25,11 +25,8 @@ class CEditNarrationDialog extends StatelessWidget with CDialogMixin {
   /// The index of the line.
   final int index;
 
-  /// The cubit that will update or add the line.
-  ///
-  /// Because the dialog is not a part of the page's context, the cubit is
-  /// passed in as a parameter.
-  final CGemEditCubit cubit;
+  /// The bloc to update or add the line with.
+  final CGemEditBloc bloc;
 
   final _formKey = GlobalKey<FormFieldState<String>>();
   final _lineText = CTextInput();
@@ -38,12 +35,19 @@ class CEditNarrationDialog extends StatelessWidget with CDialogMixin {
     if (!_formKey.currentState!.validate()) return;
 
     if (line == null) {
-      cubit.addLine(personID: null, text: _lineText.value(context));
+      bloc.add(
+        CGemEditLineAdded(
+          personID: null,
+          text: _lineText.value(context),
+        ),
+      );
     } else {
-      cubit.updateLine(
-        lineIndex: index,
-        personID: null,
-        text: _lineText.value(context),
+      bloc.add(
+        CGemEditLineUpdated(
+          lineIndex: index,
+          personID: null,
+          text: _lineText.value(context),
+        ),
       );
     }
 

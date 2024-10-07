@@ -21,11 +21,6 @@
   "editGemPage_helperMessage": "Tap anything to edit.",
   "editGemPage_title_create": "Create a gem",
   "editGemPage_title_edit": "Edit the gem",
-  "editPersonPage_banner_message": "Changes will propagate to other users next time they open the app.",
-  "editPersonPage_dateOfBirthTile_title": "Date of birth",
-  "editPersonPage_editNicknameDialog_title": "Edit nickname",
-  "editPersonPage_nicknameTile_title": "Nickname",
-  "editPersonPage_title": "Edit person",
   "gem_restartMessage": "Pull to restart.",
   "gem_share_message": "Check out this gem on ChuckleChest! 😂 {link}",
   "gem_share_subject": "This is so good! 😂",
@@ -33,20 +28,11 @@
   "getStartedPage_logoutButton": "Log out",
   "getStartedPage_title": "Let's get started!",
   "homePage_bottomNav_collections": "Collections",
-  "homePage_bottomNav_people": "People",
   "homePage_bottomNav_settings": "Settings",
   "ok": "OK",
   "otpVerificationPage_error_invalidToken": "This pin is invalid. Please try again.",
   "otpVerificationPage_message": "Please enter the pin we sent to your inbox.",
   "otpVerificationPage_title": "One-Time pin verification",
-  "peoplePage_personItem_age": "{age} {age, plural, =0{years} =1{year} other{years}} old",
-  "@peoplePage_personItem_age": {
-    "placeholders": {
-      "age": {
-        "type": "int"
-      }
-    }
-  },
   "quoteItem_person": "{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old",
   "@quoteItem_person": {
     "placeholders": {

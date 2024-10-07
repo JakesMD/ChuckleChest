@@ -15,7 +15,7 @@ class CChestClient {
   final CChestsTable chestsTable;
 
   /// Creates a new chest with the given `chestName`.
-  BobsJob<CRawChestInsertException, String> createChest({
+  BobsJob<CRawChestCreationException, String> createChest({
     required String chestName,
   }) =>
       BobsJob.attempt(
@@ -24,6 +24,6 @@ class CChestClient {
           columns: {CChestsTable.id},
           modifier: chestsTable.limit(1).single(),
         ),
-        onError: CRawChestInsertException.fromError,
+        onError: CRawChestCreationException.fromError,
       ).then(run: (record) => record.id);
 }

@@ -6,9 +6,9 @@ enum CChestCreationException {
   unknown;
 
   /// Converts the raw exception to a [CChestCreationException].
-  static CChestCreationException fromRaw(CRawChestInsertException e) {
+  static CChestCreationException fromRaw(CRawChestCreationException e) {
     return switch (e) {
-      CRawChestInsertException.unknown => CChestCreationException.unknown,
+      CRawChestCreationException.unknown => CChestCreationException.unknown,
     };
   }
 }
