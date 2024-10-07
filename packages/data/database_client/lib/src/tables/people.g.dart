@@ -50,8 +50,7 @@ class CPeopleTableRecord extends SupaRecord<CPeopleTableCore> {
   /// This will throw an exception if no joined columns were fetched.
   ///
   /// An InvalidType error here is often caused by a misspelling of the prefix in the @SupaTableJoinHere annotation.
-  List<CAvatarsTableRecord> get avatarURLs =>
-      reference(CPeopleTable.avatarURLs);
+  List<CAvatarsTableRecord> get avatars => reference(CPeopleTable.avatars);
 }
 
 /// {@template CPeopleTableInsert}

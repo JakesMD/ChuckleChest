@@ -1,7 +1,7 @@
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/edit_gem/bloc/gem_edit/bloc.dart';
+import 'package:chuckle_chest/pages/edit_gem/logic/_logic.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
   /// {@macro CEditQuoteDialog}
   CEditQuoteDialog({
-    required this.bloc,
+    required this.cubit,
     required this.people,
     required this.occurredAt,
     this.line,
@@ -29,8 +29,11 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
   /// The index of the line.
   final int index;
 
-  /// The bloc to update or add the line with.
-  final CGemEditBloc bloc;
+  /// The cubit that will update or add the line.
+  ///
+  /// Because the dialog is not a part of the page's context, the cubit is
+  /// passed in as a parameter.
+  final CGemEditCubit cubit;
 
   /// The date the gem occurred at.
   final DateTime occurredAt;
@@ -46,19 +49,15 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
     if (!_formKey.currentState!.validate()) return;
 
     if (line == null) {
-      bloc.add(
-        CGemEditLineAdded(
-          personID: _personID.value(context),
-          text: _lineText.value(context),
-        ),
+      cubit.addLine(
+        personID: _personID.value(context),
+        text: _lineText.value(context),
       );
     } else {
-      bloc.add(
-        CGemEditLineUpdated(
-          lineIndex: index,
-          personID: _personID.value(context),
-          text: _lineText.value(context),
-        ),
+      cubit.updateLine(
+        lineIndex: index,
+        personID: _personID.value(context),
+        text: _lineText.value(context),
       );
     }
 

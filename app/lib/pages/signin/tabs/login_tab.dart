@@ -3,16 +3,15 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/signin/bloc/_bloc.dart';
-import 'package:chuckle_chest/pages/signin/bloc/login/bloc.dart';
+import 'package:chuckle_chest/pages/signin/logic/login_cubit.dart';
 import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CLoginTab}
 ///
-/// The tab that allows the user to log in.
+/// The tab on the signin page that allows the user to log in.
 ///
 /// This tab contains a form for the user to enter their email.
 ///
@@ -22,32 +21,27 @@ class CLoginTab extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CLoginTab}
   CLoginTab({super.key});
 
-  void _onCompleted(BuildContext context, String email) {
-    context.router.push(COTPVerificationRoute(email: email));
-  }
+  void _onCompleted(BuildContext context, String email) =>
+      context.router.push(COTPVerificationRoute(email: email));
 
   final _formKey = GlobalKey<FormState>();
   final _emailInput = CEmailInput();
 
   void _onLoginButtonPressed(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      context.read<CLoginBloc>().add(
-            CLoginFormSubmitted(email: _emailInput.value(context)),
-          );
+      context.read<CLoginCubit>().logIn(email: _emailInput.value(context));
     }
   }
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => CLoginBloc(
-        authRepository: context.read<CAuthRepository>(),
-      ),
-      child: BlocListener<CLoginBloc, CLoginState>(
-        listener: (context, state) => switch (state) {
-          CLoginInitial() => null,
-          CLoginInProgress() => null,
-          CLoginFailure(exception: final exception) => switch (exception) {
+      create: (context) => CLoginCubit(authRepository: context.read()),
+      child: BlocListener<CLoginCubit, CLoginState>(
+        listener: (context, state) => switch (state.status) {
+          CRequestCubitStatus.initial => null,
+          CRequestCubitStatus.inProgress => null,
+          CRequestCubitStatus.failed => switch (state.failure) {
               CLoginException.emailRateLimitExceeded => CErrorSnackBar(
                   message:
                       context.cAppL10n.signinPage_error_emailRateLimitExceeded,
@@ -57,7 +51,7 @@ class CLoginTab extends StatelessWidget implements AutoRouteWrapper {
                 ).show(context),
               CLoginException.unknown => const CErrorSnackBar().show(context),
             },
-          CLoginSuccess(email: final email) => _onCompleted(context, email),
+          CRequestCubitStatus.succeeded => _onCompleted(context, state.email),
         },
         child: this,
       ),

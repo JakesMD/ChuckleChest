@@ -15,17 +15,31 @@ class CPerson with EquatableMixin {
     required this.nickname,
     required this.dateOfBirth,
     required this.avatarURLs,
+    required this.chestID,
   });
 
   /// {@macro CPerson}
   ///
   /// Converts a [CPeopleTableRecord] to a [CPerson].
-  CPerson.fromRecord(CPeopleTableRecord record)
-      : id = record.id,
-        nickname = record.nickname,
-        dateOfBirth = record.dateOfBirth,
-        avatarURLs = record.avatarURLs.map(CAvatarURL.fromRecord).toList()
-          ..sort((a, b) => a.year.compareTo(b.year));
+  factory CPerson.fromRecord(CPeopleTableRecord record) {
+    final avatars = <CAvatarURL>[];
+
+    try {
+      avatars
+        ..addAll(record.avatars.map(CAvatarURL.fromRecord).toList())
+        ..sort((a, b) => a.year.compareTo(b.year));
+    } catch (e) {
+      //
+    }
+
+    return CPerson(
+      id: record.id,
+      nickname: record.nickname,
+      dateOfBirth: record.dateOfBirth,
+      avatarURLs: avatars,
+      chestID: record.chestID,
+    );
+  }
 
   /// The unique identifier of the person.
   final BigInt id;
@@ -38,6 +52,9 @@ class CPerson with EquatableMixin {
 
   /// The URLs of the person's avatars.
   final List<CAvatarURL> avatarURLs;
+
+  /// The ID of the chest the person belongs to.
+  final String chestID;
 
   /// The age of the person at the given date.
   int ageAtDate(DateTime date) {
@@ -54,6 +71,17 @@ class CPerson with EquatableMixin {
   String? avatarURLForDate(DateTime? date) =>
       avatarURLs.cFirstWhereOrNull((a) => a.year == date?.year)?.url;
 
+  /// Creates a copy of the person with the given fields updated.
+  CPerson copyWith({String? nickname, DateTime? dateOfBirth}) {
+    return CPerson(
+      id: id,
+      nickname: nickname ?? this.nickname,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      avatarURLs: avatarURLs,
+      chestID: chestID,
+    );
+  }
+
   @override
-  List<Object?> get props => [id, nickname, dateOfBirth, avatarURLs];
+  List<Object?> get props => [id, nickname, dateOfBirth, avatarURLs, chestID];
 }
