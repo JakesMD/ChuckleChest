@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///
 /// {@endtemplate}
 class CRandomGemIDsFetchState
-    extends CRequestCubitState<CGemIDsFetchException, List<String>> {
+    extends CRequestCubitState<CRandomGemIDsFetchException, List<String>> {
   /// {@macro CRandomGemIDsFetchState}
   ///
   /// The initial state.
@@ -54,7 +54,7 @@ class CRandomGemIDsFetchCubit extends Cubit<CRandomGemIDsFetchState> {
     emit(CRandomGemIDsFetchState.inProgress());
 
     final result = await gemRepository
-        .fetchRecentGemIDs(chestID: chestID)
+        .fetchRandomGemIDs(chestID: chestID)
         .run(isDebugMode: kDebugMode);
 
     emit(CRandomGemIDsFetchState.completed(outcome: result));
