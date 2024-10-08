@@ -164,4 +164,21 @@ class CGemClient {
             },
             onError: CRawGemSaveException.fromError,
           );
+
+  /// Fetches the `limit` gem IDs by random for the given `chestID` from the
+  /// database.
+  BobsJob<CRawRandomGemIDsFetchException, List<String>> fetchRandomGemIDs({
+    required String chestID,
+    required int limit,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          final response = await gemsTable.supabaseClient.rpc<List<dynamic>>(
+            'fetch_random_gem_ids',
+            params: {'chest_id_param': chestID, 'limit_param': limit},
+          );
+          return response.cast<String>();
+        },
+        onError: CRawRandomGemIDsFetchException.fromError,
+      );
 }

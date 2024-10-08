@@ -101,4 +101,12 @@ class CGemRepository {
           onSuccess: (_) => CGemShareMethod.clipboard,
         );
   }
+
+  /// Fetches random gem IDs from the chest with the given [chestID].
+  BobsJob<CRandomGemIDsFetchException, List<String>> fetchRandomGemIDs({
+    required String chestID,
+  }) =>
+      gemClient
+          .fetchRandomGemIDs(chestID: chestID, limit: 20)
+          .thenEvaluateOnFailure(CRandomGemIDsFetchException.fromRaw);
 }

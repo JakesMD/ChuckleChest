@@ -130,6 +130,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CPeoplePage()),
       );
     },
+    CRandomCollectionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CRandomCollectionPage()),
+      );
+    },
     CRecentsCollectionRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -491,6 +497,20 @@ class CPeopleRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CPeopleRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CRandomCollectionPage]
+class CRandomCollectionRoute extends PageRouteInfo<void> {
+  const CRandomCollectionRoute({List<PageRouteInfo>? children})
+      : super(
+          CRandomCollectionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CRandomCollectionRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
