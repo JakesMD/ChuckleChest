@@ -49,6 +49,7 @@ class CCollectionsPage extends StatelessWidget implements AutoRouteWrapper {
         ),
         const SizedBox(height: 8),
         const CRecentsCollectionTile(),
+        const CRandomCollectionTile(),
       ],
     );
   }

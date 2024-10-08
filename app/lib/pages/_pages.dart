@@ -9,6 +9,7 @@ export 'get_started/page.dart';
 export 'home/page.dart';
 export 'otp_verification/page.dart';
 export 'people/page.dart';
+export 'random_collection/page.dart';
 export 'recents_collection/page.dart';
 export 'settings/page.dart';
 export 'signin/page.dart';

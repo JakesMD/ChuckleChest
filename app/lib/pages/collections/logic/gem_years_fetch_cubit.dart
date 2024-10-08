@@ -27,9 +27,7 @@ class CGemYearsFetchState
 
   /// The destinct years of the all gems in the chest sorted in descending
   /// order.
-  List<int> get years => success
-    ..sort()
-    ..reversed;
+  List<int> get years => success..sort((a, b) => b.compareTo(a));
 }
 
 /// {@template CGemYearsFetchCubit}
