@@ -24,6 +24,9 @@ class CAppL10nEn extends CAppL10n {
   String get close => 'Close';
 
   @override
+  String get collectionsPage_collection_random => 'Randomly selected';
+
+  @override
   String get collectionsPage_collection_recents => 'Recently added';
 
   @override

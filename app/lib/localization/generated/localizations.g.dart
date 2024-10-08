@@ -125,6 +125,12 @@ abstract class CAppL10n {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @collectionsPage_collection_random.
+  ///
+  /// In en, this message translates to:
+  /// **'Randomly selected'**
+  String get collectionsPage_collection_random;
+
   /// No description provided for @collectionsPage_collection_recents.
   ///
   /// In en, this message translates to:

@@ -93,6 +93,10 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                   page: CRecentsCollectionRoute.page,
                 ),
                 AutoRoute(
+                  path: 'randomly-selected',
+                  page: CRandomCollectionRoute.page,
+                ),
+                AutoRoute(
                   path: 'edit-person',
                   page: CEditPersonRoute.page,
                 ),
