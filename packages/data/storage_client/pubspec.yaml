@@ -1,4 +1,4 @@
-name: cchest_repository
+name: cstorage_client
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -6,9 +6,10 @@ environment:
 dependencies:
   bobs_jobs: ^0.0.1-dev.4
   ccore:
-  cdatabase_client:
+  supabase: ^2.3.0
 
 dev_dependencies:
+  build_runner: ^2.4.12
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4

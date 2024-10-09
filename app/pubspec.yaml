@@ -10,7 +10,7 @@ dependencies:
   auto_route: ^8.1.4
   bloc: ^8.1.4
   bloc_concurrency: ^0.2.5
-  bobs_jobs: ^0.0.1-dev.3
+  bobs_jobs: ^0.0.1-dev.4
   cauth_client:
   cauth_repository:
   cchest_repository:
@@ -19,6 +19,8 @@ dependencies:
   cgem_repository:
   cperson_repository:
   cplatform_client:
+  crop_your_image: ^1.1.0
+  cstorage_client:
   equatable: ^2.0.5
   flutter:
     sdk: flutter

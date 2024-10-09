@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cperson_repository/cperson_repository.dart';
+import 'package:cplatform_client/cplatform_client.dart';
+import 'package:cstorage_client/cstorage_client.dart';
 
 /// {@template CPersonRepository}
 ///
@@ -13,10 +16,18 @@ class CPersonRepository {
   /// {@macro CPersonRepository}
   const CPersonRepository({
     required this.personClient,
+    required this.storageClient,
+    required this.platformClient,
   });
 
   /// The client for interacting with the people API.
   final CPersonClient personClient;
+
+  /// The client for interacting with the storage API.
+  final CStorageClient storageClient;
+
+  /// The client for interacting with the platform API.
+  final CPlatformClient platformClient;
 
   /// Fetches all the people belonging to the chest with the given `chestID`.
   BobsJob<CChestPeopleFetchException, List<CPerson>> fetchChestPeople({
@@ -53,25 +64,45 @@ class CPersonRepository {
             ),
           );
 
-  /// Upserts an avatar for the given person.
-  BobsJob<CAvatarUpsertException, BobsNothing> upsertAvatar({
+  /// Updates the avatar for the given `year` for the given `person`.
+  ///
+  /// If the an image for the given `year` already exists, it will be replaced.
+  BobsJob<CAvatarUpdateException, BobsNothing> updateAvatar({
     required CPerson person,
-    required String imageURL,
     required int year,
+    required Uint8List image,
   }) =>
-      personClient
-          .upsertAvatar(
-            avatar: CAvatarsTableInsert(
-              personID: person.id,
-              year: year,
-              imageURL: imageURL,
-              chestID: person.chestID,
-            ),
+      storageClient
+          .uploadAvatar(
+            chestID: person.chestID,
+            personID: person.id,
+            year: year,
+            avatarFile: image,
           )
-          .thenEvaluate(
-            onFailure: CAvatarUpsertException.fromRaw,
-            onSuccess: (_) => bobsNothing,
+          .chainOnSuccess(
+            onFailure: CAvatarUpdateException.fromRaw,
+            nextJob: (imageURL) => personClient
+                .upsertAvatar(
+                  avatar: CAvatarsTableInsert(
+                    personID: person.id,
+                    year: year,
+                    imageURL: imageURL,
+                    chestID: person.chestID,
+                  ),
+                )
+                .thenEvaluate(
+                  onFailure: CAvatarUpdateException.fromRaw,
+                  onSuccess: (_) => bobsNothing,
+                ),
           );
+
+  /// Allows the user to pick an image from their gallery.
+  ///
+  /// If the user cancels the image pick it will return a `BobsAbsent`.
+  BobsJob<CAvatarPickException, BobsMaybe<Uint8List>> pickAvatar() =>
+      platformClient
+          .pickImage()
+          .thenEvaluateOnFailure(CAvatarPickException.fromRaw);
 
   /// Creates a default person with the given `chestID`.
   BobsJob<CPersonCreationException, CPerson> createPerson({
