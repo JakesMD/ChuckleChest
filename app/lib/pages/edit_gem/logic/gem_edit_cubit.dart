@@ -40,7 +40,7 @@ class CGemEditCubit extends Cubit<CGemEditState> {
                   lines: [],
                   chestID: chestID,
                 ),
-            deletedLines: const [],
+            deletedLines: [],
           ),
         );
 

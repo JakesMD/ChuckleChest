@@ -37,5 +37,5 @@ class CCreateGemPage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   @override
-  Widget build(BuildContext context) => const CEditGemPage(gem: null);
+  Widget build(BuildContext context) => const CEditGemPage(initialGem: null);
 }

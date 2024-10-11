@@ -53,7 +53,7 @@ abstract class _$CAppRouter extends RootStackRouter {
         routeData: routeData,
         child: WrappedRoute(
             child: CEditGemPage(
-          gem: args.gem,
+          initialGem: args.initialGem,
           key: args.key,
         )),
       );
@@ -263,13 +263,13 @@ class CCreateGemRoute extends PageRouteInfo<void> {
 /// [CEditGemPage]
 class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
   CEditGemRoute({
-    required CGem? gem,
+    required CGem? initialGem,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           CEditGemRoute.name,
           args: CEditGemRouteArgs(
-            gem: gem,
+            initialGem: initialGem,
             key: key,
           ),
           initialChildren: children,
@@ -283,17 +283,17 @@ class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
 
 class CEditGemRouteArgs {
   const CEditGemRouteArgs({
-    required this.gem,
+    required this.initialGem,
     this.key,
   });
 
-  final CGem? gem;
+  final CGem? initialGem;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'CEditGemRouteArgs{gem: $gem, key: $key}';
+    return 'CEditGemRouteArgs{initialGem: $initialGem, key: $key}';
   }
 }
 
