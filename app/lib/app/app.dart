@@ -14,6 +14,7 @@ import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/widgets/client_provider.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
+import 'package:cstorage_client/cstorage_client.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,7 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
   late CPlatformClient platformClient;
   late CAuthClient authClient;
   late CPersonClient personClient;
+  late CStorageClient storageClient;
 
   late CAuthRepository authRepository;
   late CChestRepository chestRepository;
@@ -77,6 +79,7 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
       peopleTable: peopleTable,
       avatarsTable: avatarsTable,
     );
+    storageClient = CStorageClient(supabaseClient: supabaseClient);
 
     authRepository = CAuthRepository(
       authClient: CAuthClient(authClient: supabaseClient.auth),
@@ -86,7 +89,11 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
       gemClient: gemClient,
       platformClient: platformClient,
     );
-    personRepository = CPersonRepository(personClient: personClient);
+    personRepository = CPersonRepository(
+      personClient: personClient,
+      storageClient: storageClient,
+      platformClient: platformClient,
+    );
 
     appRouter = CAppRouter(authRepository: authRepository);
 
@@ -103,6 +110,7 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
         CClientProvider.value(value: chestClient),
         CClientProvider.value(value: gemClient),
         CClientProvider.value(value: personClient),
+        CClientProvider.value(value: storageClient),
       ],
       child: MultiRepositoryProvider(
         providers: [

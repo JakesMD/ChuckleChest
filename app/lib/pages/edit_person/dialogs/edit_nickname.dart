@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 /// {@template CNicknameTile}
 ///
-/// A tile for displaying and editing a person's nickname.
+/// The dialog on the edit person page for editing a person's nickname.
 ///
 /// {@endtemplate}
 class CEditNicknameDialog extends StatelessWidget with CDialogMixin {

@@ -65,7 +65,7 @@ class _CYearCollectionCard extends StatelessWidget {
     final people = context.read<CChestPeopleFetchCubit>().state.people;
 
     final avatars = people
-        .map((p) => p.avatarURLForDate(DateTime(year)))
+        .map((p) => p.avatarURLForDate(DateTime(year))?.url)
         .where((a) => a != null)
         .toList()
         .cast<String>()

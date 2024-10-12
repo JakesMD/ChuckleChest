@@ -155,6 +155,18 @@ abstract class CAppL10n {
   /// **'Delete'**
   String get delete;
 
+  /// No description provided for @editAvatarPage_pickPhotoButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a photo'**
+  String get editAvatarPage_pickPhotoButton;
+
+  /// No description provided for @editAvatarPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Photo for {year}'**
+  String editAvatarPage_title(int year);
+
   /// No description provided for @editGemPage_addNarrationButton.
   ///
   /// In en, this message translates to:
@@ -230,7 +242,7 @@ abstract class CAppL10n {
   /// No description provided for @editPersonPage_banner_message.
   ///
   /// In en, this message translates to:
-  /// **'Changes will propagate to other users next time they open the app.'**
+  /// **'Closing this page will reload the app if changes have been made.'**
   String get editPersonPage_banner_message;
 
   /// No description provided for @editPersonPage_dateOfBirthTile_title.

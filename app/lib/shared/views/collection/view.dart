@@ -26,7 +26,7 @@ class CCollectionView extends StatelessWidget {
     final bloc = context.read<CCollectionViewCubit>();
 
     final result = await context.router.push(
-      CEditGemRoute(gem: bloc.state.currentGem),
+      CEditGemRoute(initialGem: bloc.state.currentGem),
     );
 
     if (context.mounted && result != null) {
@@ -80,14 +80,21 @@ class CCollectionView extends StatelessWidget {
               itemBuilder: (context, index) =>
                   BlocBuilder<CGemFetchCubit, CGemFetchState>(
                 buildWhen: (_, state) => state.gemID == gemIDs[index],
-                builder: (context, state) => switch (state.status) {
+                builder: (context, fetchState) => switch (fetchState.status) {
                   CRequestCubitStatus.initial =>
                     const Center(child: CCradleLoadingIndicator()),
                   CRequestCubitStatus.inProgress =>
                     const Center(child: CCradleLoadingIndicator()),
                   CRequestCubitStatus.failed =>
                     const Center(child: Icon(Icons.error_rounded)),
-                  CRequestCubitStatus.succeeded => CAnimatedGem(gem: state.gem),
+                  CRequestCubitStatus.succeeded =>
+                    BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
+                      buildWhen: (_, state) =>
+                          state.currentGem?.id == fetchState.gemID,
+                      builder: (context, state) => state.currentGem != null
+                          ? CAnimatedGem(gem: state.currentGem!)
+                          : const SizedBox(),
+                    ),
                 },
               ),
             ),

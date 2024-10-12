@@ -27,7 +27,7 @@ class CCollectionViewState {
     int? currentIndex,
   }) {
     return CCollectionViewState(
-      gems: gems ?? this.gems,
+      gems: gems != null ? [...gems] : [...this.gems],
       currentIndex: currentIndex ?? this.currentIndex,
     );
   }

@@ -47,13 +47,25 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CCreateGemPage()),
       );
     },
+    CEditAvatarRoute.name: (routeData) {
+      final args = routeData.argsAs<CEditAvatarRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CEditAvatarPage(
+          personID: args.personID,
+          avatarURL: args.avatarURL,
+          key: args.key,
+        )),
+      );
+    },
     CEditGemRoute.name: (routeData) {
       final args = routeData.argsAs<CEditGemRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
             child: CEditGemPage(
-          gem: args.gem,
+          initialGem: args.initialGem,
           key: args.key,
         )),
       );
@@ -260,16 +272,59 @@ class CCreateGemRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CEditAvatarPage]
+class CEditAvatarRoute extends PageRouteInfo<CEditAvatarRouteArgs> {
+  CEditAvatarRoute({
+    required BigInt personID,
+    required CAvatarURL avatarURL,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CEditAvatarRoute.name,
+          args: CEditAvatarRouteArgs(
+            personID: personID,
+            avatarURL: avatarURL,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CEditAvatarRoute';
+
+  static const PageInfo<CEditAvatarRouteArgs> page =
+      PageInfo<CEditAvatarRouteArgs>(name);
+}
+
+class CEditAvatarRouteArgs {
+  const CEditAvatarRouteArgs({
+    required this.personID,
+    required this.avatarURL,
+    this.key,
+  });
+
+  final BigInt personID;
+
+  final CAvatarURL avatarURL;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CEditAvatarRouteArgs{personID: $personID, avatarURL: $avatarURL, key: $key}';
+  }
+}
+
+/// generated route for
 /// [CEditGemPage]
 class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
   CEditGemRoute({
-    required CGem? gem,
+    required CGem? initialGem,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           CEditGemRoute.name,
           args: CEditGemRouteArgs(
-            gem: gem,
+            initialGem: initialGem,
             key: key,
           ),
           initialChildren: children,
@@ -283,17 +338,17 @@ class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
 
 class CEditGemRouteArgs {
   const CEditGemRouteArgs({
-    required this.gem,
+    required this.initialGem,
     this.key,
   });
 
-  final CGem? gem;
+  final CGem? initialGem;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'CEditGemRouteArgs{gem: $gem, key: $key}';
+    return 'CEditGemRouteArgs{initialGem: $initialGem, key: $key}';
   }
 }
 

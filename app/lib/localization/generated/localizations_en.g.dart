@@ -39,6 +39,14 @@ class CAppL10nEn extends CAppL10n {
   String get delete => 'Delete';
 
   @override
+  String get editAvatarPage_pickPhotoButton => 'Pick a photo';
+
+  @override
+  String editAvatarPage_title(int year) {
+    return 'Edit Photo for $year';
+  }
+
+  @override
   String get editGemPage_addNarrationButton => 'Add a narration';
 
   @override
@@ -75,7 +83,7 @@ class CAppL10nEn extends CAppL10n {
   String get editGemPage_title_edit => 'Edit the gem';
 
   @override
-  String get editPersonPage_banner_message => 'Changes will propagate to other users next time they open the app.';
+  String get editPersonPage_banner_message => 'Closing this page will reload the app if changes have been made.';
 
   @override
   String get editPersonPage_dateOfBirthTile_title => 'Date of birth';

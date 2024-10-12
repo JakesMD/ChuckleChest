@@ -17,12 +17,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CEditGemPage}
-  const CEditGemPage({required this.gem, super.key});
+  const CEditGemPage({required this.initialGem, super.key});
 
   /// The gem to edit.
   ///
   /// If `null`, a new gem will be created.
-  final CGem? gem;
+  final CGem? initialGem;
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -30,7 +30,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
       providers: [
         BlocProvider<CGemEditCubit>(
           create: (context) => CGemEditCubit(
-            gem: gem,
+            gem: initialGem?.copyWith(),
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
@@ -66,11 +66,11 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
       context.read<CGemEditCubit>().deleteLastLine();
 
   void _onSaved(BuildContext context, String gemID) {
-    if (gem == null) {
+    if (initialGem == null) {
       context.router.replace(CGemRoute(gemID: gemID));
       return;
     }
-    context.router.maybePop(gem);
+    context.router.maybePop(context.read<CGemEditCubit>().state.gem);
   }
 
   @override
@@ -86,7 +86,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
         appBar: CAppBar(
           context: context,
           title: Text(
-            gem == null
+            initialGem == null
                 ? context.cAppL10n.editGemPage_title_create
                 : context.cAppL10n.editGemPage_title_edit,
           ),

@@ -4,10 +4,13 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.3
+  bobs_jobs: ^0.0.1-dev.4
   ccore:
   cdatabase_client:
+  cplatform_client:
+  cstorage_client:
   equatable: ^2.0.5
+  image: ^4.2.0
 
 dev_dependencies:
   flutter_test:

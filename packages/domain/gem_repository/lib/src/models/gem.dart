@@ -54,7 +54,7 @@ class CGem with EquatableMixin {
         id: id,
         number: number,
         occurredAt: occurredAt ?? this.occurredAt,
-        lines: lines,
+        lines: [...lines],
         chestID: chestID,
       );
 

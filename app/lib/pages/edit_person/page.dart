@@ -31,17 +31,6 @@ class CEditPersonPage extends StatelessWidget implements AutoRouteWrapper {
   /// If true, the session will be refreshed when the page is popped.
   final bool isPersonNew;
 
-  void _onPopped(BuildContext context) {
-    final hasPersonChanged = context.read<CPersonUpdateCubit>().state.status !=
-        CRequestCubitStatus.initial;
-
-    if (hasPersonChanged || isPersonNew) {
-      context.router.replaceAll([CChestRoute(chestID: person.chestID)]);
-    } else {
-      context.router.maybePop();
-    }
-  }
-
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
@@ -64,6 +53,18 @@ class CEditPersonPage extends StatelessWidget implements AutoRouteWrapper {
         child: this,
       ),
     );
+  }
+
+  void _onPopped(BuildContext context) {
+    final state = context.read<CPersonUpdateCubit>().state;
+    final hasPersonChanged =
+        state.status != CRequestCubitStatus.initial || state.haveAvatarsChanged;
+
+    if (hasPersonChanged || isPersonNew) {
+      context.router.replaceAll([CChestRoute(chestID: person.chestID)]);
+    } else {
+      context.router.maybePop();
+    }
   }
 
   @override
