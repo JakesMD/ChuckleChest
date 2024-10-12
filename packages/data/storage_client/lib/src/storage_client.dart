@@ -33,7 +33,7 @@ class CStorageClient {
   }) =>
       BobsJob.attempt(
         run: () => supabaseClient.storage.from('avatars').uploadBinary(
-              '$chestID/$personID-$year.jpg',
+              'chests/$chestID/$personID-$year.jpg',
               avatarFile,
               fileOptions: const FileOptions(upsert: true),
             ),
