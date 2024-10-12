@@ -10,6 +10,7 @@ dependencies:
   cplatform_client:
   cstorage_client:
   equatable: ^2.0.5
+  image: ^4.2.0
 
 dev_dependencies:
   flutter_test:

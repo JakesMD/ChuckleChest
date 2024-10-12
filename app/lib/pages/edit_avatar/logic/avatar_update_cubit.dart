@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/foundation.dart';
 ///
 /// {@endtemplate}
 class CAvatarUpdateState
-    extends CRequestCubitState<CAvatarUpdateException, BobsNothing> {
+    extends CRequestCubitState<CAvatarUpdateException, String> {
   /// {@macro CAvatarUpdateState}
   ///
   /// The initial state.
@@ -25,6 +24,9 @@ class CAvatarUpdateState
   ///
   /// The completed state.
   CAvatarUpdateState.completed({required super.outcome}) : super.completed();
+
+  /// The URL of the avatar that was updated.
+  String get url => success;
 }
 
 /// {@template CAvatarUpdateCubit}
@@ -43,13 +45,19 @@ class CAvatarUpdateCubit extends Cubit<CAvatarUpdateState> {
   /// Updates the image for the given person for the given year.
   Future<void> updateAvatarForYear({
     required Uint8List image,
-    required CPerson person,
+    required String chestID,
+    required BigInt personID,
     required int year,
   }) async {
     emit(CAvatarUpdateState.inProgress());
 
     final result = await personRepository
-        .updateAvatar(person: person, year: year, image: image)
+        .updateAvatar(
+          personID: personID,
+          chestID: chestID,
+          year: year,
+          image: image,
+        )
         .run(isDebugMode: kDebugMode);
 
     emit(CAvatarUpdateState.completed(outcome: result));

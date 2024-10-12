@@ -14,31 +14,20 @@ class CAvatarPickState
   /// {@macro CAvatarPickState}
   ///
   /// The initial state.
-  CAvatarPickState.initial()
-      : year = null,
-        super.initial();
+  CAvatarPickState.initial() : super.initial();
 
   /// {@macro CAvatarPickState}
   ///
   /// The in progress state.
-  CAvatarPickState.inProgress({required this.year}) : super.inProgress();
+  CAvatarPickState.inProgress() : super.inProgress();
 
   /// {@macro CAvatarPickState}
   ///
   /// The completed state.
-  CAvatarPickState.completed({
-    required super.outcome,
-    required this.year,
-  }) : super.completed();
+  CAvatarPickState.completed({required super.outcome}) : super.completed();
 
   /// The image to be uploaded.
   BobsMaybe<Uint8List> get image => success;
-
-  /// The year for which the avatar was picked.
-  final int? year;
-
-  @override
-  List<Object?> get props => super.props..add(year);
 }
 
 /// {@template CAvatarPickCubit}
@@ -55,12 +44,12 @@ class CAvatarPickCubit extends Cubit<CAvatarPickState> {
   final CPersonRepository personRepository;
 
   /// Allows the user to pick an image from their gallery.
-  Future<void> pickAvatar({required int year}) async {
-    emit(CAvatarPickState.inProgress(year: year));
+  Future<void> pickAvatar() async {
+    emit(CAvatarPickState.inProgress());
 
     final result =
         await personRepository.pickAvatar().run(isDebugMode: kDebugMode);
 
-    emit(CAvatarPickState.completed(outcome: result, year: year));
+    emit(CAvatarPickState.completed(outcome: result));
   }
 }

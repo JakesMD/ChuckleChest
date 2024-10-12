@@ -47,6 +47,18 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CCreateGemPage()),
       );
     },
+    CEditAvatarRoute.name: (routeData) {
+      final args = routeData.argsAs<CEditAvatarRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CEditAvatarPage(
+          personID: args.personID,
+          avatarURL: args.avatarURL,
+          key: args.key,
+        )),
+      );
+    },
     CEditGemRoute.name: (routeData) {
       final args = routeData.argsAs<CEditGemRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -257,6 +269,49 @@ class CCreateGemRoute extends PageRouteInfo<void> {
   static const String name = 'CCreateGemRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CEditAvatarPage]
+class CEditAvatarRoute extends PageRouteInfo<CEditAvatarRouteArgs> {
+  CEditAvatarRoute({
+    required BigInt personID,
+    required CAvatarURL avatarURL,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CEditAvatarRoute.name,
+          args: CEditAvatarRouteArgs(
+            personID: personID,
+            avatarURL: avatarURL,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CEditAvatarRoute';
+
+  static const PageInfo<CEditAvatarRouteArgs> page =
+      PageInfo<CEditAvatarRouteArgs>(name);
+}
+
+class CEditAvatarRouteArgs {
+  const CEditAvatarRouteArgs({
+    required this.personID,
+    required this.avatarURL,
+    this.key,
+  });
+
+  final BigInt personID;
+
+  final CAvatarURL avatarURL;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CEditAvatarRouteArgs{personID: $personID, avatarURL: $avatarURL, key: $key}';
+  }
 }
 
 /// generated route for

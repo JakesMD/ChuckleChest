@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 
@@ -5,6 +7,12 @@ import 'package:cplatform_client/cplatform_client.dart';
 enum CAvatarUpdateException {
   /// The failure was unitentifiable.
   unknown;
+
+  /// Converts the error to a [CAvatarUpdateException].
+  static CAvatarUpdateException fromError(Object e, StackTrace s) {
+    log(e.toString(), error: e, stackTrace: s, name: 'CAvatarUpdateException');
+    return CAvatarUpdateException.unknown;
+  }
 
   /// Converts the raw exception to a [CAvatarUpdateException].
   static CAvatarUpdateException fromRaw(Object e) {

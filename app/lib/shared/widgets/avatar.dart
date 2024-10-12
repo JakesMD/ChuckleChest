@@ -1,5 +1,6 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +62,7 @@ class CAvatar extends StatelessWidget {
     String? url;
 
     if (person != null) {
-      url = person?.avatarURLForDate(date);
+      url = person?.avatarURLForDate(date)?.url;
     } else if (personID != null) {
       CPerson? person2;
 
@@ -71,23 +72,28 @@ class CAvatar extends StatelessWidget {
         person2 = context.read<CChestPeopleFetchCubit>().fetchPerson(personID!);
       }
 
-      url = person2?.avatarURLForDate(date);
+      url = person2?.avatarURLForDate(date)?.url;
     }
 
     return CircleAvatar(
       radius: diameter != null ? diameter! / 2 : null,
       foregroundImage: url != null ? NetworkImage(url) : null,
-      child: onPressed != null
-          ? Material(
-              type: MaterialType.transparency,
-              clipBehavior: Clip.antiAlias,
-              shape: const CircleBorder(),
-              child: InkWell(
-                onTap: onPressed,
-                child: Center(child: icon),
-              ),
-            )
-          : Center(child: icon),
+      child: Material(
+        type: MaterialType.transparency,
+        clipBehavior: Clip.antiAlias,
+        shape: const CircleBorder(),
+        child: InkWell(
+          onTap: onPressed ??
+              (url != null
+                  ? () => CAvatarDialog(
+                        nickname: person?.nickname ?? '',
+                        year: date.year,
+                        imageURL: url!,
+                      ).show(context)
+                  : null),
+          child: Center(child: icon),
+        ),
+      ),
     );
   }
 }

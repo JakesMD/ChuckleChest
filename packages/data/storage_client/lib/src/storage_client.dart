@@ -33,15 +33,16 @@ class CStorageClient {
   }) =>
       BobsJob.attempt(
         run: () => supabaseClient.storage.from('avatars').uploadBinary(
-              '$chestID/$personID-$year',
+              '$chestID/$personID-$year.jpg',
               avatarFile,
               fileOptions: const FileOptions(upsert: true),
             ),
         onError: CRawAvatarUploadException.fromError,
       ).thenAttempt(
-        run: (path) => supabaseClient.storage
-            .from('avatars')
-            .createSignedUrl(path, 60 * 60 * 24 * 365 * 100),
+        run: (path) => supabaseClient.storage.from('avatars').createSignedUrl(
+              path.replaceFirst('avatars/', ''),
+              60 * 60 * 24 * 365 * 100,
+            ),
         onError: CRawAvatarUploadException.fromError,
       );
 }

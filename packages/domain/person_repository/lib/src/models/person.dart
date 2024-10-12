@@ -68,8 +68,8 @@ class CPerson with EquatableMixin {
   }
 
   /// The URL of the person's avatar for the given date.
-  String? avatarURLForDate(DateTime? date) =>
-      avatarURLs.cFirstWhereOrNull((a) => a.year == date?.year)?.url;
+  CAvatarURL? avatarURLForDate(DateTime? date) =>
+      avatarURLs.cFirstWhereOrNull((a) => a.year == date?.year);
 
   /// Creates a copy of the person with the given fields updated.
   CPerson copyWith({String? nickname, DateTime? dateOfBirth}) {

@@ -2,7 +2,6 @@ import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -90,24 +89,5 @@ class CPlatformClient {
           return bobsPresent(bytes);
         },
         onError: CImagePickException.fromError,
-      );
-
-  BobsJob<CImageResizeException, Uint8List> resizeImage({
-    required Uint8List image,
-    required double maxWidth,
-    required double maxHeight,
-  }) =>
-      BobsJob.attempt(
-        isAsync: false,
-        run: () async {
-          final decodedImage = decodeImage(image);
-          final resizedImage = copyResize(
-            decodedImage!,
-            maxWidth: maxWidth,
-            maxHeight: maxHeight,
-          );
-          return resizedImage.getBytes();
-        },
-        onError: CImageResizeException.fromError,
       );
 }

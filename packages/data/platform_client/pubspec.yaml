@@ -8,7 +8,6 @@ dependencies:
   ccore:
   flutter:
     sdk: flutter
-  image: ^4.2.0
   image_picker: ^1.1.2
   share_plus: ^10.0.2
   very_good_analysis: ^6.0.0
