@@ -91,6 +91,6 @@ scripts:
     packageFilters:
       fileExists: pubspec.yaml
 
-  diff_db:
-    description: Creates new migration file with the chagnes made in the Supabase studio.
-    run: supabase db diff --local -f new
+  diff_supabase:
+    description: Creates new migration file with the changes made in the Supabase studio.
+    run: supabase db diff --local -f new && supabase db diff --local -f new --schema storage

@@ -10,6 +10,15 @@
   "collectionsPage_section_title_other": "Sonstige",
   "collectionsPage_section_title_years": "Springe zu Jahr",
   "delete": "Löschen",
+  "editAvatarPage_pickPhotoButton": "Foto auswählen",
+  "editAvatarPage_title": "Bild Für {year} Bearbeiten",
+  "@editAvatarPage_title": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
   "editGemPage_addNarrationButton": "Neue Erzählung",
   "editGemPage_addQuoteButton": "Neues Zitat",
   "editGemPage_dateTile_title": "Datum",
@@ -22,7 +31,7 @@
   "editGemPage_helperMessage": "Tippe auf etwas, um es zu bearbeiten.",
   "editGemPage_title_create": "Gemme erstellen",
   "editGemPage_title_edit": "Gemme bearbeiten",
-  "editPersonPage_banner_message": "Änderungen werden beim nächsten Öffnen der App auf andere Benutzer übertragen.",
+  "editPersonPage_banner_message": "Das Schließen dieser Seite wird die App neu laden, wenn Änderungen vorgenommen wurden.",
   "editPersonPage_dateOfBirthTile_title": "Geburtsdatum",
   "editPersonPage_editNicknameDialog_title": "Spitzname bearbeiten",
   "editPersonPage_nicknameTile_title": "Spitzname",

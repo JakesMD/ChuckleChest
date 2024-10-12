@@ -39,6 +39,14 @@ class CAppL10nDe extends CAppL10n {
   String get delete => 'Löschen';
 
   @override
+  String get editAvatarPage_pickPhotoButton => 'Foto auswählen';
+
+  @override
+  String editAvatarPage_title(int year) {
+    return 'Bild Für $year Bearbeiten';
+  }
+
+  @override
   String get editGemPage_addNarrationButton => 'Neue Erzählung';
 
   @override
@@ -75,7 +83,7 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
-  String get editPersonPage_banner_message => 'Änderungen werden beim nächsten Öffnen der App auf andere Benutzer übertragen.';
+  String get editPersonPage_banner_message => 'Das Schließen dieser Seite wird die App neu laden, wenn Änderungen vorgenommen wurden.';
 
   @override
   String get editPersonPage_dateOfBirthTile_title => 'Geburtsdatum';

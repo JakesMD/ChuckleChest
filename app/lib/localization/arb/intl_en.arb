@@ -10,6 +10,15 @@
   "collectionsPage_section_title_other": "Other",
   "collectionsPage_section_title_years": "Jump to year",
   "delete": "Delete",
+  "editAvatarPage_pickPhotoButton": "Pick a photo",
+  "editAvatarPage_title": "Edit Photo for {year}",
+  "@editAvatarPage_title": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
   "editGemPage_addNarrationButton": "Add a narration",
   "editGemPage_addQuoteButton": "Add a quote",
   "editGemPage_dateTile_title": "Date",
@@ -22,7 +31,7 @@
   "editGemPage_helperMessage": "Tap anything to edit.",
   "editGemPage_title_create": "Create a gem",
   "editGemPage_title_edit": "Edit the gem",
-  "editPersonPage_banner_message": "Changes will propagate to other users next time they open the app.",
+  "editPersonPage_banner_message": "Closing this page will reload the app if changes have been made.",
   "editPersonPage_dateOfBirthTile_title": "Date of birth",
   "editPersonPage_editNicknameDialog_title": "Edit nickname",
   "editPersonPage_nicknameTile_title": "Nickname",

@@ -4,9 +4,10 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.3
+  bobs_jobs: ^0.0.1-dev.4
   ccore:
   flutter:
     sdk: flutter
+  image_picker: ^1.1.2
   share_plus: ^10.0.2
   very_good_analysis: ^6.0.0
