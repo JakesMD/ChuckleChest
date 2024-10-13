@@ -365,6 +365,12 @@ abstract class CAppL10n {
   /// **'Save'**
   String get save;
 
+  /// No description provided for @settingsPage_signoutTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settingsPage_signoutTile_title;
+
   /// No description provided for @signinPage_disabledBanner.
   ///
   /// In en, this message translates to:
