@@ -27,9 +27,6 @@ enum CRequestCubitStatus {
 /// {@endtemplate}
 class CRequestCubitState<F, S> with EquatableMixin {
   /// {@macro CRequestCubitState}
-  CRequestCubitState({required this.status, this.outcome});
-
-  /// {@macro CRequestCubitState}
   ///
   /// The initial state. It sets `status` to `CRequestCubitStatus.initial`.
   CRequestCubitState.initial({this.outcome})

@@ -11,55 +11,43 @@ import 'package:flutter/foundation.dart';
 /// {@endtemplate}
 class CPersonUpdateState
     extends CRequestCubitState<CPersonUpdateException, BobsNothing> {
-  CPersonUpdateState._({
-    required this.person,
-    required this.haveAvatarsChanged,
-    required super.status,
-    super.outcome,
-  }) : super();
-
   /// {@macro CPersonUpdateState}
   ///
   /// The initial state.
-  CPersonUpdateState.initial({
-    required this.person,
-  })  : haveAvatarsChanged = false,
-        super.initial();
+  CPersonUpdateState.initial({required this.person}) : super.initial();
 
   /// {@macro CPersonUpdateState}
   ///
   /// The in progress state.
-  CPersonUpdateState.inProgress({
-    required this.person,
-    required this.haveAvatarsChanged,
-  }) : super.inProgress();
+  CPersonUpdateState.inProgress({required this.person}) : super.inProgress();
 
   /// {@macro CPersonUpdateState}
   ///
   /// The completed state.
-  CPersonUpdateState.completed({
-    required super.outcome,
-    required this.person,
-    required this.haveAvatarsChanged,
-  }) : super.completed();
+  CPersonUpdateState.completed({required super.outcome, required this.person})
+      : super.completed();
 
   /// The person being updated.
   final CPerson person;
-
-  /// Whether the avatars have changed.
-  final bool haveAvatarsChanged;
 
   /// {@macro CPersonUpdateState}
   ///
   /// Returns a copy of this state with the given fields replaced by the new
   /// values.
-  CPersonUpdateState copyWith({CPerson? person, bool? haveAvatarsChanged}) =>
-      CPersonUpdateState._(
-        outcome: outcome,
-        status: status,
-        person: person ?? this.person,
-        haveAvatarsChanged: haveAvatarsChanged ?? this.haveAvatarsChanged,
-      );
+  CPersonUpdateState copyWith({CPerson? person}) => switch (status) {
+        CRequestCubitStatus.initial =>
+          CPersonUpdateState.initial(person: person ?? this.person),
+        CRequestCubitStatus.inProgress =>
+          CPersonUpdateState.inProgress(person: person ?? this.person),
+        CRequestCubitStatus.failed => CPersonUpdateState.completed(
+            outcome: outcome,
+            person: person ?? this.person,
+          ),
+        CRequestCubitStatus.succeeded => CPersonUpdateState.completed(
+            outcome: outcome,
+            person: person ?? this.person,
+          ),
+      };
 
   @override
   List<Object?> get props => super.props..add(person);
@@ -80,12 +68,7 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
 
   /// Updates the person's nickname.
   Future<void> updateNickname({required String nickname}) async {
-    emit(
-      CPersonUpdateState.inProgress(
-        person: state.person,
-        haveAvatarsChanged: state.haveAvatarsChanged,
-      ),
-    );
+    emit(CPersonUpdateState.inProgress(person: state.person));
 
     final newPerson = state.person.copyWith(nickname: nickname);
 
@@ -96,7 +79,6 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
     emit(
       CPersonUpdateState.completed(
         outcome: result,
-        haveAvatarsChanged: state.haveAvatarsChanged,
         person: result.evaluate(
           onFailure: (_) => state.person,
           onSuccess: (_) => newPerson,
@@ -107,12 +89,7 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
 
   /// Updates the person's date of birth.
   Future<void> updateDateOfBirth({required DateTime dateOfBirth}) async {
-    emit(
-      CPersonUpdateState.inProgress(
-        person: state.person,
-        haveAvatarsChanged: state.haveAvatarsChanged,
-      ),
-    );
+    emit(CPersonUpdateState.inProgress(person: state.person));
 
     final newPerson = state.person.copyWith(dateOfBirth: dateOfBirth);
 
@@ -127,7 +104,6 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
           onFailure: (_) => state.person,
           onSuccess: (_) => newPerson,
         ),
-        haveAvatarsChanged: state.haveAvatarsChanged,
       ),
     );
   }
@@ -136,7 +112,6 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
   void updateAvatar({required CAvatarURL avatarURL}) {
     emit(
       state.copyWith(
-        haveAvatarsChanged: true,
         person: state.person
           ..avatarURLs.removeWhere((url) => url.year == avatarURL.year)
           ..avatarURLs.add(avatarURL),
