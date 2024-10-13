@@ -19,7 +19,7 @@ class CCreateChestButton extends StatelessWidget {
       child: Text(context.cAppL10n.getStartedPage_createChestButton),
       isLoading: (state) => state.status == CRequestCubitStatus.inProgress,
       onPressed: (context, cubit) =>
-          CChestCreationDialog(cubit: cubit).show(context),
+          CCreateChestDialog(cubit: cubit).show(context),
       builder: (context, text, onPressed) =>
           FilledButton(onPressed: onPressed, child: text),
     );

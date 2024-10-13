@@ -3,14 +3,14 @@ import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 
-/// {@template CChestCreationDialog}
+/// {@template CCreateChestDialog}
 ///
 /// A dialog that allows the user to create a new chest.
 ///
 /// {@endtemplate}
-class CChestCreationDialog extends StatelessWidget with CDialogMixin {
-  /// {@macro CChestCreationDialog}
-  CChestCreationDialog({
+class CCreateChestDialog extends StatelessWidget with CDialogMixin {
+  /// {@macro CCreateChestDialog}
+  CCreateChestDialog({
     required this.cubit,
     super.key,
   });

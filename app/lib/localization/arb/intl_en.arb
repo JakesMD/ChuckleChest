@@ -67,6 +67,7 @@
     }
   },
   "save": "Save",
+  "settingsPage_createChestTile_title": "Create a new chest",
   "settingsPage_signoutTile_title": "Log out",
   "signinPage_disabledBanner": "Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.",
   "signinPage_error_emailRateLimitExceeded": "We've reached our hourly sign-in limit. Please try again later.",

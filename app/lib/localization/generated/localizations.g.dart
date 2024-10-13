@@ -365,6 +365,12 @@ abstract class CAppL10n {
   /// **'Save'**
   String get save;
 
+  /// No description provided for @settingsPage_createChestTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get settingsPage_createChestTile_title;
+
   /// No description provided for @settingsPage_signoutTile_title.
   ///
   /// In en, this message translates to:

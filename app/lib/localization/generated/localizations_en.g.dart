@@ -166,6 +166,9 @@ class CAppL10nEn extends CAppL10n {
   String get save => 'Save';
 
   @override
+  String get settingsPage_createChestTile_title => 'Create a new chest';
+
+  @override
   String get settingsPage_signoutTile_title => 'Log out';
 
   @override

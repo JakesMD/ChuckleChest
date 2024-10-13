@@ -166,6 +166,9 @@ class CAppL10nDe extends CAppL10n {
   String get save => 'Speichern';
 
   @override
+  String get settingsPage_createChestTile_title => 'Neue Truhe erstellen';
+
+  @override
   String get settingsPage_signoutTile_title => 'Ausloggen';
 
   @override
