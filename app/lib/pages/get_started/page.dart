@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/pages/get_started/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +33,9 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
           create: (context) =>
               CChestCreationCubit(chestRepository: context.read()),
         ),
+        BlocProvider(
+          create: (context) => CSignoutCubit(authRepository: context.read()),
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -42,6 +45,16 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
               CRequestCubitStatus.inProgress => null,
               CRequestCubitStatus.succeeded =>
                 _onChestCreated(context, state.chestID),
+              CRequestCubitStatus.failed =>
+                const CErrorSnackBar().show(context),
+            },
+          ),
+          BlocListener<CSignoutCubit, CSignoutState>(
+            listener: (context, state) => switch (state.status) {
+              CRequestCubitStatus.initial => null,
+              CRequestCubitStatus.inProgress => null,
+              CRequestCubitStatus.succeeded =>
+                context.router.replace(const CSigninRoute()),
               CRequestCubitStatus.failed =>
                 const CErrorSnackBar().show(context),
             },
@@ -58,33 +71,11 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
       appBar: CAppBar(
         context: context,
         title: Text(context.cAppL10n.getStartedPage_title),
-        actions: [
-          PopupMenuButton(
-            icon: const Icon(Icons.more_vert_rounded),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text(context.cAppL10n.getStartedPage_logoutButton),
-              ),
-            ],
-          ),
-        ],
+        actions: const [CGetStartedPageMoreMenu()],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: [
-          CLoadingButton<CChestCreationCubit, CChestCreationState>(
-            child: Text(context.cAppL10n.getStartedPage_createChestButton),
-            isLoading: (state) =>
-                state.status == CRequestCubitStatus.inProgress,
-            onPressed: (context, cubit) =>
-                CChestCreationDialog(cubit: cubit).show(context),
-            builder: (context, text, onPressed) => FilledButton(
-              onPressed: onPressed,
-              child: text,
-            ),
-          ),
-        ],
+        padding: const EdgeInsets.all(16),
+        children: const [CCreateChestButton()],
       ),
     );
   }
