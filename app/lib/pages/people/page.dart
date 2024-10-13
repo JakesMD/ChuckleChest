@@ -37,7 +37,7 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     return BlocBuilder<CChestPeopleFetchCubit, CChestPeopleFetchState>(
       builder: (context, state) => ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.only(top: 16, bottom: 80),
         itemCount: state.people.length,
         itemBuilder: (context, index) {
           final person = state.people[index];

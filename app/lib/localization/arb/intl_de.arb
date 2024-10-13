@@ -67,6 +67,7 @@
     }
   },
   "save": "Speichern",
+  "settingsPage_signoutTile_title": "Ausloggen",
   "signinPage_disabledBanner": "Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.",
   "signinPage_error_emailRateLimitExceeded": "Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuche es später erneut.",
   "signinPage_error_userNotFound": "Wir konnten dich nicht finden.",

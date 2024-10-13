@@ -40,7 +40,7 @@ class CGemFetchState extends CRequestCubitState<CGemFetchException, CGem> {
 
 /// {@template CGemFetchCubit}
 ///
-/// Bloc that handles fetching a gem.
+/// The cubit that handles fetching gems.
 ///
 /// {@endtemplate}
 class CGemFetchCubit extends Cubit<CGemFetchState> {

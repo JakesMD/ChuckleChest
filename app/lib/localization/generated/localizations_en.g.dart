@@ -166,6 +166,9 @@ class CAppL10nEn extends CAppL10n {
   String get save => 'Save';
 
   @override
+  String get settingsPage_signoutTile_title => 'Log out';
+
+  @override
   String get signinPage_disabledBanner => 'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.';
 
   @override

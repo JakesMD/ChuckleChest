@@ -166,6 +166,9 @@ class CAppL10nDe extends CAppL10n {
   String get save => 'Speichern';
 
   @override
+  String get settingsPage_signoutTile_title => 'Ausloggen';
+
+  @override
   String get signinPage_disabledBanner => 'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
 
   @override
