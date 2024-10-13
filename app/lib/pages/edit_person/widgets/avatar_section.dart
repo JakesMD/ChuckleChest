@@ -30,7 +30,7 @@ class CAvatarSection extends StatelessWidget {
             person: state.person,
             date: DateTime(state.person.dateOfBirth.year + index),
           ),
-        ),
+        ).reversed.toList(),
       ),
     );
   }

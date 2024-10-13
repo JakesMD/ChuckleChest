@@ -31,7 +31,7 @@
   "editGemPage_helperMessage": "Tippe auf etwas, um es zu bearbeiten.",
   "editGemPage_title_create": "Gemme erstellen",
   "editGemPage_title_edit": "Gemme bearbeiten",
-  "editPersonPage_banner_message": "Das Schließen dieser Seite wird die App neu laden, wenn Änderungen vorgenommen wurden.",
+  "editPersonPage_banner_message": "Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.",
   "editPersonPage_dateOfBirthTile_title": "Geburtsdatum",
   "editPersonPage_editNicknameDialog_title": "Spitzname bearbeiten",
   "editPersonPage_nicknameTile_title": "Spitzname",

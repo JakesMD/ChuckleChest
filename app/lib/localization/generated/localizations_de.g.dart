@@ -83,7 +83,7 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
-  String get editPersonPage_banner_message => 'Das Schließen dieser Seite wird die App neu laden, wenn Änderungen vorgenommen wurden.';
+  String get editPersonPage_banner_message => 'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
 
   @override
   String get editPersonPage_dateOfBirthTile_title => 'Geburtsdatum';

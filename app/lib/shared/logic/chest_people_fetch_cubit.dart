@@ -29,10 +29,15 @@ class CChestPeopleFetchState
   CChestPeopleFetchState.completed({required super.outcome})
       : super.completed();
 
-  /// The people in the chest.
+  /// The people in the chest sorted in age order.
   ///
   /// This will be empty if the request failed.
-  List<CPerson> get people => outcome is BobsSuccess ? success : [];
+  List<CPerson> get people => outcome is BobsSuccess
+      ? (success..sort((a, b) => b.dateOfBirth.compareTo(a.dateOfBirth)))
+      : [];
+
+  @override
+  List<Object?> get props => super.props..addAll(people);
 }
 
 /// {@template CChestPeopleFetchCubit}
@@ -57,6 +62,17 @@ class CChestPeopleFetchCubit extends Cubit<CChestPeopleFetchState> {
         .run(isDebugMode: kDebugMode);
 
     emit(CChestPeopleFetchState.completed(outcome: result));
+  }
+
+  /// Updates a person locally in the state's list of people.
+  void updatePerson({required CPerson person}) {
+    if (state.status != CRequestCubitStatus.succeeded) return;
+
+    final people = List.from(state.people).cast<CPerson>()
+      ..removeWhere((p) => p.id == person.id)
+      ..add(person);
+
+    emit(CChestPeopleFetchState.completed(outcome: BobsSuccess(people)));
   }
 
   /// Fetches a person by their ID.

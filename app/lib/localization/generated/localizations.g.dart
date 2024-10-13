@@ -242,7 +242,7 @@ abstract class CAppL10n {
   /// No description provided for @editPersonPage_banner_message.
   ///
   /// In en, this message translates to:
-  /// **'Closing this page will reload the app if changes have been made.'**
+  /// **'Changes will propagate to other users next time they open the app.'**
   String get editPersonPage_banner_message;
 
   /// No description provided for @editPersonPage_dateOfBirthTile_title.

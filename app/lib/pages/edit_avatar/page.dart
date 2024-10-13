@@ -14,6 +14,8 @@ import 'package:transparent_image/transparent_image.dart';
 /// The page that allows the user to select, crop and upload an avatar for a
 /// person.
 ///
+/// When this page is popped, it will return the updated avatar URL.
+///
 /// {@endtemplate}
 @RoutePage()
 class CEditAvatarPage extends StatelessWidget implements AutoRouteWrapper {
