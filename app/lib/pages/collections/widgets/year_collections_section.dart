@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/collections/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
@@ -29,22 +30,28 @@ class CYearCollectionsSection extends StatelessWidget {
           const Center(child: CCradleLoadingIndicator()),
         CRequestCubitStatus.inProgress =>
           const Center(child: CCradleLoadingIndicator()),
-        CRequestCubitStatus.failed => const Center(
-            child: Icon(Icons.error_rounded),
-          ),
-        CRequestCubitStatus.succeeded => Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            spacing: 8,
-            runSpacing: 8,
-            children: state.years
-                .map(
-                  (year) => _CYearCollectionCard(
-                    year: year,
-                    onCardPressed: _onCardPressed,
-                  ),
-                )
-                .toList(),
-          ),
+        CRequestCubitStatus.failed =>
+          const Center(child: Icon(Icons.error_rounded)),
+        CRequestCubitStatus.succeeded => state.years.isNotEmpty
+            ? Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                spacing: 8,
+                runSpacing: 8,
+                children: state.years
+                    .map(
+                      (year) => _CYearCollectionCard(
+                        year: year,
+                        onCardPressed: _onCardPressed,
+                      ),
+                    )
+                    .toList(),
+              )
+            : Center(
+                child: Text(
+                  context.cAppL10n.collectionsPage_noGemsMessage,
+                  style: const TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
       },
     );
   }

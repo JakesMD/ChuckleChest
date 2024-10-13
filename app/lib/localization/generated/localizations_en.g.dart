@@ -24,10 +24,16 @@ class CAppL10nEn extends CAppL10n {
   String get close => 'Close';
 
   @override
+  String get collectionView_nowGemsTitle => 'No gems to show';
+
+  @override
   String get collectionsPage_collection_random => 'Randomly selected';
 
   @override
   String get collectionsPage_collection_recents => 'Recently added';
+
+  @override
+  String get collectionsPage_noGemsMessage => 'Create a new gem to get started.';
 
   @override
   String get collectionsPage_section_title_other => 'Other';
@@ -43,7 +49,7 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String editAvatarPage_title(int year) {
-    return 'Edit Photo for $year';
+    return 'Edit photo for $year';
   }
 
   @override
@@ -164,6 +170,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get save => 'Save';
+
+  @override
+  String get settingsPage_createChestTile_title => 'Create a new chest';
 
   @override
   String get settingsPage_signoutTile_title => 'Log out';

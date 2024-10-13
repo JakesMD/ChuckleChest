@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:chuckle_chest/shared/views/collection/logic/_logic.dart';
 import 'package:chuckle_chest/shared/views/collection/widgets/_widgets.dart';
@@ -36,6 +37,14 @@ class CCollectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (gemIDs.isEmpty) {
+      return Scaffold(
+        appBar: CAppBar(
+          context: context,
+          title: Text(context.cAppL10n.collectionView_nowGemsTitle),
+        ),
+      );
+    }
     return BlocProvider(
       create: (context) => CCollectionViewCubit(
         gemIDs: gemIDs,
