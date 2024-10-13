@@ -62,8 +62,7 @@ import 'localizations_en.g.dart';
 /// be consistent with the languages listed in the CCoreL10n.supportedLocales
 /// property.
 abstract class CCoreL10n {
-  CCoreL10n(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  CCoreL10n(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -83,8 +82,7 @@ abstract class CCoreL10n {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -120,6 +118,24 @@ abstract class CCoreL10n {
   /// In en, this message translates to:
   /// **'Please enter some text.'**
   String get inputError_text_empty;
+
+  /// No description provided for @userRole_collaborator.
+  ///
+  /// In en, this message translates to:
+  /// **'Collaborator'**
+  String get userRole_collaborator;
+
+  /// No description provided for @userRole_owner.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get userRole_owner;
+
+  /// No description provided for @userRole_viewer.
+  ///
+  /// In en, this message translates to:
+  /// **'Betracter'**
+  String get userRole_viewer;
 }
 
 class _CCoreL10nDelegate extends LocalizationsDelegate<CCoreL10n> {
@@ -131,25 +147,25 @@ class _CCoreL10nDelegate extends LocalizationsDelegate<CCoreL10n> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['de', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['de', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_CCoreL10nDelegate old) => false;
 }
 
 CCoreL10n lookupCCoreL10n(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de':
-      return CCoreL10nDe();
-    case 'en':
-      return CCoreL10nEn();
+    case 'de': return CCoreL10nDe();
+    case 'en': return CCoreL10nEn();
   }
 
   throw FlutterError(
-      'CCoreL10n.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'CCoreL10n.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

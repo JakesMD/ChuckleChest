@@ -3,5 +3,8 @@
   "inputError_dropdown_empty": "Please select an option.",
   "inputError_email_empty": "Please enter your email address.",
   "inputError_email_invalid": "That's not a valid email address.",
-  "inputError_text_empty": "Please enter some text."
+  "inputError_text_empty": "Please enter some text.",
+  "userRole_collaborator": "Collaborator",
+  "userRole_owner": "Owner",
+  "userRole_viewer": "Betracter"
 }

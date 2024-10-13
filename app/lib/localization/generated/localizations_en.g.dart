@@ -118,6 +118,15 @@ class CAppL10nEn extends CAppL10n {
   String get getStartedPage_createChestButton => 'Create a new chest';
 
   @override
+  String get getStartedPage_invitationSection_noInvitations => 'No invitations';
+
+  @override
+  String get getStartedPage_invitationSection_title => 'Accept an invitation';
+
+  @override
+  String get getStartedPage_invitationTile_acceptButton => 'Accept';
+
+  @override
   String get getStartedPage_logoutButton => 'Log out';
 
   @override
@@ -134,6 +143,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get or => 'or';
 
   @override
   String get otpVerificationPage_error_invalidToken => 'This pin is invalid. Please try again.';

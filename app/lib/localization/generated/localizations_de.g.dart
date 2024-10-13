@@ -118,6 +118,15 @@ class CAppL10nDe extends CAppL10n {
   String get getStartedPage_createChestButton => 'Neue Truhe erstellen';
 
   @override
+  String get getStartedPage_invitationSection_noInvitations => 'Keine Einladungen';
+
+  @override
+  String get getStartedPage_invitationSection_title => 'Einladung annehmen';
+
+  @override
+  String get getStartedPage_invitationTile_acceptButton => 'Annehmen';
+
+  @override
   String get getStartedPage_logoutButton => 'Ausloggen';
 
   @override
@@ -134,6 +143,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get ok => 'Ok';
+
+  @override
+  String get or => 'oder';
 
   @override
   String get otpVerificationPage_error_invalidToken => 'Dieser Code ist ungültig. Bitte versuche es erneut.';

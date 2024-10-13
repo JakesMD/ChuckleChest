@@ -18,4 +18,22 @@ class CChestRepository {
             onFailure: CChestCreationException.fromRaw,
             onSuccess: (chestID) => chestID,
           );
+
+  /// Fetches the user's invitations.
+  BobsJob<CUserInvitationsFetchException, List<CUserInvitation>>
+      fetchUserInvitations({required String email}) =>
+          chestClient.fetchUserInvitations(email: email).thenEvaluate(
+                onFailure: CUserInvitationsFetchException.fromRaw,
+                onSuccess: (invitations) =>
+                    invitations.map(CUserInvitation.fromRecord).toList(),
+              );
+
+  /// Accepts the invitation to the chest with the given [chestID].
+  BobsJob<CInvitationAcceptException, BobsNothing> acceptInvitation({
+    required String chestID,
+  }) =>
+      chestClient.acceptInvitation(chestID: chestID).thenEvaluate(
+            onFailure: CInvitationAcceptException.fromRaw,
+            onSuccess: (s) => s,
+          );
 }

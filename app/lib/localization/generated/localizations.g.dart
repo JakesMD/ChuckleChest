@@ -305,6 +305,24 @@ abstract class CAppL10n {
   /// **'Create a new chest'**
   String get getStartedPage_createChestButton;
 
+  /// No description provided for @getStartedPage_invitationSection_noInvitations.
+  ///
+  /// In en, this message translates to:
+  /// **'No invitations'**
+  String get getStartedPage_invitationSection_noInvitations;
+
+  /// No description provided for @getStartedPage_invitationSection_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept an invitation'**
+  String get getStartedPage_invitationSection_title;
+
+  /// No description provided for @getStartedPage_invitationTile_acceptButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get getStartedPage_invitationTile_acceptButton;
+
   /// No description provided for @getStartedPage_logoutButton.
   ///
   /// In en, this message translates to:
@@ -340,6 +358,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get or;
 
   /// No description provided for @otpVerificationPage_error_invalidToken.
   ///
