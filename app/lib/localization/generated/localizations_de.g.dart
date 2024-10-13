@@ -24,10 +24,16 @@ class CAppL10nDe extends CAppL10n {
   String get close => 'Schließen';
 
   @override
+  String get collectionView_nowGemsTitle => 'Keine Gemme zu zeigen';
+
+  @override
   String get collectionsPage_collection_random => 'Zufällig ausgewählt';
 
   @override
   String get collectionsPage_collection_recents => 'Zuletzt hinzugefügt';
+
+  @override
+  String get collectionsPage_noGemsMessage => 'Erstelle eine neue Gemme, um loszulegen.';
 
   @override
   String get collectionsPage_section_title_other => 'Sonstige';

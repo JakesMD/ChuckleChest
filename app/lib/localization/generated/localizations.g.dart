@@ -125,6 +125,12 @@ abstract class CAppL10n {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @collectionView_nowGemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No gems to show'**
+  String get collectionView_nowGemsTitle;
+
   /// No description provided for @collectionsPage_collection_random.
   ///
   /// In en, this message translates to:
@@ -136,6 +142,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Recently added'**
   String get collectionsPage_collection_recents;
+
+  /// No description provided for @collectionsPage_noGemsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new gem to get started.'**
+  String get collectionsPage_noGemsMessage;
 
   /// No description provided for @collectionsPage_section_title_other.
   ///
@@ -164,7 +176,7 @@ abstract class CAppL10n {
   /// No description provided for @editAvatarPage_title.
   ///
   /// In en, this message translates to:
-  /// **'Edit Photo for {year}'**
+  /// **'Edit photo for {year}'**
   String editAvatarPage_title(int year);
 
   /// No description provided for @editGemPage_addNarrationButton.

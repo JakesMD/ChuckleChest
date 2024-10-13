@@ -5,13 +5,15 @@
   "chestCreationDialog_label_chestName": "Chest name",
   "chestCreationDialog_title": "Create a new chest",
   "close": "Close",
+  "collectionView_nowGemsTitle": "No gems to show",
   "collectionsPage_collection_random": "Randomly selected",
   "collectionsPage_collection_recents": "Recently added",
+  "collectionsPage_noGemsMessage": "Create a new gem to get started.",
   "collectionsPage_section_title_other": "Other",
   "collectionsPage_section_title_years": "Jump to year",
   "delete": "Delete",
   "editAvatarPage_pickPhotoButton": "Pick a photo",
-  "editAvatarPage_title": "Edit Photo for {year}",
+  "editAvatarPage_title": "Edit photo for {year}",
   "@editAvatarPage_title": {
     "placeholders": {
       "year": {
