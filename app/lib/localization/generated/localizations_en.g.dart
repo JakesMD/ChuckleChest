@@ -142,6 +142,15 @@ class CAppL10nEn extends CAppL10n {
   String get homePage_bottomNav_settings => 'Settings';
 
   @override
+  String get invitationsPage_acceptButton => 'Accept';
+
+  @override
+  String get invitationsPage_noInvitationsMessage => 'No invitations';
+
+  @override
+  String get invitationsPage_title => 'Invitations';
+
+  @override
   String get ok => 'OK';
 
   @override
@@ -185,6 +194,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get settingsPage_createChestTile_title => 'Create a new chest';
+
+  @override
+  String get settingsPage_invitationsTile_title => 'Invitations';
 
   @override
   String get settingsPage_signoutTile_title => 'Log out';

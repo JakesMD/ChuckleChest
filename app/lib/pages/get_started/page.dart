@@ -82,6 +82,11 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
                 const CErrorSnackBar().show(context),
             },
           ),
+          BlocListener<CUserInvitationsFetchCubit, CUserInvitationsFetchState>(
+            listener: (context, state) => const CErrorSnackBar().show(context),
+            listenWhen: (_, state) =>
+                state.status == CRequestCubitStatus.failed,
+          ),
         ],
         child: this,
       ),

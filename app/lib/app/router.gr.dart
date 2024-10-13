@@ -114,6 +114,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         )),
       );
     },
+    CInvitationsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CInvitationsPage()),
+      );
+    },
     CLoginRoute.name: (routeData) {
       final args = routeData.argsAs<CLoginRouteArgs>(
           orElse: () => const CLoginRouteArgs());
@@ -473,6 +479,20 @@ class CHomeRouteArgs {
   String toString() {
     return 'CHomeRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [CInvitationsPage]
+class CInvitationsRoute extends PageRouteInfo<void> {
+  const CInvitationsRoute({List<PageRouteInfo>? children})
+      : super(
+          CInvitationsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CInvitationsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

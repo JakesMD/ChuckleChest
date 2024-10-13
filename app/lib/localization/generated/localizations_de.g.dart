@@ -142,6 +142,15 @@ class CAppL10nDe extends CAppL10n {
   String get homePage_bottomNav_settings => 'Einstellungen';
 
   @override
+  String get invitationsPage_acceptButton => 'Annehmen';
+
+  @override
+  String get invitationsPage_noInvitationsMessage => 'Keine Einladungen';
+
+  @override
+  String get invitationsPage_title => 'Einladungen';
+
+  @override
   String get ok => 'Ok';
 
   @override
@@ -185,6 +194,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get settingsPage_createChestTile_title => 'Neue Truhe erstellen';
+
+  @override
+  String get settingsPage_invitationsTile_title => 'Einladungen';
 
   @override
   String get settingsPage_signoutTile_title => 'Ausloggen';
