@@ -104,6 +104,10 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                   path: 'edit-avatar',
                   page: CEditAvatarRoute.page,
                 ),
+                AutoRoute(
+                  path: 'invitations',
+                  page: CInvitationsRoute.page,
+                ),
               ],
             ),
           ],

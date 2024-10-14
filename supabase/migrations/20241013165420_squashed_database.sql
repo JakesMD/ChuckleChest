@@ -35,126 +35,19 @@ CREATE TYPE "public"."app_role" AS enum(
   'viewer'
 );
 
-DROP POLICY "Enable read access for all users" ON "public"."connection_avatar_urls";
+CREATE TABLE "public"."avatars"(
+  "person_id" bigint NOT NULL,
+  "year" smallint NOT NULL,
+  "image_url" text NOT NULL,
+  "chest_id" uuid NOT NULL
+);
 
-DROP POLICY "Enable read access for all users" ON "public"."connections";
-
-DROP POLICY "Enable read access for all users" ON "public"."gems";
-
-DROP POLICY "Enable read access for all users" ON "public"."lines";
-
-REVOKE DELETE ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE INSERT ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE REFERENCES ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE SELECT ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE TRIGGER ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE TRUNCATE ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE UPDATE ON TABLE "public"."connection_avatar_urls" FROM "anon";
-
-REVOKE DELETE ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE INSERT ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE REFERENCES ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE SELECT ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE TRIGGER ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE TRUNCATE ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE UPDATE ON TABLE "public"."connection_avatar_urls" FROM "authenticated";
-
-REVOKE DELETE ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE INSERT ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE REFERENCES ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE SELECT ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE TRIGGER ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE TRUNCATE ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE UPDATE ON TABLE "public"."connection_avatar_urls" FROM "service_role";
-
-REVOKE DELETE ON TABLE "public"."connections" FROM "anon";
-
-REVOKE INSERT ON TABLE "public"."connections" FROM "anon";
-
-REVOKE REFERENCES ON TABLE "public"."connections" FROM "anon";
-
-REVOKE SELECT ON TABLE "public"."connections" FROM "anon";
-
-REVOKE TRIGGER ON TABLE "public"."connections" FROM "anon";
-
-REVOKE TRUNCATE ON TABLE "public"."connections" FROM "anon";
-
-REVOKE UPDATE ON TABLE "public"."connections" FROM "anon";
-
-REVOKE DELETE ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE INSERT ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE REFERENCES ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE SELECT ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE TRIGGER ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE TRUNCATE ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE UPDATE ON TABLE "public"."connections" FROM "authenticated";
-
-REVOKE DELETE ON TABLE "public"."connections" FROM "service_role";
-
-REVOKE INSERT ON TABLE "public"."connections" FROM "service_role";
-
-REVOKE REFERENCES ON TABLE "public"."connections" FROM "service_role";
-
-REVOKE SELECT ON TABLE "public"."connections" FROM "service_role";
-
-REVOKE TRIGGER ON TABLE "public"."connections" FROM "service_role";
-
-REVOKE TRUNCATE ON TABLE "public"."connections" FROM "service_role";
-
-REVOKE UPDATE ON TABLE "public"."connections" FROM "service_role";
-
-ALTER TABLE "public"."connection_avatar_urls"
-  DROP CONSTRAINT "connection_avatar_urls_connection_id_fkey";
-
-ALTER TABLE "public"."lines"
-  DROP CONSTRAINT "lines_connection_id_fkey";
-
-ALTER TABLE "public"."connection_avatar_urls"
-  DROP CONSTRAINT "connection_avatar_urls_pkey";
-
-ALTER TABLE "public"."connections"
-  DROP CONSTRAINT "connections_pkey";
-
-ALTER TABLE "public"."connections"
-  DROP CONSTRAINT "connections_id_key";
-
-DROP INDEX IF EXISTS "public"."connection_avatar_urls_pkey";
-
-DROP INDEX IF EXISTS "public"."connections_id_key";
-
-DROP INDEX IF EXISTS "public"."connections_pkey";
-
-DROP TABLE "public"."connection_avatar_urls";
-
-DROP TABLE "public"."connections";
+ALTER TABLE "public"."avatars" ENABLE ROW LEVEL SECURITY;
 
 CREATE TABLE "public"."chests"(
   "id" uuid NOT NULL DEFAULT gen_random_uuid(),
-  "name" text NOT NULL DEFAULT ''::text
+  "name" text NOT NULL DEFAULT ''::text,
+  "created_by" uuid NOT NULL DEFAULT auth.uid()
 );
 
 ALTER TABLE "public"."chests" ENABLE ROW LEVEL SECURITY;
@@ -174,6 +67,16 @@ CREATE TABLE "public"."collections"(
 
 ALTER TABLE "public"."collections" ENABLE ROW LEVEL SECURITY;
 
+CREATE TABLE "public"."gems"(
+  "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+  "created_at" timestamp with time zone NOT NULL DEFAULT now(),
+  "number" smallint NOT NULL,
+  "occurred_at" date NOT NULL DEFAULT now(),
+  "chest_id" uuid NOT NULL
+);
+
+ALTER TABLE "public"."gems" ENABLE ROW LEVEL SECURITY;
+
 CREATE TABLE "public"."invitations"(
   "chest_id" uuid NOT NULL,
   "email" text NOT NULL,
@@ -181,6 +84,16 @@ CREATE TABLE "public"."invitations"(
 );
 
 ALTER TABLE "public"."invitations" ENABLE ROW LEVEL SECURITY;
+
+CREATE TABLE "public"."lines"(
+  "id" bigint GENERATED BY DEFAULT AS IDENTITY NOT NULL,
+  "text" text NOT NULL,
+  "gem_id" uuid NOT NULL,
+  "chest_id" uuid NOT NULL,
+  "person_id" bigint
+);
+
+ALTER TABLE "public"."lines" ENABLE ROW LEVEL SECURITY;
 
 CREATE TABLE "public"."people"(
   "id" bigint GENERATED BY DEFAULT AS IDENTITY NOT NULL,
@@ -190,15 +103,6 @@ CREATE TABLE "public"."people"(
 );
 
 ALTER TABLE "public"."people" ENABLE ROW LEVEL SECURITY;
-
-CREATE TABLE "public"."person_avatar_urls"(
-  "person_id" bigint NOT NULL,
-  "age" smallint NOT NULL,
-  "avatar_url" text NOT NULL,
-  "chest_id" uuid NOT NULL
-);
-
-ALTER TABLE "public"."person_avatar_urls" ENABLE ROW LEVEL SECURITY;
 
 CREATE TABLE "public"."role_permissions"(
   "role" app_role NOT NULL,
@@ -222,20 +126,7 @@ CREATE TABLE "public"."users"(
 
 ALTER TABLE "public"."users" ENABLE ROW LEVEL SECURITY;
 
-ALTER TABLE "public"."gems"
-  ADD COLUMN "chest_id" uuid NOT NULL;
-
-ALTER TABLE "public"."gems"
-  ALTER COLUMN "occurred_at" SET DEFAULT now();
-
-ALTER TABLE "public"."lines"
-  DROP COLUMN "connection_id";
-
-ALTER TABLE "public"."lines"
-  ADD COLUMN "chest_id" uuid NOT NULL;
-
-ALTER TABLE "public"."lines"
-  ADD COLUMN "person_id" bigint;
+CREATE UNIQUE INDEX avatars_pkey ON public.avatars USING btree(person_id, year);
 
 CREATE UNIQUE INDEX chests_pkey ON public.chests USING btree(id);
 
@@ -243,19 +134,28 @@ CREATE UNIQUE INDEX collection_gems_pkey ON public.collection_gems USING btree(c
 
 CREATE UNIQUE INDEX collections_pkey ON public.collections USING btree(id);
 
-CREATE UNIQUE INDEX invitations_pkey ON public.invitations USING btree(chest_id, email);
-
-CREATE UNIQUE INDEX person_avatar_urls_pkey ON public.person_avatar_urls USING btree(person_id, age);
-
-CREATE UNIQUE INDEX role_permissions_pkey ON public.role_permissions USING btree(ROLE, permission);
-
-CREATE UNIQUE INDEX user_roles_pkey ON public.user_roles USING btree(ROLE, user_id, chest_id);
-
-CREATE UNIQUE INDEX users_pkey ON public.users USING btree(id);
-
 CREATE UNIQUE INDEX connections_id_key ON public.people USING btree(id);
 
 CREATE UNIQUE INDEX connections_pkey ON public.people USING btree(id);
+
+CREATE UNIQUE INDEX gems_id_key ON public.gems USING btree(id);
+
+CREATE UNIQUE INDEX gems_pkey ON public.gems USING btree(id);
+
+CREATE UNIQUE INDEX invitations_pkey ON public.invitations USING btree(chest_id, email);
+
+CREATE UNIQUE INDEX lines_id_key ON public.lines USING btree(id);
+
+CREATE UNIQUE INDEX lines_pkey ON public.lines USING btree(id);
+
+CREATE UNIQUE INDEX role_permissions_pkey ON public.role_permissions USING btree(ROLE, permission);
+
+CREATE UNIQUE INDEX user_roles_pkey ON public.user_roles USING btree(user_id, chest_id);
+
+CREATE UNIQUE INDEX users_pkey ON public.users USING btree(id);
+
+ALTER TABLE "public"."avatars"
+  ADD CONSTRAINT "avatars_pkey" PRIMARY KEY USING INDEX "avatars_pkey";
 
 ALTER TABLE "public"."chests"
   ADD CONSTRAINT "chests_pkey" PRIMARY KEY USING INDEX "chests_pkey";
@@ -266,14 +166,17 @@ ALTER TABLE "public"."collection_gems"
 ALTER TABLE "public"."collections"
   ADD CONSTRAINT "collections_pkey" PRIMARY KEY USING INDEX "collections_pkey";
 
+ALTER TABLE "public"."gems"
+  ADD CONSTRAINT "gems_pkey" PRIMARY KEY USING INDEX "gems_pkey";
+
 ALTER TABLE "public"."invitations"
   ADD CONSTRAINT "invitations_pkey" PRIMARY KEY USING INDEX "invitations_pkey";
 
+ALTER TABLE "public"."lines"
+  ADD CONSTRAINT "lines_pkey" PRIMARY KEY USING INDEX "lines_pkey";
+
 ALTER TABLE "public"."people"
   ADD CONSTRAINT "connections_pkey" PRIMARY KEY USING INDEX "connections_pkey";
-
-ALTER TABLE "public"."person_avatar_urls"
-  ADD CONSTRAINT "person_avatar_urls_pkey" PRIMARY KEY USING INDEX "person_avatar_urls_pkey";
 
 ALTER TABLE "public"."role_permissions"
   ADD CONSTRAINT "role_permissions_pkey" PRIMARY KEY USING INDEX "role_permissions_pkey";
@@ -283,6 +186,21 @@ ALTER TABLE "public"."user_roles"
 
 ALTER TABLE "public"."users"
   ADD CONSTRAINT "users_pkey" PRIMARY KEY USING INDEX "users_pkey";
+
+ALTER TABLE "public"."avatars"
+  ADD CONSTRAINT "connection_avatar_urls_connection_id_fkey" FOREIGN KEY (person_id) REFERENCES people(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
+
+ALTER TABLE "public"."avatars" validate CONSTRAINT "connection_avatar_urls_connection_id_fkey";
+
+ALTER TABLE "public"."avatars"
+  ADD CONSTRAINT "person_avatar_urls_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES chests(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
+
+ALTER TABLE "public"."avatars" validate CONSTRAINT "person_avatar_urls_chest_id_fkey";
+
+ALTER TABLE "public"."chests"
+  ADD CONSTRAINT "chests_created_by_fkey" FOREIGN KEY (created_by) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
+
+ALTER TABLE "public"."chests" validate CONSTRAINT "chests_created_by_fkey";
 
 ALTER TABLE "public"."collection_gems"
   ADD CONSTRAINT "collection_gems_collection_id_fkey" FOREIGN KEY (collection_id) REFERENCES collections(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
@@ -304,6 +222,9 @@ ALTER TABLE "public"."gems"
 
 ALTER TABLE "public"."gems" validate CONSTRAINT "gems_chest_id_fkey";
 
+ALTER TABLE "public"."gems"
+  ADD CONSTRAINT "gems_id_key" UNIQUE USING INDEX "gems_id_key";
+
 ALTER TABLE "public"."invitations"
   ADD CONSTRAINT "invitations_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES chests(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
 
@@ -313,6 +234,14 @@ ALTER TABLE "public"."lines"
   ADD CONSTRAINT "lines_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES chests(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
 
 ALTER TABLE "public"."lines" validate CONSTRAINT "lines_chest_id_fkey";
+
+ALTER TABLE "public"."lines"
+  ADD CONSTRAINT "lines_gem_id_fkey" FOREIGN KEY (gem_id) REFERENCES gems(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
+
+ALTER TABLE "public"."lines" validate CONSTRAINT "lines_gem_id_fkey";
+
+ALTER TABLE "public"."lines"
+  ADD CONSTRAINT "lines_id_key" UNIQUE USING INDEX "lines_id_key";
 
 ALTER TABLE "public"."lines"
   ADD CONSTRAINT "lines_person_id_fkey" FOREIGN KEY (person_id) REFERENCES people(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
@@ -326,16 +255,6 @@ ALTER TABLE "public"."people"
   ADD CONSTRAINT "people_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES chests(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
 
 ALTER TABLE "public"."people" validate CONSTRAINT "people_chest_id_fkey";
-
-ALTER TABLE "public"."person_avatar_urls"
-  ADD CONSTRAINT "connection_avatar_urls_connection_id_fkey" FOREIGN KEY (person_id) REFERENCES people(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
-
-ALTER TABLE "public"."person_avatar_urls" validate CONSTRAINT "connection_avatar_urls_connection_id_fkey";
-
-ALTER TABLE "public"."person_avatar_urls"
-  ADD CONSTRAINT "person_avatar_urls_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES chests(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
-
-ALTER TABLE "public"."person_avatar_urls" validate CONSTRAINT "person_avatar_urls_chest_id_fkey";
 
 ALTER TABLE "public"."user_roles"
   ADD CONSTRAINT "user_roles_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES chests(id) ON UPDATE CASCADE ON DELETE CASCADE NOT valid;
@@ -359,6 +278,32 @@ ALTER TABLE "public"."users" validate CONSTRAINT "users_id_fkey";
 
 SET check_function_bodies = OFF;
 
+CREATE OR REPLACE FUNCTION public.accept_invitation(chest_id_param uuid)
+  RETURNS void
+  LANGUAGE plpgsql
+  SECURITY DEFINER
+  AS $function$
+DECLARE
+  ROLE app_role;
+BEGIN
+  -- Select the role assigned in the invitation
+  SELECT
+    assigned_role INTO ROLE
+  FROM
+    public.invitations
+  WHERE
+    chest_id = chest_id_param
+    AND email = auth.email();
+  -- Insert the role into user_roles table
+  INSERT INTO public.user_roles(chest_id, user_id, ROLE)
+    VALUES (chest_id_param, auth.uid(), ROLE);
+  -- Delete the processed invitation
+  DELETE FROM public.invitations
+  WHERE chest_id = chest_id_param
+    AND email = auth.email();
+END;
+$function$;
+
 CREATE OR REPLACE FUNCTION public.authorize(requested_permission app_permission, chest_id uuid)
   RETURNS boolean
   LANGUAGE plpgsql
@@ -371,7 +316,7 @@ DECLARE
   user_role public.app_role;
 BEGIN
   SELECT
-    (((auth.jwt() ->> 'chests')::jsonb ->> chest_id)::jsonb ->> 'role')::role INTO user_role;
+    (((auth.jwt() ->> 'chests')::jsonb ->> chest_id::text)::jsonb ->> 'role')::public.app_role INTO user_role;
   SELECT
     count(*) INTO bind_permissions
   FROM
@@ -403,12 +348,44 @@ BEGIN
     public.user_roles ur
     JOIN public.chests c ON ur.chest_id = c.id
   WHERE
-    ur.user_id =(event ->> 'sub')::uuid LOOP
+    ur.user_id =(event ->> 'user_id')::uuid LOOP
       chests_json := jsonb_set(chests_json,('{' || chest_roles.id::text || '}')::text[], jsonb_build_object('name', chest_roles.name, 'role', chest_roles.role));
     END LOOP;
-  claims := jsonb_set(claims, '{chests}', 'chests_json');
+  claims := jsonb_set(claims, '{chests}', chests_json);
   event := jsonb_set(event, '{claims}', claims);
   RETURN event;
+END;
+$function$;
+
+CREATE OR REPLACE FUNCTION public.fetch_distinct_gem_years(chest_id_param uuid)
+  RETURNS SETOF smallint
+  LANGUAGE plpgsql
+  AS $function$
+BEGIN
+  RETURN QUERY SELECT DISTINCT
+    EXTRACT(YEAR FROM occurred_at)::int2
+  FROM
+    public.gems
+  WHERE
+    chest_id = chest_id_param;
+END;
+$function$;
+
+CREATE OR REPLACE FUNCTION public.fetch_random_gem_ids(chest_id_param uuid, limit_param integer)
+  RETURNS SETOF uuid
+  LANGUAGE plpgsql
+  AS $function$
+BEGIN
+  RETURN QUERY
+  SELECT
+    id
+  FROM
+    public.gems
+  WHERE
+    chest_id = chest_id_param
+  ORDER BY
+    random()
+  LIMIT limit_param;
 END;
 $function$;
 
@@ -442,10 +419,38 @@ BEGIN
 END;
 $function$;
 
+CREATE OR REPLACE FUNCTION public.handle_chest_insert()
+  RETURNS TRIGGER
+  LANGUAGE plpgsql
+  SECURITY DEFINER
+  AS $function$
+DECLARE
+  personID int;
+  gemID uuid;
+BEGIN
+  INSERT INTO public.user_roles(user_id, chest_id, ROLE)
+    VALUES (auth.uid(), NEW.id, 'owner');
+  INSERT INTO public.people(nickname, date_of_birth, chest_id)
+    VALUES ('Jacob from ChuckleChest', '2003-03-10', NEW.id)
+  RETURNING
+    id INTO personID;
+  INSERT INTO public.gems(chest_id)
+    VALUES (NEW.id)
+  RETURNING
+    id INTO gemID;
+  INSERT INTO public.lines(chest_id, gem_id, person_id, text)
+    VALUES (NEW.id, gemID, personID, 'Hi there! Doing ok?'),
+(NEW.id, gemID, personID, 'Great! Then let me show you how to use ChuckleChest.');
+  RETURN NEW;
+END;
+$function$;
+
 CREATE OR REPLACE FUNCTION public.handle_gem_insert()
   RETURNS TRIGGER
   LANGUAGE plpgsql
   AS $function$
+DECLARE
+  colID bigint;
 BEGIN
   NEW.number :=(
     SELECT
@@ -457,6 +462,48 @@ BEGIN
   RETURN NEW;
 END;
 $function$;
+
+GRANT DELETE ON TABLE "public"."avatars" TO "anon";
+
+GRANT INSERT ON TABLE "public"."avatars" TO "anon";
+
+GRANT REFERENCES ON TABLE "public"."avatars" TO "anon";
+
+GRANT SELECT ON TABLE "public"."avatars" TO "anon";
+
+GRANT TRIGGER ON TABLE "public"."avatars" TO "anon";
+
+GRANT TRUNCATE ON TABLE "public"."avatars" TO "anon";
+
+GRANT UPDATE ON TABLE "public"."avatars" TO "anon";
+
+GRANT DELETE ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT INSERT ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT REFERENCES ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT SELECT ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT TRIGGER ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT TRUNCATE ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT UPDATE ON TABLE "public"."avatars" TO "authenticated";
+
+GRANT DELETE ON TABLE "public"."avatars" TO "service_role";
+
+GRANT INSERT ON TABLE "public"."avatars" TO "service_role";
+
+GRANT REFERENCES ON TABLE "public"."avatars" TO "service_role";
+
+GRANT SELECT ON TABLE "public"."avatars" TO "service_role";
+
+GRANT TRIGGER ON TABLE "public"."avatars" TO "service_role";
+
+GRANT TRUNCATE ON TABLE "public"."avatars" TO "service_role";
+
+GRANT UPDATE ON TABLE "public"."avatars" TO "service_role";
 
 GRANT DELETE ON TABLE "public"."chests" TO "anon";
 
@@ -499,6 +546,20 @@ GRANT TRIGGER ON TABLE "public"."chests" TO "service_role";
 GRANT TRUNCATE ON TABLE "public"."chests" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."chests" TO "service_role";
+
+GRANT DELETE ON TABLE "public"."chests" TO "supabase_auth_admin";
+
+GRANT INSERT ON TABLE "public"."chests" TO "supabase_auth_admin";
+
+GRANT REFERENCES ON TABLE "public"."chests" TO "supabase_auth_admin";
+
+GRANT SELECT ON TABLE "public"."chests" TO "supabase_auth_admin";
+
+GRANT TRIGGER ON TABLE "public"."chests" TO "supabase_auth_admin";
+
+GRANT TRUNCATE ON TABLE "public"."chests" TO "supabase_auth_admin";
+
+GRANT UPDATE ON TABLE "public"."chests" TO "supabase_auth_admin";
 
 GRANT DELETE ON TABLE "public"."collection_gems" TO "anon";
 
@@ -584,6 +645,48 @@ GRANT TRUNCATE ON TABLE "public"."collections" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."collections" TO "service_role";
 
+GRANT DELETE ON TABLE "public"."gems" TO "anon";
+
+GRANT INSERT ON TABLE "public"."gems" TO "anon";
+
+GRANT REFERENCES ON TABLE "public"."gems" TO "anon";
+
+GRANT SELECT ON TABLE "public"."gems" TO "anon";
+
+GRANT TRIGGER ON TABLE "public"."gems" TO "anon";
+
+GRANT TRUNCATE ON TABLE "public"."gems" TO "anon";
+
+GRANT UPDATE ON TABLE "public"."gems" TO "anon";
+
+GRANT DELETE ON TABLE "public"."gems" TO "authenticated";
+
+GRANT INSERT ON TABLE "public"."gems" TO "authenticated";
+
+GRANT REFERENCES ON TABLE "public"."gems" TO "authenticated";
+
+GRANT SELECT ON TABLE "public"."gems" TO "authenticated";
+
+GRANT TRIGGER ON TABLE "public"."gems" TO "authenticated";
+
+GRANT TRUNCATE ON TABLE "public"."gems" TO "authenticated";
+
+GRANT UPDATE ON TABLE "public"."gems" TO "authenticated";
+
+GRANT DELETE ON TABLE "public"."gems" TO "service_role";
+
+GRANT INSERT ON TABLE "public"."gems" TO "service_role";
+
+GRANT REFERENCES ON TABLE "public"."gems" TO "service_role";
+
+GRANT SELECT ON TABLE "public"."gems" TO "service_role";
+
+GRANT TRIGGER ON TABLE "public"."gems" TO "service_role";
+
+GRANT TRUNCATE ON TABLE "public"."gems" TO "service_role";
+
+GRANT UPDATE ON TABLE "public"."gems" TO "service_role";
+
 GRANT DELETE ON TABLE "public"."invitations" TO "anon";
 
 GRANT INSERT ON TABLE "public"."invitations" TO "anon";
@@ -625,6 +728,48 @@ GRANT TRIGGER ON TABLE "public"."invitations" TO "service_role";
 GRANT TRUNCATE ON TABLE "public"."invitations" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."invitations" TO "service_role";
+
+GRANT DELETE ON TABLE "public"."lines" TO "anon";
+
+GRANT INSERT ON TABLE "public"."lines" TO "anon";
+
+GRANT REFERENCES ON TABLE "public"."lines" TO "anon";
+
+GRANT SELECT ON TABLE "public"."lines" TO "anon";
+
+GRANT TRIGGER ON TABLE "public"."lines" TO "anon";
+
+GRANT TRUNCATE ON TABLE "public"."lines" TO "anon";
+
+GRANT UPDATE ON TABLE "public"."lines" TO "anon";
+
+GRANT DELETE ON TABLE "public"."lines" TO "authenticated";
+
+GRANT INSERT ON TABLE "public"."lines" TO "authenticated";
+
+GRANT REFERENCES ON TABLE "public"."lines" TO "authenticated";
+
+GRANT SELECT ON TABLE "public"."lines" TO "authenticated";
+
+GRANT TRIGGER ON TABLE "public"."lines" TO "authenticated";
+
+GRANT TRUNCATE ON TABLE "public"."lines" TO "authenticated";
+
+GRANT UPDATE ON TABLE "public"."lines" TO "authenticated";
+
+GRANT DELETE ON TABLE "public"."lines" TO "service_role";
+
+GRANT INSERT ON TABLE "public"."lines" TO "service_role";
+
+GRANT REFERENCES ON TABLE "public"."lines" TO "service_role";
+
+GRANT SELECT ON TABLE "public"."lines" TO "service_role";
+
+GRANT TRIGGER ON TABLE "public"."lines" TO "service_role";
+
+GRANT TRUNCATE ON TABLE "public"."lines" TO "service_role";
+
+GRANT UPDATE ON TABLE "public"."lines" TO "service_role";
 
 GRANT DELETE ON TABLE "public"."people" TO "anon";
 
@@ -668,48 +813,6 @@ GRANT TRUNCATE ON TABLE "public"."people" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."people" TO "service_role";
 
-GRANT DELETE ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT INSERT ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT REFERENCES ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT SELECT ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT TRIGGER ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT TRUNCATE ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT UPDATE ON TABLE "public"."person_avatar_urls" TO "anon";
-
-GRANT DELETE ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT INSERT ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT REFERENCES ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT SELECT ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT TRIGGER ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT TRUNCATE ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT UPDATE ON TABLE "public"."person_avatar_urls" TO "authenticated";
-
-GRANT DELETE ON TABLE "public"."person_avatar_urls" TO "service_role";
-
-GRANT INSERT ON TABLE "public"."person_avatar_urls" TO "service_role";
-
-GRANT REFERENCES ON TABLE "public"."person_avatar_urls" TO "service_role";
-
-GRANT SELECT ON TABLE "public"."person_avatar_urls" TO "service_role";
-
-GRANT TRIGGER ON TABLE "public"."person_avatar_urls" TO "service_role";
-
-GRANT TRUNCATE ON TABLE "public"."person_avatar_urls" TO "service_role";
-
-GRANT UPDATE ON TABLE "public"."person_avatar_urls" TO "service_role";
-
 GRANT DELETE ON TABLE "public"."role_permissions" TO "anon";
 
 GRANT INSERT ON TABLE "public"."role_permissions" TO "anon";
@@ -751,34 +854,6 @@ GRANT TRIGGER ON TABLE "public"."role_permissions" TO "service_role";
 GRANT TRUNCATE ON TABLE "public"."role_permissions" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."role_permissions" TO "service_role";
-
-GRANT DELETE ON TABLE "public"."user_roles" TO "anon";
-
-GRANT INSERT ON TABLE "public"."user_roles" TO "anon";
-
-GRANT REFERENCES ON TABLE "public"."user_roles" TO "anon";
-
-GRANT SELECT ON TABLE "public"."user_roles" TO "anon";
-
-GRANT TRIGGER ON TABLE "public"."user_roles" TO "anon";
-
-GRANT TRUNCATE ON TABLE "public"."user_roles" TO "anon";
-
-GRANT UPDATE ON TABLE "public"."user_roles" TO "anon";
-
-GRANT DELETE ON TABLE "public"."user_roles" TO "authenticated";
-
-GRANT INSERT ON TABLE "public"."user_roles" TO "authenticated";
-
-GRANT REFERENCES ON TABLE "public"."user_roles" TO "authenticated";
-
-GRANT SELECT ON TABLE "public"."user_roles" TO "authenticated";
-
-GRANT TRIGGER ON TABLE "public"."user_roles" TO "authenticated";
-
-GRANT TRUNCATE ON TABLE "public"."user_roles" TO "authenticated";
-
-GRANT UPDATE ON TABLE "public"."user_roles" TO "authenticated";
 
 GRANT DELETE ON TABLE "public"."user_roles" TO "service_role";
 
@@ -850,13 +925,25 @@ GRANT TRUNCATE ON TABLE "public"."users" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."users" TO "service_role";
 
+CREATE POLICY "Allow authorized delete access" ON "public"."avatars" AS permissive
+  FOR DELETE TO authenticated
+    USING (authorize('person_avatar_urls.delete'::app_permission, chest_id));
+
+CREATE POLICY "Allow authorized insert access" ON "public"."avatars" AS permissive
+  FOR INSERT TO authenticated
+    WITH CHECK (authorize('person_avatar_urls.insert'::app_permission, chest_id));
+
+CREATE POLICY "Allow authorized select access" ON "public"."avatars" AS permissive
+  FOR SELECT TO authenticated
+    USING (authorize('person_avatar_urls.select'::app_permission, chest_id));
+
+CREATE POLICY "Allow authorized update access" ON "public"."avatars" AS permissive
+  FOR UPDATE TO authenticated
+    USING (authorize('person_avatar_urls.update'::app_permission, chest_id));
+
 CREATE POLICY "Allow authorized delete access" ON "public"."chests" AS permissive
   FOR DELETE TO authenticated
     USING (authorize('chests.delete'::app_permission, id));
-
-CREATE POLICY "Allow authorized insert access" ON "public"."chests" AS permissive
-  FOR INSERT TO authenticated
-    WITH CHECK (authorize('chests.insert'::app_permission, id));
 
 CREATE POLICY "Allow authorized select access" ON "public"."chests" AS permissive
   FOR SELECT TO authenticated
@@ -865,6 +952,27 @@ CREATE POLICY "Allow authorized select access" ON "public"."chests" AS permissiv
 CREATE POLICY "Allow authorized update access" ON "public"."chests" AS permissive
   FOR UPDATE TO authenticated
     USING (authorize('chests.update'::app_permission, id));
+
+CREATE POLICY "Allow insert access for authenticated" ON "public"."chests" AS permissive
+  FOR INSERT TO authenticated
+    WITH CHECK (TRUE);
+
+CREATE POLICY "Allow select access for custom_access_token_hook" ON "public"."chests" AS permissive
+  FOR SELECT TO supabase_auth_admin
+    USING (TRUE);
+
+CREATE POLICY "Allow select access for invited users" ON "public"."chests" AS permissive
+  FOR SELECT TO authenticated
+    USING ((EXISTS (
+      SELECT
+        1
+      FROM
+        invitations
+      WHERE ((invitations.chest_id = chests.id) AND (invitations.email = auth.email())))));
+
+CREATE POLICY "Allow select access for new creators" ON "public"."chests" AS permissive
+  FOR SELECT TO authenticated
+    USING ((auth.uid() = created_by));
 
 CREATE POLICY "Allow authorized delete access" ON "public"."collection_gems" AS permissive
   FOR DELETE TO authenticated
@@ -944,7 +1052,7 @@ CREATE POLICY "Allow authorized insert access" ON "public"."invitations" AS perm
 
 CREATE POLICY "Allow authorized select access" ON "public"."invitations" AS permissive
   FOR SELECT TO authenticated
-    USING (authorize('invitations.select'::app_permission, chest_id));
+    USING ((authorize('invitations.select'::app_permission, chest_id) OR (email = auth.email())));
 
 CREATE POLICY "Allow authorized update access" ON "public"."invitations" AS permissive
   FOR UPDATE TO authenticated
@@ -986,25 +1094,13 @@ CREATE POLICY "Allow authorized update access" ON "public"."people" AS permissiv
   FOR UPDATE TO authenticated
     USING (authorize('people.update'::app_permission, chest_id));
 
-CREATE POLICY "Allow authorized delete access" ON "public"."person_avatar_urls" AS permissive
-  FOR DELETE TO authenticated
-    USING (authorize('person_avatar_urls.delete'::app_permission, chest_id));
-
-CREATE POLICY "Allow authorized insert access" ON "public"."person_avatar_urls" AS permissive
-  FOR INSERT TO authenticated
-    WITH CHECK (authorize('person_avatar_urls.insert'::app_permission, chest_id));
-
-CREATE POLICY "Allow authorized select access" ON "public"."person_avatar_urls" AS permissive
-  FOR SELECT TO authenticated
-    USING (authorize('person_avatar_urls.select'::app_permission, chest_id));
-
-CREATE POLICY "Allow authorized update access" ON "public"."person_avatar_urls" AS permissive
-  FOR UPDATE TO authenticated
-    USING (authorize('person_avatar_urls.update'::app_permission, chest_id));
-
 CREATE POLICY "Restrict all access" ON "public"."role_permissions" AS restrictive
   FOR ALL TO public
     USING (FALSE);
+
+CREATE POLICY "Allow all access for supabase admin" ON "public"."user_roles" AS permissive
+  FOR ALL TO supabase_admin
+    USING (TRUE);
 
 CREATE POLICY "Allow select access for auth admin" ON "public"."user_roles" AS permissive
   FOR SELECT TO supabase_auth_admin
@@ -1032,60 +1128,13 @@ CREATE POLICY "Allow users to update their own profiles" ON "public"."users" AS 
   FOR UPDATE TO authenticated
     USING ((auth.uid() = id));
 
+CREATE TRIGGER on_chest_inserted
+  AFTER INSERT ON public.chests
+  FOR EACH ROW
+  EXECUTE FUNCTION handle_chest_insert();
+
 CREATE TRIGGER on_gem_inserted
   BEFORE INSERT ON public.gems
   FOR EACH ROW
   EXECUTE FUNCTION handle_gem_insert();
-
-CREATE TRIGGER on_auth_user_inserted
-  AFTER INSERT ON auth.users
-  FOR EACH ROW
-  EXECUTE PROCEDURE public.handle_auth_user_insert();
-
-CREATE TRIGGER on_auth_user_updated
-  AFTER UPDATE ON auth.users
-  FOR EACH ROW
-  EXECUTE FUNCTION public.handle_auth_user_update();
-
-CREATE POLICY "Allow select access for custom_access_token_hook" ON "public"."chests" AS permissive
-  FOR SELECT TO supabase_auth_admin
-    USING (TRUE);
-
-GRANT usage ON SCHEMA public TO supabase_auth_admin;
-
-GRANT ALL ON TABLE public.user_roles TO supabase_auth_admin;
-
-GRANT ALL ON TABLE public.chests TO supabase_auth_admin;
-
-GRANT EXECUTE ON FUNCTION public.custom_access_token_hook TO supabase_auth_admin;
-
-REVOKE EXECUTE ON FUNCTION public.custom_access_token_hook FROM authenticated, anon, public;
-
-REVOKE DELETE ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE INSERT ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE REFERENCES ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE SELECT ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE TRIGGER ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE TRUNCATE ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE UPDATE ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE DELETE ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE INSERT ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE REFERENCES ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE SELECT ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE TRIGGER ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE TRUNCATE ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE UPDATE ON TABLE "public"."user_roles" FROM "authenticated";
 

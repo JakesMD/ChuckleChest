@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/settings/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
 import 'package:chuckle_chest/shared/widgets/error_snack_bar.dart';
@@ -64,18 +65,18 @@ class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 16),
       children: [
-        ListTile(
+        /*    ListTile(
           minVerticalPadding: 16,
           leading: const Icon(Icons.manage_accounts_rounded),
           title: const Text('Manage this chest'),
           onTap: () {},
         ),
-        const Divider(height: 48),
+        const Divider(height: 48),*/
         ListTile(
           minVerticalPadding: 16,
           leading: const Icon(Icons.inbox_rounded),
-          title: const Text('Invitations'),
-          onTap: () {},
+          title: Text(context.cAppL10n.settingsPage_invitationsTile_title),
+          onTap: () => context.router.push(const CInvitationsRoute()),
         ),
         const CCreateChestTile(),
         const Divider(height: 48),
