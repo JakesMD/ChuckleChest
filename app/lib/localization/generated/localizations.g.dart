@@ -371,6 +371,30 @@ abstract class CAppL10n {
   /// **'Invitations'**
   String get invitationsPage_title;
 
+  /// No description provided for @manageChestPage_chestNameTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get manageChestPage_chestNameTile_title;
+
+  /// No description provided for @manageChestPage_editChestNameDialog_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get manageChestPage_editChestNameDialog_hint;
+
+  /// No description provided for @manageChestPage_editChestNameDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit chest name'**
+  String get manageChestPage_editChestNameDialog_title;
+
+  /// No description provided for @manageChestPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage chest'**
+  String get manageChestPage_title;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
@@ -430,6 +454,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Invitations'**
   String get settingsPage_invitationsTile_title;
+
+  /// No description provided for @settingsPage_manageChestTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage this chest'**
+  String get settingsPage_manageChestTile_title;
 
   /// No description provided for @settingsPage_signoutTile_title.
   ///

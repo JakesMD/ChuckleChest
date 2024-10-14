@@ -151,6 +151,18 @@ class CAppL10nEn extends CAppL10n {
   String get invitationsPage_title => 'Invitations';
 
   @override
+  String get manageChestPage_chestNameTile_title => 'Name';
+
+  @override
+  String get manageChestPage_editChestNameDialog_hint => 'Name';
+
+  @override
+  String get manageChestPage_editChestNameDialog_title => 'Edit chest name';
+
+  @override
+  String get manageChestPage_title => 'Manage chest';
+
+  @override
   String get ok => 'OK';
 
   @override
@@ -197,6 +209,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get settingsPage_invitationsTile_title => 'Invitations';
+
+  @override
+  String get settingsPage_manageChestTile_title => 'Manage this chest';
 
   @override
   String get settingsPage_signoutTile_title => 'Log out';

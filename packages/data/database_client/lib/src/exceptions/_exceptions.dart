@@ -2,6 +2,7 @@ export 'avatar_upsert.dart';
 export 'avatars_stream.dart';
 export 'chest_insert.dart';
 export 'chest_people_fetch.dart';
+export 'chest_update.dart';
 export 'gem_fetch.dart';
 export 'gem_ids_fetch.dart';
 export 'gem_save.dart';

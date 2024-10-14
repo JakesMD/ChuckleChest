@@ -23,4 +23,8 @@ class CCurrentChestCubit extends Cubit<CAuthUserChest> {
 
   /// The repository this cubit uses to retrieve user data.
   final CAuthRepository authRepository;
+
+  /// Updates the name of the current chest locally to `name`.
+  void updateName(String name) =>
+      emit(CAuthUserChest(id: state.id, name: name, userRole: state.userRole));
 }

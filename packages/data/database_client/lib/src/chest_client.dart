@@ -61,4 +61,22 @@ class CChestClient {
         },
         onError: CRawInvitationAcceptException.fromError,
       );
+
+  /// Updates the name of the chest with the given `chestID` to the given
+  /// `name`.
+  BobsJob<CRawChestUpdateException, BobsNothing> updateChestName({
+    required String chestID,
+    required String name,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          await chestsTable.update(
+            values: {CChestsTable.name(name)},
+            filter: chestsTable.equal(CChestsTable.id(chestID)),
+            modifier: chestsTable.none(),
+          );
+          return bobsNothing;
+        },
+        onError: CRawChestUpdateException.fromError,
+      );
 }

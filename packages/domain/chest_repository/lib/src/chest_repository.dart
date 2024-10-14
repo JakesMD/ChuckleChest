@@ -36,4 +36,14 @@ class CChestRepository {
             onFailure: CInvitationAcceptException.fromRaw,
             onSuccess: (s) => s,
           );
+
+  /// Updates the chest with the given [chestID] to have the given [name].
+  BobsJob<CChestUpdateException, BobsNothing> updateChest({
+    required String chestID,
+    required String name,
+  }) =>
+      chestClient.updateChestName(chestID: chestID, name: name).thenEvaluate(
+            onFailure: CChestUpdateException.fromRaw,
+            onSuccess: (s) => s,
+          );
 }

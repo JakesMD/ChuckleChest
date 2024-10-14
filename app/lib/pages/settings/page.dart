@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/settings/widgets/_widgets.dart';
@@ -62,16 +63,20 @@ class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    final isOwner =
+        context.read<CCurrentChestCubit>().state.userRole == CUserRole.owner;
+
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 16),
       children: [
-        /*    ListTile(
-          minVerticalPadding: 16,
-          leading: const Icon(Icons.manage_accounts_rounded),
-          title: const Text('Manage this chest'),
-          onTap: () {},
-        ),
-        const Divider(height: 48),*/
+        if (isOwner)
+          ListTile(
+            minVerticalPadding: 16,
+            leading: const Icon(Icons.manage_accounts_rounded),
+            title: Text(context.cAppL10n.settingsPage_manageChestTile_title),
+            onTap: () => context.router.push(const CManageChestRoute()),
+          ),
+        if (isOwner) const Divider(height: 48),
         ListTile(
           minVerticalPadding: 16,
           leading: const Icon(Icons.inbox_rounded),

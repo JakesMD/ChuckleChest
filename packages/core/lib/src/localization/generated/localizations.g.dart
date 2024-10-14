@@ -134,7 +134,7 @@ abstract class CCoreL10n {
   /// No description provided for @userRole_viewer.
   ///
   /// In en, this message translates to:
-  /// **'Betracter'**
+  /// **'Viewer'**
   String get userRole_viewer;
 }
 

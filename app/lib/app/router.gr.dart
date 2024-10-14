@@ -128,6 +128,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: CLoginTab(key: args.key)),
       );
     },
+    CManageChestRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CManageChestPage(),
+      );
+    },
     COTPVerificationRoute.name: (routeData) {
       final queryParams = routeData.queryParams;
       final args = routeData.argsAs<COTPVerificationRouteArgs>(
@@ -521,6 +527,20 @@ class CLoginRouteArgs {
   String toString() {
     return 'CLoginRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [CManageChestPage]
+class CManageChestRoute extends PageRouteInfo<void> {
+  const CManageChestRoute({List<PageRouteInfo>? children})
+      : super(
+          CManageChestRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CManageChestRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

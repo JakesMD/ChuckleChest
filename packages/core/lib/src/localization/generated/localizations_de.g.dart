@@ -19,11 +19,11 @@ class CCoreL10nDe extends CCoreL10n {
   String get inputError_text_empty => 'Bitte gebe einen Text ein.';
 
   @override
-  String get userRole_collaborator => 'Bearbeiter';
+  String get userRole_collaborator => 'Kollaborateur';
 
   @override
   String get userRole_owner => 'Besitzer';
 
   @override
-  String get userRole_viewer => 'Zuschauer';
+  String get userRole_viewer => 'Betrachter';
 }

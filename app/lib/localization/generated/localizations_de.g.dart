@@ -151,6 +151,18 @@ class CAppL10nDe extends CAppL10n {
   String get invitationsPage_title => 'Einladungen';
 
   @override
+  String get manageChestPage_chestNameTile_title => 'Name';
+
+  @override
+  String get manageChestPage_editChestNameDialog_hint => 'Name der Truhe';
+
+  @override
+  String get manageChestPage_editChestNameDialog_title => 'Name bearbeiten';
+
+  @override
+  String get manageChestPage_title => 'Truhe verwalten';
+
+  @override
   String get ok => 'Ok';
 
   @override
@@ -197,6 +209,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get settingsPage_invitationsTile_title => 'Einladungen';
+
+  @override
+  String get settingsPage_manageChestTile_title => 'Truhe verwalten';
 
   @override
   String get settingsPage_signoutTile_title => 'Ausloggen';

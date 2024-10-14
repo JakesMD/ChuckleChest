@@ -9,6 +9,7 @@ export 'gem/page.dart';
 export 'get_started/page.dart';
 export 'home/page.dart';
 export 'invitations/page.dart';
+export 'manage_chest/page.dart';
 export 'otp_verification/page.dart';
 export 'people/page.dart';
 export 'random_collection/page.dart';
