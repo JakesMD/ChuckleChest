@@ -24,10 +24,16 @@ class CAppL10nDe extends CAppL10n {
   String get close => 'Schließen';
 
   @override
+  String get collectionView_nowGemsTitle => 'Keine Gemme zu zeigen';
+
+  @override
   String get collectionsPage_collection_random => 'Zufällig ausgewählt';
 
   @override
   String get collectionsPage_collection_recents => 'Zuletzt hinzugefügt';
+
+  @override
+  String get collectionsPage_noGemsMessage => 'Erstelle eine neue Gemme, um loszulegen.';
 
   @override
   String get collectionsPage_section_title_other => 'Sonstige';
@@ -83,7 +89,7 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
-  String get editPersonPage_banner_message => 'Das Schließen dieser Seite wird die App neu laden, wenn Änderungen vorgenommen wurden.';
+  String get editPersonPage_banner_message => 'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
 
   @override
   String get editPersonPage_dateOfBirthTile_title => 'Geburtsdatum';
@@ -112,6 +118,15 @@ class CAppL10nDe extends CAppL10n {
   String get getStartedPage_createChestButton => 'Neue Truhe erstellen';
 
   @override
+  String get getStartedPage_invitationSection_noInvitations => 'Keine Einladungen';
+
+  @override
+  String get getStartedPage_invitationSection_title => 'Einladung annehmen';
+
+  @override
+  String get getStartedPage_invitationTile_acceptButton => 'Annehmen';
+
+  @override
   String get getStartedPage_logoutButton => 'Ausloggen';
 
   @override
@@ -127,7 +142,19 @@ class CAppL10nDe extends CAppL10n {
   String get homePage_bottomNav_settings => 'Einstellungen';
 
   @override
+  String get invitationsPage_acceptButton => 'Annehmen';
+
+  @override
+  String get invitationsPage_noInvitationsMessage => 'Keine Einladungen';
+
+  @override
+  String get invitationsPage_title => 'Einladungen';
+
+  @override
   String get ok => 'Ok';
+
+  @override
+  String get or => 'oder';
 
   @override
   String get otpVerificationPage_error_invalidToken => 'Dieser Code ist ungültig. Bitte versuche es erneut.';
@@ -164,6 +191,15 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get save => 'Speichern';
+
+  @override
+  String get settingsPage_createChestTile_title => 'Neue Truhe erstellen';
+
+  @override
+  String get settingsPage_invitationsTile_title => 'Einladungen';
+
+  @override
+  String get settingsPage_signoutTile_title => 'Ausloggen';
 
   @override
   String get signinPage_disabledBanner => 'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';

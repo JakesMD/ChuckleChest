@@ -65,18 +65,22 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final userRole = context.read<CCurrentChestCubit>().state.userRole;
+    final isViewer =
+        context.read<CCurrentChestCubit>().state.userRole == CUserRole.viewer;
 
     return AutoTabsRouter.builder(
-      routes: const [CCollectionsRoute(), CPeopleRoute(), CSettingsRoute()],
+      routes: [
+        const CCollectionsRoute(),
+        if (!isViewer) const CPeopleRoute(),
+        const CSettingsRoute(),
+      ],
       builder: (context, children, tabsRouter) => Scaffold(
         appBar: CAppBar(
           context: context,
           title: CHomePageAppBarTitle(onChestSelected: _onChestSelected),
         ),
         body: children[tabsRouter.activeIndex],
-        floatingActionButton: tabsRouter.activeIndex != 2 &&
-                userRole != CUserRole.viewer
+        floatingActionButton: tabsRouter.activeIndex != 2 && !isViewer
             ? FloatingActionButton(
                 onPressed: () => _onFABPressed(context, tabsRouter.activeIndex),
                 child: const Icon(Icons.add_rounded),
@@ -92,11 +96,12 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
               activeIcon: const Icon(Icons.diamond_rounded),
               label: context.cAppL10n.homePage_bottomNav_collections,
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.family_restroom_outlined),
-              activeIcon: const Icon(Icons.family_restroom_rounded),
-              label: context.cAppL10n.homePage_bottomNav_people,
-            ),
+            if (!isViewer)
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.family_restroom_outlined),
+                activeIcon: const Icon(Icons.family_restroom_rounded),
+                label: context.cAppL10n.homePage_bottomNav_people,
+              ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings_outlined),
               activeIcon: const Icon(Icons.settings_rounded),

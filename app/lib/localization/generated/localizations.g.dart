@@ -125,6 +125,12 @@ abstract class CAppL10n {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @collectionView_nowGemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No gems to show'**
+  String get collectionView_nowGemsTitle;
+
   /// No description provided for @collectionsPage_collection_random.
   ///
   /// In en, this message translates to:
@@ -136,6 +142,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Recently added'**
   String get collectionsPage_collection_recents;
+
+  /// No description provided for @collectionsPage_noGemsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new gem to get started.'**
+  String get collectionsPage_noGemsMessage;
 
   /// No description provided for @collectionsPage_section_title_other.
   ///
@@ -164,7 +176,7 @@ abstract class CAppL10n {
   /// No description provided for @editAvatarPage_title.
   ///
   /// In en, this message translates to:
-  /// **'Edit Photo for {year}'**
+  /// **'Edit photo for {year}'**
   String editAvatarPage_title(int year);
 
   /// No description provided for @editGemPage_addNarrationButton.
@@ -242,7 +254,7 @@ abstract class CAppL10n {
   /// No description provided for @editPersonPage_banner_message.
   ///
   /// In en, this message translates to:
-  /// **'Closing this page will reload the app if changes have been made.'**
+  /// **'Changes will propagate to other users next time they open the app.'**
   String get editPersonPage_banner_message;
 
   /// No description provided for @editPersonPage_dateOfBirthTile_title.
@@ -293,6 +305,24 @@ abstract class CAppL10n {
   /// **'Create a new chest'**
   String get getStartedPage_createChestButton;
 
+  /// No description provided for @getStartedPage_invitationSection_noInvitations.
+  ///
+  /// In en, this message translates to:
+  /// **'No invitations'**
+  String get getStartedPage_invitationSection_noInvitations;
+
+  /// No description provided for @getStartedPage_invitationSection_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept an invitation'**
+  String get getStartedPage_invitationSection_title;
+
+  /// No description provided for @getStartedPage_invitationTile_acceptButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get getStartedPage_invitationTile_acceptButton;
+
   /// No description provided for @getStartedPage_logoutButton.
   ///
   /// In en, this message translates to:
@@ -323,11 +353,35 @@ abstract class CAppL10n {
   /// **'Settings'**
   String get homePage_bottomNav_settings;
 
+  /// No description provided for @invitationsPage_acceptButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get invitationsPage_acceptButton;
+
+  /// No description provided for @invitationsPage_noInvitationsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No invitations'**
+  String get invitationsPage_noInvitationsMessage;
+
+  /// No description provided for @invitationsPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitations'**
+  String get invitationsPage_title;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get or;
 
   /// No description provided for @otpVerificationPage_error_invalidToken.
   ///
@@ -364,6 +418,24 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
+
+  /// No description provided for @settingsPage_createChestTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get settingsPage_createChestTile_title;
+
+  /// No description provided for @settingsPage_invitationsTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitations'**
+  String get settingsPage_invitationsTile_title;
+
+  /// No description provided for @settingsPage_signoutTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settingsPage_signoutTile_title;
 
   /// No description provided for @signinPage_disabledBanner.
   ///

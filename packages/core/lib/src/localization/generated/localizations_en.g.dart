@@ -17,4 +17,13 @@ class CCoreL10nEn extends CCoreL10n {
 
   @override
   String get inputError_text_empty => 'Please enter some text.';
+
+  @override
+  String get userRole_collaborator => 'Collaborator';
+
+  @override
+  String get userRole_owner => 'Owner';
+
+  @override
+  String get userRole_viewer => 'Betracter';
 }

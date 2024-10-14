@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/pages/get_started/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 
 /// {@template CGetStartedPage}
 ///
@@ -18,7 +20,7 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CGetStartedPage}
   const CGetStartedPage({super.key});
 
-  void _onChestCreated(BuildContext context, String chestID) {
+  void _navigateToChest(BuildContext context, String chestID) {
     context.router.replaceAll(
       [const CBaseRoute(), CChestRoute(chestID: chestID)],
       updateExistingRoutes: false,
@@ -33,6 +35,20 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
           create: (context) =>
               CChestCreationCubit(chestRepository: context.read()),
         ),
+        BlocProvider(
+          create: (context) => CSignoutCubit(authRepository: context.read()),
+        ),
+        BlocProvider(
+          create: (context) => CUserInvitationsFetchCubit(
+            chestRepository: context.read(),
+            authRepository: context.read(),
+          )..fetchUserInvitations(),
+        ),
+        BlocProvider(
+          create: (context) => CInvitationAcceptCubit(
+            chestRepository: context.read(),
+          ),
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -41,10 +57,35 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
               CRequestCubitStatus.initial => null,
               CRequestCubitStatus.inProgress => null,
               CRequestCubitStatus.succeeded =>
-                _onChestCreated(context, state.chestID),
+                _navigateToChest(context, state.chestID),
               CRequestCubitStatus.failed =>
                 const CErrorSnackBar().show(context),
             },
+          ),
+          BlocListener<CSignoutCubit, CSignoutState>(
+            listener: (context, state) => switch (state.status) {
+              CRequestCubitStatus.initial => null,
+              CRequestCubitStatus.inProgress => null,
+              CRequestCubitStatus.succeeded =>
+                context.router.replace(const CSigninRoute()),
+              CRequestCubitStatus.failed =>
+                const CErrorSnackBar().show(context),
+            },
+          ),
+          BlocListener<CInvitationAcceptCubit, CInvitationAcceptState>(
+            listener: (context, state) => switch (state.status) {
+              CRequestCubitStatus.initial => null,
+              CRequestCubitStatus.inProgress => null,
+              CRequestCubitStatus.succeeded =>
+                _navigateToChest(context, state.chestID),
+              CRequestCubitStatus.failed =>
+                const CErrorSnackBar().show(context),
+            },
+          ),
+          BlocListener<CUserInvitationsFetchCubit, CUserInvitationsFetchState>(
+            listener: (context, state) => const CErrorSnackBar().show(context),
+            listenWhen: (_, state) =>
+                state.status == CRequestCubitStatus.failed,
           ),
         ],
         child: this,
@@ -58,32 +99,31 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
       appBar: CAppBar(
         context: context,
         title: Text(context.cAppL10n.getStartedPage_title),
-        actions: [
-          PopupMenuButton(
-            icon: const Icon(Icons.more_vert_rounded),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text(context.cAppL10n.getStartedPage_logoutButton),
-              ),
-            ],
-          ),
-        ],
+        actions: const [CGetStartedPageMoreMenu()],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(16),
         children: [
-          CLoadingButton<CChestCreationCubit, CChestCreationState>(
-            child: Text(context.cAppL10n.getStartedPage_createChestButton),
-            isLoading: (state) =>
-                state.status == CRequestCubitStatus.inProgress,
-            onPressed: (context, cubit) =>
-                CChestCreationDialog(cubit: cubit).show(context),
-            builder: (context, text, onPressed) => FilledButton(
-              onPressed: onPressed,
-              child: text,
-            ),
+          Text(
+            context.cAppL10n.getStartedPage_invitationSection_title,
+            style: context.cTextTheme.titleMedium,
           ),
+          const SizedBox(height: 8),
+          const CInvitationSection(),
+          const SizedBox(height: 48),
+          SignedSpacingRow(
+            spacing: 16,
+            children: [
+              const Expanded(child: Divider()),
+              Text(
+                context.cAppL10n.or,
+                style: const TextStyle(fontStyle: FontStyle.italic),
+              ),
+              const Expanded(child: Divider()),
+            ],
+          ),
+          const SizedBox(height: 24),
+          const CCreateChestButton(),
         ],
       ),
     );

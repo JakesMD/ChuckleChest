@@ -89,3 +89,17 @@ extension CL10nStringExtension on String {
     }
   }
 }
+
+/// {@template CL10nUserRoleExtension}
+///
+/// Returns this role localized to the given [BuildContext]'s locale.
+///
+/// {@endtemplate}
+extension CL10nUserRoleExtension on CUserRole {
+  /// {@macro CL10nUserRoleExtension}
+  String cLocalize(BuildContext context) => switch (this) {
+        CUserRole.owner => context.cCoreL10n.userRole_owner,
+        CUserRole.collaborator => context.cCoreL10n.userRole_collaborator,
+        CUserRole.viewer => context.cCoreL10n.userRole_viewer,
+      };
+}
