@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
@@ -37,6 +38,9 @@ class CCollectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isViewer =
+        context.read<CCurrentChestCubit>().state.userRole == CUserRole.viewer;
+
     if (gemIDs.isEmpty) {
       return Scaffold(
         appBar: CAppBar(
@@ -73,14 +77,15 @@ class CCollectionView extends StatelessWidget {
                 builder: (context, state) => Text(state.appBarTitle),
               ),
               actions: [
-                BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
-                  builder: (context, state) => state.canEdit
-                      ? IconButton(
-                          icon: const Icon(Icons.edit_rounded),
-                          onPressed: () => _onEditPressed(context),
-                        )
-                      : const SizedBox(),
-                ),
+                if (!isViewer)
+                  BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
+                    builder: (context, state) => state.canEdit
+                        ? IconButton(
+                            icon: const Icon(Icons.edit_rounded),
+                            onPressed: () => _onEditPressed(context),
+                          )
+                        : const SizedBox(),
+                  ),
               ],
             ),
             body: PageView.builder(

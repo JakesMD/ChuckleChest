@@ -60,6 +60,9 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                     AutoRoute(
                       path: 'people',
                       page: CPeopleRoute.page,
+                      guards: [
+                        CCollaboratorGuard(authRepository: authRepository),
+                      ],
                     ),
                     AutoRoute(path: 'settings', page: CSettingsRoute.page),
                   ],
@@ -81,6 +84,9 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                     AutoRoute(
                       path: 'edit',
                       page: CEditGemRoute.page,
+                      guards: [
+                        CCollaboratorGuard(authRepository: authRepository),
+                      ],
                     ),
                   ],
                 ),
@@ -99,10 +105,12 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                 AutoRoute(
                   path: 'edit-person',
                   page: CEditPersonRoute.page,
+                  guards: [CCollaboratorGuard(authRepository: authRepository)],
                 ),
                 AutoRoute(
                   path: 'edit-avatar',
                   page: CEditAvatarRoute.page,
+                  guards: [CCollaboratorGuard(authRepository: authRepository)],
                 ),
                 AutoRoute(
                   path: 'invitations',
