@@ -22,7 +22,7 @@ class CInvitationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(invitation.chestName),
-      subtitle: Text(invitation.assignedRole.localize(context)),
+      subtitle: Text(invitation.assignedRole.cLocalize(context)),
       trailing: BlocBuilder<CInvitationAcceptCubit, CInvitationAcceptState>(
         builder: (context, state) => ElevatedButton(
           onPressed: state.status != CRequestCubitStatus.inProgress

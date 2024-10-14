@@ -146,4 +146,67 @@ void main() {
       }),
     );
   });
+
+  group('CL10nUserRoleExtension tests', () {
+    late String translation;
+
+    testWidgets(
+      requirement(
+        Given: 'An app with CCoreL10n delegate and en locale',
+        When: 'localizing a [UserRole.owner] instance.',
+        Then: 'returns a localized string',
+      ),
+      widgetsProcedure((tester) async {
+        await tester.pumpWidget(
+          localizedApp(
+            builder: (context) {
+              translation = CUserRole.owner.cLocalize(context);
+              return Container();
+            },
+          ),
+        );
+
+        expect(translation, isNotEmpty);
+      }),
+    );
+
+    testWidgets(
+      requirement(
+        Given: 'An app with CCoreL10n delegate and en locale',
+        When: 'localizing a [UserRole.collaborator] instance.',
+        Then: 'returns a localized string',
+      ),
+      widgetsProcedure((tester) async {
+        await tester.pumpWidget(
+          localizedApp(
+            builder: (context) {
+              translation = CUserRole.collaborator.cLocalize(context);
+              return Container();
+            },
+          ),
+        );
+
+        expect(translation, isNotEmpty);
+      }),
+    );
+    testWidgets(
+      requirement(
+        Given: 'An app with CCoreL10n delegate and en locale',
+        When: 'localizing a [UserRole.viewer] instance.',
+        Then: 'returns a localized string',
+      ),
+      widgetsProcedure((tester) async {
+        await tester.pumpWidget(
+          localizedApp(
+            builder: (context) {
+              translation = CUserRole.viewer.cLocalize(context);
+              return Container();
+            },
+          ),
+        );
+
+        expect(translation, isNotEmpty);
+      }),
+    );
+  });
 }
