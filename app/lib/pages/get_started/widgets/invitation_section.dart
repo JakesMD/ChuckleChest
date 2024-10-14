@@ -62,7 +62,7 @@ class _CInvitationTile extends StatelessWidget {
     return ListTile(
       title: Text(invitation.chestName),
       subtitle: Text(
-        invitation.assignedRole.localize(context),
+        invitation.assignedRole.cLocalize(context),
       ),
       trailing: BlocBuilder<CInvitationAcceptCubit, CInvitationAcceptState>(
         builder: (context, state) => ElevatedButton(
