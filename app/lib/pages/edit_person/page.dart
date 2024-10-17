@@ -69,17 +69,13 @@ class CEditPersonPage extends StatelessWidget implements AutoRouteWrapper {
       ),
       body: ListView(
         padding: const EdgeInsets.only(bottom: 16),
-        children: [
-          MaterialBanner(
-            content: Text(context.cAppL10n.editPersonPage_banner_message),
-            leading: const Icon(Icons.info_rounded),
-            actions: [Container()],
-          ),
-          const SizedBox(height: 16),
-          const CNicknameTile(),
-          const CDateOfBirthTile(),
-          const SizedBox(height: 48),
-          const Padding(
+        children: const [
+          CChangesPropagationBanner(),
+          SizedBox(height: 16),
+          CNicknameTile(),
+          CDateOfBirthTile(),
+          SizedBox(height: 48),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: CAvatarSection(),
           ),

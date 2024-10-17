@@ -141,7 +141,7 @@ CREATE OR REPLACE FUNCTION public.handle_auth_user_insert()
   AS $function$
 BEGIN
   INSERT INTO public.users(id, username)
-    VALUES(NEW.id, NEW.raw_user_meta_data ->> 'username');
+    VALUES(NEW.id, NEW.raw_user_meta_data ->> 'display_name');
   RETURN new;
 END;
 $function$;
@@ -156,9 +156,10 @@ BEGIN
   UPDATE
     public.users
   SET
-    username = NEW.raw_user_meta_data ->> 'last_name'
+    username = NEW.raw_user_meta_data ->> 'display_name'
   WHERE
-    id = NEW.id;
+    id = NEW.id
+    AND username != NULL;
   RETURN new;
 END;
 $function$;
@@ -631,6 +632,34 @@ GRANT DELETE ON TABLE "public"."users" TO "anon";
 
 GRANT INSERT ON TABLE "public"."users" TO "anon";
 
+GRANT DELETE ON TABLE "public"."user_roles" TO "anon";
+
+GRANT INSERT ON TABLE "public"."user_roles" TO "anon";
+
+GRANT REFERENCES ON TABLE "public"."user_roles" TO "anon";
+
+GRANT SELECT ON TABLE "public"."user_roles" TO "anon";
+
+GRANT TRIGGER ON TABLE "public"."user_roles" TO "anon";
+
+GRANT TRUNCATE ON TABLE "public"."user_roles" TO "anon";
+
+GRANT UPDATE ON TABLE "public"."user_roles" TO "anon";
+
+GRANT DELETE ON TABLE "public"."user_roles" TO "authenticated";
+
+GRANT INSERT ON TABLE "public"."user_roles" TO "authenticated";
+
+GRANT REFERENCES ON TABLE "public"."user_roles" TO "authenticated";
+
+GRANT SELECT ON TABLE "public"."user_roles" TO "authenticated";
+
+GRANT TRIGGER ON TABLE "public"."user_roles" TO "authenticated";
+
+GRANT TRUNCATE ON TABLE "public"."user_roles" TO "authenticated";
+
+GRANT UPDATE ON TABLE "public"."user_roles" TO "authenticated";
+
 GRANT REFERENCES ON TABLE "public"."users" TO "anon";
 
 GRANT SELECT ON TABLE "public"."users" TO "anon";
@@ -668,34 +697,6 @@ GRANT TRIGGER ON TABLE "public"."users" TO "service_role";
 GRANT TRUNCATE ON TABLE "public"."users" TO "service_role";
 
 GRANT UPDATE ON TABLE "public"."users" TO "service_role";
-
-REVOKE DELETE ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE INSERT ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE REFERENCES ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE SELECT ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE TRIGGER ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE TRUNCATE ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE UPDATE ON TABLE "public"."user_roles" FROM "anon";
-
-REVOKE DELETE ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE INSERT ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE REFERENCES ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE SELECT ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE TRIGGER ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE TRUNCATE ON TABLE "public"."user_roles" FROM "authenticated";
-
-REVOKE UPDATE ON TABLE "public"."user_roles" FROM "authenticated";
 
 DROP POLICY IF EXISTS "Allow authorized delete access" ON "public"."avatars";
 
@@ -955,6 +956,18 @@ DROP POLICY IF EXISTS "Allow select access for auth admin" ON "public"."user_rol
 CREATE POLICY "Allow select access for auth admin" ON "public"."user_roles" AS permissive
   FOR SELECT TO supabase_auth_admin
     USING (TRUE);
+
+DROP POLICY IF EXISTS "Allow authorized select access" ON "public"."user_roles";
+
+CREATE POLICY "Allow authorized select access" ON "public"."user_roles" AS permissive
+  FOR SELECT TO authenticated
+    USING ((authorize('user_roles.select'::app_permission, chest_id) AND (user_id <> auth.uid())));
+
+DROP POLICY IF EXISTS "Allow authorized update access" ON "public"."user_roles";
+
+CREATE POLICY "Allow authorized update access" ON "public"."user_roles" AS permissive
+  FOR UPDATE TO authenticated
+    USING ((authorize('user_roles.update'::app_permission, chest_id) AND (user_id <> auth.uid())));
 
 DROP POLICY IF EXISTS "Allow select access for authenticated users from the same chest" ON "public"."users";
 

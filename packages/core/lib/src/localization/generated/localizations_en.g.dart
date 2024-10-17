@@ -25,5 +25,5 @@ class CCoreL10nEn extends CCoreL10n {
   String get userRole_owner => 'Owner';
 
   @override
-  String get userRole_viewer => 'Betracter';
+  String get userRole_viewer => 'Viewer';
 }

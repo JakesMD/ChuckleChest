@@ -26,7 +26,9 @@ CREATE TYPE "public"."app_permission" AS enum(
     'invitations.insert',
     'invitations.select',
     'invitations.update',
-    'invitations.delete'
+    'invitations.delete',
+    'user_roles.select',
+    'user_roles.update'
 );
 
 CREATE TYPE "public"."app_role" AS enum(
@@ -101,7 +103,7 @@ CREATE TABLE "public"."user_roles"(
 
 CREATE TABLE "public"."users"(
     "id" uuid NOT NULL,
-    "username" text DEFAULT ''::text
+    "username" text
 );
 
 CREATE UNIQUE INDEX avatars_pkey ON public.avatars USING btree(person_id, year);

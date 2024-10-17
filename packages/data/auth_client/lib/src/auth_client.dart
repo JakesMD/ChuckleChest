@@ -55,7 +55,7 @@ class CAuthClient {
             email: email,
             shouldCreateUser: true,
             data: {
-              'username': username,
+              'display_name': username,
               if (avatarURL != null) 'avatar_url': avatarURL,
             },
           );

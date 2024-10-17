@@ -4,7 +4,7 @@
   "inputError_email_empty": "Bitte gebe deine E-Mail-Adresse ein.",
   "inputError_email_invalid": "Das ist keine gültige E-Mail-Adresse.",
   "inputError_text_empty": "Bitte gebe einen Text ein.",
-  "userRole_collaborator": "Bearbeiter",
+  "userRole_collaborator": "Kollaborateur",
   "userRole_owner": "Besitzer",
-  "userRole_viewer": "Zuschauer"
+  "userRole_viewer": "Betrachter"
 }
