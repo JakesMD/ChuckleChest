@@ -10,7 +10,7 @@ final class CEmailInput extends CFormInput<String> {
 
   @override
   String? validator({required String? input, required BuildContext context}) {
-    final email = input?.trim() ?? '';
+    final email = input?.trim().toLowerCase() ?? '';
     onChanged(email);
 
     if (email.isEmpty) return context.cCoreL10n.inputError_email_empty;

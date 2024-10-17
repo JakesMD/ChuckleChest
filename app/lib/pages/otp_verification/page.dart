@@ -54,7 +54,9 @@ class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
 
   void _onOTPSubmited(BuildContext context, String pin) {
     if (email == null) return;
-    context.read<COTPVerificationCubit>().verifyOTP(email: email!, pin: pin);
+    context
+        .read<COTPVerificationCubit>()
+        .verifyOTP(email: email!.toLowerCase(), pin: pin);
   }
 
   void _onVerificationCompleted(BuildContext context) =>
