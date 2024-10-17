@@ -1,12 +1,17 @@
 export 'avatar_upsert.dart';
 export 'avatars_stream.dart';
 export 'chest_insert.dart';
+export 'chest_invitations_fetch.dart';
+export 'chest_members_fetch.dart';
 export 'chest_people_fetch.dart';
+export 'chest_update.dart';
 export 'gem_fetch.dart';
 export 'gem_ids_fetch.dart';
 export 'gem_save.dart';
 export 'gem_years_fetch.dart';
 export 'invitation_accept.dart';
+export 'invitation_creation.dart';
+export 'member_role_update.dart';
 export 'person_insert.dart';
 export 'person_stream.dart';
 export 'person_update.dart';

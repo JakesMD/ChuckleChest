@@ -93,4 +93,4 @@ scripts:
 
   diff_supabase:
     description: Creates new migration file with the changes made in the Supabase studio.
-    run: supabase db diff --local -f new && supabase db diff --local -f new --schema storage
+    run: supabase db diff --local -f new_public && supabase db diff --local -f new_storage --schema storage && supabase db diff --local -f new_auth --schema auth

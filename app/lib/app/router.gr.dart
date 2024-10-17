@@ -120,12 +120,30 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CInvitationsPage()),
       );
     },
+    CInvitedRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CInvitedTab()),
+      );
+    },
     CLoginRoute.name: (routeData) {
       final args = routeData.argsAs<CLoginRouteArgs>(
           orElse: () => const CLoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: CLoginTab(key: args.key)),
+      );
+    },
+    CManageChestRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CManageChestPage()),
+      );
+    },
+    CMembersRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CMembersTab()),
       );
     },
     COTPVerificationRoute.name: (routeData) {
@@ -496,6 +514,20 @@ class CInvitationsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CInvitedTab]
+class CInvitedRoute extends PageRouteInfo<void> {
+  const CInvitedRoute({List<PageRouteInfo>? children})
+      : super(
+          CInvitedRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CInvitedRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CLoginTab]
 class CLoginRoute extends PageRouteInfo<CLoginRouteArgs> {
   CLoginRoute({
@@ -521,6 +553,34 @@ class CLoginRouteArgs {
   String toString() {
     return 'CLoginRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [CManageChestPage]
+class CManageChestRoute extends PageRouteInfo<void> {
+  const CManageChestRoute({List<PageRouteInfo>? children})
+      : super(
+          CManageChestRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CManageChestRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CMembersTab]
+class CMembersRoute extends PageRouteInfo<void> {
+  const CMembersRoute({List<PageRouteInfo>? children})
+      : super(
+          CMembersRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CMembersRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

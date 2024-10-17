@@ -71,12 +71,14 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
     final peopleTable = CPeopleTable(supabaseClient: supabaseClient);
     final avatarsTable = CAvatarsTable(supabaseClient: supabaseClient);
     final invitationsTable = CInvitationsTable(supabaseClient: supabaseClient);
+    final userRolesTable = CUserRolesTable(supabaseClient: supabaseClient);
 
     platformClient = CPlatformClient();
     authClient = CAuthClient(authClient: supabaseClient.auth);
     chestClient = CChestClient(
       chestsTable: chestsTable,
       invitationsTable: invitationsTable,
+      userRolesTable: userRolesTable,
     );
     gemClient = CGemClient(gemsTable: gemsTable, linesTable: linesTable);
     personClient = CPersonClient(

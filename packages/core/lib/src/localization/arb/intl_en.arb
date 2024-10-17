@@ -6,5 +6,5 @@
   "inputError_text_empty": "Please enter some text.",
   "userRole_collaborator": "Collaborator",
   "userRole_owner": "Owner",
-  "userRole_viewer": "Betracter"
+  "userRole_viewer": "Viewer"
 }
