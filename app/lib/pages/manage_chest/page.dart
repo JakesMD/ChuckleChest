@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ccore/ccore.dart';
+import 'package:chuckle_chest/app/router.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/manage_chest/logic/_logic.dart';
 import 'package:chuckle_chest/pages/manage_chest/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:signed_spacing_flex/signed_spacing_flex.dart';
+
+export 'tabs/_tabs.dart';
 
 /// {@template CManageChestPage}
 ///
@@ -29,6 +30,10 @@ class CManageChestPage extends StatelessWidget implements AutoRouteWrapper {
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
+        BlocProvider(
+          create: (_) =>
+              CInvitationCreationCubit(chestRepository: context.read()),
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -50,102 +55,28 @@ class CManageChestPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CAppBar(
-        context: context,
-        title: Text(context.cAppL10n.manageChestPage_title),
-      ),
-      body: DefaultTabController(
-        length: 2,
-        child: Column(
+    return AutoTabsRouter.tabBar(
+      routes: const [CMembersRoute(), CInvitedRoute()],
+      builder: (context, child, controller) => Scaffold(
+        appBar: CAppBar(
+          context: context,
+          title: Text(context.cAppL10n.manageChestPage_title),
+        ),
+        body: Column(
           children: [
+            const CChangesPropagationBanner(),
             const CChestNameTile(),
-            const TabBar(tabs: [Tab(text: 'Members'), Tab(text: 'Invited')]),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  ListView(
-                    padding: const EdgeInsets.all(8),
-                    children: [
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: SignedSpacingColumn(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            spacing: 24,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      'Jacob Drew',
-                                      style: context.cTextTheme.titleMedium,
-                                    ),
-                                  ),
-                                  IconButton.filledTonal(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.delete_rounded),
-                                  ),
-                                ],
-                              ),
-                              SegmentedButton(
-                                segments: [
-                                  ButtonSegment(
-                                    value: CUserRole.viewer,
-                                    label: Text(
-                                      CUserRole.viewer.cLocalize(context),
-                                    ),
-                                  ),
-                                  ButtonSegment(
-                                    value: CUserRole.collaborator,
-                                    label: Text(
-                                      CUserRole.collaborator.cLocalize(context),
-                                    ),
-                                  ),
-                                ],
-                                selected: const {CUserRole.viewer},
-                                onSelectionChanged: (selected) {},
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  ListView(
-                    children: [
-                      ListTile(
-                        minVerticalPadding: 16,
-                        title: const Text('jakesmdrew@gmail.com'),
-                        subtitle: const Text('Viewer'),
-                        trailing: const Icon(Icons.delete_rounded),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        minVerticalPadding: 16,
-                        title: const Text('jakesmdrew@gmail.com'),
-                        subtitle: const Text('Viewer'),
-                        trailing: const Icon(Icons.delete_rounded),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        minVerticalPadding: 16,
-                        title: const Text('jakesmdrew@gmail.com'),
-                        subtitle: const Text('Viewer'),
-                        trailing: const Icon(Icons.delete_rounded),
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            TabBar(
+              controller: controller,
+              tabs: [
+                Tab(text: context.cAppL10n.manageChestPage_tab_members),
+                Tab(text: context.cAppL10n.manageChestPage_tab_invited),
+              ],
             ),
+            Expanded(child: child),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add_rounded),
+        floatingActionButton: const CManageChestPageFAB(),
       ),
     );
   }

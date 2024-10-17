@@ -58,5 +58,7 @@ INSERT INTO role_permissions(ROLE, permission)
 ('owner', 'invitations.insert'),
 ('owner', 'invitations.select'),
 ('owner', 'invitations.update'),
-('owner', 'invitations.delete');
+('owner', 'invitations.delete'),
+('owner', 'user_roles.select'),
+('owner', 'user_roles.update');
 

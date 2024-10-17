@@ -12,6 +12,9 @@ class CAppL10nEn extends CAppL10n {
   String get cancel => 'Cancel';
 
   @override
+  String get changesPropagationBanner_message => 'Changes will propagate to other users next time they open the app.';
+
+  @override
   String get chestCreationDialog_createButton => 'Create';
 
   @override
@@ -89,9 +92,6 @@ class CAppL10nEn extends CAppL10n {
   String get editGemPage_title_edit => 'Edit the gem';
 
   @override
-  String get editPersonPage_banner_message => 'Changes will propagate to other users next time they open the app.';
-
-  @override
   String get editPersonPage_dateOfBirthTile_title => 'Date of birth';
 
   @override
@@ -154,10 +154,22 @@ class CAppL10nEn extends CAppL10n {
   String get manageChestPage_chestNameTile_title => 'Name';
 
   @override
+  String get manageChestPage_createInvitationDialog_hint_email => 'Email';
+
+  @override
+  String get manageChestPage_createInvitationDialog_title => 'Invite someone';
+
+  @override
   String get manageChestPage_editChestNameDialog_hint => 'Name';
 
   @override
   String get manageChestPage_editChestNameDialog_title => 'Edit chest name';
+
+  @override
+  String get manageChestPage_tab_invited => 'Invited';
+
+  @override
+  String get manageChestPage_tab_members => 'Members';
 
   @override
   String get manageChestPage_title => 'Manage chest';

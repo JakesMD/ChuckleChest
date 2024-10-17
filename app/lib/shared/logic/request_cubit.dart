@@ -68,4 +68,7 @@ class CRequestCubitState<F, S> with EquatableMixin {
 
   @override
   List<Object?> get props => [outcome];
+
+  @override
+  String toString() => 'CRequestCubitState<$F, $S>(status: $status)';
 }

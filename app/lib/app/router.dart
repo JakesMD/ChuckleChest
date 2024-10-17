@@ -120,6 +120,17 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                   path: 'manage-chest',
                   page: CManageChestRoute.page,
                   guards: [CAppRouter(authRepository: authRepository)],
+                  children: [
+                    AutoRoute(
+                      path: 'members',
+                      page: CMembersRoute.page,
+                      initial: true,
+                    ),
+                    AutoRoute(
+                      path: 'invited',
+                      page: CInvitedRoute.page,
+                    ),
+                  ],
                 ),
               ],
             ),

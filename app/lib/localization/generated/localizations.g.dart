@@ -101,6 +101,12 @@ abstract class CAppL10n {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @changesPropagationBanner_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes will propagate to other users next time they open the app.'**
+  String get changesPropagationBanner_message;
+
   /// No description provided for @chestCreationDialog_createButton.
   ///
   /// In en, this message translates to:
@@ -251,12 +257,6 @@ abstract class CAppL10n {
   /// **'Edit the gem'**
   String get editGemPage_title_edit;
 
-  /// No description provided for @editPersonPage_banner_message.
-  ///
-  /// In en, this message translates to:
-  /// **'Changes will propagate to other users next time they open the app.'**
-  String get editPersonPage_banner_message;
-
   /// No description provided for @editPersonPage_dateOfBirthTile_title.
   ///
   /// In en, this message translates to:
@@ -377,6 +377,18 @@ abstract class CAppL10n {
   /// **'Name'**
   String get manageChestPage_chestNameTile_title;
 
+  /// No description provided for @manageChestPage_createInvitationDialog_hint_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get manageChestPage_createInvitationDialog_hint_email;
+
+  /// No description provided for @manageChestPage_createInvitationDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite someone'**
+  String get manageChestPage_createInvitationDialog_title;
+
   /// No description provided for @manageChestPage_editChestNameDialog_hint.
   ///
   /// In en, this message translates to:
@@ -388,6 +400,18 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Edit chest name'**
   String get manageChestPage_editChestNameDialog_title;
+
+  /// No description provided for @manageChestPage_tab_invited.
+  ///
+  /// In en, this message translates to:
+  /// **'Invited'**
+  String get manageChestPage_tab_invited;
+
+  /// No description provided for @manageChestPage_tab_members.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get manageChestPage_tab_members;
 
   /// No description provided for @manageChestPage_title.
   ///

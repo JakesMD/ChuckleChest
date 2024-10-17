@@ -12,6 +12,9 @@ class CAppL10nDe extends CAppL10n {
   String get cancel => 'Abbrechen';
 
   @override
+  String get changesPropagationBanner_message => 'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
+
+  @override
   String get chestCreationDialog_createButton => 'Erstellen';
 
   @override
@@ -89,9 +92,6 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_title_edit => 'Gemme bearbeiten';
 
   @override
-  String get editPersonPage_banner_message => 'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
-
-  @override
   String get editPersonPage_dateOfBirthTile_title => 'Geburtsdatum';
 
   @override
@@ -154,10 +154,22 @@ class CAppL10nDe extends CAppL10n {
   String get manageChestPage_chestNameTile_title => 'Name';
 
   @override
+  String get manageChestPage_createInvitationDialog_hint_email => 'E-Mail-Adresse';
+
+  @override
+  String get manageChestPage_createInvitationDialog_title => 'Jemanden Einladen';
+
+  @override
   String get manageChestPage_editChestNameDialog_hint => 'Name der Truhe';
 
   @override
   String get manageChestPage_editChestNameDialog_title => 'Name bearbeiten';
+
+  @override
+  String get manageChestPage_tab_invited => 'Eingeladen';
+
+  @override
+  String get manageChestPage_tab_members => 'Mitglieder';
 
   @override
   String get manageChestPage_title => 'Truhe verwalten';
