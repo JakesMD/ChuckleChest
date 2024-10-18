@@ -232,6 +232,12 @@ class CAppL10nDe extends CAppL10n {
   String get signinPage_disabledBanner => 'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
 
   @override
+  String get signinPage_disclaimer => 'Diese Anwendung ist ein PRIVATES und EXPERIMENTELLES Projekt, das nur für AUTORISIERTE Benutzer bestimmt ist. Durch den Zugriff auf und die Nutzung dieser Anwendung erkennen Sie an, dass Sie dies AUF EIGENE GEFAHR tun.\n\nKonten sollten nur mit der ausdrücklichen Genehmigung des Projektinhabers erstellt werden. Wir übernehmen keine Garantie für die Sicherheit, den Datenschutz oder die Integrität der über diese Anwendung übermittelten oder gesammelten Daten, noch können wir die Sicherheit Ihres Geräts während der Nutzung dieser Anwendung gewährleisten. Da es sich um ein experimentelles Projekt handelt, kann sich die Anwendung ohne Vorankündigung ändern oder nicht mehr funktionieren.\n\nDer Projektinhaber haftet nicht für Schäden oder Verluste, die durch die Nutzung dieser Anwendung entstehen.';
+
+  @override
+  String get signinPage_disclaimer_title => 'HAFTUNGSAUSSCHLUSS';
+
+  @override
   String get signinPage_error_emailRateLimitExceeded => 'Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuche es später erneut.';
 
   @override

@@ -104,6 +104,13 @@ class CSignupTab extends StatelessWidget implements AutoRouteWrapper {
                   ),
                 ),
                 const SizedBox(height: 64),
+                Text(
+                  context.cAppL10n.signinPage_disclaimer_title,
+                  style: context.cTextTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                Text(context.cAppL10n.signinPage_disclaimer),
+                const SizedBox(height: 64),
                 CSigninButton.signup(
                   isEnabled: false,
                   onPressed: _onSignupButtonPressed,
