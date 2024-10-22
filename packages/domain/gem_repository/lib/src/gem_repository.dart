@@ -72,14 +72,14 @@ class CGemRepository {
           )
           .thenEvaluateOnFailure(CGemSaveException.fromRaw);
 
-  /// Shares the gem with the given [gemID].
+  /// Shares the gem with the given [shareToken].
   BobsJob<CGemShareException, CGemShareMethod> shareGem({
-    required String gemID,
+    required String shareToken,
     required Rect sharePositionOrigin,
     required String Function(String link) message,
     required String subject,
   }) {
-    final link = 'https://jakesmd.github.io/ChuckleChest/#/gems/$gemID';
+    final link = 'https://app.chucklechest.app/#/shared-gem?token=$shareToken';
 
     if (platformClient.deviceType == CDeviceType.mobile ||
         platformClient.deviceType == CDeviceType.mobileWeb) {
@@ -117,5 +117,22 @@ class CGemRepository {
       gemClient.fetchGemFromShareToken(shareToken: shareToken).thenEvaluate(
             onFailure: CGemFetchFromShareTokenException.fromRaw,
             onSuccess: (result) => CSharedGem.fromRecords(result.$1, result.$2),
+          );
+
+  /// Creates a share token for the a gem.
+  BobsJob<CGemShareTokenCreationException, String> createGemShareToken({
+    required String chestID,
+    required String gemID,
+  }) =>
+      gemClient
+          .createGemShareToken(
+            record: CGemShareTokensTableInsert(
+              chestID: chestID,
+              gemID: gemID,
+            ),
+          )
+          .thenEvaluate(
+            onFailure: CGemShareTokenCreationException.fromRaw,
+            onSuccess: (success) => success.token,
           );
 }

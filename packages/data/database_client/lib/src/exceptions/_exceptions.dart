@@ -9,6 +9,7 @@ export 'gem_fetch.dart';
 export 'gem_fetch_from_share_token.dart';
 export 'gem_ids_fetch.dart';
 export 'gem_save.dart';
+export 'gem_share_link_insert.dart';
 export 'gem_years_fetch.dart';
 export 'invitation_accept.dart';
 export 'invitation_creation.dart';

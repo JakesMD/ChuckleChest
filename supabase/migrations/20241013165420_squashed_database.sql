@@ -208,6 +208,123 @@ BEGIN
 END;
 $function$;
 
+CREATE OR REPLACE FUNCTION public.fetch_collection_gem_from_share_token(share_token_param uuid, gem_id_param uuid)
+  RETURNS jsonb
+  LANGUAGE plpgsql
+  SECURITY DEFINER
+  AS $function$
+DECLARE
+  collection_id_var uuid;
+  result_var jsonb;
+BEGIN
+  SELECT
+    collection_id INTO collection_id_var
+  FROM
+    public.collection_share_tokens
+  WHERE
+    token = share_token_param
+  LIMIT 1;
+  IF EXISTS (
+    SELECT
+      1
+    FROM
+      public.collection_gems
+    WHERE
+      collection_id = collection_id_var
+      AND gem_id = gem_id_param) THEN
+  result_var := fetch_gem_with_people(gem_id_param);
+  RETURN result_var;
+END IF;
+  RAISE 'Permission denied. Share token not associated with the gem ID.';
+END;
+$function$;
+
+CREATE OR REPLACE FUNCTION public.fetch_collection_gem_ids_from_share_token(share_token_param uuid)
+  RETURNS SETOF uuid
+  LANGUAGE plpgsql
+  SECURITY DEFINER
+  AS $function$
+DECLARE
+  collection_id_var uuid;
+BEGIN
+  SELECT
+    collection_id INTO collection_id_var
+  FROM
+    public.collection_share_tokens
+  WHERE
+    token = share_token_param;
+  RETURN QUERY
+  SELECT
+    gem_id
+  FROM
+    public.collection_gems
+  WHERE
+    collection_id = collection_id_var;
+END;
+$function$;
+
+CREATE OR REPLACE FUNCTION public.fetch_gem_from_share_token(share_token_param uuid)
+  RETURNS jsonb
+  LANGUAGE plpgsql
+  SECURITY DEFINER
+  AS $function$
+DECLARE
+  gem_id_var uuid;
+  result_var jsonb;
+BEGIN
+  SELECT
+    gem_id INTO gem_id_var
+  FROM
+    public.gem_share_tokens
+  WHERE
+    token = share_token_param
+  LIMIT 1;
+  result_var := fetch_gem_with_people(gem_id_var);
+  RETURN result_var;
+END;
+$function$;
+
+CREATE OR REPLACE FUNCTION public.fetch_gem_with_people(gem_id_param uuid)
+  RETURNS jsonb
+  LANGUAGE plpgsql
+  AS $function$
+DECLARE
+  gem_data_var jsonb;
+  lines_data_var jsonb;
+  people_data_var jsonb;
+BEGIN
+  SELECT
+    row_to_json(g) INTO gem_data_var
+  FROM
+    public.gems g
+  WHERE
+    g.id = gem_id_param
+  LIMIT 1;
+  -- Fetch the lines associated with the gem
+  SELECT
+    jsonb_agg(DISTINCT l) FILTER (WHERE l.id IS NOT NULL) INTO lines_data_var
+  FROM
+    public.lines l
+  WHERE
+    l.gem_id = gem_id_param;
+  -- Fetch the people associated with the lines
+  SELECT
+    jsonb_agg(DISTINCT p) FILTER (WHERE p.id IS NOT NULL) INTO people_data_var
+  FROM
+    public.people p
+  WHERE
+    p.id IN (
+      SELECT
+        l.person_id
+      FROM
+        public.lines l
+      WHERE
+        l.gem_id = gem_id_param);
+  -- Combine gem_data, lines_data, and people_data into a single JSONB object
+  RETURN jsonb_build_object('gem', jsonb_set(gem_data_var, '{lines}', lines_data_var, TRUE), 'people', people_data_var);
+END;
+$function$;
+
 GRANT DELETE ON TABLE "public"."avatars" TO "anon";
 
 GRANT INSERT ON TABLE "public"."avatars" TO "anon";

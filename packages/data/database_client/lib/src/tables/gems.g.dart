@@ -55,6 +55,14 @@ class CGemsTableRecord extends SupaRecord<CGemsTableCore> {
   ///
   /// An InvalidType error here is often caused by a misspelling of the prefix in the @SupaTableJoinHere annotation.
   List<CLinesTableRecord> get lines => reference(CGemsTable.lines);
+
+  /// The token for sharing the gem.
+  ///
+  /// This will throw an exception if no joined columns were fetched.
+  ///
+  /// An InvalidType error here is often caused by a misspelling of the prefix in the @SupaTableJoinHere annotation.
+  CGemShareTokensTableRecord? get shareToken =>
+      referenceSingle(CGemsTable.shareToken);
 }
 
 /// {@template CGemsTableInsert}

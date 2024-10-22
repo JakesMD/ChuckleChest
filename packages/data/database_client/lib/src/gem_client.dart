@@ -9,13 +9,20 @@ import 'package:typesafe_supabase/typesafe_supabase.dart';
 /// {@endtemplate}
 class CGemClient {
   /// {@macro CGemClient}
-  const CGemClient({required this.gemsTable, required this.linesTable});
+  const CGemClient({
+    required this.gemsTable,
+    required this.linesTable,
+    required this.gemShareTokensTable,
+  });
 
   /// The table that represents the `gems` table in the database.
   final CGemsTable gemsTable;
 
   /// The table that represents the `lines` table in the database.
   final CLinesTable linesTable;
+
+  /// The table that represents the `gem_share_tokens` table in the database.
+  final CGemShareTokensTable gemShareTokensTable;
 
   /// Fetches the gem years for the given `chestID` from the database.
   BobsJob<CRawGemYearsFetchException, List<int>> fetchGemYears({
@@ -84,6 +91,7 @@ class CGemClient {
             CGemsTable.number,
             CGemsTable.occurredAt,
             CGemsTable.lines,
+            CGemsTable.shareToken({CGemShareTokensTable.token}),
           },
           filter: gemsTable.equal(CGemsTable.id(gemID)),
           modifier: gemsTable.limit(1).single(),
@@ -204,4 +212,18 @@ class CGemClient {
         },
         onError: CRawGemFetchFromShareTokenException.fromError,
       );
+
+  /// Creates a share link for the a gem.
+  ///
+  /// Inserts the given `record` into the `gem_share_tokens` table.
+  BobsJob<CRawGemShareTokenInsertException, CGemShareTokensTableRecord>
+      createGemShareToken({required CGemShareTokensTableInsert record}) =>
+          BobsJob.attempt(
+            run: () => gemShareTokensTable.insert(
+              records: [record],
+              columns: {CGemShareTokensTable.token},
+              modifier: gemShareTokensTable.limit(1).single(),
+            ),
+            onError: CRawGemShareTokenInsertException.fromError,
+          );
 }

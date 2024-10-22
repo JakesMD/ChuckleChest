@@ -11,3 +11,4 @@ export 'loading_button.dart';
 export 'loading_indicator.dart';
 export 'size_transition.dart';
 export 'staging_banner.dart';
+export 'wrapped_widget.dart';

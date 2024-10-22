@@ -27,7 +27,16 @@ class CAppL10nEn extends CAppL10n {
   String get close => 'Close';
 
   @override
-  String get collectionView_nowGemsTitle => 'No gems to show';
+  String get collectionView_noGemsTitle => 'No gems to show';
+
+  @override
+  String get collectionView_shareSheet_createLinkButton => 'Create a share link';
+
+  @override
+  String get collectionView_shareSheet_deleteLinkButton => 'Delete the link';
+
+  @override
+  String get collectionView_shareSheet_shareLinkButton => 'Share the link';
 
   @override
   String get collectionsPage_collection_random => 'Randomly selected';
@@ -43,6 +52,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get collectionsPage_section_title_years => 'Jump to year';
+
+  @override
+  String get copiedToClipboard => 'Copied to clipboard.';
 
   @override
   String get delete => 'Delete';

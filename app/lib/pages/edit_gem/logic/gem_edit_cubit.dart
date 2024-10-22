@@ -39,6 +39,7 @@ class CGemEditCubit extends Cubit<CGemEditState> {
                   occurredAt: DateTime.now(),
                   lines: [],
                   chestID: chestID,
+                  shareToken: null,
                 ),
             deletedLines: [],
           ),

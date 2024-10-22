@@ -131,11 +131,29 @@ abstract class CAppL10n {
   /// **'Close'**
   String get close;
 
-  /// No description provided for @collectionView_nowGemsTitle.
+  /// No description provided for @collectionView_noGemsTitle.
   ///
   /// In en, this message translates to:
   /// **'No gems to show'**
-  String get collectionView_nowGemsTitle;
+  String get collectionView_noGemsTitle;
+
+  /// No description provided for @collectionView_shareSheet_createLinkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a share link'**
+  String get collectionView_shareSheet_createLinkButton;
+
+  /// No description provided for @collectionView_shareSheet_deleteLinkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the link'**
+  String get collectionView_shareSheet_deleteLinkButton;
+
+  /// No description provided for @collectionView_shareSheet_shareLinkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Share the link'**
+  String get collectionView_shareSheet_shareLinkButton;
 
   /// No description provided for @collectionsPage_collection_random.
   ///
@@ -166,6 +184,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Jump to year'**
   String get collectionsPage_section_title_years;
+
+  /// No description provided for @copiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard.'**
+  String get copiedToClipboard;
 
   /// No description provided for @delete.
   ///

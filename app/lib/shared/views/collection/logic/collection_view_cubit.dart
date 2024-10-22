@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -76,9 +77,21 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
     if (state.gems.elementAt(index).$2 == null) onNewGem(gemTokens[index]);
   }
 
+  /// Updates the gem at the current index with the share token.
+  void onShareTokenCreated(String gemID, String token) {
+    final index = state.gems.indexWhere((record) => record.$2?.id == gemID);
+    final record = state.gems.removeAt(index);
+    state.gems.insert(
+      index,
+      (record.$1, record.$2?.copyWith(shareToken: bobsPresent(token))),
+    );
+
+    emit(state.copyWith(gems: state.gems));
+  }
+
   /// Updates the gem at the current index with the edited gem.
   void onGemEdited(CGem gem) {
-    final index = state.gems.indexWhere((record) => record.$1 == gem.id);
+    final index = state.gems.indexWhere((record) => record.$2?.id == gem.id);
     final record = state.gems.removeAt(index);
     state.gems.insert(state.currentIndex, (record.$1, gem));
 

@@ -572,10 +572,10 @@ packages:
     dependency: transitive
     description:
       name: typesafe_supabase
-      sha256: "978ec8de3f0208bc5fb3e6c6a5f1142083500a5e351a4e5d7a395e4d1af25a1f"
+      sha256: "5a042724eb148079d7db0d7e32ff3024e43038849bee30b1f73703c62014e015"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.18"
+    version: "0.0.1-dev.19"
   vector_math:
     dependency: transitive
     description:

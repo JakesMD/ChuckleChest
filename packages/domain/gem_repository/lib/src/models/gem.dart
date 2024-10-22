@@ -1,3 +1,4 @@
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/src/models/_models.dart';
 import 'package:equatable/equatable.dart';
@@ -15,6 +16,7 @@ class CGem with EquatableMixin {
     required this.occurredAt,
     required this.lines,
     required this.chestID,
+    required this.shareToken,
   });
 
   /// {@macro CGem}
@@ -23,12 +25,21 @@ class CGem with EquatableMixin {
   factory CGem.fromRecord(CGemsTableRecord record) {
     final sortedRawLines = record.lines..sort((a, b) => a.id.compareTo(b.id));
 
+    String? shareToken;
+
+    try {
+      shareToken = record.shareToken?.token;
+    } on SupaException catch (_) {
+      shareToken = null;
+    }
+
     return CGem(
       id: record.id,
       number: record.number,
       occurredAt: record.occurredAt,
       lines: sortedRawLines.map(CLine.fromRecord).toList(),
       chestID: record.chestID,
+      shareToken: shareToken,
     );
   }
 
@@ -47,15 +58,23 @@ class CGem with EquatableMixin {
   /// The unique identifier of the chest the gem belongs to.
   final String chestID;
 
+  /// The token for sharing the gem.
+  final String? shareToken;
+
   /// {@macro CGem}
   ///
   /// Returns a new [CGem] with the given fields replaced.
-  CGem copyWith({DateTime? occurredAt}) => CGem(
+  CGem copyWith({DateTime? occurredAt, BobsMaybe<String>? shareToken}) => CGem(
         id: id,
         number: number,
         occurredAt: occurredAt ?? this.occurredAt,
         lines: [...lines],
         chestID: chestID,
+        shareToken: shareToken?.evaluate(
+              onPresent: (p) => p,
+              onAbsent: () => this.shareToken,
+            ) ??
+            this.shareToken,
       );
 
   /// Converts the gem to a [CGemsTableInsert].
@@ -67,5 +86,12 @@ class CGem with EquatableMixin {
       );
 
   @override
-  List<Object?> get props => [id, number, occurredAt, lines, chestID];
+  List<Object?> get props => [
+        id,
+        number,
+        occurredAt,
+        lines,
+        chestID,
+        shareToken,
+      ];
 }

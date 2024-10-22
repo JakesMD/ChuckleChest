@@ -65,16 +65,12 @@ INSERT INTO role_permissions(ROLE, permission)
 ('collaborator', 'gem_share_tokens.insert'),
 ('owner', 'gem_share_tokens.select'),
 ('collaborator', 'gem_share_tokens.select'),
-('owner', 'gem_share_tokens.update'),
-('collaborator', 'gem_share_tokens.update'),
 ('owner', 'gem_share_tokens.delete'),
 ('collaborator', 'gem_share_tokens.delete'),
 ('owner', 'collection_share_tokens.insert'),
 ('collaborator', 'collection_share_tokens.insert'),
 ('owner', 'collection_share_tokens.select'),
 ('collaborator', 'collection_share_tokens.select'),
-('owner', 'collection_share_tokens.update'),
-('collaborator', 'collection_share_tokens.update'),
 ('owner', 'collection_share_tokens.delete'),
 ('collaborator', 'collection_share_tokens.delete');
 

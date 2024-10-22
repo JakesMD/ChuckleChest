@@ -16,6 +16,7 @@ class CSharedGem extends CGem {
     required super.occurredAt,
     required super.lines,
     required super.chestID,
+    required super.shareToken,
     required this.people,
   });
 
@@ -36,6 +37,7 @@ class CSharedGem extends CGem {
       occurredAt: gem.occurredAt,
       lines: gem.lines,
       chestID: gem.chestID,
+      shareToken: gem.shareToken,
       people: people,
     );
   }

@@ -72,6 +72,8 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
     final avatarsTable = CAvatarsTable(supabaseClient: supabaseClient);
     final invitationsTable = CInvitationsTable(supabaseClient: supabaseClient);
     final userRolesTable = CUserRolesTable(supabaseClient: supabaseClient);
+    final gemShareTokensTable =
+        CGemShareTokensTable(supabaseClient: supabaseClient);
 
     platformClient = CPlatformClient();
     authClient = CAuthClient(authClient: supabaseClient.auth);
@@ -80,7 +82,11 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
       invitationsTable: invitationsTable,
       userRolesTable: userRolesTable,
     );
-    gemClient = CGemClient(gemsTable: gemsTable, linesTable: linesTable);
+    gemClient = CGemClient(
+      gemsTable: gemsTable,
+      linesTable: linesTable,
+      gemShareTokensTable: gemShareTokensTable,
+    );
     personClient = CPersonClient(
       peopleTable: peopleTable,
       avatarsTable: avatarsTable,
