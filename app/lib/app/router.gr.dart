@@ -184,6 +184,16 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CSettingsPage()),
       );
     },
+    CSharedGemRoute.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<CSharedGemRouteArgs>(
+          orElse: () =>
+              CSharedGemRouteArgs(shareToken: queryParams.optString('token')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: CSharedGemPage(shareToken: args.shareToken)),
+      );
+    },
     CSigninRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -676,6 +686,36 @@ class CSettingsRoute extends PageRouteInfo<void> {
   static const String name = 'CSettingsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CSharedGemPage]
+class CSharedGemRoute extends PageRouteInfo<CSharedGemRouteArgs> {
+  CSharedGemRoute({
+    required String? shareToken,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CSharedGemRoute.name,
+          args: CSharedGemRouteArgs(shareToken: shareToken),
+          rawQueryParams: {'token': shareToken},
+          initialChildren: children,
+        );
+
+  static const String name = 'CSharedGemRoute';
+
+  static const PageInfo<CSharedGemRouteArgs> page =
+      PageInfo<CSharedGemRouteArgs>(name);
+}
+
+class CSharedGemRouteArgs {
+  const CSharedGemRouteArgs({required this.shareToken});
+
+  final String? shareToken;
+
+  @override
+  String toString() {
+    return 'CSharedGemRouteArgs{shareToken: $shareToken}';
+  }
 }
 
 /// generated route for

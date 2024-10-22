@@ -181,4 +181,27 @@ class CGemClient {
         },
         onError: CRawRandomGemIDsFetchException.fromError,
       );
+
+  /// Fetches the gem with the given `shareToken` from the database.
+  BobsJob<CRawGemFetchFromShareTokenException,
+      (CGemsTableRecord, List<CPeopleTableRecord>)> fetchGemFromShareToken({
+    required String shareToken,
+  }) =>
+      BobsJob.attempt(
+        run: () async {
+          final response =
+              await gemsTable.supabaseClient.rpc<Map<String, dynamic>>(
+            'fetch_gem_from_share_token',
+            params: {'share_token_param': shareToken},
+          );
+
+          return (
+            CGemsTableRecord(response['gem'] as Map<String, dynamic>),
+            List.castFrom<dynamic, Map<String, dynamic>>(
+              response['people'] as List<dynamic>,
+            ).map(CPeopleTableRecord.new).toList(),
+          );
+        },
+        onError: CRawGemFetchFromShareTokenException.fromError,
+      );
 }

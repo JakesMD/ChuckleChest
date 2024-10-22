@@ -11,15 +11,46 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CCollectionView}
 ///
-/// The view that fetches and displays the gems with the given [gemIDs].
+/// The view that fetches and displays the gems with the given [gemTokens].
+///
+/// It MUST be disconnected from all authentication and authorization logic
+/// because it can be used by non authenticated users viewing shared gems.
 ///
 /// {@endtemplate}
-class CCollectionView extends StatelessWidget {
+class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
+    O> extends StatelessWidget {
   /// {@macro CCollectionView}
-  const CCollectionView({required this.gemIDs, super.key});
+  const CCollectionView({
+    required this.gemTokens,
+    required this.userRole,
+    required this.gemFromState,
+    required this.gemTokenFromState,
+    required this.onFetchFailed,
+    required this.triggerFetchGem,
+    super.key,
+  });
 
   /// The IDs of the gems to display.
-  final List<String> gemIDs;
+  ///
+  /// This can also be the token of a shared gem.
+  final List<String> gemTokens;
+
+  /// The role of the user viewing the gems.
+  ///
+  /// If the user is not authenticated, this should be [CUserRole.viewer].
+  final CUserRole userRole;
+
+  /// The function to extract the gem from the state.
+  final CGem Function(S state) gemFromState;
+
+  /// The function to extract the gem token from the state.
+  final String Function(S state) gemTokenFromState;
+
+  /// The function to call when the fetch fails.
+  final void Function(F failure) onFetchFailed;
+
+  /// The function to call to fetch the gem with the given token.
+  final void Function(BuildContext context, String token) triggerFetchGem;
 
   void _onPageChanged(BuildContext context, int index) =>
       context.read<CCollectionViewCubit>().onPageChanged(index);
@@ -38,10 +69,7 @@ class CCollectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isViewer =
-        context.read<CCurrentChestCubit>().state.userRole == CUserRole.viewer;
-
-    if (gemIDs.isEmpty) {
+    if (gemTokens.isEmpty) {
       return Scaffold(
         appBar: CAppBar(
           context: context,
@@ -51,24 +79,18 @@ class CCollectionView extends StatelessWidget {
     }
     return BlocProvider(
       create: (context) => CCollectionViewCubit(
-        gemIDs: gemIDs,
-        onNewGem: (gemID) =>
-            context.read<CGemFetchCubit>().fetchGem(gemID: gemID),
+        gemTokens: gemTokens,
+        onNewGem: (token) => triggerFetchGem(context, token),
       ),
       child: Builder(
-        builder: (context) => BlocListener<CGemFetchCubit, CGemFetchState>(
+        builder: (context) => BlocListener<C, S>(
           listener: (context, state) => switch (state.status) {
             CRequestCubitStatus.initial => null,
             CRequestCubitStatus.inProgress => null,
-            CRequestCubitStatus.failed => switch (state.failure) {
-                CGemFetchException.notFound =>
-                  const CErrorSnackBar(message: "We couldn't find that gem.")
-                      .show(context),
-                CGemFetchException.unknown =>
-                  const CErrorSnackBar().show(context),
-              },
-            CRequestCubitStatus.succeeded =>
-              context.read<CCollectionViewCubit>().onGemFetched(state.gem),
+            CRequestCubitStatus.failed => onFetchFailed(state.failure),
+            CRequestCubitStatus.succeeded => context
+                .read<CCollectionViewCubit>()
+                .onGemFetched(gemFromState(state), gemTokenFromState(state)),
           },
           child: Scaffold(
             appBar: CAppBar(
@@ -77,7 +99,7 @@ class CCollectionView extends StatelessWidget {
                 builder: (context, state) => Text(state.appBarTitle),
               ),
               actions: [
-                if (!isViewer)
+                if (userRole != CUserRole.viewer)
                   BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
                     builder: (context, state) => state.canEdit
                         ? IconButton(
@@ -90,10 +112,10 @@ class CCollectionView extends StatelessWidget {
             ),
             body: PageView.builder(
               onPageChanged: (index) => _onPageChanged(context, index),
-              itemCount: gemIDs.length,
-              itemBuilder: (context, index) =>
-                  BlocBuilder<CGemFetchCubit, CGemFetchState>(
-                buildWhen: (_, state) => state.gemID == gemIDs[index],
+              itemCount: gemTokens.length,
+              itemBuilder: (context, index) => BlocBuilder<C, S>(
+                buildWhen: (_, state) =>
+                    gemTokenFromState(state) == gemTokens[index],
                 builder: (context, fetchState) => switch (fetchState.status) {
                   CRequestCubitStatus.initial =>
                     const Center(child: CCradleLoadingIndicator()),
@@ -104,7 +126,7 @@ class CCollectionView extends StatelessWidget {
                   CRequestCubitStatus.succeeded =>
                     BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
                       buildWhen: (_, state) =>
-                          state.currentGem?.id == fetchState.gemID,
+                          state.currentGem?.id == gemFromState(fetchState).id,
                       builder: (context, state) => state.currentGem != null
                           ? CAnimatedGem(gem: state.currentGem!)
                           : const SizedBox(),

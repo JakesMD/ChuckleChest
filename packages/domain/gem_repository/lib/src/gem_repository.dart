@@ -109,4 +109,13 @@ class CGemRepository {
       gemClient
           .fetchRandomGemIDs(chestID: chestID, limit: 20)
           .thenEvaluateOnFailure(CRandomGemIDsFetchException.fromRaw);
+
+  /// Fetches the gem associated with the given [shareToken].
+  BobsJob<CGemFetchFromShareTokenException, CSharedGem> fetchGemFromShareToken({
+    required String shareToken,
+  }) =>
+      gemClient.fetchGemFromShareToken(shareToken: shareToken).thenEvaluate(
+            onFailure: CGemFetchFromShareTokenException.fromRaw,
+            onSuccess: (result) => CSharedGem.fromRecords(result.$1, result.$2),
+          );
 }

@@ -49,11 +49,12 @@ class CCollectionViewState {
 /// {@endtemplate}
 class CCollectionViewCubit extends Cubit<CCollectionViewState> {
   /// {@macro CCollectionViewCubit}
-  CCollectionViewCubit({required this.gemIDs, required this.onNewGem})
+  CCollectionViewCubit({required this.gemTokens, required this.onNewGem})
       : super(
           CCollectionViewState(
-            gems:
-                gemIDs.map<(String, CGem?)>((gemID) => (gemID, null)).toList(),
+            gems: gemTokens
+                .map<(String, CGem?)>((token) => (token, null))
+                .toList(),
             currentIndex: 0,
           ),
         ) {
@@ -61,7 +62,9 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
   }
 
   /// The IDs of the gems to display.
-  final List<String> gemIDs;
+  ///
+  /// This can also be the share token of a shared gem.
+  final List<String> gemTokens;
 
   /// Callback to call when a new gem is displayed.
   final void Function(String gemID) onNewGem;
@@ -70,7 +73,7 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
   void onPageChanged(int index) {
     emit(state.copyWith(currentIndex: index));
 
-    if (state.gems.elementAt(index).$2 == null) onNewGem(gemIDs[index]);
+    if (state.gems.elementAt(index).$2 == null) onNewGem(gemTokens[index]);
   }
 
   /// Updates the gem at the current index with the edited gem.
@@ -83,8 +86,8 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
   }
 
   /// Adds the fetched gem to the visited gems.
-  void onGemFetched(CGem gem) {
-    final index = state.gems.indexWhere((record) => record.$1 == gem.id);
+  void onGemFetched(CGem gem, String token) {
+    final index = state.gems.indexWhere((record) => record.$1 == token);
     final record = state.gems.removeAt(index);
     state.gems.insert(state.currentIndex, (record.$1, gem));
 
