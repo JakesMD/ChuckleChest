@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,23 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
 
     return Theme(
       data: Theme.of(context).copyWith(colorScheme: colorScheme),
-      child: Scaffold(body: CCollectionView(gemIDs: [gemID])),
+      child: Scaffold(
+        body: CCollectionView<CGemFetchCubit, CGemFetchState,
+            CGemFetchException, CGem>(
+          gemTokens: [gemID],
+          userRole: context.read<CCurrentChestCubit>().state.userRole,
+          gemFromState: (state) => state.gem,
+          gemTokenFromState: (state) => state.gemID,
+          triggerFetchGem: (context, token) =>
+              context.read<CGemFetchCubit>().fetchGem(gemID: token),
+          onFetchFailed: (failure) => switch (failure) {
+            CGemFetchException.notFound =>
+              const CErrorSnackBar(message: "We couldn't find that gem.")
+                  .show(context),
+            CGemFetchException.unknown => const CErrorSnackBar().show(context),
+          },
+        ),
+      ),
     );
   }
 }

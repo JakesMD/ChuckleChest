@@ -6,7 +6,6 @@ import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CAnimatedLine}
 ///
@@ -18,6 +17,7 @@ class CAnimatedLine extends StatelessWidget {
   const CAnimatedLine({
     required this.line,
     required this.occurredAt,
+    required this.people,
     this.onPressed,
     this.onDeletePressed,
     this.isDeleteEnabled = false,
@@ -28,6 +28,9 @@ class CAnimatedLine extends StatelessWidget {
 
   /// The line to display.
   final CLine line;
+
+  /// The people in the conversation.
+  final List<CPerson> people;
 
   /// The date the line occurred.
   final DateTime occurredAt;
@@ -52,8 +55,7 @@ class CAnimatedLine extends StatelessWidget {
     CPerson? person;
 
     if (line.isQuote) {
-      person =
-          context.read<CChestPeopleFetchCubit>().fetchPerson(line.personID!);
+      person = people.cFirstWhereOrNull((p) => p.id == line.personID!);
     }
 
     return CFadeIn(

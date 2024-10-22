@@ -2,9 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/shared/physics/auto_scrolling.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CAnimatedGem}
 ///
@@ -68,6 +69,14 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
 
   @override
   Widget build(BuildContext context) {
+    final people = <CPerson>[];
+
+    if (widget.gem is CSharedGem) {
+      people.addAll((widget.gem as CSharedGem).people);
+    } else {
+      people.addAll(context.read<CChestPeopleFetchCubit>().state.people);
+    }
+
     final lines = widget.gem.lines.isNotEmpty
         ? widget.gem.lines.sublist(0, currentLineIndex + 1)
         : <CLine>[];
@@ -99,6 +108,7 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
                   .map(
                     (line) => CAnimatedLine(
                       line: line,
+                      people: people,
                       occurredAt: widget.gem.occurredAt,
                       onAnimationCompleted: onLineAnimationCompleted,
                     ),

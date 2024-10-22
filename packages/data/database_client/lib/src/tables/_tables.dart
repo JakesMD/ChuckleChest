@@ -1,5 +1,6 @@
 export 'avatars.dart';
 export 'chests.dart';
+export 'gem_share_tokens.dart';
 export 'gems.dart';
 export 'invitations.dart';
 export 'lines.dart';

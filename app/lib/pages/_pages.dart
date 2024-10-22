@@ -15,5 +15,6 @@ export 'people/page.dart';
 export 'random_collection/page.dart';
 export 'recents_collection/page.dart';
 export 'settings/page.dart';
+export 'shared_gem/page.dart';
 export 'signin/page.dart';
 export 'year_collection/page.dart';

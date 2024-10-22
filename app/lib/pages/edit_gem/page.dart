@@ -75,6 +75,8 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    final people = context.read<CChestPeopleFetchCubit>().state.people;
+
     return BlocListener<CGemSaveCubit, CGemSaveState>(
       listener: (context, state) => switch (state.status) {
         CRequestCubitStatus.initial => null,
@@ -106,6 +108,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
                 state.gem.lines.length,
                 (index) => CAnimatedLine(
                   line: state.gem.lines[index],
+                  people: people,
                   occurredAt: state.gem.occurredAt,
                   isDeleteEnabled: index == state.gem.lines.length - 1,
                   isAnimated: false,

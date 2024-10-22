@@ -60,5 +60,17 @@ INSERT INTO role_permissions(ROLE, permission)
 ('owner', 'invitations.update'),
 ('owner', 'invitations.delete'),
 ('owner', 'user_roles.select'),
-('owner', 'user_roles.update');
+('owner', 'user_roles.update'),
+('owner', 'gem_share_tokens.insert'),
+('collaborator', 'gem_share_tokens.insert'),
+('owner', 'gem_share_tokens.select'),
+('collaborator', 'gem_share_tokens.select'),
+('owner', 'gem_share_tokens.delete'),
+('collaborator', 'gem_share_tokens.delete'),
+('owner', 'collection_share_tokens.insert'),
+('collaborator', 'collection_share_tokens.insert'),
+('owner', 'collection_share_tokens.select'),
+('collaborator', 'collection_share_tokens.select'),
+('owner', 'collection_share_tokens.delete'),
+('collaborator', 'collection_share_tokens.delete');
 

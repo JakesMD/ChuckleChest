@@ -31,6 +31,10 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
+          path: '/shared-gem',
+          page: CSharedGemRoute.page,
+        ),
+        AutoRoute(
           path: '/',
           page: CBaseRoute.page,
           initial: true,

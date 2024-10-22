@@ -27,7 +27,16 @@ class CAppL10nDe extends CAppL10n {
   String get close => 'Schließen';
 
   @override
-  String get collectionView_nowGemsTitle => 'Keine Gemme zu zeigen';
+  String get collectionView_noGemsTitle => 'Keine Gemme zu zeigen';
+
+  @override
+  String get collectionView_shareSheet_createLinkButton => 'Link erstellen';
+
+  @override
+  String get collectionView_shareSheet_deleteLinkButton => 'Link löschen';
+
+  @override
+  String get collectionView_shareSheet_shareLinkButton => 'Link teilen';
 
   @override
   String get collectionsPage_collection_random => 'Zufällig ausgewählt';
@@ -43,6 +52,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get collectionsPage_section_title_years => 'Springe zu Jahr';
+
+  @override
+  String get copiedToClipboard => 'In die Zwischenablage kopiert.';
 
   @override
   String get delete => 'Löschen';
