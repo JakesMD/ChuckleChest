@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/pages/random_collection/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,22 @@ class CRandomCollectionPage extends StatelessWidget
             const Center(child: CCradleLoadingIndicator()),
           CRequestCubitStatus.failed =>
             const Center(child: Icon(Icons.error_rounded)),
-          CRequestCubitStatus.succeeded => CCollectionView(gemIDs: state.ids),
+          CRequestCubitStatus.succeeded => CCollectionView<CGemFetchCubit,
+                CGemFetchState, CGemFetchException, CGem>(
+              gemTokens: state.ids,
+              userRole: context.read<CCurrentChestCubit>().state.userRole,
+              gemFromState: (state) => state.gem,
+              gemTokenFromState: (state) => state.gemID,
+              triggerFetchGem: (context, token) =>
+                  context.read<CGemFetchCubit>().fetchGem(gemID: token),
+              onFetchFailed: (failure) => switch (failure) {
+                CGemFetchException.notFound =>
+                  const CErrorSnackBar(message: "We couldn't find that gem.")
+                      .show(context),
+                CGemFetchException.unknown =>
+                  const CErrorSnackBar().show(context),
+              },
+            ),
         },
       ),
     );

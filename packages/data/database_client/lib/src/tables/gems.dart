@@ -55,4 +55,19 @@ class CGemsTable extends SupaTable<CGemsTableCore, CGemsTableRecord> {
   static const chestID = SupaColumn<CGemsTableCore, String, String>(
     name: 'chest_id',
   );
+
+  /// The token for sharing the gem.
+  @SupaTableJoinHere(
+    'CGemShareTokensTable',
+    'gem_share_tokens',
+    SupaJoinType.oneToOne,
+  )
+  static final shareToken =
+      SupaTableJoin<CGemsTableCore, CGemShareTokensTableCore>(
+    tableName: 'gem_share_tokens',
+    joiningColumn: CGemsTable.id,
+    record: CGemShareTokensTableRecord.new,
+    joinType: SupaJoinType.oneToOne,
+    foreignKey: 'gem_share_tokens_gem_id_fkey',
+  );
 }

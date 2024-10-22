@@ -7,6 +7,7 @@ dependencies:
   bobs_jobs: ^0.0.1-dev.4
   ccore:
   cdatabase_client:
+  cperson_repository: # Only used for the CPerson model.
   cplatform_client:
   equatable: ^2.0.5
 
