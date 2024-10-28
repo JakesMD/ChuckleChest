@@ -6,6 +6,7 @@ import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/home/logic/_logic.dart';
 import 'package:chuckle_chest/pages/home/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,14 +42,22 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
             CRequestCubitStatus.initial => null,
             CRequestCubitStatus.inProgress => null,
             CRequestCubitStatus.failed => const CErrorSnackBar().show(context),
-            CRequestCubitStatus.succeeded => context.router.push(
-                CEditPersonRoute(person: state.person, isPersonNew: true),
-              ),
+            CRequestCubitStatus.succeeded =>
+              _onPersonCreated(context, state.person)
           },
           child: this,
         ),
       ),
     );
+  }
+
+  Future<void> _onPersonCreated(BuildContext context, CPerson person) async {
+    final cubit = context.read<CChestPeopleFetchCubit>();
+    final result = await context.router.push(
+      CEditPersonRoute(person: person, isPersonNew: true),
+    );
+
+    if (result != null) cubit.updatePerson(person: result as CPerson);
   }
 
   void _onChestSelected(BuildContext context, CAuthUserChest chest) =>
