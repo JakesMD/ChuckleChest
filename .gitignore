@@ -31,6 +31,7 @@ app/.vscode/settings.json
 **/.packages
 **/.pub-cache/
 **/.pub/
+**/pubspec.lock
 **/build/
 app/lib/secrets.g.dart
 app/analysis_options.yaml
