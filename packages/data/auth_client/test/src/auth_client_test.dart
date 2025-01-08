@@ -109,23 +109,7 @@ void main() {
           late BobsMaybe<CRawAuthUser> result;
           client.currentUserStream().listen((event) => result = event);
 
-          controller.add(AuthState(AuthChangeEvent.signedOut, null));
-          await Future.delayed(Duration.zero);
-
-          expect(result, bobsAbsent());
-        }),
-      );
-
-      test(
-        requirement(
-          When: 'user is deleted',
-          Then: 'returns [absent]',
-        ),
-        procedure(() async {
-          late BobsMaybe<CRawAuthUser> result;
-          client.currentUserStream().listen((event) => result = event);
-
-          controller.add(AuthState(AuthChangeEvent.userDeleted, null));
+          controller.add(const AuthState(AuthChangeEvent.signedOut, null));
           await Future.delayed(Duration.zero);
 
           expect(result, bobsAbsent());

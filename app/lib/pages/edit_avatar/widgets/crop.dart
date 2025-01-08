@@ -35,7 +35,7 @@ class CEditAvatarPageCrop extends StatelessWidget {
       builder: (context, state) => switch (state.status) {
         CRequestCubitStatus.initial => const SizedBox(),
         CRequestCubitStatus.inProgress => ColoredBox(
-            color: Colors.white.withOpacity(0.75),
+            color: Colors.white.withValues(alpha: 0.75),
             child: const Center(child: CCradleLoadingIndicator()),
           ),
         CRequestCubitStatus.failed => const SizedBox(),
