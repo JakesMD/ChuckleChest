@@ -7,4 +7,4 @@ runs:
   steps:
     - name: 🏗️ Build Staging App
       shell: bash
-      run: melos build_staging -- --dart-define SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
+      run: melos build_staging -- --dart-define=SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}

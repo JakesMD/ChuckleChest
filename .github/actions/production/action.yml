@@ -7,7 +7,7 @@ runs:
   steps:
     - name: 🏗️ Build Production App
       shell: bash
-      run: melos build_production -- --dart-define SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} --dart-define SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
+      run: melos build_production -- --dart-define=SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} --dart-define=SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
 
     - name: 🔧 Setup GitHub Pages
       uses: actions/configure-pages@v5
