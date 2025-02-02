@@ -2,7 +2,6 @@ import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CInvitationCreationState}
@@ -65,14 +64,13 @@ class CInvitationCreationCubit extends Cubit<CInvitationCreationState> {
       chestID: chestID,
     );
 
-    final result = await chestRepository
-        .createInvitation(invitation: invitation)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await chestRepository.createInvitation(invitation: invitation).run();
 
     emit(
       CInvitationCreationState.completed(
         outcome: result,
-        invitation: result.evaluate(
+        invitation: result.resolve(
           onFailure: (f) => bobsAbsent(),
           onSuccess: (_) => bobsPresent(invitation),
         ),

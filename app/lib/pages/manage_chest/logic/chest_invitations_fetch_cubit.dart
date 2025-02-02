@@ -1,6 +1,5 @@
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CChestInvitationsFetchState}
@@ -61,14 +60,13 @@ class CChestInvitationsFetchCubit extends Cubit<CChestInvitationsFetchState> {
   Future<void> fetchChestInvitations() async {
     emit(CChestInvitationsFetchState.inProgress());
 
-    final result = await chestRepository
-        .fetchChestInvitations(chestID: chestID)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await chestRepository.fetchChestInvitations(chestID: chestID).run();
 
     emit(
       CChestInvitationsFetchState.completed(
         outcome: result,
-        invitations: result.evaluate(onFailure: (f) => [], onSuccess: (i) => i),
+        invitations: result.resolve(onFailure: (f) => [], onSuccess: (i) => i),
       ),
     );
   }

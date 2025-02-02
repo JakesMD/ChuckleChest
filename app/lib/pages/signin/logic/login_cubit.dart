@@ -1,7 +1,6 @@
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CLoginState}
@@ -53,9 +52,7 @@ class CLoginCubit extends Cubit<CLoginState> {
   Future<void> logIn({required String email}) async {
     emit(CLoginState.inProgress());
 
-    final result = await authRepository
-        .logInWithOTP(email: email)
-        .run(isDebugMode: kDebugMode);
+    final result = await authRepository.logInWithOTP(email: email).run();
 
     emit(CLoginState.completed(outcome: result, email: email));
   }

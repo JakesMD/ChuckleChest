@@ -190,7 +190,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -204,7 +204,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawLoginException.unknown);
+          expectBobsFailure(result, CRawLoginException.unknown);
         }),
       );
 
@@ -219,7 +219,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawLoginException.userNotFound);
+          expectBobsFailure(result, CRawLoginException.userNotFound);
         }),
       );
 
@@ -234,7 +234,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawLoginException.emailRateLimitExceeded);
+          expectBobsFailure(result, CRawLoginException.emailRateLimitExceeded);
         }),
       );
 
@@ -248,7 +248,7 @@ void main() {
 
           final result = await logInWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawLoginException.unknown);
+          expectBobsFailure(result, CRawLoginException.unknown);
         }),
       );
     });
@@ -279,7 +279,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -293,7 +293,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawSignupException.unknown);
+          expectBobsFailure(result, CRawSignupException.unknown);
         }),
       );
 
@@ -308,7 +308,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawSignupException.emailRateLimitExceeded);
+          expectBobsFailure(result, CRawSignupException.emailRateLimitExceeded);
         }),
       );
 
@@ -322,7 +322,7 @@ void main() {
 
           final result = await signUpWithOTPJob.run();
 
-          bobsExpectFailure(result, CRawSignupException.unknown);
+          expectBobsFailure(result, CRawSignupException.unknown);
         }),
       );
     });
@@ -350,7 +350,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -366,7 +366,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          bobsExpectFailure(result, CRawOTPVerificationException.invalidToken);
+          expectBobsFailure(result, CRawOTPVerificationException.invalidToken);
         }),
       );
 
@@ -380,7 +380,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          bobsExpectFailure(result, CRawOTPVerificationException.unknown);
+          expectBobsFailure(result, CRawOTPVerificationException.unknown);
         }),
       );
 
@@ -394,7 +394,7 @@ void main() {
 
           final result = await verifyOTPJob.run();
 
-          bobsExpectFailure(result, CRawOTPVerificationException.unknown);
+          expectBobsFailure(result, CRawOTPVerificationException.unknown);
         }),
       );
     });
@@ -414,7 +414,7 @@ void main() {
 
           final result = await signOutJob.run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -429,7 +429,7 @@ void main() {
 
           final result = await signOutJob.run();
 
-          bobsExpectFailure(result, CRawSignoutException.unknown);
+          expectBobsFailure(result, CRawSignoutException.unknown);
         }),
       );
     });
@@ -453,7 +453,7 @@ void main() {
 
           final result = await updateUserJob.run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -467,7 +467,7 @@ void main() {
 
           final result = await updateUserJob.run();
 
-          bobsExpectFailure(result, CRawAuthUserUpdateException.unknown);
+          expectBobsFailure(result, CRawAuthUserUpdateException.unknown);
         }),
       );
     });
@@ -489,7 +489,7 @@ void main() {
 
           final result = await refreshSessionJob.run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -503,7 +503,7 @@ void main() {
 
           final result = await refreshSessionJob.run();
 
-          bobsExpectFailure(result, CRawSessionRefreshException.unknown);
+          expectBobsFailure(result, CRawSessionRefreshException.unknown);
         }),
       );
     });

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemFetchState}
@@ -55,8 +54,7 @@ class CGemFetchCubit extends Cubit<CGemFetchState> {
   Future<void> fetchGem({required String gemID}) async {
     emit(CGemFetchState.inProgress(gemID: gemID));
 
-    final result =
-        await gemRepository.fetchGem(gemID: gemID).run(isDebugMode: kDebugMode);
+    final result = await gemRepository.fetchGem(gemID: gemID).run();
 
     emit(CGemFetchState.completed(outcome: result, gemID: gemID));
   }

@@ -2,7 +2,6 @@ import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CMemberRoleUpdateState}
@@ -60,12 +59,12 @@ class CMemberRoleUpdateCubit extends Cubit<CMemberRoleUpdateState> {
 
     final result = await chestRepository
         .updateMemberRole(member: member, role: role)
-        .run(isDebugMode: kDebugMode);
+        .run();
 
     emit(
       CMemberRoleUpdateState.completed(
         outcome: result,
-        member: result.evaluate(
+        member: result.resolve(
           onFailure: (f) => bobsAbsent(),
           onSuccess: (_) => bobsPresent(
             CMember(

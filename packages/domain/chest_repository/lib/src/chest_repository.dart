@@ -15,7 +15,7 @@ class CChestRepository {
   BobsJob<CChestCreationException, String> createChest({
     required String chestName,
   }) =>
-      chestClient.createChest(chestName: chestName).thenEvaluate(
+      chestClient.createChest(chestName: chestName).thenConvert(
             onFailure: CChestCreationException.fromRaw,
             onSuccess: (chestID) => chestID,
           );
@@ -23,7 +23,7 @@ class CChestRepository {
   /// Fetches the user's invitations.
   BobsJob<CUserInvitationsFetchException, List<CUserInvitation>>
       fetchUserInvitations({required String email}) =>
-          chestClient.fetchUserInvitations(email: email).thenEvaluate(
+          chestClient.fetchUserInvitations(email: email).thenConvert(
                 onFailure: CUserInvitationsFetchException.fromRaw,
                 onSuccess: (invitations) =>
                     invitations.map(CUserInvitation.fromRecord).toList(),
@@ -33,7 +33,7 @@ class CChestRepository {
   BobsJob<CInvitationAcceptException, BobsNothing> acceptInvitation({
     required String chestID,
   }) =>
-      chestClient.acceptInvitation(chestID: chestID).thenEvaluate(
+      chestClient.acceptInvitation(chestID: chestID).thenConvert(
             onFailure: CInvitationAcceptException.fromRaw,
             onSuccess: (s) => s,
           );
@@ -43,7 +43,7 @@ class CChestRepository {
     required String chestID,
     required String name,
   }) =>
-      chestClient.updateChestName(chestID: chestID, name: name).thenEvaluate(
+      chestClient.updateChestName(chestID: chestID, name: name).thenConvert(
             onFailure: CChestUpdateException.fromRaw,
             onSuccess: (s) => s,
           );
@@ -51,7 +51,7 @@ class CChestRepository {
   /// Fetches the invitations for the chest with the given [chestID].
   BobsJob<CChestInvitationsFetchException, List<CChestInvitation>>
       fetchChestInvitations({required String chestID}) =>
-          chestClient.fetchChestInvitations(chestID: chestID).thenEvaluate(
+          chestClient.fetchChestInvitations(chestID: chestID).thenConvert(
                 onFailure: CChestInvitationsFetchException.fromRaw,
                 onSuccess: (invitations) =>
                     invitations.map(CChestInvitation.fromRecord).toList(),
@@ -61,7 +61,7 @@ class CChestRepository {
   BobsJob<CMembersFetchException, List<CMember>> fetchMembers({
     required String chestID,
   }) =>
-      chestClient.fetchChestMembers(chestID: chestID).thenEvaluate(
+      chestClient.fetchChestMembers(chestID: chestID).thenConvert(
             onFailure: CMembersFetchException.fromRaw,
             onSuccess: (members) => members.map(CMember.fromRecord).toList(),
           );
@@ -77,7 +77,7 @@ class CChestRepository {
             userID: member.userID,
             role: role,
           )
-          .thenEvaluate(
+          .thenConvert(
             onFailure: CMemberRoleUpdateException.fromRaw,
             onSuccess: (s) => s,
           );
@@ -92,7 +92,7 @@ class CChestRepository {
             chestID: invitation.chestID,
             assignedRole: invitation.assignedRole,
           )
-          .thenEvaluate(
+          .thenConvert(
             onFailure: CInvitationCreationException.fromRaw,
             onSuccess: (s) => s,
           );

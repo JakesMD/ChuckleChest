@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemYearIDsFetchState}
@@ -54,7 +53,7 @@ class CGemYearIDsFetchCubit extends Cubit<CGemYearIDsFetchState> {
 
     final result = await gemRepository
         .fetchGemIDsForYear(chestID: chestID, year: year)
-        .run(isDebugMode: kDebugMode);
+        .run();
 
     emit(CGemYearIDsFetchState.completed(outcome: result));
   }

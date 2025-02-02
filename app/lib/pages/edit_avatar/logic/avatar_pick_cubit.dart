@@ -47,8 +47,7 @@ class CAvatarPickCubit extends Cubit<CAvatarPickState> {
   Future<void> pickAvatar() async {
     emit(CAvatarPickState.inProgress());
 
-    final result =
-        await personRepository.pickAvatar().run(isDebugMode: kDebugMode);
+    final result = await personRepository.pickAvatar().run();
 
     emit(CAvatarPickState.completed(outcome: result));
   }

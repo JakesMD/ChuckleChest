@@ -21,7 +21,7 @@ class CAuthRepository {
   /// The stream for the currently logged in user.
   Stream<BobsMaybe<CAuthUser>> currentUserStream() async* {
     await for (final user in authClient.currentUserStream()) {
-      yield user.deriveOnPresent(CAuthUser.fromRawUser);
+      yield user.convert(CAuthUser.fromRawUser);
     }
   }
 
@@ -32,7 +32,7 @@ class CAuthRepository {
   }) =>
       authClient
           .signUpWithOTP(email: email, username: username)
-          .thenEvaluateOnFailure(CSignupException.fromRaw);
+          .thenConvertFailure(CSignupException.fromRaw);
 
   /// Sends a one-time-password for login to the given email.
   BobsJob<CLoginException, BobsNothing> logInWithOTP({
@@ -40,7 +40,7 @@ class CAuthRepository {
   }) =>
       authClient
           .logInWithOTP(email: email)
-          .thenEvaluateOnFailure(CLoginException.fromRaw);
+          .thenConvertFailure(CLoginException.fromRaw);
 
   /// Verifies the one-time-pin that was sent to the given
   /// email.
@@ -50,11 +50,11 @@ class CAuthRepository {
   }) =>
       authClient
           .verifyOTP(email: email, pin: pin)
-          .thenEvaluateOnFailure(COTPVerificationException.fromRaw);
+          .thenConvertFailure(COTPVerificationException.fromRaw);
 
   /// Signs out the current user, if there is a logged in user.
   BobsJob<CSignoutException, BobsNothing> signOut() =>
-      authClient.signOut().thenEvaluateOnFailure(CSignoutException.fromRaw);
+      authClient.signOut().thenConvertFailure(CSignoutException.fromRaw);
 
   /// Updates the current user's profile.
   BobsJob<CAuthUserUpdateException, BobsNothing> updateUser({
@@ -62,12 +62,12 @@ class CAuthRepository {
   }) =>
       authClient
           .updateUser(update: CRawAuthUserUpdate(username: username))
-          .thenEvaluateOnFailure(CAuthUserUpdateException.fromRaw);
+          .thenConvertFailure(CAuthUserUpdateException.fromRaw);
 
   /// Refreshes the current user's session.
   ///
   /// This is useful for keeping custom claims up-to-date.
   BobsJob<CSessionRefreshException, BobsNothing> refreshSession() => authClient
       .refreshSession()
-      .thenEvaluateOnFailure(CSessionRefreshException.fromRaw);
+      .thenConvertFailure(CSessionRefreshException.fromRaw);
 }

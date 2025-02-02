@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CInvitationAcceptState}
@@ -54,9 +53,8 @@ class CInvitationAcceptCubit extends Cubit<CInvitationAcceptState> {
   Future<void> acceptInvitation({required String chestID}) async {
     emit(CInvitationAcceptState.inProgress(chestID: chestID));
 
-    final result = await chestRepository
-        .acceptInvitation(chestID: chestID)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await chestRepository.acceptInvitation(chestID: chestID).run();
 
     emit(CInvitationAcceptState.completed(outcome: result, chestID: chestID));
   }

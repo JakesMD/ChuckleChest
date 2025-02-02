@@ -1,7 +1,6 @@
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template COTPVerificationState}
@@ -44,9 +43,7 @@ class COTPVerificationCubit extends Cubit<COTPVerificationState> {
   Future<void> verifyOTP({required String email, required String pin}) async {
     emit(COTPVerificationState.inProgress());
 
-    final result = await authRepository
-        .verifyOTP(email: email, pin: pin)
-        .run(isDebugMode: kDebugMode);
+    final result = await authRepository.verifyOTP(email: email, pin: pin).run();
 
     emit(COTPVerificationState.completed(outcome: result));
   }

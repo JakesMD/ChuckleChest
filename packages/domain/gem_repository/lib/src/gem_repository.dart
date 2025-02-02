@@ -29,7 +29,7 @@ class CGemRepository {
   }) =>
       gemClient
           .fetchGemYears(chestID: chestID)
-          .thenEvaluateOnFailure(CGemYearsFetchException.fromRaw);
+          .thenConvertFailure(CGemYearsFetchException.fromRaw);
 
   /// Fetches the IDs of gems in the chest with the given [chestID] for the
   /// given [year].
@@ -39,7 +39,7 @@ class CGemRepository {
   }) =>
       gemClient
           .fetchGemIDsForYear(chestID: chestID, year: year)
-          .thenEvaluateOnFailure(CGemIDsFetchException.fromRaw);
+          .thenConvertFailure(CGemIDsFetchException.fromRaw);
 
   /// Fetches the most recent gem IDs in the chest with the given [chestID].
   BobsJob<CGemIDsFetchException, List<String>> fetchRecentGemIDs({
@@ -47,11 +47,11 @@ class CGemRepository {
   }) =>
       gemClient
           .fetchRecentGemIDs(chestID: chestID, limit: 20)
-          .thenEvaluateOnFailure(CGemIDsFetchException.fromRaw);
+          .thenConvertFailure(CGemIDsFetchException.fromRaw);
 
   /// Fetches the gem with the given [gemID].
   BobsJob<CGemFetchException, CGem> fetchGem({required String gemID}) =>
-      gemClient.fetchGem(gemID: gemID).thenEvaluate(
+      gemClient.fetchGem(gemID: gemID).thenConvert(
             onFailure: CGemFetchException.fromRaw,
             onSuccess: CGem.fromRecord,
           );
@@ -70,7 +70,7 @@ class CGemRepository {
                 .toList(),
             lines: gem.lines.map((line) => line.toInsert()).toList(),
           )
-          .thenEvaluateOnFailure(CGemSaveException.fromRaw);
+          .thenConvertFailure(CGemSaveException.fromRaw);
 
   /// Shares the gem with the given [shareToken].
   BobsJob<CGemShareException, CGemShareMethod> shareGem({
@@ -90,13 +90,13 @@ class CGemRepository {
             sharePositionOrigin:
                 sharePositionOrigin, // This is required for iPads.
           )
-          .thenEvaluate(
+          .thenConvert(
             onFailure: CGemShareException.fromRaw,
             onSuccess: (_) => CGemShareMethod.dialog,
           );
     }
 
-    return platformClient.copyToClipboard(text: link).thenEvaluate(
+    return platformClient.copyToClipboard(text: link).thenConvert(
           onFailure: CGemShareException.fromRaw,
           onSuccess: (_) => CGemShareMethod.clipboard,
         );
@@ -108,13 +108,13 @@ class CGemRepository {
   }) =>
       gemClient
           .fetchRandomGemIDs(chestID: chestID, limit: 20)
-          .thenEvaluateOnFailure(CRandomGemIDsFetchException.fromRaw);
+          .thenConvertFailure(CRandomGemIDsFetchException.fromRaw);
 
   /// Fetches the gem associated with the given [shareToken].
   BobsJob<CGemFetchFromShareTokenException, CSharedGem> fetchGemFromShareToken({
     required String shareToken,
   }) =>
-      gemClient.fetchGemFromShareToken(shareToken: shareToken).thenEvaluate(
+      gemClient.fetchGemFromShareToken(shareToken: shareToken).thenConvert(
             onFailure: CGemFetchFromShareTokenException.fromRaw,
             onSuccess: (result) => CSharedGem.fromRecords(result.$1, result.$2),
           );
@@ -131,7 +131,7 @@ class CGemRepository {
               gemID: gemID,
             ),
           )
-          .thenEvaluate(
+          .thenConvert(
             onFailure: CGemShareTokenCreationException.fromRaw,
             onSuccess: (success) => success.token,
           );

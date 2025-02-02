@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
-import 'package:flutter/foundation.dart';
 
 /// {@template CPersonCreationState}
 ///
@@ -49,9 +48,7 @@ class CPersonCreationCubit extends Cubit<CPersonCreationState> {
   Future<void> createPerson() async {
     emit(CPersonCreationState.inProgress());
 
-    final result = await personRepository
-        .createPerson(chestID: chestID)
-        .run(isDebugMode: kDebugMode);
+    final result = await personRepository.createPerson(chestID: chestID).run();
 
     emit(CPersonCreationState.completed(outcome: result));
   }

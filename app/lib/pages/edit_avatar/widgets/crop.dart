@@ -39,7 +39,7 @@ class CEditAvatarPageCrop extends StatelessWidget {
             child: const Center(child: CCradleLoadingIndicator()),
           ),
         CRequestCubitStatus.failed => const SizedBox(),
-        CRequestCubitStatus.succeeded => state.image.evaluate(
+        CRequestCubitStatus.succeeded => state.image.resolve(
             onAbsent: () => const SizedBox(),
             onPresent: (image) => Padding(
               padding: const EdgeInsets.all(16),

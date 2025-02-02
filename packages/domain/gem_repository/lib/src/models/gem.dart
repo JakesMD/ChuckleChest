@@ -70,7 +70,7 @@ class CGem with EquatableMixin {
         occurredAt: occurredAt ?? this.occurredAt,
         lines: [...lines],
         chestID: chestID,
-        shareToken: shareToken?.evaluate(
+        shareToken: shareToken?.resolve(
               onPresent: (p) => p,
               onAbsent: () => this.shareToken,
             ) ??

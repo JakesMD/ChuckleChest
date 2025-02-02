@@ -34,7 +34,7 @@ class CPersonRepository {
   BobsJob<CChestPeopleFetchException, List<CPerson>> fetchChestPeople({
     required String chestID,
   }) =>
-      personClient.fetchChestPeople(chestID: chestID).thenEvaluate(
+      personClient.fetchChestPeople(chestID: chestID).thenConvert(
             onFailure: CChestPeopleFetchException.fromRaw,
             onSuccess: (records) => records.map(CPerson.fromRecord).toList(),
           );
@@ -49,7 +49,7 @@ class CPersonRepository {
             nickname: person.nickname,
             dateOfBirth: person.dateOfBirth,
           )
-          .thenEvaluate(
+          .thenConvert(
             onFailure: CPersonUpdateException.fromRaw,
             onSuccess: (_) => bobsNothing,
           );
@@ -59,7 +59,7 @@ class CPersonRepository {
     required BigInt personID,
   }) =>
       personClient.personStream(personID: personID).map(
-            (outcome) => outcome.evaluate(
+            (outcome) => outcome.resolve(
               onFailure: (e) => bobsFailure(CPersonStreamException.fromRaw(e)),
               onSuccess: (r) => bobsSuccess(CPerson.fromRecord(r)),
             ),
@@ -108,7 +108,7 @@ class CPersonRepository {
                       chestID: chestID,
                     ),
                   )
-                  .thenEvaluate(
+                  .thenConvert(
                     onFailure: CAvatarUpdateException.fromRaw,
                     onSuccess: (_) => imageURL,
                   ),
@@ -121,13 +121,13 @@ class CPersonRepository {
   BobsJob<CAvatarPickException, BobsMaybe<Uint8List>> pickAvatar() =>
       platformClient
           .pickImage(maxHeight: 1000, maxWidth: 1000)
-          .thenEvaluateOnFailure(CAvatarPickException.fromRaw);
+          .thenConvertFailure(CAvatarPickException.fromRaw);
 
   /// Creates a default person with the given `chestID`.
   BobsJob<CPersonCreationException, CPerson> createPerson({
     required String chestID,
   }) =>
-      personClient.insertPerson(chestID: chestID).thenEvaluate(
+      personClient.insertPerson(chestID: chestID).thenConvert(
             onFailure: CPersonCreationException.fromRaw,
             onSuccess: CPerson.fromRecord,
           );

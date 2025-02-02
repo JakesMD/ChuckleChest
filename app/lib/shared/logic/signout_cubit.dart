@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CSignoutState}
@@ -44,7 +43,7 @@ class CSignoutCubit extends Cubit<CSignoutState> {
   Future<void> signOut() async {
     emit(CSignoutState.inProgress());
 
-    final result = await authRepository.signOut().run(isDebugMode: kDebugMode);
+    final result = await authRepository.signOut().run();
 
     emit(CSignoutState.completed(outcome: result));
   }

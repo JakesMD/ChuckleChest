@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
 import 'package:cperson_repository/cperson_repository.dart';
-import 'package:flutter/foundation.dart';
 
 /// {@template CPersonUpdateState}
 ///
@@ -72,14 +71,12 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
 
     final newPerson = state.person.copyWith(nickname: nickname);
 
-    final result = await personRepository
-        .updatePerson(person: newPerson)
-        .run(isDebugMode: kDebugMode);
+    final result = await personRepository.updatePerson(person: newPerson).run();
 
     emit(
       CPersonUpdateState.completed(
         outcome: result,
-        person: result.evaluate(
+        person: result.resolve(
           onFailure: (_) => state.person,
           onSuccess: (_) => newPerson,
         ),
@@ -93,14 +90,12 @@ class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
 
     final newPerson = state.person.copyWith(dateOfBirth: dateOfBirth);
 
-    final result = await personRepository
-        .updatePerson(person: newPerson)
-        .run(isDebugMode: kDebugMode);
+    final result = await personRepository.updatePerson(person: newPerson).run();
 
     emit(
       CPersonUpdateState.completed(
         outcome: result,
-        person: result.evaluate(
+        person: result.resolve(
           onFailure: (_) => state.person,
           onSuccess: (_) => newPerson,
         ),

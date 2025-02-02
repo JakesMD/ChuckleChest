@@ -39,7 +39,7 @@ class CEditAvatarSaveButton extends StatelessWidget {
         builder: (context, saveState) => ElevatedButton.icon(
           onPressed: saveState.status != CRequestCubitStatus.inProgress
               ? pickState.status == CRequestCubitStatus.succeeded
-                  ? pickState.image.evaluate(
+                  ? pickState.image.resolve(
                       onAbsent: () => null,
                       onPresent: (image) => cropController.crop,
                     )

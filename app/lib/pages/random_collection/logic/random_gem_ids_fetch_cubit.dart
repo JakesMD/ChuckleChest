@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CRandomGemIDsFetchState}
@@ -53,9 +52,8 @@ class CRandomGemIDsFetchCubit extends Cubit<CRandomGemIDsFetchState> {
   Future<void> fetchRandomGemIDs() async {
     emit(CRandomGemIDsFetchState.inProgress());
 
-    final result = await gemRepository
-        .fetchRandomGemIDs(chestID: chestID)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await gemRepository.fetchRandomGemIDs(chestID: chestID).run();
 
     emit(CRandomGemIDsFetchState.completed(outcome: result));
   }

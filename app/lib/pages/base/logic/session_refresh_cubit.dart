@@ -1,7 +1,6 @@
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/shared/logic/request_cubit.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CSessionRefreshState}
@@ -46,8 +45,7 @@ class CSessionRefreshCubit extends Cubit<CSessionRefreshState> {
   Future<void> refreshSession() async {
     emit(CSessionRefreshState.inProgress());
 
-    final result =
-        await authRepository.refreshSession().run(isDebugMode: kDebugMode);
+    final result = await authRepository.refreshSession().run();
 
     emit(CSessionRefreshState.completed(outcome: result));
   }

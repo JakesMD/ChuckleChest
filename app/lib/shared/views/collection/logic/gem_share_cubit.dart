@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,7 +59,7 @@ class CGemShareCubit extends Cubit<CGemShareState> {
           message: message,
           sharePositionOrigin: sharePositionOrigin,
         )
-        .run(isDebugMode: kDebugMode);
+        .run();
 
     emit(CGemShareState.completed(outcome: result));
   }

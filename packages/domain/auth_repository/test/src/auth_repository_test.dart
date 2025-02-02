@@ -142,7 +142,7 @@ void main() {
 
           final result = await signUpWithOTPJob().run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -159,7 +159,7 @@ void main() {
 
           final result = await signUpWithOTPJob().run();
 
-          bobsExpectFailure(result, CSignupException.emailRateLimitExceeded);
+          expectBobsFailure(result, CSignupException.emailRateLimitExceeded);
         }),
       );
 
@@ -176,7 +176,7 @@ void main() {
 
           final result = await signUpWithOTPJob().run();
 
-          bobsExpectFailure(result, CSignupException.unknown);
+          expectBobsFailure(result, CSignupException.unknown);
         }),
       );
     });
@@ -201,7 +201,7 @@ void main() {
 
           final result = await logInWithOTPJob().run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -218,7 +218,7 @@ void main() {
 
           final result = await logInWithOTPJob().run();
 
-          bobsExpectFailure(result, CLoginException.emailRateLimitExceeded);
+          expectBobsFailure(result, CLoginException.emailRateLimitExceeded);
         }),
       );
 
@@ -235,7 +235,7 @@ void main() {
 
           final result = await logInWithOTPJob().run();
 
-          bobsExpectFailure(result, CLoginException.userNotFound);
+          expectBobsFailure(result, CLoginException.userNotFound);
         }),
       );
 
@@ -252,7 +252,7 @@ void main() {
 
           final result = await logInWithOTPJob().run();
 
-          bobsExpectFailure(result, CLoginException.unknown);
+          expectBobsFailure(result, CLoginException.unknown);
         }),
       );
     });
@@ -281,7 +281,7 @@ void main() {
 
           final result = await verifyOTPJob().run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -298,7 +298,7 @@ void main() {
 
           final result = await verifyOTPJob().run();
 
-          bobsExpectFailure(result, COTPVerificationException.invalidToken);
+          expectBobsFailure(result, COTPVerificationException.invalidToken);
         }),
       );
 
@@ -315,7 +315,7 @@ void main() {
 
           final result = await verifyOTPJob().run();
 
-          bobsExpectFailure(result, COTPVerificationException.unknown);
+          expectBobsFailure(result, COTPVerificationException.unknown);
         }),
       );
     });
@@ -336,7 +336,7 @@ void main() {
 
           final result = await signOutJob().run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -352,7 +352,7 @@ void main() {
 
           final result = await signOutJob().run();
 
-          bobsExpectFailure(result, CSignoutException.unknown);
+          expectBobsFailure(result, CSignoutException.unknown);
         }),
       );
     });
@@ -375,7 +375,7 @@ void main() {
 
           final result = await updateUserJob().run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -392,7 +392,7 @@ void main() {
 
           final result = await updateUserJob().run();
 
-          bobsExpectFailure(result, CAuthUserUpdateException.unknown);
+          expectBobsFailure(result, CAuthUserUpdateException.unknown);
         }),
       );
     });
@@ -414,7 +414,7 @@ void main() {
 
           final result = await refreshSessionJob().run();
 
-          bobsExpectSuccess(result, bobsNothing);
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
 
@@ -430,7 +430,7 @@ void main() {
 
           final result = await refreshSessionJob().run();
 
-          bobsExpectFailure(result, CSessionRefreshException.unknown);
+          expectBobsFailure(result, CSessionRefreshException.unknown);
         }),
       );
     });

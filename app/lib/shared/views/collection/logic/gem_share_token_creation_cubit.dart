@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemShareTokenCreationState}
@@ -63,7 +62,7 @@ class CGemShareTokenCreationCubit extends Cubit<CGemShareTokenCreationState> {
 
     final result = await gemRepository
         .createGemShareToken(chestID: chestID, gemID: gemID)
-        .run(isDebugMode: kDebugMode);
+        .run();
 
     emit(CGemShareTokenCreationState.completed(gemID: gemID, outcome: result));
   }

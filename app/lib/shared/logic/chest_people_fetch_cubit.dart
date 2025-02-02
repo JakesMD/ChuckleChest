@@ -3,7 +3,6 @@ import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CChestPeopleFetchState}
@@ -57,9 +56,8 @@ class CChestPeopleFetchCubit extends Cubit<CChestPeopleFetchState> {
   Future<void> fetchChestPeople({required String chestID}) async {
     emit(CChestPeopleFetchState.inProgress());
 
-    final result = await personRepository
-        .fetchChestPeople(chestID: chestID)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await personRepository.fetchChestPeople(chestID: chestID).run();
 
     emit(CChestPeopleFetchState.completed(outcome: result));
   }

@@ -1,6 +1,5 @@
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CGemSaveState}
@@ -47,9 +46,8 @@ class CGemSaveCubit extends Cubit<CGemSaveState> {
   }) async {
     emit(CGemSaveState.inProgress());
 
-    final result = await gemRepository
-        .saveGem(gem: gem, deletedLines: deletedLines)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await gemRepository.saveGem(gem: gem, deletedLines: deletedLines).run();
 
     emit(CGemSaveState.completed(outcome: result));
   }

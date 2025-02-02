@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CChestCreationState}
@@ -47,9 +46,8 @@ class CChestCreationCubit extends Cubit<CChestCreationState> {
   Future<void> createChest({required String chestName}) async {
     emit(CChestCreationState.inProgress());
 
-    final result = await chestRepository
-        .createChest(chestName: chestName)
-        .run(isDebugMode: kDebugMode);
+    final result =
+        await chestRepository.createChest(chestName: chestName).run();
 
     emit(CChestCreationState.completed(outcome: result));
   }

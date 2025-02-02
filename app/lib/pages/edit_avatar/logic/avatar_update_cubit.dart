@@ -58,7 +58,7 @@ class CAvatarUpdateCubit extends Cubit<CAvatarUpdateState> {
           year: year,
           image: image,
         )
-        .run(isDebugMode: kDebugMode);
+        .run();
 
     emit(CAvatarUpdateState.completed(outcome: result));
   }

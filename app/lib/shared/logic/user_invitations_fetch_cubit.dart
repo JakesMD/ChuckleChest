@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CUserInvitationsFetchState}
@@ -56,7 +55,7 @@ class CUserInvitationsFetchCubit extends Cubit<CUserInvitationsFetchState> {
 
     final result = await chestRepository
         .fetchUserInvitations(email: authRepository.currentUser!.email)
-        .run(isDebugMode: kDebugMode);
+        .run();
 
     emit(CUserInvitationsFetchState.completed(outcome: result));
   }

@@ -55,7 +55,7 @@ class CPersonClient {
           modifier: peopleTable.none(),
         ),
         onError: CRawPersonUpdateException.fromError,
-      ).thenEvaluate(onFailure: (e) => e, onSuccess: (_) => bobsNothing);
+      ).thenConvert(onFailure: (e) => e, onSuccess: (_) => bobsNothing);
 
   /// Streams the person with the given `personID`.
   Stream<BobsOutcome<CRawPersonStreamException, CPeopleTableRecord>>
@@ -96,12 +96,11 @@ class CPersonClient {
           modifier: avatarsTable.none(),
         ),
         onError: CRawAvatarUpsertException.fromError,
-      ).thenEvaluate(onFailure: (e) => e, onSuccess: (_) => bobsNothing);
+      ).thenConvert(onFailure: (e) => e, onSuccess: (_) => bobsNothing);
 
   /// Streams all the avatars belonging to the person with the given `personID`.
   BobsJob<CRawAvatarsStreamException, Stream<List<CAvatarsTableRecord>>>
       avatarsStream({required BigInt personID}) => BobsJob.attempt(
-            isAsync: false,
             run: () => avatarsTable.stream(
               filter: avatarsTable.sEqual(CAvatarsTable.personID(personID)),
               modifier: avatarsTable.sOrder(CAvatarsTable.year),
@@ -125,5 +124,5 @@ class CPersonClient {
           modifier: peopleTable.limit(1).single(),
         ),
         onError: CRawPersonInsertException.fromError,
-      ).thenEvaluate(onFailure: (e) => e, onSuccess: (person) => person);
+      ).thenConvert(onFailure: (e) => e, onSuccess: (person) => person);
 }
