@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Afacad:wght@400;500;600;700&family=Inter:wght@400&display=swap');
+
+
+body {
+    color: #000;
+    background-color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+.logo {
+    text-align: start;
+    font-family: 'Jua', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    padding: 48px;
+}
+
+.tagline {
+    display: flex;
+    justify-content: center;
+    font-family: 'Afacad', sans-serif;
+    font-size: 64px;
+    line-height: 88px;
+    font-weight: bold;
+    text-align: center;
+    padding: 80px 48px 0px 48px;
+    min-height: 280px;
+}
+
+.tagline h {
+    max-width: 900px;
+}
+
+
+.demo {
+    display: flex;
+    justify-content: center;
+    padding: 80px 48px 0px 48px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+    overflow: visible;
+}
+
+.iframe-container {
+    width: 100%;
+    max-width: 480px;
+    max-height: 480px;
+    aspect-ratio: 9/19.5;
+    border-radius: 56px 56px 0 0;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.25);
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.cta {
+    display: flex;
+    justify-content: center;
+    padding: 80px 0px 200px 0px;
+}
+
+.cta .button {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    padding: 16px 32px 16px 32px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-family: 'Afacad', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+footer {
+    font-family: 'Afacad', sans-serif;
+}
+
+footer nav a {
+    margin: 0 60px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 48px;
+}
+
+footer p {
+    padding: 32px;
+    font-weight: regular;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .logo {
+        font-size: 20px;
+        line-height: 24px;
+        padding: 32px;
+    }
+
+    .tagline {
+        font-size: 48px;
+        line-height: 64px;
+        padding: 80px 32px 0px 32px;
+        min-height: 260px;
+    }
+
+    .demo {
+        padding: 40px 32px 0px 32px;
+    }
+
+    .iframe-container {
+        border-radius: 48px 48px 0 0;
+    }
+
+    footer nav a {
+        margin: 0 40px;
+        font-size: 20px;
+        line-height: 40px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo {
+        padding: 16px;
+    }
+
+    .tagline {
+        font-size: 36px;
+        line-height: 48px;
+        padding: 80px 16px 0px 16px;
+        min-height: 220px;
+    }
+
+    .demo {
+        padding: 60px 16px 0px 16px;
+    }
+
+    .iframe-container {
+        border-radius: 32px 32px 0 0;
+    }
+
+    footer nav a {
+        margin: 0 20px;
+        font-size: 16px;
+        line-height: 32px;
+    }
+}

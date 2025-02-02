@@ -4,52 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChuckleChest - Stories Kept Safe</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f3f4f6;
-            color: #333;
-        }
+    <title>ChuckleChest - Keeping laughs alive</title>
+    <link rel="stylesheet" href="chucklechest.css">
 
-        .container {
-            text-align: center;
-            padding: 20px;
-            max-width: 500px;
-        }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const texts = [
+                "Because legendary stories deserve a place to live.",
+                "Because some memories are too priceless to forget.",
+                "Because the best moments aren’t always caught on camera.",
 
-        h1 {
-            font-size: 2.5em;
-            margin: 0.2em 0;
-        }
+            ];
 
-        p {
-            font-size: 1.1em;
-        }
+            let index = 0;
 
-        a {
-            color: #0077b6;
-            text-decoration: none;
-        }
-    </style>
+            function changeText() {
+                const headline = document.getElementById("headline");
+                headline.textContent = texts[index];
+                index = (index + 1) % texts.length;
+            }
+
+            setInterval(changeText, 4000);
+        });
+    </script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>ChuckleChest</h1>
-        <p><em>Didn't catch it on camera? Add it to ChuckleChest.</em></p>
-        <p>This app is currently under development. Stay tuned for updates!</p>
+    <section class="logo">
+        <h>ChuckleChest</h>
+    </section>
 
-        <footer>
-            <p>Jacob Drew - 2024 - <a href="https://github.com/JakesMD/ChuckleChest" target="_blank">GitHub</a></p>
-        </footer>
-    </div>
+    <section class="tagline">
+        <h id="headline">Because the best moments aren’t always caught on camera.</h>
+    </section>
+
+    <section class="demo">
+        <div class="iframe-container">
+            <iframe src="https://app.chucklechest.app/#/shared-gem?token=f19fb037-158b-4291-b8a4-37d5ede69871"></iframe>
+        </div>
+    </section>
+
+    <section class="cta">
+        <a href="https://app.chucklechest.app/" class="button">Get started</a>
+    </section>
+
+    <footer>
+        <nav>
+            <a href="https://github.com/JakesMD/ChuckleChest">GitHub</a>
+            <a href="#">Privacy policy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+        </nav>
+        <p>&copy; Jacob Drew 2025</p>
+    </footer>
 </body>
 
 </html>
