@@ -12,7 +12,8 @@ class CAppL10nDe extends CAppL10n {
   String get cancel => 'Abbrechen';
 
   @override
-  String get changesPropagationBanner_message => 'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
+  String get changesPropagationBanner_message =>
+      'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
 
   @override
   String get chestCreationDialog_createButton => 'Erstellen';
@@ -45,7 +46,8 @@ class CAppL10nDe extends CAppL10n {
   String get collectionsPage_collection_recents => 'Zuletzt hinzugefügt';
 
   @override
-  String get collectionsPage_noGemsMessage => 'Erstelle eine neue Gemme, um loszulegen.';
+  String get collectionsPage_noGemsMessage =>
+      'Erstelle eine neue Gemme, um loszulegen.';
 
   @override
   String get collectionsPage_section_title_other => 'Sonstige';
@@ -83,19 +85,22 @@ class CAppL10nDe extends CAppL10n {
   String get editGemPage_editLineDialog_hint_person => 'Person';
 
   @override
-  String get editGemPage_editLineDialog_title_createNarration => 'Neue Erzählung';
+  String get editGemPage_editLineDialog_title_createNarration =>
+      'Neue Erzählung';
 
   @override
   String get editGemPage_editLineDialog_title_createQuote => 'Neues Zitat';
 
   @override
-  String get editGemPage_editLineDialog_title_editNarration => 'Erzählung bearbeiten';
+  String get editGemPage_editLineDialog_title_editNarration =>
+      'Erzählung bearbeiten';
 
   @override
   String get editGemPage_editLineDialog_title_editQuote => 'Zitat bearbeiten';
 
   @override
-  String get editGemPage_helperMessage => 'Tippe auf etwas, um es zu bearbeiten.';
+  String get editGemPage_helperMessage =>
+      'Tippe auf etwas, um es zu bearbeiten.';
 
   @override
   String get editGemPage_title_create => 'Gemme erstellen';
@@ -130,7 +135,8 @@ class CAppL10nDe extends CAppL10n {
   String get getStartedPage_createChestButton => 'Neue Truhe erstellen';
 
   @override
-  String get getStartedPage_invitationSection_noInvitations => 'Keine Einladungen';
+  String get getStartedPage_invitationSection_noInvitations =>
+      'Keine Einladungen';
 
   @override
   String get getStartedPage_invitationSection_title => 'Einladung annehmen';
@@ -166,10 +172,12 @@ class CAppL10nDe extends CAppL10n {
   String get manageChestPage_chestNameTile_title => 'Name';
 
   @override
-  String get manageChestPage_createInvitationDialog_hint_email => 'E-Mail-Adresse';
+  String get manageChestPage_createInvitationDialog_hint_email =>
+      'E-Mail-Adresse';
 
   @override
-  String get manageChestPage_createInvitationDialog_title => 'Jemanden Einladen';
+  String get manageChestPage_createInvitationDialog_title =>
+      'Jemanden Einladen';
 
   @override
   String get manageChestPage_editChestNameDialog_hint => 'Name der Truhe';
@@ -193,10 +201,12 @@ class CAppL10nDe extends CAppL10n {
   String get or => 'oder';
 
   @override
-  String get otpVerificationPage_error_invalidToken => 'Dieser Code ist ungültig. Bitte versuche es erneut.';
+  String get otpVerificationPage_error_invalidToken =>
+      'Dieser Code ist ungültig. Bitte versuche es erneut.';
 
   @override
-  String get otpVerificationPage_message => 'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
+  String get otpVerificationPage_message =>
+      'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
 
   @override
   String get otpVerificationPage_title => 'Ein-Mal-Code-Bestätigung';
@@ -241,16 +251,19 @@ class CAppL10nDe extends CAppL10n {
   String get settingsPage_signoutTile_title => 'Ausloggen';
 
   @override
-  String get signinPage_disabledBanner => 'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
+  String get signinPage_disabledBanner =>
+      'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
 
   @override
-  String get signinPage_disclaimer => 'Diese Anwendung ist ein PRIVATES und EXPERIMENTELLES Projekt, das nur für AUTORISIERTE Benutzer bestimmt ist. Durch den Zugriff auf und die Nutzung dieser Anwendung erkennen Sie an, dass Sie dies AUF EIGENE GEFAHR tun.\n\nKonten sollten nur mit der ausdrücklichen Genehmigung des Projektinhabers erstellt werden. Wir übernehmen keine Garantie für die Sicherheit, den Datenschutz oder die Integrität der über diese Anwendung übermittelten oder gesammelten Daten, noch können wir die Sicherheit Ihres Geräts während der Nutzung dieser Anwendung gewährleisten. Da es sich um ein experimentelles Projekt handelt, kann sich die Anwendung ohne Vorankündigung ändern oder nicht mehr funktionieren.\n\nDer Projektinhaber haftet nicht für Schäden oder Verluste, die durch die Nutzung dieser Anwendung entstehen.';
+  String get signinPage_disclaimer =>
+      'Diese Anwendung ist ein PRIVATES und EXPERIMENTELLES Projekt, das nur für AUTORISIERTE Benutzer bestimmt ist. Durch den Zugriff auf und die Nutzung dieser Anwendung erkennen Sie an, dass Sie dies AUF EIGENE GEFAHR tun.\n\nKonten sollten nur mit der ausdrücklichen Genehmigung des Projektinhabers erstellt werden. Wir übernehmen keine Garantie für die Sicherheit, den Datenschutz oder die Integrität der über diese Anwendung übermittelten oder gesammelten Daten, noch können wir die Sicherheit Ihres Geräts während der Nutzung dieser Anwendung gewährleisten. Da es sich um ein experimentelles Projekt handelt, kann sich die Anwendung ohne Vorankündigung ändern oder nicht mehr funktionieren.\n\nDer Projektinhaber haftet nicht für Schäden oder Verluste, die durch die Nutzung dieser Anwendung entstehen.';
 
   @override
   String get signinPage_disclaimer_title => 'HAFTUNGSAUSSCHLUSS';
 
   @override
-  String get signinPage_error_emailRateLimitExceeded => 'Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuche es später erneut.';
+  String get signinPage_error_emailRateLimitExceeded =>
+      'Wir haben unser stündliches Anmelde-Limit erreicht. Bitte versuche es später erneut.';
 
   @override
   String get signinPage_error_userNotFound => 'Wir konnten dich nicht finden.';
@@ -277,7 +290,8 @@ class CAppL10nDe extends CAppL10n {
   String get signinPage_title => 'Willkommen!';
 
   @override
-  String get snackBar_error_defaultMessage => 'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
+  String get snackBar_error_defaultMessage =>
+      'Hoppla! Etwas ist schiefgelaufen. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
 
   @override
   String get stagingBanner_button => 'Zur Endversion';

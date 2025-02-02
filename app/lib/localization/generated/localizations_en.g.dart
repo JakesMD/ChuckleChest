@@ -12,7 +12,8 @@ class CAppL10nEn extends CAppL10n {
   String get cancel => 'Cancel';
 
   @override
-  String get changesPropagationBanner_message => 'Changes will propagate to other users next time they open the app.';
+  String get changesPropagationBanner_message =>
+      'Changes will propagate to other users next time they open the app.';
 
   @override
   String get chestCreationDialog_createButton => 'Create';
@@ -30,7 +31,8 @@ class CAppL10nEn extends CAppL10n {
   String get collectionView_noGemsTitle => 'No gems to show';
 
   @override
-  String get collectionView_shareSheet_createLinkButton => 'Create a share link';
+  String get collectionView_shareSheet_createLinkButton =>
+      'Create a share link';
 
   @override
   String get collectionView_shareSheet_deleteLinkButton => 'Delete the link';
@@ -45,7 +47,8 @@ class CAppL10nEn extends CAppL10n {
   String get collectionsPage_collection_recents => 'Recently added';
 
   @override
-  String get collectionsPage_noGemsMessage => 'Create a new gem to get started.';
+  String get collectionsPage_noGemsMessage =>
+      'Create a new gem to get started.';
 
   @override
   String get collectionsPage_section_title_other => 'Other';
@@ -83,7 +86,8 @@ class CAppL10nEn extends CAppL10n {
   String get editGemPage_editLineDialog_hint_person => 'Person';
 
   @override
-  String get editGemPage_editLineDialog_title_createNarration => 'New narration';
+  String get editGemPage_editLineDialog_title_createNarration =>
+      'New narration';
 
   @override
   String get editGemPage_editLineDialog_title_createQuote => 'New quote';
@@ -193,10 +197,12 @@ class CAppL10nEn extends CAppL10n {
   String get or => 'or';
 
   @override
-  String get otpVerificationPage_error_invalidToken => 'This pin is invalid. Please try again.';
+  String get otpVerificationPage_error_invalidToken =>
+      'This pin is invalid. Please try again.';
 
   @override
-  String get otpVerificationPage_message => 'Please enter the pin we sent to your inbox.';
+  String get otpVerificationPage_message =>
+      'Please enter the pin we sent to your inbox.';
 
   @override
   String get otpVerificationPage_title => 'One-Time pin verification';
@@ -241,16 +247,19 @@ class CAppL10nEn extends CAppL10n {
   String get settingsPage_signoutTile_title => 'Log out';
 
   @override
-  String get signinPage_disabledBanner => 'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.';
+  String get signinPage_disabledBanner =>
+      'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.';
 
   @override
-  String get signinPage_disclaimer => 'This application is a PRIVATE and EXPERIMENTAL project intended for AUTHORIZED users only. By accessing and using this application, you acknowledge that you do so AT YOUR OWN RISK.\n\nAccounts should only be created under the explicit authorization of the project owner. We make no guarantees regarding the security, privacy, or integrity of any data submitted or collected through this application, nor can we ensure the safety of your device while interacting with this service. As this is an experimental project, the application may change or cease to function without notice.\n\nThe project owner is not liable for any damages or loss resulting from the use of this application.';
+  String get signinPage_disclaimer =>
+      'This application is a PRIVATE and EXPERIMENTAL project intended for AUTHORIZED users only. By accessing and using this application, you acknowledge that you do so AT YOUR OWN RISK.\n\nAccounts should only be created under the explicit authorization of the project owner. We make no guarantees regarding the security, privacy, or integrity of any data submitted or collected through this application, nor can we ensure the safety of your device while interacting with this service. As this is an experimental project, the application may change or cease to function without notice.\n\nThe project owner is not liable for any damages or loss resulting from the use of this application.';
 
   @override
   String get signinPage_disclaimer_title => 'DISCLAIMER OF LIABILITY';
 
   @override
-  String get signinPage_error_emailRateLimitExceeded => 'We\'ve reached our hourly sign-in limit. Please try again later.';
+  String get signinPage_error_emailRateLimitExceeded =>
+      'We\'ve reached our hourly sign-in limit. Please try again later.';
 
   @override
   String get signinPage_error_userNotFound => 'We couldn\'t find this user.';
@@ -277,7 +286,8 @@ class CAppL10nEn extends CAppL10n {
   String get signinPage_title => 'Welcome to ChuckleChest!';
 
   @override
-  String get snackBar_error_defaultMessage => 'Oops! Something went wrong. Please check your internet connection and try again.';
+  String get snackBar_error_defaultMessage =>
+      'Oops! Something went wrong. Please check your internet connection and try again.';
 
   @override
   String get stagingBanner_button => 'Release version';

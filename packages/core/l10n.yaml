@@ -5,3 +5,4 @@ output-class: CCoreL10n
 nullable-getter: false
 output-dir: lib/src/localization/generated
 synthetic-package: false
+format: true

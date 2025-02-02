@@ -47,18 +47,16 @@ scripts:
       cd $MELOS_ROOT_PATH/app
       flutter build web \
         --target=lib/main_staging.dart \
-        --no-tree-shake-icons \
-        --web-renderer=canvaskit \
         --release \
-
+        --pwa-strategy=none
+  # --pwa-strategy=none: Fixes https://github.com/felangel/bloc/issues/4335
   build_production:
     run: |
       cd $MELOS_ROOT_PATH/app
       flutter build web \
         --target=lib/main_production.dart \
-        --no-tree-shake-icons \
-        --web-renderer=canvaskit \
         --release \
+        --pwa-strategy=none
 
   ci:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
@@ -91,6 +89,10 @@ scripts:
     packageFilters:
       fileExists: pubspec.yaml
 
-  diff_supabase:
-    description: Creates new migration file with the changes made in the Supabase studio.
+  diff_local_supabase:
+    description: Creates new migration file with the changes made in the local Supabase studio.
     run: supabase db diff --local -f new_public && supabase db diff --local -f new_storage --schema storage && supabase db diff --local -f new_auth --schema auth
+
+  diff_linked_supabase:
+    description: Creates new migration file with the changes made in the linked Supabase project.
+    run: supabase db diff --linked -f new_public && supabase db diff --linked -f new_storage --schema storage && supabase db diff --linked -f new_auth --schema auth
