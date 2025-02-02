@@ -48,7 +48,7 @@ scripts:
       flutter build web \
         --target=lib/main_staging.dart \
         --release \
-        --pwa-strategy=none
+        --pwa-strategy=none \
   # --pwa-strategy=none: Fixes https://github.com/felangel/bloc/issues/4335
   build_production:
     run: |
@@ -56,7 +56,7 @@ scripts:
       flutter build web \
         --target=lib/main_production.dart \
         --release \
-        --pwa-strategy=none
+        --pwa-strategy=none \
 
   ci:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
