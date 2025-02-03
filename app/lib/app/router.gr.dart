@@ -47,6 +47,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CCreateGemPage()),
       );
     },
+    CDemoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CDemoPage()),
+      );
+    },
     CEditAvatarRoute.name: (routeData) {
       final args = routeData.argsAs<CEditAvatarRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -191,7 +197,11 @@ abstract class _$CAppRouter extends RootStackRouter {
               CSharedGemRouteArgs(shareToken: queryParams.optString('token')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: CSharedGemPage(shareToken: args.shareToken)),
+        child: WrappedRoute(
+            child: CSharedGemPage(
+          shareToken: args.shareToken,
+          key: args.key,
+        )),
       );
     },
     CSigninRoute.name: (routeData) {
@@ -301,6 +311,20 @@ class CCreateGemRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CCreateGemRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CDemoPage]
+class CDemoRoute extends PageRouteInfo<void> {
+  const CDemoRoute({List<PageRouteInfo>? children})
+      : super(
+          CDemoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CDemoRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -693,10 +717,14 @@ class CSettingsRoute extends PageRouteInfo<void> {
 class CSharedGemRoute extends PageRouteInfo<CSharedGemRouteArgs> {
   CSharedGemRoute({
     required String? shareToken,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           CSharedGemRoute.name,
-          args: CSharedGemRouteArgs(shareToken: shareToken),
+          args: CSharedGemRouteArgs(
+            shareToken: shareToken,
+            key: key,
+          ),
           rawQueryParams: {'token': shareToken},
           initialChildren: children,
         );
@@ -708,13 +736,18 @@ class CSharedGemRoute extends PageRouteInfo<CSharedGemRouteArgs> {
 }
 
 class CSharedGemRouteArgs {
-  const CSharedGemRouteArgs({required this.shareToken});
+  const CSharedGemRouteArgs({
+    required this.shareToken,
+    this.key,
+  });
 
   final String? shareToken;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'CSharedGemRouteArgs{shareToken: $shareToken}';
+    return 'CSharedGemRouteArgs{shareToken: $shareToken, key: $key}';
   }
 }
 

@@ -66,6 +66,18 @@ class CRequestCubitState<F, S> with EquatableMixin {
   /// The success value of the latest item in the stream.
   S get success => (outcome! as BobsSuccess<F, S>).value;
 
+  /// Returns true if the request is initial.
+  bool get isInitial => status == CRequestCubitStatus.initial;
+
+  /// Returns true if the request is in progress.
+  bool get inProgress => status == CRequestCubitStatus.inProgress;
+
+  /// Returns true if the request succeeded.
+  bool get succeeded => status == CRequestCubitStatus.succeeded;
+
+  /// Returns true if the request failed.
+  bool get failed => status == CRequestCubitStatus.failed;
+
   @override
   List<Object?> get props => [outcome];
 

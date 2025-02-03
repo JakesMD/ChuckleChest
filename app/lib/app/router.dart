@@ -35,6 +35,10 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
           page: CSharedGemRoute.page,
         ),
         AutoRoute(
+          path: '/demo',
+          page: CDemoRoute.page,
+        ),
+        AutoRoute(
           path: '/',
           page: CBaseRoute.page,
           initial: true,
