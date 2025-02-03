@@ -42,7 +42,7 @@
   "editPersonPage_editNicknameDialog_title": "Spitzname bearbeiten",
   "editPersonPage_nicknameTile_title": "Spitzname",
   "editPersonPage_title": "Person bearbeiten",
-  "gem_restartMessage": "Zum Neustarten ziehen.",
+  "gem_restartMessage": "Zum Neustart ziehen. Wischen, um das nächste zu sehen.",
   "gem_share_message": "Schau dir diese Gemme auf ChuckleChest an! 😂 {link}",
   "gem_share_subject": "Das ist so gut! 😂",
   "getStartedPage_createChestButton": "Neue Truhe erstellen",

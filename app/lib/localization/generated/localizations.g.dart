@@ -310,7 +310,7 @@ abstract class CAppL10n {
   /// No description provided for @gem_restartMessage.
   ///
   /// In en, this message translates to:
-  /// **'Pull to restart.'**
+  /// **'Pull to restart. Swipe to view next.'**
   String get gem_restartMessage;
 
   /// No description provided for @gem_share_message.

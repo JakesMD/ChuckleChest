@@ -120,7 +120,7 @@ class CAppL10nEn extends CAppL10n {
   String get editPersonPage_title => 'Edit person';
 
   @override
-  String get gem_restartMessage => 'Pull to restart.';
+  String get gem_restartMessage => 'Pull to restart. Swipe to view next.';
 
   @override
   String gem_share_message(Object link) {

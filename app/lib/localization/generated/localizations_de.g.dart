@@ -121,7 +121,8 @@ class CAppL10nDe extends CAppL10n {
   String get editPersonPage_title => 'Person bearbeiten';
 
   @override
-  String get gem_restartMessage => 'Zum Neustarten ziehen.';
+  String get gem_restartMessage =>
+      'Zum Neustart ziehen. Wischen, um das nächste zu sehen.';
 
   @override
   String gem_share_message(Object link) {
