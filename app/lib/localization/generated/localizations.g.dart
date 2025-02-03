@@ -310,7 +310,7 @@ abstract class CAppL10n {
   /// No description provided for @gem_restartMessage.
   ///
   /// In en, this message translates to:
-  /// **'Pull to restart. Swipe to view next.'**
+  /// **'Pull to restart.'**
   String get gem_restartMessage;
 
   /// No description provided for @gem_share_message.
@@ -324,6 +324,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'This is so good! 😂'**
   String get gem_share_subject;
+
+  /// No description provided for @gem_swipeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe to view next.'**
+  String get gem_swipeMessage;
 
   /// No description provided for @getStartedPage_createChestButton.
   ///

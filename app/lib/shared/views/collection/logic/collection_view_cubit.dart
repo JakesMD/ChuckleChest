@@ -36,6 +36,9 @@ class CCollectionViewState {
   /// The currently displayed gem.
   CGem? get currentGem => gems.elementAt(currentIndex).$2;
 
+  /// Whether the current gem is the last gem.
+  bool get isLastGem => currentIndex == gems.length - 1;
+
   /// The title to display in the app bar.
   String get appBarTitle => currentGem?.number.toString() ?? '';
 

@@ -15,10 +15,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@endtemplate}
 class CAnimatedGem extends StatefulWidget {
   /// {@macro CAnimatedGem}
-  const CAnimatedGem({required this.gem, super.key});
+  const CAnimatedGem({
+    required this.gem,
+    required this.isLastGem,
+    super.key,
+  });
 
   /// The gem to display.
   final CGem gem;
+
+  /// Whether to display the 'swipe to view next' message.
+  final bool isLastGem;
 
   @override
   State<CAnimatedGem> createState() => _CAnimatedGemState();
@@ -32,11 +39,11 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
 
   int currentLineIndex = 0;
 
-  bool showPullToRestart = false;
+  bool showPullSwipeMessages = false;
 
   void onLineAnimationCompleted() {
     if (currentLineIndex == widget.gem.lines.length - 1) {
-      setState(() => showPullToRestart = true);
+      setState(() => showPullSwipeMessages = true);
       return;
     }
     setState(() => currentLineIndex++);
@@ -45,7 +52,7 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
   Future<void> restart() async {
     setState(() {
       currentLineIndex = 0;
-      showPullToRestart = false;
+      showPullSwipeMessages = false;
       key = UniqueKey();
     });
   }
@@ -117,12 +124,12 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
             ),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
-              opacity: showPullToRestart ? 1 : 0,
+              opacity: showPullSwipeMessages ? 1 : 0,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Text(
-                    context.cAppL10n.gem_restartMessage,
+                    '''${!widget.isLastGem ? '${context.cAppL10n.gem_swipeMessage} ' : ''}${context.cAppL10n.gem_restartMessage}''',
                     style: context.cTextTheme.labelMedium!
                         .copyWith(fontStyle: FontStyle.italic),
                   ),

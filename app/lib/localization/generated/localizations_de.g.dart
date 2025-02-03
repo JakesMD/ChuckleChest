@@ -121,8 +121,7 @@ class CAppL10nDe extends CAppL10n {
   String get editPersonPage_title => 'Person bearbeiten';
 
   @override
-  String get gem_restartMessage =>
-      'Zum Neustart ziehen. Wischen, um das nächste zu sehen.';
+  String get gem_restartMessage => 'Zum Neustart ziehen.';
 
   @override
   String gem_share_message(Object link) {
@@ -131,6 +130,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get gem_share_subject => 'Das ist so gut! 😂';
+
+  @override
+  String get gem_swipeMessage => 'Wischen, um das nächste zu sehen.';
 
   @override
   String get getStartedPage_createChestButton => 'Neue Truhe erstellen';

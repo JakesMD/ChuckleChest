@@ -176,7 +176,10 @@ class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
                 buildWhen: (_, state) =>
                     state.currentGem?.id == gemFromState(fetchState).id,
                 builder: (context, state) => state.currentGem != null
-                    ? CAnimatedGem(gem: state.currentGem!)
+                    ? CAnimatedGem(
+                        gem: state.currentGem!,
+                        isLastGem: state.isLastGem,
+                      )
                     : const SizedBox(),
               ),
           },

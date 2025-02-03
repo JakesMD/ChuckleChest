@@ -120,7 +120,7 @@ class CAppL10nEn extends CAppL10n {
   String get editPersonPage_title => 'Edit person';
 
   @override
-  String get gem_restartMessage => 'Pull to restart. Swipe to view next.';
+  String get gem_restartMessage => 'Pull to restart.';
 
   @override
   String gem_share_message(Object link) {
@@ -129,6 +129,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get gem_share_subject => 'This is so good! 😂';
+
+  @override
+  String get gem_swipeMessage => 'Swipe to view next.';
 
   @override
   String get getStartedPage_createChestButton => 'Create a new chest';
