@@ -49,6 +49,8 @@ scripts:
         --target=lib/main_staging.dart \
         --release \
         --pwa-strategy=none \
+        --base-href "/app/" \
+
   # --pwa-strategy=none: Fixes https://github.com/felangel/bloc/issues/4335
   build_production:
     run: |
@@ -57,6 +59,10 @@ scripts:
         --target=lib/main_production.dart \
         --release \
         --pwa-strategy=none \
+        --base-href "/app/" \
+
+  update_website:
+    run: rm -rf $MELOS_ROOT_PATH/website/public/app && cp -r $MELOS_ROOT_PATH/app/build/web $MELOS_ROOT_PATH/website/public/app
 
   ci:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
@@ -70,6 +76,7 @@ scripts:
       melos bootstrap
       melos update_settings --no-select
       melos format && melos analyze && melos test --no-select && melos check_coverage && melos build_staging -- --dart-define-from-file=secrets.staging.json && melos build_production -- --dart-define-from-file=secrets.production.json
+      update_website
 
   localize:
     description: Generates the translations for the specified package(s).

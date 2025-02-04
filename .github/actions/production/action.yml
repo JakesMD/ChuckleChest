@@ -9,13 +9,17 @@ runs:
       shell: bash
       run: melos build_production -- --dart-define=SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} --dart-define=SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
 
+    - name: ⬆️ Update Website
+      shell: bash
+      run: melos update_website
+
     - name: 🔧 Setup GitHub Pages
       uses: actions/configure-pages@v5
 
     - name: 📤 Upload Production App
       uses: actions/upload-pages-artifact@v3
       with:
-        path: "./app/build/web"
+        path: "./website/public"
 
     - name: ⚡️ Setup Supabase
       uses: supabase/setup-cli@v1
@@ -28,6 +32,6 @@ runs:
         supabase link --project-ref ${{ env.SUPABASE_PROJECT_ID }}
         supabase db push
 
-    - name: 🚀 Deploy Production App
+    - name: 🚀 Deploy Production Website and App
       id: deployment
       uses: actions/deploy-pages@v4
