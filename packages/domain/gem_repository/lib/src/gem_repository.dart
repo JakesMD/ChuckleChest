@@ -79,7 +79,7 @@ class CGemRepository {
     required String Function(String link) message,
     required String subject,
   }) {
-    final link = 'https://app.chucklechest.app/#/shared-gem?token=$shareToken';
+    final link = 'https://chucklechest.app/app/#/shared-gem?token=$shareToken';
 
     if (platformClient.deviceType == CDeviceType.mobile ||
         platformClient.deviceType == CDeviceType.mobileWeb) {
