@@ -1,4 +1,4 @@
-![Banner](banner.svg)
+[![Banner](banner.svg)](https://chucklechest.app)
 
 ![workflow](https://github.com/JakesMD/ChuckleChest/actions/workflows/main.yml/badge.svg)
 ![very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)
