@@ -1,9 +1,23 @@
-<h2>Thank you for choosing ChuckleChest!</h2>
-<p>Let's get you started!</p>
-<br>
-<h3>Here's your one time log-in code:</h3>
-<h1>{{ .Token }}</h1>
-<br>
-<p>Enter this code into the ChuckleChest app.</p>
-<p>Lost the app? Click on this <a href="https://app.chucklechest.app/#/verify-otp?email={{ .Email }}">link</a> to get
-    back.</p>
+<html>
+
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&display=swap');
+
+
+        body {
+            font-family: 'Afacad', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{ .Token }}</h1>
+    <br>
+    <h2>Thank you for choosing ChuckleChest!</h2>
+    <p>Enter the code above into the ChuckleChest app.</p>
+    <p>Lost the app? Click on <a href="https://chucklechest.app/app/#/signin/verify-otp?email={{ .Email }}">this
+            link</a> to get back.</p>
+</body>
+
+</html>
