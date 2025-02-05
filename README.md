@@ -10,7 +10,7 @@
 - [x] **Be part of multiple chests** – Join different chests to organize and share memories with the right people.  
 - [x] **Easily share gems** – Create a public link to share a gem with people outside your chest. Delete the link anytime to remove access.  
 - [x] **Privacy first** – Your chest is private. No one outside can see a gem unless you share it — and even then, photos remain hidden.  
-- [x] **Completely free and open-source** – Enjoy all the features with no ads, and access the code to contribute or make improvements.
+- [x] **Completely free and open source** – Enjoy all the features with no ads, and access the code to contribute or make improvements.
 
 
 ## 💡 [Try the live demo!](https://chucklechest.app/app/#/demo)
