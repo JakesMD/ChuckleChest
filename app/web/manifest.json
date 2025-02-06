@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#FFFFFF",
     "theme_color": "#FFFFFF",
-    "description": "A free and open-source app for preserving memories that weren’t caught on camera.",
+    "description": "A free and open-source app for preserving memories that were not caught on camera.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
