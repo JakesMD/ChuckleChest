@@ -57,12 +57,12 @@ class CDemoCubit extends Cubit<CDemoState> {
       avatarURLs: [
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/avatars/demo/girl-2.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//girl-2.jpg',
           year: 2022,
         ),
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/avatars/demo/girl-4.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//girl-4.jpg',
           year: 2024,
         ),
       ],
@@ -75,12 +75,12 @@ class CDemoCubit extends Cubit<CDemoState> {
       avatarURLs: [
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/avatars/demo/woman-29.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//woman-29.jpg',
           year: 2022,
         ),
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/avatars/demo/woman-31.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//woman-31.jpg',
           year: 2024,
         ),
       ],
