@@ -523,23 +523,17 @@ abstract class CAppL10n {
   /// **'Log out'**
   String get settingsPage_signoutTile_title;
 
-  /// No description provided for @signinPage_disabledBanner.
+  /// No description provided for @signinPage_ageConfirmation.
   ///
   /// In en, this message translates to:
-  /// **'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.'**
-  String get signinPage_disabledBanner;
+  /// **'I am at least 13 years old.'**
+  String get signinPage_ageConfirmation;
 
-  /// No description provided for @signinPage_disclaimer.
+  /// No description provided for @signinPage_agreement.
   ///
   /// In en, this message translates to:
-  /// **'This application is a PRIVATE and EXPERIMENTAL project intended for AUTHORIZED users only. By accessing and using this application, you acknowledge that you do so AT YOUR OWN RISK.\n\nAccounts should only be created under the explicit authorization of the project owner. We make no guarantees regarding the security, privacy, or integrity of any data submitted or collected through this application, nor can we ensure the safety of your device while interacting with this service. As this is an experimental project, the application may change or cease to function without notice.\n\nThe project owner is not liable for any damages or loss resulting from the use of this application.'**
-  String get signinPage_disclaimer;
-
-  /// No description provided for @signinPage_disclaimer_title.
-  ///
-  /// In en, this message translates to:
-  /// **'DISCLAIMER OF LIABILITY'**
-  String get signinPage_disclaimer_title;
+  /// **'I agree to the '**
+  String get signinPage_agreement;
 
   /// No description provided for @signinPage_error_emailRateLimitExceeded.
   ///
@@ -571,6 +565,12 @@ abstract class CAppL10n {
   /// **'Log in'**
   String get signinPage_loginButton;
 
+  /// No description provided for @signinPage_privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'privacy policy.'**
+  String get signinPage_privacyPolicy;
+
   /// No description provided for @signinPage_signupButton.
   ///
   /// In en, this message translates to:
@@ -588,6 +588,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Sign up'**
   String get signinPage_tab_signup;
+
+  /// No description provided for @signinPage_terms.
+  ///
+  /// In en, this message translates to:
+  /// **'terms and conditions.'**
+  String get signinPage_terms;
 
   /// No description provided for @signinPage_title.
   ///

@@ -250,15 +250,10 @@ class CAppL10nEn extends CAppL10n {
   String get settingsPage_signoutTile_title => 'Log out';
 
   @override
-  String get signinPage_disabledBanner =>
-      'Temporarily disabled for legal reasons. Ask your awesome bruv to create an account for you.';
+  String get signinPage_ageConfirmation => 'I am at least 13 years old.';
 
   @override
-  String get signinPage_disclaimer =>
-      'This application is a PRIVATE and EXPERIMENTAL project intended for AUTHORIZED users only. By accessing and using this application, you acknowledge that you do so AT YOUR OWN RISK.\n\nAccounts should only be created under the explicit authorization of the project owner. We make no guarantees regarding the security, privacy, or integrity of any data submitted or collected through this application, nor can we ensure the safety of your device while interacting with this service. As this is an experimental project, the application may change or cease to function without notice.\n\nThe project owner is not liable for any damages or loss resulting from the use of this application.';
-
-  @override
-  String get signinPage_disclaimer_title => 'DISCLAIMER OF LIABILITY';
+  String get signinPage_agreement => 'I agree to the ';
 
   @override
   String get signinPage_error_emailRateLimitExceeded =>
@@ -277,6 +272,9 @@ class CAppL10nEn extends CAppL10n {
   String get signinPage_loginButton => 'Log in';
 
   @override
+  String get signinPage_privacyPolicy => 'privacy policy.';
+
+  @override
   String get signinPage_signupButton => 'Sign up';
 
   @override
@@ -284,6 +282,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get signinPage_tab_signup => 'Sign up';
+
+  @override
+  String get signinPage_terms => 'terms and conditions.';
 
   @override
   String get signinPage_title => 'Welcome to ChuckleChest!';

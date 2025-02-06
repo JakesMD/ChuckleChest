@@ -254,15 +254,10 @@ class CAppL10nDe extends CAppL10n {
   String get settingsPage_signoutTile_title => 'Ausloggen';
 
   @override
-  String get signinPage_disabledBanner =>
-      'Aus rechtlichen Gründen vorübergehend deaktiviert. Bitte deinen großartigen Bruder dir ein Konto zu erstellen.';
+  String get signinPage_ageConfirmation => 'Ich bin mindestens 13 Jahre alt.';
 
   @override
-  String get signinPage_disclaimer =>
-      'Diese Anwendung ist ein PRIVATES und EXPERIMENTELLES Projekt, das nur für AUTORISIERTE Benutzer bestimmt ist. Durch den Zugriff auf und die Nutzung dieser Anwendung erkennen Sie an, dass Sie dies AUF EIGENE GEFAHR tun.\n\nKonten sollten nur mit der ausdrücklichen Genehmigung des Projektinhabers erstellt werden. Wir übernehmen keine Garantie für die Sicherheit, den Datenschutz oder die Integrität der über diese Anwendung übermittelten oder gesammelten Daten, noch können wir die Sicherheit Ihres Geräts während der Nutzung dieser Anwendung gewährleisten. Da es sich um ein experimentelles Projekt handelt, kann sich die Anwendung ohne Vorankündigung ändern oder nicht mehr funktionieren.\n\nDer Projektinhaber haftet nicht für Schäden oder Verluste, die durch die Nutzung dieser Anwendung entstehen.';
-
-  @override
-  String get signinPage_disclaimer_title => 'HAFTUNGSAUSSCHLUSS';
+  String get signinPage_agreement => 'Ich akzeptiere die ';
 
   @override
   String get signinPage_error_emailRateLimitExceeded =>
@@ -281,6 +276,9 @@ class CAppL10nDe extends CAppL10n {
   String get signinPage_loginButton => 'Einloggen';
 
   @override
+  String get signinPage_privacyPolicy => 'Datenschutzerklärung.';
+
+  @override
   String get signinPage_signupButton => 'Registrieren';
 
   @override
@@ -288,6 +286,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get signinPage_tab_signup => 'Registrieren';
+
+  @override
+  String get signinPage_terms => 'Nutzungsbedingungen.';
 
   @override
   String get signinPage_title => 'Willkommen!';

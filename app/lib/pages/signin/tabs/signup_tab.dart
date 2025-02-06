@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
@@ -6,8 +8,10 @@ import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/signin/logic/_logic.dart';
 import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// {@template CSignupTab}
 ///
@@ -17,25 +21,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///
 /// {@endtemplate}
 @RoutePage()
-class CSignupTab extends StatelessWidget implements AutoRouteWrapper {
+class CSignupTab extends StatefulWidget implements AutoRouteWrapper {
   /// {@macro CSignupTab}
-  CSignupTab({super.key});
-
-  void _onCompleted(BuildContext context, String email) =>
-      context.router.push(COTPVerificationRoute(email: email));
-
-  final _formKey = GlobalKey<FormState>();
-  final _usernameInput = CTextInput();
-  final _emailInput = CEmailInput();
-
-  void _onSignupButtonPressed(BuildContext context) {
-    if (_formKey.currentState?.validate() ?? false) {
-      context.read<CSignupCubit>().signUp(
-            username: _usernameInput.value(context),
-            email: _emailInput.value(context),
-          );
-    }
-  }
+  const CSignupTab({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -59,67 +47,138 @@ class CSignupTab extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
+  void _onCompleted(BuildContext context, String email) =>
+      context.router.push(COTPVerificationRoute(email: email));
+
+  @override
+  State<CSignupTab> createState() => _CSignupTabState();
+}
+
+class _CSignupTabState extends State<CSignupTab> {
+  final formKey = GlobalKey<FormState>();
+
+  final usernameInput = CTextInput();
+
+  final emailInput = CEmailInput();
+
+  bool isAgeConfirmed = false;
+
+  bool isPrivacyAccepted = false;
+
+  bool isTermsAccepted = false;
+
+  void onSignupButtonPressed(BuildContext context) {
+    if (formKey.currentState?.validate() ?? false) {
+      context.read<CSignupCubit>().signUp(
+            username: usernameInput.value(context),
+            email: emailInput.value(context),
+          );
+    }
+  }
+
+  void onAgeToggled(bool? value) =>
+      setState(() => isAgeConfirmed = value ?? isAgeConfirmed);
+
+  void onPrivacyToggled(bool? value) =>
+      setState(() => isPrivacyAccepted = value ?? isPrivacyAccepted);
+
+  void onTermsToggled(bool? value) =>
+      setState(() => isTermsAccepted = value ?? isTermsAccepted);
+
+  void onPrivacyLinkPressed() =>
+      launchUrl(Uri.parse('https://chucklechest.app/privacy'));
+
+  void onTermsLinkPressed() =>
+      launchUrl(Uri.parse('https://chucklechest.app/terms'));
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MaterialBanner(
-          content: Text(context.cAppL10n.signinPage_disabledBanner),
-          actions: [
-            TextButton(
-              onPressed: () => context.router.replaceAll([CLoginRoute()]),
-              child: Text(context.cAppL10n.signinPage_loginButton),
+    return Form(
+      key: formKey,
+      child: ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
+          TextFormField(
+            validator: (v) => usernameInput.validator(
+              input: v,
+              context: context,
             ),
-          ],
-        ),
-        Expanded(
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              padding: const EdgeInsets.all(24),
-              children: [
-                TextFormField(
-                  enabled: false,
-                  validator: (v) => _usernameInput.validator(
-                    input: v,
-                    context: context,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: context.cAppL10n.signinPage_hint_username,
-                    icon: const Icon(Icons.person_rounded),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  enabled: false,
-                  validator: (v) => _emailInput.validator(
-                    input: v,
-                    context: context,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: context.cAppL10n.signinPage_hint_email,
-                    icon: const Icon(Icons.email_rounded),
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 64),
-                Text(
-                  context.cAppL10n.signinPage_disclaimer_title,
-                  style: context.cTextTheme.titleMedium,
-                ),
-                const SizedBox(height: 8),
-                Text(context.cAppL10n.signinPage_disclaimer),
-                const SizedBox(height: 64),
-                CSigninButton.signup(
-                  isEnabled: false,
-                  onPressed: _onSignupButtonPressed,
-                ),
-              ],
+            decoration: InputDecoration(
+              labelText: context.cAppL10n.signinPage_hint_username,
+              icon: const Icon(Icons.person_rounded),
+              border: const OutlineInputBorder(),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 24),
+          TextFormField(
+            validator: (v) => emailInput.validator(
+              input: v,
+              context: context,
+            ),
+            decoration: InputDecoration(
+              labelText: context.cAppL10n.signinPage_hint_email,
+              icon: const Icon(Icons.email_rounded),
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 48),
+          ListTile(
+            leading: Checkbox(value: isAgeConfirmed, onChanged: onAgeToggled),
+            titleTextStyle: context.cTextTheme.bodyMedium,
+            title: Text(
+              context.cAppL10n.signinPage_ageConfirmation,
+              style: TextStyle(color: context.cColorScheme.onSurface),
+            ),
+          ),
+          ListTile(
+            leading:
+                Checkbox(value: isPrivacyAccepted, onChanged: onPrivacyToggled),
+            title: RichText(
+              text: TextSpan(
+                text: context.cAppL10n.signinPage_agreement,
+                style: TextStyle(color: context.cColorScheme.onSurface),
+                children: [
+                  TextSpan(
+                    text: context.cAppL10n.signinPage_privacyPolicy,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = onPrivacyLinkPressed,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          ListTile(
+            leading:
+                Checkbox(value: isTermsAccepted, onChanged: onTermsToggled),
+            title: RichText(
+              text: TextSpan(
+                text: context.cAppL10n.signinPage_agreement,
+                style: TextStyle(color: context.cColorScheme.onSurface),
+                children: [
+                  TextSpan(
+                    text: context.cAppL10n.signinPage_terms,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = onTermsLinkPressed,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 64),
+          CSigninButton.signup(
+            isEnabled: isAgeConfirmed && isPrivacyAccepted && isTermsAccepted,
+            onPressed: onSignupButtonPressed,
+          ),
+        ],
+      ),
     );
   }
 }
