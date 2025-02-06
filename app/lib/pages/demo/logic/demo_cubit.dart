@@ -57,12 +57,12 @@ class CDemoCubit extends Cubit<CDemoState> {
       avatarURLs: [
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//girl-2.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-2.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtMi5qcGciLCJpYXQiOjE3Mzg4Mzc4ODIsImV4cCI6NDg5MjQzNzg4Mn0.4kTSz1uubxK4ELdtnQjAa2P1PGFKVX5dcPquiLqFeW4',
           year: 2022,
         ),
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//girl-4.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-4.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtNC5qcGciLCJpYXQiOjE3Mzg4Mzc5MTIsImV4cCI6NDg5MjQzNzkxMn0.QrvZmm8Lm5WxKwLgXcCp5kTTY5Fs_J_lqo2G88SN05E',
           year: 2024,
         ),
       ],
@@ -75,12 +75,12 @@ class CDemoCubit extends Cubit<CDemoState> {
       avatarURLs: [
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//woman-29.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-29.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTI5LmpwZyIsImlhdCI6MTczODgzNzkyOCwiZXhwIjo0ODkyNDM3OTI4fQ.cBVOX0kIfiQ0iLHOLo77Pyk8U178nBrEGOCIcGA5-KY',
           year: 2022,
         ),
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/public/demo//woman-31.jpg',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-31.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTMxLmpwZyIsImlhdCI6MTczODgzNzk0NywiZXhwIjo0ODkyNDM3OTQ3fQ.RhF2kAKQht7igPWa8A8mJwca7p_zSTX5Zpoe9I1vV-g',
           year: 2024,
         ),
       ],
