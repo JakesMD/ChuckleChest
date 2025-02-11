@@ -76,7 +76,7 @@ scripts:
       melos bootstrap
       melos update_settings --no-select
       melos format && melos analyze && melos test --no-select && melos check_coverage && melos build_staging -- --dart-define-from-file=secrets.staging.json && melos build_production -- --dart-define-from-file=secrets.production.json
-      update_website
+      melos update_website
 
   localize:
     description: Generates the translations for the specified package(s).
