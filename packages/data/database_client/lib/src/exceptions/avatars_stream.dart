@@ -1,28 +1,12 @@
-import 'dart:developer';
-
-import 'package:supabase/supabase.dart';
+// Parameters required for bobs jobs.
+// ignore_for_file: avoid_unused_constructor_parameters
 
 /// Represents an exception that occurs when streaming avatars fails.
 enum CRawAvatarsStreamException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawAvatarsStreamException.fromError(Object e, StackTrace s) {
-    if (e is PostgrestException) {
-      log(
-        e.message,
-        error: e,
-        stackTrace: s,
-        name: 'CRawAvatarsStreamException',
-      );
-    } else {
-      log(
-        e.toString(),
-        error: e,
-        stackTrace: s,
-        name: 'CRawAvatarsStreamException',
-      );
-    }
+  factory CRawAvatarsStreamException.fromError(Object error) {
     return CRawAvatarsStreamException.unknown;
   }
 }

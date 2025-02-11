@@ -50,19 +50,16 @@ class CAuthClient {
     String? avatarURL,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          await authClient.signInWithOtp(
-            email: email,
-            shouldCreateUser: true,
-            data: {
-              'display_name': username,
-              if (avatarURL != null) 'avatar_url': avatarURL,
-            },
-          );
-          return bobsNothing;
-        },
+        run: () => authClient.signInWithOtp(
+          email: email,
+          shouldCreateUser: true,
+          data: {
+            'display_name': username,
+            if (avatarURL != null) 'avatar_url': avatarURL,
+          },
+        ),
         onError: CRawSignupException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// Sends a one-time-password to the given `email`.
   ///
@@ -71,12 +68,10 @@ class CAuthClient {
     required String email,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          await authClient.signInWithOtp(email: email, shouldCreateUser: false);
-          return bobsNothing;
-        },
+        run: () =>
+            authClient.signInWithOtp(email: email, shouldCreateUser: false),
         onError: CRawLoginException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// Verifies the one-time-pin that was sent to a user's `email`.
   ///
@@ -86,47 +81,35 @@ class CAuthClient {
     required String pin,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          await authClient.verifyOTP(
-            email: email,
-            type: OtpType.email,
-            token: pin,
-          );
-          return bobsNothing;
-        },
+        run: () => authClient.verifyOTP(
+          email: email,
+          type: OtpType.email,
+          token: pin,
+        ),
         onError: CRawOTPVerificationException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// Signs out the current user, if there is a logged in user.
   BobsJob<CRawSignoutException, BobsNothing> signOut() => BobsJob.attempt(
-        run: () async {
-          await authClient.signOut();
-          return bobsNothing;
-        },
+        run: authClient.signOut,
         onError: CRawSignoutException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// Updates the user's profile.
   BobsJob<CRawAuthUserUpdateException, BobsNothing> updateUser({
     required CRawAuthUserUpdate update,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          await authClient.updateUser(UserAttributes(data: update.toJson()));
-          return bobsNothing;
-        },
+        run: () => authClient.updateUser(UserAttributes(data: update.toJson())),
         onError: CRawAuthUserUpdateException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// Refreshes the current user's session.
   ///
   /// This is useful for keeping custom claims up-to-date.
   BobsJob<CRawSessionRefreshException, BobsNothing> refreshSession() =>
       BobsJob.attempt(
-        run: () async {
-          await authClient.refreshSession();
-          return bobsNothing;
-        },
+        run: authClient.refreshSession,
         onError: CRawSessionRefreshException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 }

@@ -67,7 +67,7 @@ class CPersonClient {
               CPeopleTableRecord>>.fromHandlers(
         handleData: (data, sink) => sink.add(bobsSuccess(data)),
         handleError: (e, s, sink) =>
-            sink.add(bobsFailure(CRawPersonStreamException.fromError(e, s))),
+            sink.add(bobsFailure(CRawPersonStreamException.fromError(e))),
         handleDone: (sink) => sink.close(),
       );
 
@@ -80,8 +80,8 @@ class CPersonClient {
           .transform(transformer);
 
       yield* stream;
-    } catch (e, s) {
-      yield bobsFailure(CRawPersonStreamException.fromError(e, s));
+    } catch (e) {
+      yield bobsFailure(CRawPersonStreamException.fromError(e));
     }
   }
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 
@@ -9,8 +7,7 @@ enum CAvatarUpdateException {
   unknown;
 
   /// Converts the error to a [CAvatarUpdateException].
-  static CAvatarUpdateException fromError(Object e, StackTrace s) {
-    log(e.toString(), error: e, stackTrace: s, name: 'CAvatarUpdateException');
+  static CAvatarUpdateException fromError(Object error) {
     return CAvatarUpdateException.unknown;
   }
 

@@ -12,31 +12,24 @@ class CPlatformClient {
     required String text,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          await Clipboard.setData(ClipboardData(text: text));
-          return bobsNothing;
-        },
+        run: () => Clipboard.setData(ClipboardData(text: text)),
         onError: CClipboardCopyException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// Shares the given [text] and [subject] at the given [sharePositionOrigin].
-
   BobsJob<CShareException, BobsNothing> share({
     required String text,
     required String subject,
     required Rect sharePositionOrigin,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          await Share.share(
-            text,
-            subject: subject,
-            sharePositionOrigin: sharePositionOrigin,
-          );
-          return bobsNothing;
-        },
+        run: () => Share.share(
+          text,
+          subject: subject,
+          sharePositionOrigin: sharePositionOrigin,
+        ),
         onError: CShareException.fromError,
-      );
+      ).thenConvertSuccess((_) => bobsNothing);
 
   /// The operating system the app is running on.
   static COperatingSystem get operatingSystem {
@@ -77,17 +70,20 @@ class CPlatformClient {
     double? maxHeight,
   }) =>
       BobsJob.attempt(
-        run: () async {
-          final picker = ImagePicker();
-          final image = await picker.pickImage(
-            source: ImageSource.gallery,
-            maxWidth: maxWidth,
-            maxHeight: maxHeight,
-          );
-          if (image == null) return bobsAbsent();
-          final bytes = await image.readAsBytes();
-          return bobsPresent(bytes);
-        },
+        run: () => ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          maxWidth: maxWidth,
+          maxHeight: maxHeight,
+        ),
         onError: CImagePickException.fromError,
-      );
+      ).thenConvertSuccess(bobsMaybe).thenAttempt(
+            run: (image) => image.resolve(
+              onPresent: (data) async {
+                final bytes = await data.readAsBytes();
+                return bobsPresent(bytes);
+              },
+              onAbsent: bobsAbsent,
+            ),
+            onError: CImagePickException.fromError,
+          );
 }

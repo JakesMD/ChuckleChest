@@ -1,28 +1,12 @@
-import 'dart:developer';
-
-import 'package:supabase/supabase.dart';
+// Parameters required for bobs jobs.
+// ignore_for_file: avoid_unused_constructor_parameters
 
 /// Represents an exception that occurs when updating a member's role fails.
 enum CRawMemberRoleUpdateException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawMemberRoleUpdateException.fromError(Object e, StackTrace s) {
-    if (e is PostgrestException) {
-      log(
-        e.message,
-        error: e,
-        stackTrace: s,
-        name: 'CRawMemberRoleUpdateException',
-      );
-    } else {
-      log(
-        e.toString(),
-        error: e,
-        stackTrace: s,
-        name: 'CRawMemberRoleUpdateException',
-      );
-    }
+  factory CRawMemberRoleUpdateException.fromError(Object error) {
     return CRawMemberRoleUpdateException.unknown;
   }
 }

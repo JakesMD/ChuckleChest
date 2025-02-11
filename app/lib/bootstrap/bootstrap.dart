@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/bootstrap/mobile_url_strategy.dart'
     if (dart.library.html) 'package:chuckle_chest/bootstrap/web_url_strategy.dart';
@@ -40,6 +41,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   Bloc.observer = const CAppBlocObserver();
+
+  BigBob.onFailure = (failure, error, stack) =>
+      log(error.toString(), name: failure.toString());
 
   cConfigureURLStrategy();
   await cInitializeL10n();

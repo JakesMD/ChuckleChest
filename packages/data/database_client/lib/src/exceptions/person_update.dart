@@ -1,28 +1,12 @@
-import 'dart:developer';
-
-import 'package:supabase/supabase.dart';
+// Parameters required for bobs jobs.
+// ignore_for_file: avoid_unused_constructor_parameters
 
 /// Represents an exception that occurs when updating a person fails.
 enum CRawPersonUpdateException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawPersonUpdateException.fromError(Object e, StackTrace s) {
-    if (e is PostgrestException) {
-      log(
-        e.message,
-        error: e,
-        stackTrace: s,
-        name: 'CRawPersonUpdateException',
-      );
-    } else {
-      log(
-        e.toString(),
-        error: e,
-        stackTrace: s,
-        name: 'CRawPersonUpdateException',
-      );
-    }
+  factory CRawPersonUpdateException.fromError(Object error) {
     return CRawPersonUpdateException.unknown;
   }
 }
