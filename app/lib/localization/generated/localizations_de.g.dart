@@ -248,6 +248,9 @@ class CAppL10nDe extends CAppL10n {
   String get settingsPage_invitationsTile_title => 'Einladungen';
 
   @override
+  String get settingsPage_logsTile_title => 'Protokolle';
+
+  @override
   String get settingsPage_manageChestTile_title => 'Truhe verwalten';
 
   @override

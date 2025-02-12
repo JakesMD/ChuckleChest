@@ -1,52 +1,52 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:ccore/ccore.dart';
-import 'package:chuckle_chest/bootstrap/mobile_url_strategy.dart'
-    if (dart.library.html) 'package:chuckle_chest/bootstrap/web_url_strategy.dart';
 import 'package:flutter/widgets.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
-/// {@template CAppBlocObserver}
-///
-/// A the main observer which observes and logs all the bloc instances for the
-/// whole app.
-///
-/// {@endtemplate}
-class CAppBlocObserver extends BlocObserver {
-  /// {@macro CAppBlocObserver}
-  const CAppBlocObserver();
-
-  @override
-  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
-    super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
-  }
-
-  @override
-  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
-    super.onError(bloc, error, stackTrace);
-  }
-}
+/// The talker that controls all logging across the app.
+final cTalker = TalkerFlutter.init();
 
 /// Bootstraps the app with the given [builder].
 ///
-/// This function sets up the error handling, bloc observer, and URL strategy.
+/// This function sets up the error handling, bloc observer and localization.
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  FlutterError.onError = (details) {
-    debugPrint(details.toString());
-    log(details.toString(), stackTrace: details.stack);
-  };
+  await runZonedGuarded(() async {
+    FlutterError.onError = (details) {
+      cTalker.error(details.toString(), details.exception, details.stack);
+    };
 
-  Bloc.observer = const CAppBlocObserver();
+    WidgetsFlutterBinding.ensureInitialized();
 
-  BigBob.onFailure = (failure, error, stack) =>
-      log(error.toString(), name: failure.toString());
+    Bloc.observer = TalkerBlocObserver(
+      talker: cTalker,
+      settings: const TalkerBlocLoggerSettings(
+        printChanges: true,
+        printCreations: true,
+        printClosings: true,
+      ),
+    );
 
-  cConfigureURLStrategy();
-  await cInitializeL10n();
+    BigBob.onFailure = (failure, error, stack) =>
+        cTalker.error(failure.toString(), error, stack);
 
-  runApp(await builder());
+    await Supabase.initialize(
+      url: const String.fromEnvironment('SUPABASE_PROJECT_URL'),
+      anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+      debug: false,
+    );
+    cTalker.info('Supabase initialized');
+
+    await cInitializeL10n();
+    cTalker.info('L10n initialized');
+
+    runApp(await builder());
+    cTalker.info('App started');
+  }, (Object error, StackTrace stack) {
+    cTalker.handle(error, stack, 'Uncaught app exception');
+  });
 }

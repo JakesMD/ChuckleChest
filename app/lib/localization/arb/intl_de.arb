@@ -91,6 +91,7 @@
   "save": "Speichern",
   "settingsPage_createChestTile_title": "Neue Truhe erstellen",
   "settingsPage_invitationsTile_title": "Einladungen",
+  "settingsPage_logsTile_title": "Protokolle",
   "settingsPage_manageChestTile_title": "Truhe verwalten",
   "settingsPage_signoutTile_title": "Ausloggen",
   "signinPage_ageConfirmation": "Ich bin mindestens 13 Jahre alt.",

@@ -26,7 +26,7 @@ class CSigninPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.tabBar(
-      routes: [CSignupRoute(), CLoginRoute()],
+      routes: [const CSignupRoute(), CLoginRoute()],
       builder: (context, child, controller) => Scaffold(
         appBar: CAppBar(
           context: context,

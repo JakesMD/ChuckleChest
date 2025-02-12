@@ -10,6 +10,7 @@ export 'gem/page.dart';
 export 'get_started/page.dart';
 export 'home/page.dart';
 export 'invitations/page.dart';
+export 'logs/page.dart';
 export 'manage_chest/page.dart';
 export 'otp_verification/page.dart';
 export 'people/page.dart';

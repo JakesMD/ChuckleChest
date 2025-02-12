@@ -91,6 +91,7 @@
   "save": "Save",
   "settingsPage_createChestTile_title": "Create a new chest",
   "settingsPage_invitationsTile_title": "Invitations",
+  "settingsPage_logsTile_title": "Logs",
   "settingsPage_manageChestTile_title": "Manage this chest",
   "settingsPage_signoutTile_title": "Log out",
   "signinPage_ageConfirmation": "I am at least 13 years old.",

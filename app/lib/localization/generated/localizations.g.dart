@@ -511,6 +511,12 @@ abstract class CAppL10n {
   /// **'Invitations'**
   String get settingsPage_invitationsTile_title;
 
+  /// No description provided for @settingsPage_logsTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Logs'**
+  String get settingsPage_logsTile_title;
+
   /// No description provided for @settingsPage_manageChestTile_title.
   ///
   /// In en, this message translates to:

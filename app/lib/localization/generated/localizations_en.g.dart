@@ -244,6 +244,9 @@ class CAppL10nEn extends CAppL10n {
   String get settingsPage_invitationsTile_title => 'Invitations';
 
   @override
+  String get settingsPage_logsTile_title => 'Logs';
+
+  @override
   String get settingsPage_manageChestTile_title => 'Manage this chest';
 
   @override

@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
+import 'package:chuckle_chest/app/guards/_guards.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,10 +29,7 @@ class CCollaboratorGuard implements AutoRouteGuard {
         .userRole;
 
     if (userRole == CUserRole.viewer) {
-      log(
-        '''Navigation from ${router.current.name} to ${resolver.routeName} denied.''',
-        name: 'CCollaboratorGuard',
-      );
+      CGuardLog('CCollaboratorGuard', resolver).log();
       resolver.next(false);
     } else {
       resolver.next();

@@ -9,6 +9,7 @@ import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/app_flavor.dart';
 import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/bootstrap/bootstrap.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/widgets/client_provider.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 export 'app_flavor.dart';
 
@@ -154,7 +156,7 @@ class _ChuckleChestAppState extends State<ChuckleChestApp> {
             reevaluateListenable: ReevaluateListenable.stream(
               authRepository.currentUserStream(),
             ),
-            navigatorObservers: () => [AutoRouteObserver()],
+            navigatorObservers: () => [TalkerRouteObserver(cTalker)],
           ),
           builder: (context, child) => Column(
             children: [

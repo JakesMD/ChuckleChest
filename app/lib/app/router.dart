@@ -164,5 +164,9 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
           page: COTPVerificationRoute.page,
           guards: [CSignedOutGuard(authRepository: authRepository)],
         ),
+        AutoRoute(
+          path: '/logs',
+          page: CLogsRoute.page,
+        ),
       ];
 }

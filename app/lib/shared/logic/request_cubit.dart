@@ -82,5 +82,6 @@ class CRequestCubitState<F, S> with EquatableMixin {
   List<Object?> get props => [outcome];
 
   @override
-  String toString() => 'CRequestCubitState<$F, $S>(status: $status)';
+  // ignore: no_runtimetype_tostring
+  String toString() => '$runtimeType(status: $status)';
 }

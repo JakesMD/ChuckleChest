@@ -28,10 +28,8 @@ class CAuthClient {
       await for (final authState in authClient.onAuthStateChange) {
         if (authState.session != null) {
           final user = CRawAuthUser.fromSupabaseSession(authState.session!);
-          log(user.toString(), name: 'CAuthClient.currentUserStream');
           yield bobsPresent(user);
         } else {
-          log('No user', name: 'CAuthClient.currentUserStream');
           yield bobsAbsent();
         }
       }

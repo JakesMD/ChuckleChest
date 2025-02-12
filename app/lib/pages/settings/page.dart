@@ -85,6 +85,12 @@ class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
         ),
         const CCreateChestTile(),
         const Divider(height: 48),
+        ListTile(
+          minVerticalPadding: 16,
+          leading: const Icon(Icons.developer_mode_rounded),
+          title: Text(context.cAppL10n.settingsPage_logsTile_title),
+          onTap: () => context.router.push(const CLogsRoute()),
+        ),
         const CSignoutTile(),
       ],
     );

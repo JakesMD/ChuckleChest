@@ -140,6 +140,12 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: CLoginTab(key: args.key)),
       );
     },
+    CLogsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CLogsPage(),
+      );
+    },
     CManageChestRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -211,11 +217,9 @@ abstract class _$CAppRouter extends RootStackRouter {
       );
     },
     CSignupRoute.name: (routeData) {
-      final args = routeData.argsAs<CSignupRouteArgs>(
-          orElse: () => const CSignupRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: CSignupTab(key: args.key)),
+        child: WrappedRoute(child: const CSignupTab()),
       );
     },
     CYearCollectionRoute.name: (routeData) {
@@ -590,6 +594,20 @@ class CLoginRouteArgs {
 }
 
 /// generated route for
+/// [CLogsPage]
+class CLogsRoute extends PageRouteInfo<void> {
+  const CLogsRoute({List<PageRouteInfo>? children})
+      : super(
+          CLogsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CLogsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CManageChestPage]
 class CManageChestRoute extends PageRouteInfo<void> {
   const CManageChestRoute({List<PageRouteInfo>? children})
@@ -767,31 +785,16 @@ class CSigninRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CSignupTab]
-class CSignupRoute extends PageRouteInfo<CSignupRouteArgs> {
-  CSignupRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class CSignupRoute extends PageRouteInfo<void> {
+  const CSignupRoute({List<PageRouteInfo>? children})
+      : super(
           CSignupRoute.name,
-          args: CSignupRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CSignupRoute';
 
-  static const PageInfo<CSignupRouteArgs> page =
-      PageInfo<CSignupRouteArgs>(name);
-}
-
-class CSignupRouteArgs {
-  const CSignupRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CSignupRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
