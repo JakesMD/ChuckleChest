@@ -18,8 +18,8 @@ class CCollaboratorGuard implements AutoRouteGuard {
     if (userRole == CUserRole.viewer) {
       CGuardLog('CCollaboratorGuard', resolver).log();
       resolver.next(false);
-    } else {
-      resolver.next();
+      return;
     }
+    resolver.next();
   }
 }

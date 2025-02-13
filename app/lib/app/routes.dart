@@ -49,108 +49,6 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          path: '/',
-          page: CBaseRoute.page,
-          initial: true,
-          guards: [CSignedInGuard(currentUserCubit: currentUserCubit)],
-          children: [
-            AutoRoute(
-              path: 'get-started',
-              page: CGetStartedRoute.page,
-              guards: [CNoChestsGuard(currentUserCubit: currentUserCubit)],
-            ),
-            AutoRoute(
-              path: 'chest/:chest-id',
-              page: CChestRoute.page,
-              initial: true,
-              guards: [CChestsGuard(currentUserCubit: currentUserCubit)],
-              children: [
-                AutoRoute(
-                  path: 'home',
-                  page: CHomeRoute.page,
-                  initial: true,
-                  children: [
-                    AutoRoute(
-                      path: 'collections',
-                      page: CCollectionsRoute.page,
-                      initial: true,
-                    ),
-                    AutoRoute(
-                      path: 'people',
-                      page: CPeopleRoute.page,
-                      guards: [CCollaboratorGuard()],
-                    ),
-                    AutoRoute(path: 'settings', page: CSettingsRoute.page),
-                  ],
-                ),
-                AutoRoute(
-                  path: 'create-gem',
-                  page: CCreateGemRoute.page,
-                  guards: [CCollaboratorGuard()],
-                ),
-                AutoRoute(
-                  path: 'edit-gem',
-                  page: CEditGemRoute.page,
-                  guards: [CCollaboratorGuard()],
-                ),
-                AutoRoute(
-                  path: 'gems/:gemID',
-                  page: CGemRoute.page,
-                  children: [
-                    AutoRoute(
-                      path: 'edit',
-                      page: CEditGemRoute.page,
-                      guards: [CCollaboratorGuard()],
-                    ),
-                  ],
-                ),
-                AutoRoute(
-                  path: 'year/:year',
-                  page: CYearCollectionRoute.page,
-                ),
-                AutoRoute(
-                  path: 'recently-added',
-                  page: CRecentsCollectionRoute.page,
-                ),
-                AutoRoute(
-                  path: 'randomly-selected',
-                  page: CRandomCollectionRoute.page,
-                ),
-                AutoRoute(
-                  path: 'edit-person',
-                  page: CEditPersonRoute.page,
-                  guards: [CCollaboratorGuard()],
-                ),
-                AutoRoute(
-                  path: 'edit-avatar',
-                  page: CEditAvatarRoute.page,
-                  guards: [CCollaboratorGuard()],
-                ),
-                AutoRoute(
-                  path: 'invitations',
-                  page: CInvitationsRoute.page,
-                ),
-                AutoRoute(
-                  path: 'manage-chest',
-                  page: CManageChestRoute.page,
-                  guards: [COwnerGuard()],
-                  children: [
-                    AutoRoute(
-                      path: 'members',
-                      page: CMembersRoute.page,
-                      initial: true,
-                    ),
-                    AutoRoute(
-                      path: 'invited',
-                      page: CInvitedRoute.page,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        AutoRoute(
           path: '/signin',
           page: CSigninRoute.page,
           guards: [CSignedOutGuard(currentUserCubit: currentUserCubit)],
@@ -181,6 +79,111 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/demo',
           page: CDemoRoute.page,
+        ),
+        AutoRoute(
+          path: '/',
+          page: CBaseRoute.page,
+          initial: true,
+          guards: [CSignedInGuard(currentUserCubit: currentUserCubit)],
+          children: [
+            AutoRoute(
+              path: 'get-started',
+              page: CGetStartedRoute.page,
+              guards: [CNoChestsGuard(currentUserCubit: currentUserCubit)],
+            ),
+            AutoRoute(
+              path: 'chest',
+              page: CChestRoute.page,
+              initial: true,
+              guards: [CChestsGuard(currentUserCubit: currentUserCubit)],
+              children: [
+                AutoRoute(
+                  path: '',
+                  page: CHomeRoute.page,
+                  initial: true,
+                  children: [
+                    AutoRoute(
+                      path: 'collections',
+                      page: CCollectionsRoute.page,
+                      initial: true,
+                    ),
+                    AutoRoute(
+                      path: 'people',
+                      page: CPeopleRoute.page,
+                      guards: [CCollaboratorGuard()],
+                    ),
+                    AutoRoute(
+                      path: 'settings',
+                      page: CSettingsRoute.page,
+                    ),
+                  ],
+                ),
+                AutoRoute(
+                  path: 'create-gem',
+                  page: CCreateGemRoute.page,
+                  guards: [CCollaboratorGuard()],
+                ),
+                AutoRoute(
+                  path: 'edit-gem',
+                  page: CEditGemRoute.page,
+                  guards: [CCollaboratorGuard()],
+                ),
+                AutoRoute(
+                  path: 'gems/:gemID',
+                  page: CGemRoute.page,
+                  children: [
+                    AutoRoute(
+                      path: 'edit',
+                      page: CEditGemRoute.page,
+                      guards: [CCollaboratorGuard()],
+                    ),
+                  ],
+                ),
+                AutoRoute(
+                  path: 'collections/year/:year',
+                  page: CYearCollectionRoute.page,
+                ),
+                AutoRoute(
+                  path: 'collections/recently-added',
+                  page: CRecentsCollectionRoute.page,
+                ),
+                AutoRoute(
+                  path: 'collections/randomly-selected',
+                  page: CRandomCollectionRoute.page,
+                ),
+                AutoRoute(
+                  path: 'people/edit-person',
+                  page: CEditPersonRoute.page,
+                  guards: [CCollaboratorGuard()],
+                ),
+                AutoRoute(
+                  path: 'people/edit-person/edit-avatar',
+                  page: CEditAvatarRoute.page,
+                  guards: [CCollaboratorGuard()],
+                ),
+                AutoRoute(
+                  path: 'settings/invitations',
+                  page: CInvitationsRoute.page,
+                ),
+                AutoRoute(
+                  path: 'settings/manage-chest',
+                  page: CManageChestRoute.page,
+                  guards: [COwnerGuard()],
+                  children: [
+                    AutoRoute(
+                      path: 'members',
+                      page: CMembersRoute.page,
+                      initial: true,
+                    ),
+                    AutoRoute(
+                      path: 'invited',
+                      page: CInvitedRoute.page,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
         RedirectRoute(
           path: '*',

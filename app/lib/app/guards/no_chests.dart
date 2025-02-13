@@ -23,9 +23,9 @@ class CNoChestsGuard implements AutoRouteGuard {
       CGuardLog('CNoChestsGuard', resolver).log();
       resolver
         ..next(false)
-        ..redirect(CChestRoute(chestID: null), replace: true);
-    } else {
-      resolver.next();
+        ..redirect(const CBaseRoute(), replace: true);
+      return;
     }
+    resolver.next();
   }
 }

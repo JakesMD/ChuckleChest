@@ -20,13 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CHomePage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CHomePage}
 
-  const CHomePage({
-    @PathParam.inherit('chest-id') required this.chestID,
-    super.key,
-  });
-
-  /// The ID of the chest to display.
-  final String chestID;
+  const CHomePage({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {

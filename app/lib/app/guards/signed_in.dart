@@ -22,10 +22,10 @@ class CSignedInGuard implements AutoRouteGuard {
     if (currentUserCubit.state.isSignedOut) {
       CGuardLog('CSignedInGuard', resolver).log();
       resolver
-        ..next()
+        ..next(false)
         ..redirect(const CSigninRoute(), replace: true);
-    } else {
-      resolver.next();
+      return;
     }
+    resolver.next();
   }
 }

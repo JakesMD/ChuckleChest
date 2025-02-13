@@ -24,8 +24,8 @@ class CChestsGuard implements AutoRouteGuard {
       resolver
         ..next(false)
         ..redirect(const CGetStartedRoute(), replace: true);
-    } else {
-      resolver.next();
+      return;
     }
+    resolver.next();
   }
 }

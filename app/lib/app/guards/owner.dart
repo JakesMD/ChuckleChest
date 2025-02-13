@@ -18,8 +18,8 @@ class COwnerGuard implements AutoRouteGuard {
     if (userRole != CUserRole.owner) {
       CGuardLog('COwnerGuard', resolver).log();
       resolver.next(false);
-    } else {
-      resolver.next();
+      return;
     }
+    resolver.next();
   }
 }

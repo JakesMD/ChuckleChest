@@ -22,10 +22,8 @@ abstract class _$CAppRouter extends RootStackRouter {
       );
     },
     CChestRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<CChestRouteArgs>(
-          orElse: () =>
-              CChestRouteArgs(chestID: pathParams.optString('chest-id')));
+          orElse: () => const CChestRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -108,16 +106,9 @@ abstract class _$CAppRouter extends RootStackRouter {
       );
     },
     CHomeRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args =
-          routeData.argsAs<CHomeRouteArgs>(orElse: () => CHomeRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(
-            child: CHomePage(
-          chestID: pathParams.getString('chest-id'),
-          key: args.key,
-        )),
+        child: WrappedRoute(child: const CHomePage()),
       );
     },
     CInvitationsRoute.name: (routeData) {
@@ -257,7 +248,7 @@ class CBaseRoute extends PageRouteInfo<void> {
 /// [CChestPage]
 class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
   CChestRoute({
-    required String? chestID,
+    String? chestID,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
@@ -266,7 +257,6 @@ class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
             chestID: chestID,
             key: key,
           ),
-          rawPathParams: {'chest-id': chestID},
           initialChildren: children,
         );
 
@@ -277,7 +267,7 @@ class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
 
 class CChestRouteArgs {
   const CChestRouteArgs({
-    required this.chestID,
+    this.chestID,
     this.key,
   });
 
@@ -511,30 +501,16 @@ class CGetStartedRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CHomePage]
-class CHomeRoute extends PageRouteInfo<CHomeRouteArgs> {
-  CHomeRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class CHomeRoute extends PageRouteInfo<void> {
+  const CHomeRoute({List<PageRouteInfo>? children})
+      : super(
           CHomeRoute.name,
-          args: CHomeRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CHomeRoute';
 
-  static const PageInfo<CHomeRouteArgs> page = PageInfo<CHomeRouteArgs>(name);
-}
-
-class CHomeRouteArgs {
-  const CHomeRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CHomeRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

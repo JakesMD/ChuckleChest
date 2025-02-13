@@ -19,10 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class CChestPage extends StatelessWidget implements AutoRouteWrapper {
   /// {@macro CChestPage}
-  const CChestPage({
-    @PathParam('chest-id') required this.chestID,
-    super.key,
-  });
+  const CChestPage({this.chestID, super.key});
 
   /// The ID of the chest to select.
   final String? chestID;
