@@ -245,10 +245,22 @@ class CAppL10nDe extends CAppL10n {
   String get save => 'Speichern';
 
   @override
+  String get settingsPage_contactTile_title => 'Impressum';
+
+  @override
   String get settingsPage_createChestTile_title => 'Neue Truhe erstellen';
 
   @override
   String get settingsPage_invitationsTile_title => 'Einladungen';
+
+  @override
+  String get settingsPage_languageTile_device => 'Gerät';
+
+  @override
+  String get settingsPage_languageTile_title => 'Sprache';
+
+  @override
+  String get settingsPage_licensesTile_title => 'Lizenzen';
 
   @override
   String get settingsPage_logsTile_title => 'Protokolle';
@@ -257,7 +269,16 @@ class CAppL10nDe extends CAppL10n {
   String get settingsPage_manageChestTile_title => 'Truhe verwalten';
 
   @override
+  String get settingsPage_privacyPolicyTile_title => 'Datenschutzerklärung';
+
+  @override
   String get settingsPage_signoutTile_title => 'Ausloggen';
+
+  @override
+  String get settingsPage_termsOfServiceTile_title => 'Nutzungsbedingungen';
+
+  @override
+  String get settingsPage_themeTile_title => 'Modus';
 
   @override
   String get signinPage_ageConfirmation => 'Ich bin mindestens 13 Jahre alt.';

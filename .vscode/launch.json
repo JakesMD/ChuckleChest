@@ -46,8 +46,6 @@
             "args": [
                 "--target",
                 "lib/main_development.dart",
-                "--web-renderer",
-                "canvaskit",
                 "--dart-define-from-file",
                 "secrets.development.json"
             ]
@@ -61,8 +59,6 @@
             "args": [
                 "--target",
                 "lib/main_staging.dart",
-                "--web-renderer",
-                "canvaskit",
                 "--dart-define-from-file",
                 "secrets.staging.json"
             ]
@@ -76,8 +72,6 @@
             "args": [
                 "--target",
                 "lib/main_production.dart",
-                "--web-renderer",
-                "canvaskit",
                 "--dart-define-from-file",
                 "secrets.production.json"
             ]

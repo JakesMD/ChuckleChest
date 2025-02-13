@@ -241,10 +241,22 @@ class CAppL10nEn extends CAppL10n {
   String get save => 'Save';
 
   @override
+  String get settingsPage_contactTile_title => 'Contact';
+
+  @override
   String get settingsPage_createChestTile_title => 'Create a new chest';
 
   @override
   String get settingsPage_invitationsTile_title => 'Invitations';
+
+  @override
+  String get settingsPage_languageTile_device => 'Device';
+
+  @override
+  String get settingsPage_languageTile_title => 'Language';
+
+  @override
+  String get settingsPage_licensesTile_title => 'Licences';
 
   @override
   String get settingsPage_logsTile_title => 'Logs';
@@ -253,7 +265,16 @@ class CAppL10nEn extends CAppL10n {
   String get settingsPage_manageChestTile_title => 'Manage this chest';
 
   @override
+  String get settingsPage_privacyPolicyTile_title => 'Privacy policy';
+
+  @override
   String get settingsPage_signoutTile_title => 'Log out';
+
+  @override
+  String get settingsPage_termsOfServiceTile_title => 'Terms of service';
+
+  @override
+  String get settingsPage_themeTile_title => 'Theme';
 
   @override
   String get signinPage_ageConfirmation => 'I am at least 13 years old.';

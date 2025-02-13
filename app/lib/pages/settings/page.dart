@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/routes.dart';
-import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/settings/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
 import 'package:chuckle_chest/shared/widgets/error_snack_bar.dart';
@@ -63,28 +62,20 @@ class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 16),
       children: [
-        if (isOwner)
-          ListTile(
-            minVerticalPadding: 16,
-            leading: const Icon(Icons.manage_accounts_rounded),
-            title: Text(context.cAppL10n.settingsPage_manageChestTile_title),
-            onTap: () => context.router.push(const CManageChestRoute()),
-          ),
+        if (isOwner) const CManageChestTile(),
         if (isOwner) const Divider(height: 48),
-        ListTile(
-          minVerticalPadding: 16,
-          leading: const Icon(Icons.inbox_rounded),
-          title: Text(context.cAppL10n.settingsPage_invitationsTile_title),
-          onTap: () => context.router.push(const CInvitationsRoute()),
-        ),
+        const CInvitationsTile(),
         const CCreateChestTile(),
         const Divider(height: 48),
-        ListTile(
-          minVerticalPadding: 16,
-          leading: const Icon(Icons.developer_mode_rounded),
-          title: Text(context.cAppL10n.settingsPage_logsTile_title),
-          onTap: () => context.router.push(const CLogsRoute()),
-        ),
+        const CLanguageTile(),
+        const CThemeTile(),
+        const Divider(height: 48),
+        const CContactTile(),
+        const CPrivacyPolicyTile(),
+        const CTermsOfServiceTile(),
+        const CLicensesTile(),
+        const CLogsTile(),
+        const Divider(height: 48),
         const CSignoutTile(),
       ],
     );

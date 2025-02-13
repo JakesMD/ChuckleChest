@@ -505,6 +505,12 @@ abstract class CAppL10n {
   /// **'Save'**
   String get save;
 
+  /// No description provided for @settingsPage_contactTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact'**
+  String get settingsPage_contactTile_title;
+
   /// No description provided for @settingsPage_createChestTile_title.
   ///
   /// In en, this message translates to:
@@ -516,6 +522,24 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Invitations'**
   String get settingsPage_invitationsTile_title;
+
+  /// No description provided for @settingsPage_languageTile_device.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get settingsPage_languageTile_device;
+
+  /// No description provided for @settingsPage_languageTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsPage_languageTile_title;
+
+  /// No description provided for @settingsPage_licensesTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Licences'**
+  String get settingsPage_licensesTile_title;
 
   /// No description provided for @settingsPage_logsTile_title.
   ///
@@ -529,11 +553,29 @@ abstract class CAppL10n {
   /// **'Manage this chest'**
   String get settingsPage_manageChestTile_title;
 
+  /// No description provided for @settingsPage_privacyPolicyTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get settingsPage_privacyPolicyTile_title;
+
   /// No description provided for @settingsPage_signoutTile_title.
   ///
   /// In en, this message translates to:
   /// **'Log out'**
   String get settingsPage_signoutTile_title;
+
+  /// No description provided for @settingsPage_termsOfServiceTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of service'**
+  String get settingsPage_termsOfServiceTile_title;
+
+  /// No description provided for @settingsPage_themeTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsPage_themeTile_title;
 
   /// No description provided for @signinPage_ageConfirmation.
   ///
