@@ -1,3 +1,4 @@
+// Used for seemless use with material widgets.
 // ignore_for_file: avoid_positional_boolean_parameters
 
 import 'package:auto_route/auto_route.dart';

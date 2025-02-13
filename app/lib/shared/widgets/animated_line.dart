@@ -1,3 +1,4 @@
+// Leaves options open for future use.
 // ignore_for_file: unused_element
 
 import 'package:ccore/ccore.dart';

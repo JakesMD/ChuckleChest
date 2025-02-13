@@ -5,4 +5,4 @@ analyzer:
     strict-inference: false
 
   exclude:
-    # - /**/*.g.dart
+    - /**/*.g.dart

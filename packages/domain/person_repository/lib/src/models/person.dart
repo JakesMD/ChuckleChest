@@ -1,3 +1,6 @@
+// Exceptions are unknown.
+// ignore_for_file: avoid_catches_without_on_clauses
+
 import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cperson_repository/src/models/_models.dart';

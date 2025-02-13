@@ -68,7 +68,7 @@ scripts:
     description: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
     run: |
       echo "WARNING: 'melos format' currently does NOT fail if files are changed. This is because 'dart format' doesn't ignore generated files for an unknown reason."
-      flutter upgrade
+      flutter upgrade --force
       flutter pub global activate melos
       flutter pub global activate combine_coverage
       flutter pub global activate remove_from_coverage
