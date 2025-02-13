@@ -1,5 +1,5 @@
+// ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'localizations.g.dart';
 
 // ignore_for_file: type=lint
@@ -226,7 +226,7 @@ class CAppL10nEn extends CAppL10n {
   }
 
   @override
-  String quoteItem_person(Object nickname, int age) {
+  String quoteItem_person(String nickname, int age) {
     String _temp0 = intl.Intl.pluralLogic(
       age,
       locale: localeName,

@@ -83,7 +83,9 @@
   "quoteItem_person": "{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old",
   "@quoteItem_person": {
     "placeholders": {
-      "nickname": {},
+      "nickname": {
+        "type": "String"
+      },
       "age": {
         "type": "int"
       }

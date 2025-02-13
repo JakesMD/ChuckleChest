@@ -497,7 +497,7 @@ abstract class CAppL10n {
   ///
   /// In en, this message translates to:
   /// **'{nickname} • {age} {age, plural, =0{years} =1{year} other{years}} old'**
-  String quoteItem_person(Object nickname, int age);
+  String quoteItem_person(String nickname, int age);
 
   /// No description provided for @save.
   ///
