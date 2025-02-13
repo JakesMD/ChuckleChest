@@ -58,6 +58,7 @@
   "invitationsPage_acceptButton": "Accept",
   "invitationsPage_noInvitationsMessage": "No invitations",
   "invitationsPage_title": "Invitations",
+  "languageDialog_title": "Change language",
   "manageChestPage_chestNameTile_title": "Name",
   "manageChestPage_createInvitationDialog_hint_email": "Email",
   "manageChestPage_createInvitationDialog_title": "Invite someone",
@@ -109,5 +110,9 @@
   "signinPage_title": "Welcome to ChuckleChest!",
   "snackBar_error_defaultMessage": "Oops! Something went wrong. Please check your internet connection and try again.",
   "stagingBanner_button": "Release version",
-  "stagingBanner_message": "You're using the staging version."
+  "stagingBanner_message": "You're using the staging version.",
+  "themeDialog_darkMode": "Dark mode",
+  "themeDialog_device": "Device",
+  "themeDialog_lightMode": "Light mode",
+  "themeDialog_title": "Change theme"
 }

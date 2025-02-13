@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:chuckle_chest/shared/views/collection/logic/_logic.dart';
 import 'package:flutter/material.dart';

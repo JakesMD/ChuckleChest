@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cauth_repository/cauth_repository.dart';
 import 'package:cgem_repository/cgem_repository.dart';
+import 'package:chuckle_chest/app/bootstrap/_bootstrap.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
 import 'package:chuckle_chest/pages/_pages.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
-part 'router.gr.dart';
+part 'routes.gr.dart';
 
 /// {@template CAppRouter}
 ///
@@ -18,42 +21,49 @@ part 'router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page|Tab,Route')
 class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
   /// {@macro CAppRouter}
-  CAppRouter({required this.authRepository});
+  CAppRouter({required BuildContext dependencyContext})
+      : currentUserCubit = dependencyContext.read<CCurrentUserCubit>();
 
-  /// The authentication repository.
-  final CAuthRepository authRepository;
+  /// The cubit that provides the current user.
+  final CCurrentUserCubit currentUserCubit;
 
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    if (currentUserCubit.state.isWaiting) {
+      await currentUserCubit.stream.first;
+    }
     resolver.next();
   }
+
+  /// The configuration for the app.
+  RouterConfig<UrlState> configure() => config(
+        includePrefixMatches: true,
+        reevaluateListenable:
+            ReevaluateListenable.stream(currentUserCubit.isSignedInStream),
+        navigatorObservers: () => [TalkerRouteObserver(cTalker)],
+      );
 
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          path: '/shared-gem',
-          page: CSharedGemRoute.page,
-        ),
-        AutoRoute(
-          path: '/demo',
-          page: CDemoRoute.page,
-        ),
-        AutoRoute(
           path: '/',
           page: CBaseRoute.page,
           initial: true,
-          guards: [CSignedInGuard(authRepository: authRepository)],
+          guards: [CSignedInGuard(currentUserCubit: currentUserCubit)],
           children: [
             AutoRoute(
               path: 'get-started',
               page: CGetStartedRoute.page,
-              guards: [CNoChestsGuard(authRepository: authRepository)],
+              guards: [CNoChestsGuard(currentUserCubit: currentUserCubit)],
             ),
             AutoRoute(
               path: 'chest/:chest-id',
               page: CChestRoute.page,
               initial: true,
-              guards: [CChestsGuard(authRepository: authRepository)],
+              guards: [CChestsGuard(currentUserCubit: currentUserCubit)],
               children: [
                 AutoRoute(
                   path: 'home',
@@ -68,9 +78,7 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                     AutoRoute(
                       path: 'people',
                       page: CPeopleRoute.page,
-                      guards: [
-                        CCollaboratorGuard(authRepository: authRepository),
-                      ],
+                      guards: [CCollaboratorGuard()],
                     ),
                     AutoRoute(path: 'settings', page: CSettingsRoute.page),
                   ],
@@ -78,12 +86,12 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                 AutoRoute(
                   path: 'create-gem',
                   page: CCreateGemRoute.page,
-                  guards: [CCollaboratorGuard(authRepository: authRepository)],
+                  guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(
                   path: 'edit-gem',
                   page: CEditGemRoute.page,
-                  guards: [CCollaboratorGuard(authRepository: authRepository)],
+                  guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(
                   path: 'gems/:gemID',
@@ -92,9 +100,7 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                     AutoRoute(
                       path: 'edit',
                       page: CEditGemRoute.page,
-                      guards: [
-                        CCollaboratorGuard(authRepository: authRepository),
-                      ],
+                      guards: [CCollaboratorGuard()],
                     ),
                   ],
                 ),
@@ -113,12 +119,12 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                 AutoRoute(
                   path: 'edit-person',
                   page: CEditPersonRoute.page,
-                  guards: [CCollaboratorGuard(authRepository: authRepository)],
+                  guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(
                   path: 'edit-avatar',
                   page: CEditAvatarRoute.page,
-                  guards: [CCollaboratorGuard(authRepository: authRepository)],
+                  guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(
                   path: 'invitations',
@@ -127,7 +133,7 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                 AutoRoute(
                   path: 'manage-chest',
                   page: CManageChestRoute.page,
-                  guards: [CAppRouter(authRepository: authRepository)],
+                  guards: [COwnerGuard()],
                   children: [
                     AutoRoute(
                       path: 'members',
@@ -147,7 +153,7 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/signin',
           page: CSigninRoute.page,
-          guards: [CSignedOutGuard(authRepository: authRepository)],
+          guards: [CSignedOutGuard(currentUserCubit: currentUserCubit)],
           children: [
             AutoRoute(
               path: 'signup',
@@ -162,11 +168,23 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/verify-otp',
           page: COTPVerificationRoute.page,
-          guards: [CSignedOutGuard(authRepository: authRepository)],
+          guards: [CSignedOutGuard(currentUserCubit: currentUserCubit)],
         ),
         AutoRoute(
           path: '/logs',
           page: CLogsRoute.page,
+        ),
+        AutoRoute(
+          path: '/shared-gem',
+          page: CSharedGemRoute.page,
+        ),
+        AutoRoute(
+          path: '/demo',
+          page: CDemoRoute.page,
+        ),
+        RedirectRoute(
+          path: '*',
+          redirectTo: '/',
         ),
       ];
 }

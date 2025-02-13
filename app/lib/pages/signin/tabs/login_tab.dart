@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
 import 'package:ccore/ccore.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/signin/logic/login_cubit.dart';
 import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';

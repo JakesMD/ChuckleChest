@@ -10,7 +10,7 @@ dependencies:
   auto_route: ^8.1.4
   bloc: ^9.0.0
   bloc_concurrency: ^0.3.0
-  bobs_jobs: ^0.0.1-dev.15
+  bobs_jobs: ^0.0.1-dev.16
   cauth_client:
   cauth_repository:
   cchest_repository:
@@ -27,6 +27,7 @@ dependencies:
   flutter_bloc: ^9.0.0
   flutter_localizations:
     sdk: flutter
+  hydrated_bloc: ^10.0.0
   meta: ^1.15.0
   pinput: ^5.0.0
   signed_spacing_flex: ^1.1.0

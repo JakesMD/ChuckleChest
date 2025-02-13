@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/pages/signin/logic/login_cubit.dart';
+import 'package:chuckle_chest/pages/signin/logic/signup_cubit.dart';
+import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 export 'tabs/_tabs.dart';
 
@@ -20,7 +24,17 @@ class CSigninPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CSignupCubit(authRepository: context.read()),
+        ),
+        BlocProvider(
+          create: (context) => CLoginCubit(authRepository: context.read()),
+        ),
+      ],
+      child: this,
+    );
   }
 
   @override
@@ -31,6 +45,7 @@ class CSigninPage extends StatelessWidget implements AutoRouteWrapper {
         appBar: CAppBar(
           context: context,
           title: Text(context.cAppL10n.signinPage_title),
+          actions: const [CSettingsMenu()],
           bottom: TabBar(
             controller: controller,
             tabs: [
@@ -39,7 +54,17 @@ class CSigninPage extends StatelessWidget implements AutoRouteWrapper {
             ],
           ),
         ),
-        body: child,
+        body: Column(
+          children: [
+            CAppBarLoadingIndicator(
+              listeners: [
+                CLoadingListener<CSignupCubit, CSignupState>(),
+                CLoadingListener<CLoginCubit, CLoginState>(),
+              ],
+            ),
+            Expanded(child: child),
+          ],
+        ),
       ),
     );
   }

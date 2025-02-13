@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cgem_repository/cgem_repository.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_gem/dialogs/_dialogs.dart';
 import 'package:chuckle_chest/pages/edit_gem/logic/_logic.dart';

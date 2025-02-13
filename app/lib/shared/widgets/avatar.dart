@@ -1,6 +1,5 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

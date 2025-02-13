@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// A guard that checks that the user is a collaborator for the chest.
 ///
 /// If the user is a collaborator of the chest, the navigation will continue.
-class CCollaboratorGuard implements AutoRouteGuard {
+class COwnerGuard implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     final userRole = router.navigatorKey.currentContext!
@@ -15,8 +15,8 @@ class CCollaboratorGuard implements AutoRouteGuard {
         .state
         .userRole;
 
-    if (userRole == CUserRole.viewer) {
-      CGuardLog('CCollaboratorGuard', resolver).log();
+    if (userRole != CUserRole.owner) {
+      CGuardLog('COwnerGuard', resolver).log();
       resolver.next(false);
     } else {
       resolver.next();

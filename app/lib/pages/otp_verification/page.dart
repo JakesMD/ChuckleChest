@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/otp_verification/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
@@ -28,19 +28,14 @@ class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
       create: (context) =>
           COTPVerificationCubit(authRepository: context.read()),
       child: BlocListener<COTPVerificationCubit, COTPVerificationState>(
-        listener: (context, state) => switch (state.status) {
-          CRequestCubitStatus.initial => null,
-          CRequestCubitStatus.inProgress => null,
-          CRequestCubitStatus.failed => switch (state.failure) {
-              COTPVerificationException.invalidToken => CErrorSnackBar(
-                  message:
-                      context.cAppL10n.otpVerificationPage_error_invalidToken,
-                ).show(context),
-              COTPVerificationException.unknown =>
-                const CErrorSnackBar().show(context),
-            },
-          CRequestCubitStatus.succeeded => _onVerificationCompleted(context),
+        listener: (context, state) => switch (state.failure) {
+          COTPVerificationException.invalidToken => CErrorSnackBar(
+              message: context.cAppL10n.otpVerificationPage_error_invalidToken,
+            ).show(context),
+          COTPVerificationException.unknown =>
+            const CErrorSnackBar().show(context),
         },
+        listenWhen: (_, state) => state.failed,
         child: this,
       ),
     );
@@ -58,9 +53,6 @@ class COTPVerificationPage extends StatelessWidget implements AutoRouteWrapper {
         .read<COTPVerificationCubit>()
         .verifyOTP(email: email!.toLowerCase(), pin: pin);
   }
-
-  void _onVerificationCompleted(BuildContext context) =>
-      context.router.replaceAll([const CBaseRoute()]);
 
   @override
   Widget build(BuildContext context) {

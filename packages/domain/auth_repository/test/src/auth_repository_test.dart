@@ -47,7 +47,10 @@ void main() {
 
     setUp(() {
       when(authClient.currentUserStream).thenAnswer(
-        (_) => Stream.fromIterable([bobsPresent(fakeRawUser)]),
+        (_) => BobsStream(
+          stream: () =>
+              Stream.fromIterable([bobsSuccess(bobsPresent(fakeRawUser))]),
+        ),
       );
     });
 
@@ -78,11 +81,14 @@ void main() {
     });
 
     group('currentUserStream', () {
-      late StreamController<BobsMaybe<CRawAuthUser>> controller;
+      late StreamController<
+          BobsOutcome<CRawCurrentUserStreamException,
+              BobsMaybe<CRawAuthUser>>> controller;
 
       setUp(() {
         controller = StreamController();
-        when(authClient.currentUserStream).thenAnswer((_) => controller.stream);
+        when(authClient.currentUserStream)
+            .thenAnswer((_) => BobsStream(stream: () => controller.stream));
       });
 
       test(
@@ -91,13 +97,13 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          var result = bobsAbsent<CAuthUser>();
-          repo.currentUserStream().listen((event) => result = event);
+          var result = bobsSuccess(bobsAbsent<CAuthUser>());
+          repo.currentUserStream().stream().listen((event) => result = event);
 
-          controller.add(bobsPresent(fakeRawUser));
+          controller.add(bobsSuccess(bobsPresent(fakeRawUser)));
           await Future.delayed(Duration.zero);
 
-          expect(result, bobsPresent(fakeUser));
+          expectBobsSuccess(result, bobsPresent(fakeUser));
         }),
       );
 
@@ -107,13 +113,28 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          var result = bobsAbsent<CAuthUser>();
-          repo.currentUserStream().listen((event) => result = event);
+          var result = bobsSuccess(bobsAbsent<CAuthUser>());
+          repo.currentUserStream().stream().listen((event) => result = event);
 
-          controller.add(bobsAbsent());
+          controller.add(bobsSuccess(bobsAbsent()));
           await Future.delayed(Duration.zero);
 
-          expect(result, bobsAbsent());
+          expectBobsSuccess(result, bobsAbsent());
+        }),
+      );
+      test(
+        requirement(
+          When: 'stream emits [unknown] exception',
+          Then: 'returns [unknown] exception',
+        ),
+        procedure(() async {
+          var result = bobsSuccess(bobsAbsent<CAuthUser>());
+          repo.currentUserStream().stream().listen((event) => result = event);
+
+          controller.add(bobsFailure(CRawCurrentUserStreamException.unknown));
+          await Future.delayed(Duration.zero);
+
+          expectBobsFailure(result, CCurrentUserStreamException.unknown);
         }),
       );
     });

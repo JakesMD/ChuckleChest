@@ -19,11 +19,11 @@ class CAuthRepository {
   }
 
   /// The stream for the currently logged in user.
-  Stream<BobsMaybe<CAuthUser>> currentUserStream() async* {
-    await for (final user in authClient.currentUserStream()) {
-      yield user.convert(CAuthUser.fromRawUser);
-    }
-  }
+  BobsStream<CCurrentUserStreamException, BobsMaybe<CAuthUser>>
+      currentUserStream() => authClient.currentUserStream().thenConvert(
+            onSuccess: (user) => user.convert(CAuthUser.fromRawUser),
+            onFailure: CCurrentUserStreamException.fromRaw,
+          );
 
   /// Sends a one-time-password for signup to the given email.
   BobsJob<CSignupException, BobsNothing> signUpWithOTP({

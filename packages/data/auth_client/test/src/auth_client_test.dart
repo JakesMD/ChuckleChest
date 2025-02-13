@@ -106,13 +106,14 @@ void main() {
           Then: 'returns [absent]',
         ),
         procedure(() async {
-          late BobsMaybe<CRawAuthUser> result;
-          client.currentUserStream().listen((event) => result = event);
+          late BobsOutcome<CRawCurrentUserStreamException,
+              BobsMaybe<CRawAuthUser>> result;
+          client.currentUserStream().stream().listen((event) => result = event);
 
           controller.add(const AuthState(AuthChangeEvent.signedOut, null));
           await Future.delayed(Duration.zero);
 
-          expect(result, bobsAbsent());
+          expectBobsSuccess(result, bobsAbsent());
         }),
       );
 
@@ -122,13 +123,14 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          late BobsMaybe<CRawAuthUser> result;
-          client.currentUserStream().listen((event) => result = event);
+          late BobsOutcome<CRawCurrentUserStreamException,
+              BobsMaybe<CRawAuthUser>> result;
+          client.currentUserStream().stream().listen((event) => result = event);
 
           controller.add(AuthState(AuthChangeEvent.signedIn, FakeSession()));
           await Future.delayed(Duration.zero);
 
-          expect(result, bobsPresent(fakeUser));
+          expectBobsSuccess(result, bobsPresent(fakeUser));
         }),
       );
 
@@ -138,31 +140,33 @@ void main() {
           Then: 'returns user',
         ),
         procedure(() async {
-          late BobsMaybe<CRawAuthUser> result;
-          client.currentUserStream().listen((event) => result = event);
+          late BobsOutcome<CRawCurrentUserStreamException,
+              BobsMaybe<CRawAuthUser>> result;
+          client.currentUserStream().stream().listen((event) => result = event);
 
           controller.add(
             AuthState(AuthChangeEvent.initialSession, FakeSession()),
           );
           await Future.delayed(Duration.zero);
 
-          expect(result, bobsPresent(fakeUser));
+          expectBobsSuccess(result, bobsPresent(fakeUser));
         }),
       );
 
       test(
         requirement(
           When: 'current user fails',
-          Then: 'returns [absent]',
+          Then: 'returns [unkown] failure',
         ),
         procedure(() async {
-          late BobsMaybe<CRawAuthUser> result;
-          client.currentUserStream().listen((event) => result = event);
+          late BobsOutcome<CRawCurrentUserStreamException,
+              BobsMaybe<CRawAuthUser>> result;
+          client.currentUserStream().stream().listen((event) => result = event);
 
           controller.addError(Exception());
           await Future.delayed(Duration.zero);
 
-          expect(result, bobsAbsent());
+          expectBobsFailure(result, CRawCurrentUserStreamException.unknown);
         }),
       );
 

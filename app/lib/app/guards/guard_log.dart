@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/bootstrap/bootstrap.dart';
+import 'package:chuckle_chest/app/bootstrap/bootstrap.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// {@template CGuardLog}

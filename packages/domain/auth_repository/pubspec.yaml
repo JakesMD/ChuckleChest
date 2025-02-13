@@ -4,7 +4,7 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.15
+  bobs_jobs: ^0.0.1-dev.16
   cauth_client:
   ccore:
   equatable: ^2.0.5

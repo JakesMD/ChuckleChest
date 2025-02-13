@@ -61,10 +61,10 @@ class CRequestCubitState<F, S> with EquatableMixin {
   final CRequestCubitStatus status;
 
   /// The failure value of the latest item in the stream.
-  F get failure => (outcome! as BobsFailure<F, S>).value;
+  F get failure => outcome!.asFailure;
 
   /// The success value of the latest item in the stream.
-  S get success => (outcome! as BobsSuccess<F, S>).value;
+  S get success => outcome!.asSuccess;
 
   /// Returns true if the request is initial.
   bool get isInitial => status == CRequestCubitStatus.initial;
@@ -82,6 +82,10 @@ class CRequestCubitState<F, S> with EquatableMixin {
   List<Object?> get props => [outcome];
 
   @override
-  // ignore: no_runtimetype_tostring
-  String toString() => '$runtimeType(status: $status)';
+  String toString() => switch (status) {
+        CRequestCubitStatus.initial => 'initial()',
+        CRequestCubitStatus.inProgress => 'inProgress()',
+        CRequestCubitStatus.failed => 'failed($failure)',
+        CRequestCubitStatus.succeeded => 'succeeded($success)',
+      };
 }

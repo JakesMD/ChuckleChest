@@ -403,6 +403,12 @@ abstract class CAppL10n {
   /// **'Invitations'**
   String get invitationsPage_title;
 
+  /// No description provided for @languageDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get languageDialog_title;
+
   /// No description provided for @manageChestPage_chestNameTile_title.
   ///
   /// In en, this message translates to:
@@ -624,6 +630,30 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'You\'re using the staging version.'**
   String get stagingBanner_message;
+
+  /// No description provided for @themeDialog_darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get themeDialog_darkMode;
+
+  /// No description provided for @themeDialog_device.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get themeDialog_device;
+
+  /// No description provided for @themeDialog_lightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light mode'**
+  String get themeDialog_lightMode;
+
+  /// No description provided for @themeDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Change theme'**
+  String get themeDialog_title;
 }
 
 class _CAppL10nDelegate extends LocalizationsDelegate<CAppL10n> {

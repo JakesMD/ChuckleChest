@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:supabase/supabase.dart';
@@ -23,21 +21,17 @@ class CAuthClient {
   }
 
   /// The stream for the currently logged in user.
-  Stream<BobsMaybe<CRawAuthUser>> currentUserStream() async* {
-    try {
-      await for (final authState in authClient.onAuthStateChange) {
-        if (authState.session != null) {
-          final user = CRawAuthUser.fromSupabaseSession(authState.session!);
-          yield bobsPresent(user);
-        } else {
-          yield bobsAbsent();
-        }
-      }
-    } catch (e) {
-      log(e.toString(), error: e, name: 'CAuthClient.currentUserStream');
-      yield bobsAbsent();
-    }
-  }
+  BobsStream<CRawCurrentUserStreamException, BobsMaybe<CRawAuthUser>>
+      currentUserStream() => BobsStream.attempt(
+            stream: authClient.onAuthStateChange,
+            onError: CRawCurrentUserStreamException.fromError,
+          ).thenConvertSuccess((authState) {
+            if (authState.session != null) {
+              final user = CRawAuthUser.fromSupabaseSession(authState.session!);
+              return bobsPresent(user);
+            }
+            return bobsAbsent();
+          });
 
   /// Sends a one-time-password to the given `email`.
   ///

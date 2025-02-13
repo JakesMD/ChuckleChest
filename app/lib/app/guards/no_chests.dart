@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 
 /// {@template CNoChestsGuard}
 ///
@@ -12,16 +12,18 @@ import 'package:chuckle_chest/app/router.dart';
 /// {@endtemplate}
 class CNoChestsGuard implements AutoRouteGuard {
   /// {@macro CNoChestsGuard}
-  const CNoChestsGuard({required this.authRepository});
+  const CNoChestsGuard({required this.currentUserCubit});
 
-  /// The authentication repository.
-  final CAuthRepository authRepository;
+  /// The cubit that provides the current user.
+  final CCurrentUserCubit currentUserCubit;
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authRepository.currentUser!.chests.isNotEmpty) {
+    if (currentUserCubit.state.user!.chests.isNotEmpty) {
       CGuardLog('CNoChestsGuard', resolver).log();
-      resolver.redirect(CChestRoute(chestID: null), replace: true);
+      resolver
+        ..next(false)
+        ..redirect(CChestRoute(chestID: null), replace: true);
     } else {
       resolver.next();
     }

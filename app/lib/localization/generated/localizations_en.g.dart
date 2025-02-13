@@ -170,6 +170,9 @@ class CAppL10nEn extends CAppL10n {
   String get invitationsPage_title => 'Invitations';
 
   @override
+  String get languageDialog_title => 'Change language';
+
+  @override
   String get manageChestPage_chestNameTile_title => 'Name';
 
   @override
@@ -301,4 +304,16 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get stagingBanner_message => 'You\'re using the staging version.';
+
+  @override
+  String get themeDialog_darkMode => 'Dark mode';
+
+  @override
+  String get themeDialog_device => 'Device';
+
+  @override
+  String get themeDialog_lightMode => 'Light mode';
+
+  @override
+  String get themeDialog_title => 'Change theme';
 }

@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:ccore/ccore.dart';
+import 'package:chuckle_chest/app/_app.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -14,7 +15,9 @@ final cTalker = TalkerFlutter.init();
 /// Bootstraps the app with the given [builder].
 ///
 /// This function sets up the error handling, bloc observer and localization.
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap(
+  Widget Function(BuildContext dependencyContext) builder,
+) async {
   await runZonedGuarded(() async {
     FlutterError.onError = (details) {
       cTalker.error(details.toString(), details.exception, details.stack);
@@ -34,6 +37,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     BigBob.onFailure = (failure, error, stack) =>
         cTalker.error(failure.toString(), error, stack);
 
+    HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: HydratedStorageDirectory.web,
+    );
+    cTalker.info('HydratedBloc storage initialized');
+
     await Supabase.initialize(
       url: const String.fromEnvironment('SUPABASE_PROJECT_URL'),
       anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
@@ -44,7 +52,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     await cInitializeL10n();
     cTalker.info('L10n initialized');
 
-    runApp(await builder());
+    runApp(CAppDependenciesProvider(builder: builder));
     cTalker.info('App started');
   }, (Object error, StackTrace stack) {
     cTalker.handle(error, stack, 'Uncaught app exception');

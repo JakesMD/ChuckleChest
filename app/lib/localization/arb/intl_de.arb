@@ -58,6 +58,7 @@
   "invitationsPage_acceptButton": "Annehmen",
   "invitationsPage_noInvitationsMessage": "Keine Einladungen",
   "invitationsPage_title": "Einladungen",
+  "languageDialog_title": "Sprache ändern",
   "manageChestPage_chestNameTile_title": "Name",
   "manageChestPage_createInvitationDialog_hint_email": "E-Mail-Adresse",
   "manageChestPage_createInvitationDialog_title": "Jemanden Einladen",
@@ -112,5 +113,9 @@
   "signinPage_title": "Willkommen!",
   "snackBar_error_defaultMessage": "Hoppla! Etwas ist schiefgelaufen. Bitte überprüfe deine Internetverbindung und versuche es erneut.",
   "stagingBanner_button": "Zur Endversion",
-  "stagingBanner_message": "Du nutzt die Vorabversion."
+  "stagingBanner_message": "Du nutzt die Vorabversion.",
+  "themeDialog_darkMode": "Dunkelmodus",
+  "themeDialog_device": "Gerät",
+  "themeDialog_lightMode": "Hellmodus",
+  "themeDialog_title": "Modus ändern"
 }

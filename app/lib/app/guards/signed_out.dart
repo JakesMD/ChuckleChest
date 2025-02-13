@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/guards/_guards.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 
 /// {@template CSignedOutGuard}
 ///
@@ -12,16 +12,18 @@ import 'package:chuckle_chest/app/router.dart';
 /// {@endtemplate}
 class CSignedOutGuard implements AutoRouteGuard {
   /// {@macro CSignedOutGuard}
-  const CSignedOutGuard({required this.authRepository});
+  const CSignedOutGuard({required this.currentUserCubit});
 
-  /// The authentication repository.
-  final CAuthRepository authRepository;
+  /// The cubit that provides the current user.
+  final CCurrentUserCubit currentUserCubit;
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authRepository.currentUser != null) {
+    if (currentUserCubit.state.isSignedIn) {
       CGuardLog('CSignedOutGuard', resolver).log();
-      resolver.redirect(const CBaseRoute(), replace: true);
+      resolver
+        ..next(false)
+        ..redirect(const CBaseRoute(), replace: true);
     } else {
       resolver.next();
     }

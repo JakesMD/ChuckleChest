@@ -1,6 +1,5 @@
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
-import 'package:chuckle_chest/shared/dialogs/_dialogs.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CCreateChestButton}

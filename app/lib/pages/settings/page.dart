@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
-import 'package:chuckle_chest/app/router.dart';
+import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/settings/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
@@ -34,14 +34,8 @@ class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
       child: MultiBlocListener(
         listeners: [
           BlocListener<CSignoutCubit, CSignoutState>(
-            listener: (context, state) => switch (state.status) {
-              CRequestCubitStatus.initial => null,
-              CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.succeeded =>
-                context.router.replace(const CSigninRoute()),
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
-            },
+            listener: (context, state) => const CErrorSnackBar().show(context),
+            listenWhen: (_, state) => state.failed,
           ),
           BlocListener<CChestCreationCubit, CChestCreationState>(
             listener: (context, state) => switch (state.status) {

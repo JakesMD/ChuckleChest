@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 /// The status of the stream of a [CStreamCubit].
 enum CStreamCubitStatus {
   /// The stream is waiting for data.
-  isWaiting,
+  waiting,
 
   /// The last item in the stream was a failure.
   hasFailure,
@@ -34,20 +34,36 @@ class CStreamCubitState<F, S> with EquatableMixin {
   final BobsOutcome<F, S>? outcome;
 
   /// The failure value of the latest item in the stream.
-  F get failure => (outcome! as BobsFailure<F, S>).value;
+  F get failure => outcome!.asFailure;
 
   /// The success value of the latest item in the stream.
-  S get success => (outcome! as BobsSuccess<F, S>).value;
+  S get success => outcome!.asSuccess;
+
+  /// Returns `true` if no item has been received yet.
+  bool get isWaiting => status == CStreamCubitStatus.waiting;
+
+  /// Returns `true` if the latest item in the stream was a success.
+  bool get hasSuccess => status == CStreamCubitStatus.hasSuccess;
+
+  /// Returns `true` if the latest item in the stream was a failure.
+  bool get hasFailure => status == CStreamCubitStatus.hasFailure;
 
   /// The status of the stream.
   CStreamCubitStatus get status {
     if (outcome is BobsSuccess) return CStreamCubitStatus.hasSuccess;
     if (outcome is BobsFailure) return CStreamCubitStatus.hasFailure;
-    return CStreamCubitStatus.isWaiting;
+    return CStreamCubitStatus.waiting;
   }
 
   @override
   List<Object?> get props => [outcome];
+
+  @override
+  String toString() => switch (status) {
+        CStreamCubitStatus.hasSuccess => 'hasSuccess($success)',
+        CStreamCubitStatus.hasFailure => 'hasFailure($failure)',
+        CStreamCubitStatus.waiting => 'waiting()',
+      };
 }
 
 /// {@template CStreamCubit}
@@ -61,12 +77,15 @@ class CStreamCubitState<F, S> with EquatableMixin {
 /// {@endtemplate}
 class CStreamCubit<T extends CStreamCubitState<F, S>, F, S> extends Cubit<T> {
   /// {@macro CStreamCubit}
-  CStreamCubit(super.initialState) {
+  CStreamCubit(this.initialState) : super(initialState) {
     streamSubscription = initSubscription();
   }
 
   /// The subscription to the stream.
   late StreamSubscription<BobsOutcome<F, S>> streamSubscription;
+
+  /// The initial state.
+  final T initialState;
 
   /// Initialzes the stream subscription.
   @mustBeOverridden
@@ -77,5 +96,15 @@ class CStreamCubit<T extends CStreamCubitState<F, S>, F, S> extends Cubit<T> {
   Future<void> close() {
     streamSubscription.cancel();
     return super.close();
+  }
+
+  /// Closes the stream and resets the cubit starting a new stream.
+  Future<void> restart() async {
+    if (state.isWaiting) return;
+    emit(initialState);
+    unawaited(streamSubscription.cancel());
+    await Future.delayed(Duration.zero);
+    streamSubscription = initSubscription();
+    await stream.firstWhere((state) => !state.isWaiting);
   }
 }
