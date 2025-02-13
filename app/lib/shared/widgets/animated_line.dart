@@ -1,5 +1,5 @@
 // Leaves options open for future use.
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element_parameter
 
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
