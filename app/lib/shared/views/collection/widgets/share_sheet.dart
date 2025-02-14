@@ -1,6 +1,6 @@
-import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:chuckle_chest/shared/views/collection/logic/_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:signed_spacing_flex/signed_spacing_flex.dart';

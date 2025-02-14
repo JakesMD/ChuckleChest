@@ -1,4 +1,3 @@
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_avatar/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';

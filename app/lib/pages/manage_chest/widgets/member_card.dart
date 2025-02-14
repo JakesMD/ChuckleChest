@@ -1,8 +1,7 @@
 import 'package:cchest_repository/cchest_repository.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/pages/manage_chest/logic/member_role_update_cubit.dart';
-import 'package:chuckle_chest/shared/logic/_logic.dart';
-import 'package:chuckle_chest/shared/widgets/loading_indicator.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:signed_spacing_flex/signed_spacing_flex.dart';
