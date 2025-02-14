@@ -1,7 +1,6 @@
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/manage_chest/logic/_logic.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CNicknameTile}
@@ -32,7 +31,7 @@ class CEditChestNameDialog extends StatelessWidget with CDialogMixin {
   void _onOkPressed(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
 
-    cubit.updateChestName(name: _name.value(context));
+    cubit.updateChestName(name: _name.value!);
 
     Navigator.of(context).pop();
   }
@@ -44,7 +43,7 @@ class CEditChestNameDialog extends StatelessWidget with CDialogMixin {
       content: TextFormField(
         key: _formKey,
         initialValue: initialName,
-        validator: (value) => _name.validator(input: value, context: context),
+        validator: (value) => _name.formFieldValidator(value, context),
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           labelText: context.cAppL10n.manageChestPage_editChestNameDialog_hint,

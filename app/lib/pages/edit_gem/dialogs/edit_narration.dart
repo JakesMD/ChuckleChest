@@ -1,8 +1,7 @@
-import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_gem/logic/gem_edit_cubit.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CEditNarrationDialog}
@@ -38,12 +37,12 @@ class CEditNarrationDialog extends StatelessWidget with CDialogMixin {
     if (!_formKey.currentState!.validate()) return;
 
     if (line == null) {
-      cubit.addLine(personID: null, text: _lineText.value(context));
+      cubit.addLine(personID: null, text: _lineText.value!);
     } else {
       cubit.updateLine(
         lineIndex: index,
         personID: null,
-        text: _lineText.value(context),
+        text: _lineText.value!,
       );
     }
 
@@ -61,10 +60,7 @@ class CEditNarrationDialog extends StatelessWidget with CDialogMixin {
       content: TextFormField(
         key: _formKey,
         initialValue: line?.text,
-        validator: (value) => _lineText.validator(
-          input: value,
-          context: context,
-        ),
+        validator: (value) => _lineText.formFieldValidator(value, context),
         keyboardType: TextInputType.multiline,
         maxLines: null,
         decoration: InputDecoration(

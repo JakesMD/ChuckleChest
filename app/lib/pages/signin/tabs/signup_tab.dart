@@ -3,7 +3,6 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/signin/logic/_logic.dart';
@@ -71,8 +70,8 @@ class _CSignupTabState extends State<CSignupTab> {
   void onSignupButtonPressed(BuildContext context) {
     if (formKey.currentState?.validate() ?? false) {
       context.read<CSignupCubit>().signUp(
-            username: usernameInput.value(context),
-            email: emailInput.value(context),
+            username: usernameInput.value!,
+            email: emailInput.value!,
           );
     }
   }
@@ -100,10 +99,8 @@ class _CSignupTabState extends State<CSignupTab> {
         padding: const EdgeInsets.all(24),
         children: [
           TextFormField(
-            validator: (v) => usernameInput.validator(
-              input: v,
-              context: context,
-            ),
+            validator: (value) =>
+                usernameInput.formFieldValidator(value, context),
             decoration: InputDecoration(
               labelText: context.cAppL10n.signinPage_hint_username,
               icon: const Icon(Icons.person_rounded),
@@ -112,10 +109,7 @@ class _CSignupTabState extends State<CSignupTab> {
           ),
           const SizedBox(height: 24),
           TextFormField(
-            validator: (v) => emailInput.validator(
-              input: v,
-              context: context,
-            ),
+            validator: (value) => emailInput.formFieldValidator(value, context),
             decoration: InputDecoration(
               labelText: context.cAppL10n.signinPage_hint_email,
               icon: const Icon(Icons.email_rounded),

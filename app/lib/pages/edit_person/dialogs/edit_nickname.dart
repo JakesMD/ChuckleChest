@@ -1,7 +1,6 @@
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_person/logic/_logic.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 
 /// {@template CNicknameTile}
@@ -25,7 +24,7 @@ class CEditNicknameDialog extends StatelessWidget with CDialogMixin {
   void _onOkPressed(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
 
-    cubit.updateNickname(nickname: _name.value(context));
+    cubit.updateNickname(nickname: _name.value!);
 
     Navigator.of(context).pop();
   }
@@ -37,7 +36,7 @@ class CEditNicknameDialog extends StatelessWidget with CDialogMixin {
       content: TextFormField(
         key: _formKey,
         initialValue: cubit.state.person.nickname,
-        validator: (value) => _name.validator(input: value, context: context),
+        validator: (value) => _name.formFieldValidator(value, context),
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           labelText: context.cAppL10n.editGemPage_editLineDialog_hint_line,

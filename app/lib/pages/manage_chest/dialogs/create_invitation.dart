@@ -1,7 +1,7 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/manage_chest/logic/_logic.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:signed_spacing_flex/signed_spacing_flex.dart';
@@ -35,7 +35,7 @@ class CCreateInvitationDialog extends StatelessWidget with CDialogMixin {
     if (!_formKey.currentState!.validate()) return;
 
     cubit.createInvitation(
-      email: _email.value(context),
+      email: _email.value!,
       role: context.read<CCreateInvitationDialogCubit>().state,
       chestID: chestID,
     );
@@ -59,8 +59,7 @@ class CCreateInvitationDialog extends StatelessWidget with CDialogMixin {
             children: [
               TextFormField(
                 key: _formKey,
-                validator: (value) =>
-                    _email.validator(input: value, context: context),
+                validator: (value) => _email.formFieldValidator(value, context),
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: context.cAppL10n

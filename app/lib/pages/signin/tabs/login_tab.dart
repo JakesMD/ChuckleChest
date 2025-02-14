@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/signin/logic/login_cubit.dart';
@@ -29,7 +28,7 @@ class CLoginTab extends StatelessWidget implements AutoRouteWrapper {
 
   void _onLoginButtonPressed(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      context.read<CLoginCubit>().logIn(email: _emailInput.value(context));
+      context.read<CLoginCubit>().logIn(email: _emailInput.value!);
     }
   }
 
@@ -66,7 +65,8 @@ class CLoginTab extends StatelessWidget implements AutoRouteWrapper {
         padding: const EdgeInsets.all(24),
         children: [
           TextFormField(
-            validator: (v) => _emailInput.validator(input: v, context: context),
+            validator: (value) =>
+                _emailInput.formFieldValidator(value, context),
             decoration: InputDecoration(
               labelText: context.cAppL10n.signinPage_hint_email,
               icon: const Icon(Icons.email_rounded),

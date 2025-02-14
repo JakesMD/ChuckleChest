@@ -1,8 +1,7 @@
-import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/edit_gem/logic/_logic.dart';
-import 'package:chuckle_chest/shared/widgets/_widgets.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:signed_spacing_flex/signed_spacing_flex.dart';
@@ -50,14 +49,14 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
 
     if (line == null) {
       cubit.addLine(
-        personID: _personID.value(context),
-        text: _lineText.value(context),
+        personID: _personID.value,
+        text: _lineText.value!,
       );
     } else {
       cubit.updateLine(
         lineIndex: index,
-        personID: _personID.value(context),
-        text: _lineText.value(context),
+        personID: _personID.value,
+        text: _lineText.value!,
       );
     }
 
@@ -90,10 +89,8 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
                 initialValue: line?.text,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                validator: (value) => _lineText.validator(
-                  context: context,
-                  input: value,
-                ),
+                validator: (value) =>
+                    _lineText.formFieldValidator(value, context),
                 decoration: InputDecoration(
                   labelText:
                       context.cAppL10n.editGemPage_editLineDialog_hint_line,
@@ -137,9 +134,9 @@ class _CPersonDropdownMenuFormField extends StatelessWidget {
 
     return FormField(
       initialValue: line?.personID,
-      validator: (value) => personIDInput.validator(
-        context: context,
-        input: value,
+      validator: (value) => personIDInput.formFieldValidator(
+        value,
+        context,
       ),
       builder: (state) => SignedSpacingRow(
         spacing: 16,

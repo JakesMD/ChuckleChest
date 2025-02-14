@@ -1,4 +1,3 @@
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class CCreateChestDialog extends StatelessWidget with CDialogMixin {
 
   void _onCreatePressed(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      cubit.createChest(chestName: _nameInput.value(context));
+      cubit.createChest(chestName: _nameInput.value!);
       Navigator.of(context).pop();
     }
   }
@@ -39,10 +38,7 @@ class CCreateChestDialog extends StatelessWidget with CDialogMixin {
       title: Text(context.cAppL10n.chestCreationDialog_title),
       content: TextFormField(
         key: _formKey,
-        validator: (value) => _nameInput.validator(
-          context: context,
-          input: value,
-        ),
+        validator: (value) => _nameInput.formFieldValidator(value, context),
         decoration: InputDecoration(
           labelText: context.cAppL10n.chestCreationDialog_label_chestName,
           border: const OutlineInputBorder(),

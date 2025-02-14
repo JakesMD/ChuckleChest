@@ -161,6 +161,18 @@ class CAppL10nEn extends CAppL10n {
   String get homePage_bottomNav_settings => 'Settings';
 
   @override
+  String get inputError_dropdown_empty => 'Please select an option.';
+
+  @override
+  String get inputError_email_empty => 'Please enter your email address.';
+
+  @override
+  String get inputError_email_invalid => 'That\'s not a valid email address.';
+
+  @override
+  String get inputError_text_empty => 'Please enter some text.';
+
+  @override
   String get invitationsPage_acceptButton => 'Accept';
 
   @override
