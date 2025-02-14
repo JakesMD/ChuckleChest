@@ -8,13 +8,33 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 /// {@endtemplate}
 class CAppSettingsState {
   /// {@macro CAppSettingsState}
-  const CAppSettingsState({required this.themeMode, this.locale});
+  const CAppSettingsState({
+    required this.themeMode,
+    this.locale,
+    this.lastViewedChest,
+  });
 
   /// The current locale of the app.
   final Locale? locale;
 
   /// The current theme mode of the app.
   final ThemeMode themeMode;
+
+  /// The last viewed chest.
+  final String? lastViewedChest;
+
+  /// Creates a copy of this state with the given fields replaced with the
+  /// given values.
+  CAppSettingsState copyWith({
+    Locale? locale,
+    ThemeMode? themeMode,
+    String? lastViewedChest,
+  }) =>
+      CAppSettingsState(
+        locale: locale ?? this.locale,
+        themeMode: themeMode ?? this.themeMode,
+        lastViewedChest: lastViewedChest ?? this.lastViewedChest,
+      );
 }
 
 /// {@template CAppSettingsCubit}
@@ -29,11 +49,15 @@ class CAppSettingsCubit extends HydratedCubit<CAppSettingsState> {
 
   /// Updates the current locale.
   void changeLocale({required Locale newLocale}) =>
-      emit(CAppSettingsState(locale: newLocale, themeMode: state.themeMode));
+      emit(state.copyWith(locale: newLocale));
 
   /// Updates the current theme mode.
   void changeThemeMode({required ThemeMode newThemeMode}) =>
-      emit(CAppSettingsState(locale: state.locale, themeMode: newThemeMode));
+      emit(state.copyWith(themeMode: newThemeMode));
+
+  /// Updates the last viewed chest.
+  void updateLastViewedChest(String chestID) =>
+      emit(state.copyWith(lastViewedChest: chestID));
 
   @override
   CAppSettingsState fromJson(Map<String, dynamic> json) => CAppSettingsState(
@@ -46,6 +70,7 @@ class CAppSettingsCubit extends HydratedCubit<CAppSettingsState> {
         themeMode: json.containsKey('themeMode')
             ? ThemeMode.values[json['themeMode'] as int]
             : ThemeMode.system,
+        lastViewedChest: json['lastViewedChest'] as String?,
       );
 
   @override
@@ -53,5 +78,6 @@ class CAppSettingsCubit extends HydratedCubit<CAppSettingsState> {
         if (state.locale != null) 'languageCode': state.locale!.languageCode,
         if (state.locale != null) 'countryCode': state.locale!.countryCode,
         'themeMode': state.themeMode.index,
+        'lastViewedChest': state.lastViewedChest,
       };
 }

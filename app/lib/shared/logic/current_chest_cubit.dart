@@ -13,10 +13,13 @@ class CCurrentChestCubit extends Cubit<CAuthUserChest> {
   /// {@macro CCurrentChestCubit}
   CCurrentChestCubit({
     required String? chestID,
+    required String? lastViewedChest,
     required this.authRepository,
   }) : super(
           authRepository.currentUser!.chests.firstWhere(
-            (chest) => chest.id == chestID,
+            (chest) => chestID != null
+                ? chest.id == chestID
+                : chest.id == lastViewedChest,
             orElse: () => authRepository.currentUser!.chests.first,
           ),
         );
