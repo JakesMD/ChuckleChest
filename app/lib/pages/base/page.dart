@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/base/logic/_logic.dart';
+import 'package:chuckle_chest/pages/base/view/_views.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,25 +32,13 @@ class CBasePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<CSessionRefreshCubit, CSessionRefreshState>(
-        builder: (context, state) => Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Center(
-                child: state.status != CRequestCubitStatus.failed
-                    ? CCradleLoadingIndicator(
-                        color: Theme.of(context).colorScheme.primary,
-                      )
-                    : Text(context.cAppL10n.snackBar_error_defaultMessage),
-              ),
-            ),
-            if (state.status == CRequestCubitStatus.succeeded)
-              const Positioned.fill(child: AutoRouter()),
-          ],
-        ),
-      ),
+    return BlocBuilder<CSessionRefreshCubit, CSessionRefreshState>(
+      builder: (context, state) => switch (state.status) {
+        CRequestCubitStatus.initial => const CSessionRefreshingView(),
+        CRequestCubitStatus.inProgress => const CSessionRefreshingView(),
+        CRequestCubitStatus.failed => const CSessionRefreshFailedView(),
+        CRequestCubitStatus.succeeded => const AutoRouter(),
+      },
     );
   }
 }
