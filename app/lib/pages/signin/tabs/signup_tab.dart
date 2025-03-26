@@ -6,7 +6,6 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/signin/logic/_logic.dart';
-import 'package:chuckle_chest/pages/signin/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,14 +39,15 @@ class CSignupTab extends StatefulWidget implements AutoRouteWrapper {
                 ).show(context),
               CSignupException.unknown => const CErrorSnackBar().show(context),
             },
-          CRequestCubitStatus.succeeded => _onCompleted(context, state.email),
+          CRequestCubitStatus.succeeded =>
+            _onSignupSuccessful(context, state.email),
         },
         child: this,
       ),
     );
   }
 
-  void _onCompleted(BuildContext context, String email) =>
+  void _onSignupSuccessful(BuildContext context, String email) =>
       context.router.push(COTPVerificationRoute(email: email));
 
   @override
@@ -67,15 +67,6 @@ class _CSignupTabState extends State<CSignupTab> {
 
   bool isTermsAccepted = false;
 
-  void onSignupButtonPressed(BuildContext context) {
-    if (formKey.currentState?.validate() ?? false) {
-      context.read<CSignupCubit>().signUp(
-            username: usernameInput.value!,
-            email: emailInput.value!,
-          );
-    }
-  }
-
   void onAgeToggled(bool? value) =>
       setState(() => isAgeConfirmed = value ?? isAgeConfirmed);
 
@@ -91,28 +82,38 @@ class _CSignupTabState extends State<CSignupTab> {
   void onTermsLinkPressed() =>
       launchUrl(Uri.parse('https://chucklechest.app/terms'));
 
+  void onSubmitted(BuildContext context) {
+    if (formKey.currentState?.validate() ?? false) {
+      context.read<CSignupCubit>().signUp(
+            username: usernameInput.value!,
+            email: emailInput.value!,
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: ListView(
-        padding: const EdgeInsets.all(24),
+      child: CResponsiveListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
         children: [
           TextFormField(
             validator: (value) =>
                 usernameInput.formFieldValidator(value, context),
+            keyboardType: TextInputType.name,
             decoration: InputDecoration(
               labelText: context.cAppL10n.signinPage_hint_username,
-              icon: const Icon(Icons.person_rounded),
+              prefixIcon: const Icon(Icons.person_rounded),
               border: const OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           TextFormField(
             validator: (value) => emailInput.formFieldValidator(value, context),
             decoration: InputDecoration(
               labelText: context.cAppL10n.signinPage_hint_email,
-              icon: const Icon(Icons.email_rounded),
+              prefixIcon: const Icon(Icons.email_rounded),
               border: const OutlineInputBorder(),
             ),
           ),
@@ -131,7 +132,10 @@ class _CSignupTabState extends State<CSignupTab> {
             title: RichText(
               text: TextSpan(
                 text: context.cAppL10n.signinPage_agreement,
-                style: TextStyle(color: context.cColorScheme.onSurface),
+                style: TextStyle(
+                  color: context.cColorScheme.onSurface,
+                  fontFamily: 'ReadexPro',
+                ),
                 children: [
                   TextSpan(
                     text: context.cAppL10n.signinPage_privacyPolicy,
@@ -152,7 +156,10 @@ class _CSignupTabState extends State<CSignupTab> {
             title: RichText(
               text: TextSpan(
                 text: context.cAppL10n.signinPage_agreement,
-                style: TextStyle(color: context.cColorScheme.onSurface),
+                style: TextStyle(
+                  color: context.cColorScheme.onSurface,
+                  fontFamily: 'ReadexPro',
+                ),
                 children: [
                   TextSpan(
                     text: context.cAppL10n.signinPage_terms,
@@ -168,9 +175,16 @@ class _CSignupTabState extends State<CSignupTab> {
             ),
           ),
           const SizedBox(height: 64),
-          CSigninButton.signup(
-            isEnabled: isAgeConfirmed && isPrivacyAccepted && isTermsAccepted,
-            onPressed: onSignupButtonPressed,
+          BlocBuilder<CSignupCubit, CSignupState>(
+            builder: (context, state) => FilledButton(
+              onPressed: !state.inProgress &&
+                      isPrivacyAccepted &&
+                      isTermsAccepted &&
+                      isAgeConfirmed
+                  ? () => onSubmitted(context)
+                  : null,
+              child: Text(context.cAppL10n.signinPage_signupButton),
+            ),
           ),
         ],
       ),

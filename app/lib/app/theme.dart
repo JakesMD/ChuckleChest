@@ -12,6 +12,7 @@ class CAppTheme {
   static final theme = ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: _seedColor),
     useMaterial3: true,
+    fontFamily: 'ReadexPro',
   );
 
   /// The dark theme data for the application.
@@ -22,5 +23,6 @@ class CAppTheme {
       brightness: Brightness.dark,
     ),
     useMaterial3: true,
+    fontFamily: 'ReadexPro',
   );
 }

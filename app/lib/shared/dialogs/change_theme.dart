@@ -24,12 +24,17 @@ class CChangeThemeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(context.cAppL10n.themeDialog_title),
+      contentPadding: const EdgeInsets.symmetric(vertical: 16),
       content: BlocBuilder<CAppSettingsCubit, CAppSettingsState>(
         bloc: cubit,
         builder: (context, state) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             RadioListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 4,
+              ),
               title: Text(context.cAppL10n.themeDialog_device),
               value: ThemeMode.system,
               groupValue: state.themeMode,
@@ -37,6 +42,10 @@ class CChangeThemeDialog extends StatelessWidget {
               secondary: const Icon(Icons.auto_mode_rounded),
             ),
             RadioListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 4,
+              ),
               title: Text(context.cAppL10n.themeDialog_lightMode),
               value: ThemeMode.light,
               groupValue: state.themeMode,
@@ -44,6 +53,10 @@ class CChangeThemeDialog extends StatelessWidget {
               secondary: const Icon(Icons.light_mode_rounded),
             ),
             RadioListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 4,
+              ),
               title: Text(context.cAppL10n.themeDialog_darkMode),
               value: ThemeMode.dark,
               groupValue: state.themeMode,

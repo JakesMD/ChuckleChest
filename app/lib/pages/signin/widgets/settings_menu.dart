@@ -25,12 +25,12 @@ class CSettingsMenu extends StatelessWidget {
       );
 
   void _onLogsPressed(BuildContext context) =>
-      context.router.push(const CLogsRoute());
+      context.pushRoute(const CLogsRoute());
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: const Icon(Icons.settings_rounded),
+      icon: const Icon(Icons.more_vert_rounded),
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 1,

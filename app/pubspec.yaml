@@ -48,3 +48,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: ReadexPro
+      fonts:
+        - asset: fonts/ReadexPro-VariableFont_HEXP,wght.ttf

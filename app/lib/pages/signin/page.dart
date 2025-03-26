@@ -42,25 +42,40 @@ class CSigninPage extends StatelessWidget implements AutoRouteWrapper {
     return AutoTabsRouter.tabBar(
       routes: [const CSignupRoute(), CLoginRoute()],
       builder: (context, child, controller) => Scaffold(
-        appBar: CAppBar(
-          context: context,
+        appBar: AppBar(
           title: Text(context.cAppL10n.signinPage_title),
           actions: const [CSettingsMenu()],
-          bottom: TabBar(
-            controller: controller,
-            tabs: [
-              Tab(text: context.cAppL10n.signinPage_tab_signup),
-              Tab(text: context.cAppL10n.signinPage_tab_login),
+          bottom: CAppBarLoadingIndicator(
+            listeners: [
+              CLoadingListener<CSignupCubit, CSignupState>(),
+              CLoadingListener<CLoginCubit, CLoginState>(),
             ],
           ),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CAppBarLoadingIndicator(
-              listeners: [
-                CLoadingListener<CSignupCubit, CSignupState>(),
-                CLoadingListener<CLoginCubit, CLoginState>(),
-              ],
+            CResponsivePadding(
+              padding: const EdgeInsets.all(16),
+              builder: (context, padding) => Padding(
+                padding: padding,
+                child: SegmentedButton(
+                  showSelectedIcon: false,
+                  segments: [
+                    ButtonSegment(
+                      value: 0,
+                      label: Text(context.cAppL10n.signinPage_tab_signup),
+                    ),
+                    ButtonSegment(
+                      value: 1,
+                      label: Text(context.cAppL10n.signinPage_tab_login),
+                    ),
+                  ],
+                  selected: {controller.index},
+                  onSelectionChanged: (index) =>
+                      controller.animateTo(index.first),
+                ),
+              ),
             ),
             Expanded(child: child),
           ],

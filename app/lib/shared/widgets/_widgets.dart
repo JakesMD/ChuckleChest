@@ -11,6 +11,7 @@ export 'info_snack_bar.dart';
 export 'loading_button.dart';
 export 'loading_indicator.dart';
 export 'responsive_list_view.dart';
+export 'responsive_padding.dart';
 export 'size_transition.dart';
 export 'staging_banner.dart';
 export 'wrapped_widget.dart';
