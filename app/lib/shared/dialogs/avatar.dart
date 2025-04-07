@@ -31,11 +31,24 @@ class CAvatarDialog extends StatelessWidget with CDialogMixin {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('$nickname - $year'),
-      content: FadeInImage.memoryNetwork(
-        placeholder: kTransparentImage,
-        image: imageURL,
-        height: 200,
-        width: 200,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 200,
+            height: 200,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              clipBehavior: Clip.hardEdge,
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: imageURL,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ],
       ),
       actions: [
         TextButton(
