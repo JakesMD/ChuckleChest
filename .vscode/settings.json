@@ -23,4 +23,7 @@
         "**/pubspec_overrides.yaml": true,
     },
     "testing.automaticallyOpenPeekView": "never",
+    "arb-editor.suppressedWarnings": [
+        "missing_metadata_for_key"
+    ],
 }
