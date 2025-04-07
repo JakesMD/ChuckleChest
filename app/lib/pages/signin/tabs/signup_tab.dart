@@ -48,7 +48,7 @@ class CSignupTab extends StatefulWidget implements AutoRouteWrapper {
   }
 
   void _onSignupSuccessful(BuildContext context, String email) =>
-      context.router.push(COTPVerificationRoute(email: email));
+      context.router.push(CVerifyOTPRoute(email: email));
 
   @override
   State<CSignupTab> createState() => _CSignupTabState();

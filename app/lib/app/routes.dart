@@ -64,8 +64,8 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
           ],
         ),
         AutoRoute(
-          path: '/verify-otp',
-          page: COTPVerificationRoute.page,
+          path: '/signin/verify-otp',
+          page: CVerifyOTPRoute.page,
           guards: [CSignedOutGuard(currentUserCubit: currentUserCubit)],
         ),
         AutoRoute(

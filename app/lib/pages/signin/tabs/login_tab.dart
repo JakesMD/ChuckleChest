@@ -29,7 +29,7 @@ class CLoginTab extends StatelessWidget implements AutoRouteWrapper {
   }
 
   void _onLoginSuccessful(BuildContext context, String email) =>
-      context.pushRoute(COTPVerificationRoute(email: email));
+      context.pushRoute(CVerifyOTPRoute(email: email));
 
   @override
   Widget wrappedRoute(BuildContext context) {

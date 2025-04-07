@@ -149,20 +149,6 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CMembersTab()),
       );
     },
-    COTPVerificationRoute.name: (routeData) {
-      final queryParams = routeData.queryParams;
-      final args = routeData.argsAs<COTPVerificationRouteArgs>(
-          orElse: () =>
-              COTPVerificationRouteArgs(email: queryParams.optString('email')));
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: COTPVerificationPage(
-          email: args.email,
-          key: args.key,
-        )),
-      );
-    },
     CPeopleRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -211,6 +197,20 @@ abstract class _$CAppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: const CSignupTab()),
+      );
+    },
+    CVerifyOTPRoute.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<CVerifyOTPRouteArgs>(
+          orElse: () =>
+              CVerifyOTPRouteArgs(email: queryParams.optString('email')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CVerifyOTPPage(
+          email: args.email,
+          key: args.key,
+        )),
       );
     },
     CYearCollectionRoute.name: (routeData) {
@@ -612,45 +612,6 @@ class CMembersRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [COTPVerificationPage]
-class COTPVerificationRoute extends PageRouteInfo<COTPVerificationRouteArgs> {
-  COTPVerificationRoute({
-    String? email,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          COTPVerificationRoute.name,
-          args: COTPVerificationRouteArgs(
-            email: email,
-            key: key,
-          ),
-          rawQueryParams: {'email': email},
-          initialChildren: children,
-        );
-
-  static const String name = 'COTPVerificationRoute';
-
-  static const PageInfo<COTPVerificationRouteArgs> page =
-      PageInfo<COTPVerificationRouteArgs>(name);
-}
-
-class COTPVerificationRouteArgs {
-  const COTPVerificationRouteArgs({
-    this.email,
-    this.key,
-  });
-
-  final String? email;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'COTPVerificationRouteArgs{email: $email, key: $key}';
-  }
-}
-
-/// generated route for
 /// [CPeoplePage]
 class CPeopleRoute extends PageRouteInfo<void> {
   const CPeopleRoute({List<PageRouteInfo>? children})
@@ -771,6 +732,45 @@ class CSignupRoute extends PageRouteInfo<void> {
   static const String name = 'CSignupRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CVerifyOTPPage]
+class CVerifyOTPRoute extends PageRouteInfo<CVerifyOTPRouteArgs> {
+  CVerifyOTPRoute({
+    String? email,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CVerifyOTPRoute.name,
+          args: CVerifyOTPRouteArgs(
+            email: email,
+            key: key,
+          ),
+          rawQueryParams: {'email': email},
+          initialChildren: children,
+        );
+
+  static const String name = 'CVerifyOTPRoute';
+
+  static const PageInfo<CVerifyOTPRouteArgs> page =
+      PageInfo<CVerifyOTPRouteArgs>(name);
+}
+
+class CVerifyOTPRouteArgs {
+  const CVerifyOTPRouteArgs({
+    this.email,
+    this.key,
+  });
+
+  final String? email;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CVerifyOTPRouteArgs{email: $email, key: $key}';
+  }
 }
 
 /// generated route for
