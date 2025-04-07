@@ -124,7 +124,7 @@ class CAppL10nDe extends CAppL10n {
   String get gem_restartMessage => 'Zum Neustart ziehen.';
 
   @override
-  String gem_share_message(Object link) {
+  String gem_share_message(String link) {
     return 'Schau dir diese Gemme auf ChuckleChest an! 😂 $link';
   }
 

@@ -44,6 +44,13 @@
   "editPersonPage_title": "Person bearbeiten",
   "gem_restartMessage": "Zum Neustart ziehen.",
   "gem_share_message": "Schau dir diese Gemme auf ChuckleChest an! 😂 {link}",
+  "@gem_share_message": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
   "gem_share_subject": "Das ist so gut! 😂",
   "gem_swipeMessage": "Wischen, um das nächste zu sehen.",
   "gem_title": "Gemme {number}",

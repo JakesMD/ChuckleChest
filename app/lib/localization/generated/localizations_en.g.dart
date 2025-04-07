@@ -123,7 +123,7 @@ class CAppL10nEn extends CAppL10n {
   String get gem_restartMessage => 'Pull to restart.';
 
   @override
-  String gem_share_message(Object link) {
+  String gem_share_message(String link) {
     return 'Check out this gem on ChuckleChest! 😂 $link';
   }
 
