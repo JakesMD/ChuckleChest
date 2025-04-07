@@ -124,25 +124,20 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                   ],
                 ),
                 AutoRoute(
-                  path: 'create-gem',
+                  path: 'collections/create-gem',
                   page: CCreateGemRoute.page,
+                  fullscreenDialog: true,
                   guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(
-                  path: 'edit-gem',
+                  path: 'gems/edit',
                   page: CEditGemRoute.page,
+                  fullscreenDialog: true,
                   guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(
                   path: 'gems/:gemID',
                   page: CGemRoute.page,
-                  children: [
-                    AutoRoute(
-                      path: 'edit',
-                      page: CEditGemRoute.page,
-                      guards: [CCollaboratorGuard()],
-                    ),
-                  ],
                 ),
                 AutoRoute(
                   path: 'collections/year/:year',

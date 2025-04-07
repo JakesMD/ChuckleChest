@@ -47,9 +47,12 @@ class CYearCollectionsSection extends StatelessWidget {
                     .toList(),
               )
             : Center(
-                child: Text(
-                  context.cAppL10n.collectionsPage_noGemsMessage,
-                  style: const TextStyle(fontStyle: FontStyle.italic),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text(
+                    context.cAppL10n.collectionsPage_noGemsMessage,
+                    style: const TextStyle(fontStyle: FontStyle.italic),
+                  ),
                 ),
               ),
       },

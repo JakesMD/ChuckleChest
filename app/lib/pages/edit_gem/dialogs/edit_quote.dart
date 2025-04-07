@@ -66,6 +66,7 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       title: Text(
         line != null
             ? context.cAppL10n.editGemPage_editLineDialog_title_editQuote
@@ -78,6 +79,7 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
           child: SignedSpacingColumn(
             mainAxisSize: MainAxisSize.min,
             spacing: 24,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _CPersonDropdownMenuFormField(
                 line: line,
@@ -153,7 +155,7 @@ class _CPersonDropdownMenuFormField extends StatelessWidget {
                 context.cAppL10n.editGemPage_editLineDialog_hint_person,
               ),
               onSelected: state.didChange,
-              width: 240,
+              width: double.infinity,
               errorText: state.errorText,
               dropdownMenuEntries: people
                   .where(

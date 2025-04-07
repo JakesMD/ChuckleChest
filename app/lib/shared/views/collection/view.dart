@@ -174,9 +174,13 @@ class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
             CRequestCubitStatus.succeeded =>
               BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
                 buildWhen: (_, state) =>
-                    state.currentGem?.id == gemFromState(fetchState).id,
+                    state.currentGem?.id == gemFromState(fetchState).id ||
+                    state.needsRestart,
                 builder: (context, state) => state.currentGem != null
                     ? CAnimatedGem(
+                        key: Key(
+                          '${state.currentGem!.id}-${state.needsRestart}',
+                        ),
                         gem: state.currentGem!,
                         isLastGem: state.isLastGem,
                       )

@@ -13,6 +13,7 @@ class CCollectionViewState {
   const CCollectionViewState({
     required this.gems,
     required this.currentIndex,
+    this.needsRestart = false,
   });
 
   /// The gems that have been visited.
@@ -21,15 +22,20 @@ class CCollectionViewState {
   /// The index of the currently displayed gem.
   final int currentIndex;
 
+  /// Whether the gem animation needs to be restarted.
+  final bool needsRestart;
+
   /// Creates a copy of this state with the given fields replaced by the new
   /// values.
   CCollectionViewState copyWith({
     List<(String, CGem?)>? gems,
     int? currentIndex,
+    bool needsRestart = false,
   }) {
     return CCollectionViewState(
       gems: gems != null ? [...gems] : [...this.gems],
       currentIndex: currentIndex ?? this.currentIndex,
+      needsRestart: needsRestart,
     );
   }
 
@@ -95,7 +101,7 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
     final record = state.gems.removeAt(index);
     state.gems.insert(state.currentIndex, (record.$1, gem));
 
-    emit(state.copyWith(gems: state.gems));
+    emit(state.copyWith(gems: state.gems, needsRestart: true));
   }
 
   /// Adds the fetched gem to the visited gems.

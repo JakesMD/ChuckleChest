@@ -85,23 +85,20 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
         CRequestCubitStatus.succeeded => _onSaved(context, state.gemID),
       },
       child: Scaffold(
-        appBar: CAppBar(
-          context: context,
+        appBar: AppBar(
           title: Text(
             initialGem == null
                 ? context.cAppL10n.editGemPage_title_create
                 : context.cAppL10n.editGemPage_title_edit,
           ),
+          bottom: CAppBarLoadingIndicator(
+            listeners: [CLoadingListener<CGemSaveCubit, CGemSaveState>()],
+          ),
         ),
         body: BlocBuilder<CGemEditCubit, CGemEditState>(
-          builder: (context, state) => ListView(
-            padding: const EdgeInsets.only(top: 12, bottom: 80),
+          builder: (context, state) => CResponsiveListView(
+            padding: const EdgeInsets.only(top: 16, bottom: 80),
             children: [
-              Text(
-                context.cAppL10n.editGemPage_helperMessage,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontStyle: FontStyle.italic),
-              ),
               CEditableDate(occurredAt: state.gem.occurredAt),
               const Divider(height: 48),
               ...List.generate(

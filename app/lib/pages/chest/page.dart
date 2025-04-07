@@ -70,7 +70,11 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
         if (state.status == CRequestCubitStatus.succeeded) {
           return const AutoRouter();
         }
-        return Container();
+        return Scaffold(
+          body: Center(
+            child: CCradleLoadingIndicator(color: context.cColorScheme.primary),
+          ),
+        );
       },
     );
   }
