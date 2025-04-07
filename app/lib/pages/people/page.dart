@@ -35,25 +35,21 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CChestPeopleFetchCubit, CChestPeopleFetchState>(
-      builder: (context, state) => ListView.builder(
-        padding: const EdgeInsets.only(top: 16, bottom: 80),
-        itemCount: state.people.length,
-        itemBuilder: (context, index) {
-          final person = state.people[index];
+    final state = context.watch<CChestPeopleFetchCubit>().state;
 
-          return ListTile(
-            minVerticalPadding: 16,
-            leading: CAvatar.fromPerson(person: person, date: DateTime.now()),
-            title: Text(person.nickname),
-            subtitle: Text(
-              context.cAppL10n
-                  .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
-            ),
-            trailing: const Icon(Icons.edit_rounded),
-            onTap: () => _onTileTapped(context, person),
-          );
-        },
+    return CResponsiveListView.builder(
+      padding: const EdgeInsets.only(top: 16, bottom: 80),
+      items: state.people,
+      itemBuilder: (context, person) => ListTile(
+        minVerticalPadding: 16,
+        leading: CAvatar.fromPerson(person: person, date: DateTime.now()),
+        title: Text(person.nickname),
+        subtitle: Text(
+          context.cAppL10n
+              .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
+        ),
+        trailing: const Icon(Icons.edit_rounded),
+        onTap: () => _onTileTapped(context, person),
       ),
     );
   }
