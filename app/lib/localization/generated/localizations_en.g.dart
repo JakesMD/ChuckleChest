@@ -12,6 +12,27 @@ class CAppL10nEn extends CAppL10n {
   String get cancel => 'Cancel';
 
   @override
+  String get changeAvatarPage_cameraButton => 'Camera';
+
+  @override
+  String get changeAvatarPage_doneButton => 'Done';
+
+  @override
+  String get changeAvatarPage_galleryButton => 'Gallery';
+
+  @override
+  String get changeAvatarPage_message =>
+      'Pick a photo using the buttons below.\n\nLarge photos may take a few seconds to load.';
+
+  @override
+  String get changeAvatarPage_pickPhotoButton => 'Pick a photo';
+
+  @override
+  String changeAvatarPage_title(int year) {
+    return 'Change photo for $year';
+  }
+
+  @override
   String get changesPropagationBanner_message =>
       'Changes will propagate to other users next time they open the app.';
 
@@ -61,14 +82,6 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get delete => 'Delete';
-
-  @override
-  String get editAvatarPage_pickPhotoButton => 'Pick a photo';
-
-  @override
-  String editAvatarPage_title(int year) {
-    return 'Edit photo for $year';
-  }
 
   @override
   String get editGemPage_addNarrationButton => 'Add a narration';

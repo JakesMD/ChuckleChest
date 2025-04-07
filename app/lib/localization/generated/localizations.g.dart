@@ -103,6 +103,42 @@ abstract class CAppL10n {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @changeAvatarPage_cameraButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get changeAvatarPage_cameraButton;
+
+  /// No description provided for @changeAvatarPage_doneButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get changeAvatarPage_doneButton;
+
+  /// No description provided for @changeAvatarPage_galleryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get changeAvatarPage_galleryButton;
+
+  /// No description provided for @changeAvatarPage_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a photo using the buttons below.\n\nLarge photos may take a few seconds to load.'**
+  String get changeAvatarPage_message;
+
+  /// No description provided for @changeAvatarPage_pickPhotoButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a photo'**
+  String get changeAvatarPage_pickPhotoButton;
+
+  /// No description provided for @changeAvatarPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Change photo for {year}'**
+  String changeAvatarPage_title(int year);
+
   /// No description provided for @changesPropagationBanner_message.
   ///
   /// In en, this message translates to:
@@ -198,18 +234,6 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
-
-  /// No description provided for @editAvatarPage_pickPhotoButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick a photo'**
-  String get editAvatarPage_pickPhotoButton;
-
-  /// No description provided for @editAvatarPage_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit photo for {year}'**
-  String editAvatarPage_title(int year);
 
   /// No description provided for @editGemPage_addNarrationButton.
   ///

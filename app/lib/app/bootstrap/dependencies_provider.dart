@@ -6,6 +6,7 @@ import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
+import 'package:cplatform_repository/cplatform_repository.dart';
 import 'package:cstorage_client/cstorage_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,7 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
   late CChestRepository chestRepository;
   late CGemRepository gemRepository;
   late CPersonRepository personRepository;
+  late CPlatformRepository platformRepository;
 
   @override
   void initState() {
@@ -88,6 +90,7 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
       storageClient: storageClient,
       platformClient: platformClient,
     );
+    platformRepository = CPlatformRepository(platformClient: platformClient);
   }
 
   @override
@@ -98,6 +101,7 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
         RepositoryProvider.value(value: chestRepository),
         RepositoryProvider.value(value: gemRepository),
         RepositoryProvider.value(value: personRepository),
+        RepositoryProvider.value(value: platformRepository),
       ],
       child: MultiBlocProvider(
         providers: [

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/app/routes.dart';
+import 'package:chuckle_chest/app/_app.dart';
 import 'package:chuckle_chest/pages/edit_person/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
@@ -59,7 +59,7 @@ class CEditableAvatar extends StatelessWidget {
   Future<void> _onAvatarPressed(BuildContext context, int year) async {
     final updateCubit = context.read<CPersonUpdateCubit>();
     final result = await context.router.push(
-      CEditAvatarRoute(
+      CChangeAvatarRoute(
         personID: person.id,
         avatarURL:
             person.avatarURLForDate(date) ?? CAvatarURL(year: year, url: ''),

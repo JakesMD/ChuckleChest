@@ -19,7 +19,8 @@ dependencies:
   cgem_repository:
   cperson_repository:
   cplatform_client:
-  crop_your_image: ^1.1.0
+  cplatform_repository:
+  crop_your_image: ^2.0.0
   cstorage_client:
   equatable: ^2.0.5
   flutter:

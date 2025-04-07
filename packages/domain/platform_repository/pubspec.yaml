@@ -1,0 +1,13 @@
+name: cplatform_repository
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  bobs_jobs: ^0.0.1-dev.16
+  ccore:
+  cplatform_client:
+  image: ^4.5.4
+
+dev_dependencies:
+  very_good_analysis: ^7.0.0

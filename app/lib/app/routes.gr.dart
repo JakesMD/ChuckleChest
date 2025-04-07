@@ -21,6 +21,18 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CBasePage()),
       );
     },
+    CChangeAvatarRoute.name: (routeData) {
+      final args = routeData.argsAs<CChangeAvatarRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CChangeAvatarPage(
+          personID: args.personID,
+          avatarURL: args.avatarURL,
+          key: args.key,
+        )),
+      );
+    },
     CChestRoute.name: (routeData) {
       final args = routeData.argsAs<CChestRouteArgs>(
           orElse: () => const CChestRouteArgs());
@@ -57,18 +69,6 @@ abstract class _$CAppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: const CDemoPage()),
-      );
-    },
-    CEditAvatarRoute.name: (routeData) {
-      final args = routeData.argsAs<CEditAvatarRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CEditAvatarPage(
-          personID: args.personID,
-          avatarURL: args.avatarURL,
-          key: args.key,
-        )),
       );
     },
     CEditGemRoute.name: (routeData) {
@@ -253,6 +253,49 @@ class CBaseRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CChangeAvatarPage]
+class CChangeAvatarRoute extends PageRouteInfo<CChangeAvatarRouteArgs> {
+  CChangeAvatarRoute({
+    required BigInt personID,
+    required CAvatarURL avatarURL,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CChangeAvatarRoute.name,
+          args: CChangeAvatarRouteArgs(
+            personID: personID,
+            avatarURL: avatarURL,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CChangeAvatarRoute';
+
+  static const PageInfo<CChangeAvatarRouteArgs> page =
+      PageInfo<CChangeAvatarRouteArgs>(name);
+}
+
+class CChangeAvatarRouteArgs {
+  const CChangeAvatarRouteArgs({
+    required this.personID,
+    required this.avatarURL,
+    this.key,
+  });
+
+  final BigInt personID;
+
+  final CAvatarURL avatarURL;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CChangeAvatarRouteArgs{personID: $personID, avatarURL: $avatarURL, key: $key}';
+  }
+}
+
+/// generated route for
 /// [CChestPage]
 class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
   CChestRoute({
@@ -358,49 +401,6 @@ class CDemoRoute extends PageRouteInfo<void> {
   static const String name = 'CDemoRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [CEditAvatarPage]
-class CEditAvatarRoute extends PageRouteInfo<CEditAvatarRouteArgs> {
-  CEditAvatarRoute({
-    required BigInt personID,
-    required CAvatarURL avatarURL,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CEditAvatarRoute.name,
-          args: CEditAvatarRouteArgs(
-            personID: personID,
-            avatarURL: avatarURL,
-            key: key,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'CEditAvatarRoute';
-
-  static const PageInfo<CEditAvatarRouteArgs> page =
-      PageInfo<CEditAvatarRouteArgs>(name);
-}
-
-class CEditAvatarRouteArgs {
-  const CEditAvatarRouteArgs({
-    required this.personID,
-    required this.avatarURL,
-    this.key,
-  });
-
-  final BigInt personID;
-
-  final CAvatarURL avatarURL;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CEditAvatarRouteArgs{personID: $personID, avatarURL: $avatarURL, key: $key}';
-  }
 }
 
 /// generated route for

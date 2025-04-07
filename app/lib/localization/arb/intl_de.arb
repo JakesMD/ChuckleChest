@@ -1,6 +1,19 @@
 {
   "@@locale": "de",
   "cancel": "Abbrechen",
+  "changeAvatarPage_cameraButton": "Kamera",
+  "changeAvatarPage_doneButton": "Fertig",
+  "changeAvatarPage_galleryButton": "Fotos",
+  "changeAvatarPage_message": "Wähle ein Bild mit den untenstehenden Buttons aus.\n\nGroße Bilder können einige Sekunden zum Laden benötigen.",
+  "changeAvatarPage_pickPhotoButton": "Foto auswählen",
+  "changeAvatarPage_title": "Bild für {year} ändern",
+  "@changeAvatarPage_title": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
   "changesPropagationBanner_message": "Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.",
   "close": "Schließen",
   "collectionView_noGemsTitle": "Keine Gemme zu zeigen",
@@ -17,15 +30,6 @@
   "createChestPage_hint_chestName": "Name der Truhe",
   "createChestPage_title": "Neue Truhe erstellen",
   "delete": "Löschen",
-  "editAvatarPage_pickPhotoButton": "Foto auswählen",
-  "editAvatarPage_title": "Bild Für {year} Bearbeiten",
-  "@editAvatarPage_title": {
-    "placeholders": {
-      "year": {
-        "type": "int"
-      }
-    }
-  },
   "editGemPage_addNarrationButton": "Neue Erzählung",
   "editGemPage_addQuoteButton": "Neues Zitat",
   "editGemPage_dateTile_title": "Datum",

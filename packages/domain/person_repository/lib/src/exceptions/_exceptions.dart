@@ -1,4 +1,3 @@
-export 'avatar_pick.dart';
 export 'avatar_update.dart';
 export 'chest_people_fetch.dart';
 export 'person_creation.dart';

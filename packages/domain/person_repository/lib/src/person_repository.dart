@@ -80,8 +80,8 @@ class CPersonRepository {
           final command = img.Command()
             ..decodeImage(image)
             ..copyResize(
-              width: 200,
-              height: 200,
+              width: 400,
+              height: 400,
               maintainAspect: true,
             )
             ..encodeJpg();
@@ -114,14 +114,6 @@ class CPersonRepository {
                   ),
             ),
       );
-
-  /// Allows the user to pick an image from their gallery.
-  ///
-  /// If the user cancels the image pick it will return a `BobsAbsent`.
-  BobsJob<CAvatarPickException, BobsMaybe<Uint8List>> pickAvatar() =>
-      platformClient
-          .pickImage(maxHeight: 1000, maxWidth: 1000)
-          .thenConvertFailure(CAvatarPickException.fromRaw);
 
   /// Creates a default person with the given `chestID`.
   BobsJob<CPersonCreationException, CPerson> createPerson({

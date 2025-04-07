@@ -12,6 +12,27 @@ class CAppL10nDe extends CAppL10n {
   String get cancel => 'Abbrechen';
 
   @override
+  String get changeAvatarPage_cameraButton => 'Kamera';
+
+  @override
+  String get changeAvatarPage_doneButton => 'Fertig';
+
+  @override
+  String get changeAvatarPage_galleryButton => 'Fotos';
+
+  @override
+  String get changeAvatarPage_message =>
+      'Wähle ein Bild mit den untenstehenden Buttons aus.\n\nGroße Bilder können einige Sekunden zum Laden benötigen.';
+
+  @override
+  String get changeAvatarPage_pickPhotoButton => 'Foto auswählen';
+
+  @override
+  String changeAvatarPage_title(int year) {
+    return 'Bild für $year ändern';
+  }
+
+  @override
   String get changesPropagationBanner_message =>
       'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
 
@@ -60,14 +81,6 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get delete => 'Löschen';
-
-  @override
-  String get editAvatarPage_pickPhotoButton => 'Foto auswählen';
-
-  @override
-  String editAvatarPage_title(int year) {
-    return 'Bild Für $year Bearbeiten';
-  }
 
   @override
   String get editGemPage_addNarrationButton => 'Neue Erzählung';

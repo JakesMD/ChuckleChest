@@ -158,7 +158,8 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
                 ),
                 AutoRoute(
                   path: 'people/edit-person/edit-avatar',
-                  page: CEditAvatarRoute.page,
+                  page: CChangeAvatarRoute.page,
+                  fullscreenDialog: true,
                   guards: [CCollaboratorGuard()],
                 ),
                 AutoRoute(

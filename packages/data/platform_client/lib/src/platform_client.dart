@@ -1,4 +1,5 @@
 import 'package:bobs_jobs/bobs_jobs.dart';
+import 'package:ccore/ccore.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -66,14 +67,18 @@ class CPlatformClient {
 
   /// Allows the user to pick an image from their gallery.
   BobsJob<CImagePickException, BobsMaybe<Uint8List>> pickImage({
-    double? maxWidth,
-    double? maxHeight,
+    required CImagePickSource source,
+    int? maxWidth,
+    int? maxHeight,
   }) =>
       BobsJob.attempt(
         run: () => ImagePicker().pickImage(
-          source: ImageSource.gallery,
-          maxWidth: maxWidth,
-          maxHeight: maxHeight,
+          source: switch (source) {
+            CImagePickSource.camera => ImageSource.camera,
+            CImagePickSource.gallery => ImageSource.gallery,
+          },
+          maxWidth: maxWidth?.toDouble(),
+          maxHeight: maxHeight?.toDouble(),
         ),
         onError: CImagePickException.fromError,
       ).thenConvertSuccess(bobsMaybe).thenAttempt(

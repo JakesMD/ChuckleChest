@@ -1,10 +1,10 @@
 export 'base/page.dart';
+export 'change_avatar/page.dart';
 export 'chest/page.dart';
 export 'collections/page.dart';
 export 'create_chest/page.dart';
 export 'create_gem/page.dart';
 export 'demo/page.dart';
-export 'edit_avatar/page.dart';
 export 'edit_gem/page.dart';
 export 'edit_person/page.dart';
 export 'gem/page.dart';
