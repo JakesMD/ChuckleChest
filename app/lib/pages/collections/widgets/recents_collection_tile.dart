@@ -15,6 +15,7 @@ class CRecentsCollectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 16,
       leading: const Icon(Icons.more_time_rounded),
       title: Text(context.cAppL10n.collectionsPage_collection_recents),
       onTap: () => context.router.push(const CRecentsCollectionRoute()),

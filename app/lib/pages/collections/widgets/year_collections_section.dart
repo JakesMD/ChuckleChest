@@ -24,6 +24,7 @@ class CYearCollectionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CGemYearsFetchCubit, CGemYearsFetchState>(
+      buildWhen: (_, state) => !state.inProgress,
       builder: (context, state) => switch (state.status) {
         CRequestCubitStatus.initial =>
           const Center(child: CCradleLoadingIndicator()),
@@ -77,7 +78,7 @@ class _CYearCollectionCard extends StatelessWidget {
         .cast<String>()
       ..shuffle();
 
-    return Card(
+    return Card.filled(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () => onCardPressed(context, year),
@@ -103,7 +104,7 @@ class _CYearCollectionCard extends StatelessWidget {
 
                           return Expanded(
                             child: ColoredBox(
-                              color: context.cColorScheme.secondaryContainer,
+                              color: context.cColorScheme.surfaceContainer,
                               child: avatar != null
                                   ? FadeInImage.memoryNetwork(
                                       placeholder: kTransparentImage,

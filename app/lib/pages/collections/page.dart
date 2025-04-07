@@ -30,26 +30,32 @@ class CCollectionsPage extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
+  Future<void> _onRefresh(BuildContext context) =>
+      context.read<CGemYearsFetchCubit>().fetchGemYears();
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        Text(
-          context.cAppL10n.collectionsPage_section_title_years,
-          style: context.cTextTheme.titleMedium,
-        ),
-        const SizedBox(height: 16),
-        const CYearCollectionsSection(),
-        const SizedBox(height: 48),
-        Text(
-          context.cAppL10n.collectionsPage_section_title_other,
-          style: context.cTextTheme.titleMedium,
-        ),
-        const SizedBox(height: 8),
-        const CRecentsCollectionTile(),
-        const CRandomCollectionTile(),
-      ],
+    return RefreshIndicator(
+      onRefresh: () => _onRefresh(context),
+      child: CResponsiveListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+        children: [
+          Text(
+            context.cAppL10n.collectionsPage_section_title_years,
+            style: context.cTextTheme.titleSmall,
+          ),
+          const SizedBox(height: 16),
+          const CYearCollectionsSection(),
+          const SizedBox(height: 48),
+          Text(
+            context.cAppL10n.collectionsPage_section_title_other,
+            style: context.cTextTheme.titleSmall,
+          ),
+          const SizedBox(height: 8),
+          const CRecentsCollectionTile(),
+          const CRandomCollectionTile(),
+        ],
+      ),
     );
   }
 }

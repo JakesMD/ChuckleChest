@@ -15,6 +15,7 @@ class CRandomCollectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 16,
       leading: const Icon(Icons.casino_rounded),
       title: Text(context.cAppL10n.collectionsPage_collection_random),
       onTap: () => context.router.push(const CRandomCollectionRoute()),

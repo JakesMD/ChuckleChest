@@ -47,6 +47,7 @@ class CCollectionViewAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       title: BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
         builder: (context, state) => Text(
           state.currentGem != null

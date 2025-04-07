@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/home/logic/_logic.dart';
@@ -68,51 +67,97 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final isViewer =
-        context.read<CCurrentChestCubit>().state.userRole == CUserRole.viewer;
+    final isMobile = MediaQuery.of(context).size.width < 600;
 
-    return AutoTabsRouter.builder(
+    final isViewer = context.currentChest.isUserViewer;
+
+    return AutoTabsRouter(
       routes: [
         const CCollectionsRoute(),
         if (!isViewer) const CPeopleRoute(),
         const CSettingsRoute(),
       ],
-      builder: (context, children, tabsRouter) => Scaffold(
-        appBar: CAppBar(
-          context: context,
-          title: CHomePageAppBarTitle(onChestSelected: _onChestSelected),
-        ),
-        body: children[tabsRouter.activeIndex],
-        floatingActionButton: tabsRouter.activeIndex != 2 && !isViewer
-            ? FloatingActionButton(
-                onPressed: () => _onFABPressed(context, tabsRouter.activeIndex),
-                child: const Icon(Icons.add_rounded),
-              )
-            : null,
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          onTap: tabsRouter.setActiveIndex,
-          currentIndex: tabsRouter.activeIndex,
-          items: [
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.diamond_outlined),
-              activeIcon: const Icon(Icons.diamond_rounded),
-              label: context.cAppL10n.homePage_bottomNav_collections,
-            ),
-            if (!isViewer)
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.family_restroom_outlined),
-                activeIcon: const Icon(Icons.family_restroom_rounded),
-                label: context.cAppL10n.homePage_bottomNav_people,
-              ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.settings_outlined),
-              activeIcon: const Icon(Icons.settings_rounded),
-              label: context.cAppL10n.homePage_bottomNav_settings,
-            ),
-          ],
-        ),
-      ),
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
+
+        final childWithAppBar = Scaffold(
+          appBar: AppBar(
+            title: CHomePageAppBarTitle(onChestSelected: _onChestSelected),
+          ),
+          body: child,
+        );
+
+        return Scaffold(
+          floatingActionButton: tabsRouter.activeIndex != 2 && !isViewer
+              ? FloatingActionButton(
+                  onPressed: () =>
+                      _onFABPressed(context, tabsRouter.activeIndex),
+                  child: const Icon(Icons.add_rounded),
+                )
+              : null,
+          bottomNavigationBar: isMobile
+              ? NavigationBar(
+                  selectedIndex: tabsRouter.activeIndex,
+                  onDestinationSelected: tabsRouter.setActiveIndex,
+                  destinations: [
+                    NavigationDestination(
+                      icon: const Icon(Icons.diamond_outlined),
+                      selectedIcon: const Icon(Icons.diamond_rounded),
+                      label: context.cAppL10n.homePage_bottomNav_collections,
+                    ),
+                    if (!isViewer)
+                      NavigationDestination(
+                        icon: const Icon(Icons.family_restroom_outlined),
+                        selectedIcon: const Icon(Icons.family_restroom_rounded),
+                        label: context.cAppL10n.homePage_bottomNav_people,
+                      ),
+                    NavigationDestination(
+                      icon: const Icon(Icons.settings_outlined),
+                      selectedIcon: const Icon(Icons.settings_rounded),
+                      label: context.cAppL10n.homePage_bottomNav_settings,
+                    ),
+                  ],
+                )
+              : null,
+          body: !isMobile
+              ? Row(
+                  children: [
+                    NavigationRail(
+                      selectedIndex: tabsRouter.activeIndex,
+                      onDestinationSelected: tabsRouter.setActiveIndex,
+                      labelType: NavigationRailLabelType.selected,
+                      destinations: [
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.diamond_outlined),
+                          selectedIcon: const Icon(Icons.diamond_rounded),
+                          label: Text(
+                            context.cAppL10n.homePage_bottomNav_collections,
+                          ),
+                        ),
+                        if (!isViewer)
+                          NavigationRailDestination(
+                            icon: const Icon(Icons.family_restroom_outlined),
+                            selectedIcon:
+                                const Icon(Icons.family_restroom_rounded),
+                            label: Text(
+                              context.cAppL10n.homePage_bottomNav_people,
+                            ),
+                          ),
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.settings_outlined),
+                          selectedIcon: const Icon(Icons.settings_rounded),
+                          label: Text(
+                            context.cAppL10n.homePage_bottomNav_settings,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(child: childWithAppBar),
+                  ],
+                )
+              : childWithAppBar,
+        );
+      },
     );
   }
 }
