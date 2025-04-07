@@ -14,6 +14,7 @@ class CPrivacyPolicyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 24,
       title: Text(context.cAppL10n.settingsPage_privacyPolicyTile_title),
       leading: const Icon(Icons.privacy_tip_rounded),
       onTap: () => launchUrl(Uri.parse('https://chucklechest.app/privacy')),

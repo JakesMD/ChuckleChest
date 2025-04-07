@@ -14,27 +14,28 @@ class CThemeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CAppSettingsCubit, CAppSettingsState>(
-      builder: (context, state) => ListTile(
-        leading: Icon(
-          switch (state.themeMode) {
-            ThemeMode.system => Icons.auto_mode_rounded,
-            ThemeMode.light => Icons.light_mode_rounded,
-            ThemeMode.dark => Icons.dark_mode_rounded,
-          },
-        ),
-        title: Text(context.cAppL10n.settingsPage_themeTile_title),
-        subtitle: Text(
-          switch (state.themeMode) {
-            ThemeMode.system => context.cAppL10n.themeDialog_device,
-            ThemeMode.light => context.cAppL10n.themeDialog_lightMode,
-            ThemeMode.dark => context.cAppL10n.themeDialog_darkMode,
-          },
-        ),
-        onTap: () => showDialog(
-          context: context,
-          builder: (_) => CChangeThemeDialog(cubit: context.read()),
-        ),
+    final themeMode = context.watch<CAppSettingsCubit>().state.themeMode;
+
+    return ListTile(
+      minVerticalPadding: 24,
+      leading: Icon(
+        switch (themeMode) {
+          ThemeMode.system => Icons.auto_mode_rounded,
+          ThemeMode.light => Icons.light_mode_rounded,
+          ThemeMode.dark => Icons.dark_mode_rounded,
+        },
+      ),
+      title: Text(context.cAppL10n.settingsPage_themeTile_title),
+      subtitle: Text(
+        switch (themeMode) {
+          ThemeMode.system => context.cAppL10n.themeDialog_device,
+          ThemeMode.light => context.cAppL10n.themeDialog_lightMode,
+          ThemeMode.dark => context.cAppL10n.themeDialog_darkMode,
+        },
+      ),
+      onTap: () => showDialog(
+        context: context,
+        builder: (_) => CChangeThemeDialog(cubit: context.read()),
       ),
     );
   }

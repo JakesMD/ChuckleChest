@@ -225,17 +225,6 @@ class CAppL10nDe extends CAppL10n {
   String get or => 'oder';
 
   @override
-  String get verifyOTPPage_error_invalidToken =>
-      'Dieser Code ist ungültig. Bitte versuche es erneut.';
-
-  @override
-  String get verifyOTPPage_message =>
-      'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
-
-  @override
-  String get verifyOTPPage_title => 'Ein-Mal-Code-Bestätigung';
-
-  @override
   String peoplePage_personItem_age(int age) {
     String _temp0 = intl.Intl.pluralLogic(
       age,
@@ -269,6 +258,9 @@ class CAppL10nDe extends CAppL10n {
   String get settingsPage_createChestTile_title => 'Neue Truhe erstellen';
 
   @override
+  String get settingsPage_demoTile_title => 'Demo';
+
+  @override
   String get settingsPage_invitationsTile_title => 'Einladungen';
 
   @override
@@ -290,7 +282,7 @@ class CAppL10nDe extends CAppL10n {
   String get settingsPage_privacyPolicyTile_title => 'Datenschutzerklärung';
 
   @override
-  String get settingsPage_signoutTile_title => 'Ausloggen';
+  String get settingsPage_signoutButton => 'Ausloggen';
 
   @override
   String get settingsPage_termsOfServiceTile_title => 'Nutzungsbedingungen';
@@ -359,4 +351,15 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get themeDialog_title => 'Modus ändern';
+
+  @override
+  String get verifyOTPPage_error_invalidToken =>
+      'Dieser Code ist ungültig. Bitte versuche es erneut.';
+
+  @override
+  String get verifyOTPPage_message =>
+      'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
+
+  @override
+  String get verifyOTPPage_title => 'Ein-Mal-Code-Bestätigung';
 }

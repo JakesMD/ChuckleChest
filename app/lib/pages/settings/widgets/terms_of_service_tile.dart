@@ -14,6 +14,7 @@ class CTermsOfServiceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 24,
       title: Text(context.cAppL10n.settingsPage_termsOfServiceTile_title),
       leading: const Icon(Icons.assignment_rounded),
       onTap: () => launchUrl(Uri.parse('https://chucklechest.app/terms')),

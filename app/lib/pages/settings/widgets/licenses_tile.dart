@@ -13,6 +13,7 @@ class CLicensesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 24,
       title: Text(context.cAppL10n.settingsPage_licensesTile_title),
       leading: const Icon(Icons.verified_rounded),
       onTap: () => showLicensePage(context: context),

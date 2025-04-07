@@ -499,24 +499,6 @@ abstract class CAppL10n {
   /// **'or'**
   String get or;
 
-  /// No description provided for @verifyOTPPage_error_invalidToken.
-  ///
-  /// In en, this message translates to:
-  /// **'This pin is invalid. Please try again.'**
-  String get verifyOTPPage_error_invalidToken;
-
-  /// No description provided for @verifyOTPPage_message.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter the pin we sent to your inbox.'**
-  String get verifyOTPPage_message;
-
-  /// No description provided for @verifyOTPPage_title.
-  ///
-  /// In en, this message translates to:
-  /// **'One-Time pin verification'**
-  String get verifyOTPPage_title;
-
   /// No description provided for @peoplePage_personItem_age.
   ///
   /// In en, this message translates to:
@@ -546,6 +528,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Create a new chest'**
   String get settingsPage_createChestTile_title;
+
+  /// No description provided for @settingsPage_demoTile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Demo'**
+  String get settingsPage_demoTile_title;
 
   /// No description provided for @settingsPage_invitationsTile_title.
   ///
@@ -589,11 +577,11 @@ abstract class CAppL10n {
   /// **'Privacy policy'**
   String get settingsPage_privacyPolicyTile_title;
 
-  /// No description provided for @settingsPage_signoutTile_title.
+  /// No description provided for @settingsPage_signoutButton.
   ///
   /// In en, this message translates to:
   /// **'Log out'**
-  String get settingsPage_signoutTile_title;
+  String get settingsPage_signoutButton;
 
   /// No description provided for @settingsPage_termsOfServiceTile_title.
   ///
@@ -726,6 +714,24 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Change theme'**
   String get themeDialog_title;
+
+  /// No description provided for @verifyOTPPage_error_invalidToken.
+  ///
+  /// In en, this message translates to:
+  /// **'This pin is invalid. Please try again.'**
+  String get verifyOTPPage_error_invalidToken;
+
+  /// No description provided for @verifyOTPPage_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the pin we sent to your inbox.'**
+  String get verifyOTPPage_message;
+
+  /// No description provided for @verifyOTPPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'One-Time pin verification'**
+  String get verifyOTPPage_title;
 }
 
 class _CAppL10nDelegate extends LocalizationsDelegate<CAppL10n> {

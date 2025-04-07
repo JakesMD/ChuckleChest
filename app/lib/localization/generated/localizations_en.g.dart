@@ -220,17 +220,6 @@ class CAppL10nEn extends CAppL10n {
   String get or => 'or';
 
   @override
-  String get verifyOTPPage_error_invalidToken =>
-      'This pin is invalid. Please try again.';
-
-  @override
-  String get verifyOTPPage_message =>
-      'Please enter the pin we sent to your inbox.';
-
-  @override
-  String get verifyOTPPage_title => 'One-Time pin verification';
-
-  @override
   String peoplePage_personItem_age(int age) {
     String _temp0 = intl.Intl.pluralLogic(
       age,
@@ -264,6 +253,9 @@ class CAppL10nEn extends CAppL10n {
   String get settingsPage_createChestTile_title => 'Create a new chest';
 
   @override
+  String get settingsPage_demoTile_title => 'Demo';
+
+  @override
   String get settingsPage_invitationsTile_title => 'Invitations';
 
   @override
@@ -285,7 +277,7 @@ class CAppL10nEn extends CAppL10n {
   String get settingsPage_privacyPolicyTile_title => 'Privacy policy';
 
   @override
-  String get settingsPage_signoutTile_title => 'Log out';
+  String get settingsPage_signoutButton => 'Log out';
 
   @override
   String get settingsPage_termsOfServiceTile_title => 'Terms of service';
@@ -354,4 +346,15 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get themeDialog_title => 'Change theme';
+
+  @override
+  String get verifyOTPPage_error_invalidToken =>
+      'This pin is invalid. Please try again.';
+
+  @override
+  String get verifyOTPPage_message =>
+      'Please enter the pin we sent to your inbox.';
+
+  @override
+  String get verifyOTPPage_title => 'One-Time pin verification';
 }

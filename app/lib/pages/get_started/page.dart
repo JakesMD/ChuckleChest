@@ -30,10 +30,6 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-              CChestCreationCubit(chestRepository: context.read()),
-        ),
-        BlocProvider(
           create: (context) => CSignoutCubit(authRepository: context.read()),
         ),
         BlocProvider(
@@ -50,16 +46,6 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
       ],
       child: MultiBlocListener(
         listeners: [
-          BlocListener<CChestCreationCubit, CChestCreationState>(
-            listener: (context, state) => switch (state.status) {
-              CRequestCubitStatus.initial => null,
-              CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.succeeded =>
-                _navigateToChest(context, state.chestID),
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
-            },
-          ),
           BlocListener<CSignoutCubit, CSignoutState>(
             listener: (context, state) => switch (state.status) {
               CRequestCubitStatus.initial => null,

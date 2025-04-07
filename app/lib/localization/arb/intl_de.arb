@@ -88,9 +88,6 @@
   "manageChestPage_title": "Truhe verwalten",
   "ok": "Ok",
   "or": "oder",
-  "verifyOTPPage_error_invalidToken": "Dieser Code ist ungültig. Bitte versuche es erneut.",
-  "verifyOTPPage_message": "Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.",
-  "verifyOTPPage_title": "Ein-Mal-Code-Bestätigung",
   "peoplePage_personItem_age": "{age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
   "@peoplePage_personItem_age": {
     "placeholders": {
@@ -113,6 +110,7 @@
   "save": "Speichern",
   "settingsPage_contactTile_title": "Impressum",
   "settingsPage_createChestTile_title": "Neue Truhe erstellen",
+  "settingsPage_demoTile_title": "Demo",
   "settingsPage_invitationsTile_title": "Einladungen",
   "settingsPage_languageTile_device": "Gerät",
   "settingsPage_languageTile_title": "Sprache",
@@ -120,7 +118,7 @@
   "settingsPage_logsTile_title": "Protokolle",
   "settingsPage_manageChestTile_title": "Truhe verwalten",
   "settingsPage_privacyPolicyTile_title": "Datenschutzerklärung",
-  "settingsPage_signoutTile_title": "Ausloggen",
+  "settingsPage_signoutButton": "Ausloggen",
   "settingsPage_termsOfServiceTile_title": "Nutzungsbedingungen",
   "settingsPage_themeTile_title": "Modus",
   "signinPage_ageConfirmation": "Ich bin mindestens 13 Jahre alt.",
@@ -145,5 +143,8 @@
   "themeDialog_darkMode": "Dunkelmodus",
   "themeDialog_device": "Gerät",
   "themeDialog_lightMode": "Hellmodus",
-  "themeDialog_title": "Modus ändern"
+  "themeDialog_title": "Modus ändern",
+  "verifyOTPPage_error_invalidToken": "Dieser Code ist ungültig. Bitte versuche es erneut.",
+  "verifyOTPPage_message": "Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.",
+  "verifyOTPPage_title": "Ein-Mal-Code-Bestätigung"
 }

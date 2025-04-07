@@ -14,23 +14,24 @@ class CLanguageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CAppSettingsCubit, CAppSettingsState>(
-      builder: (context, state) => ListTile(
-        leading: const Icon(Icons.translate_rounded),
-        title: Text(context.cAppL10n.settingsPage_languageTile_title),
-        subtitle: Text(
-          state.locale != null
-              ? state.locale!.languageCode == 'en'
-                  ? state.locale!.countryCode == 'GB'
-                      ? 'English GB'
-                      : 'English US'
-                  : 'Deutsch'
-              : context.cAppL10n.settingsPage_languageTile_device,
-        ),
-        onTap: () => showDialog(
-          context: context,
-          builder: (_) => CChangeLanguageDialog(cubit: context.read()),
-        ),
+    final locale = context.watch<CAppSettingsCubit>().state.locale;
+
+    return ListTile(
+      minVerticalPadding: 24,
+      leading: const Icon(Icons.translate_rounded),
+      title: Text(context.cAppL10n.settingsPage_languageTile_title),
+      subtitle: Text(
+        locale != null
+            ? locale.languageCode == 'en'
+                ? locale.countryCode == 'GB'
+                    ? 'English GB'
+                    : 'English US'
+                : 'Deutsch'
+            : context.cAppL10n.settingsPage_languageTile_device,
+      ),
+      onTap: () => showDialog(
+        context: context,
+        builder: (_) => CChangeLanguageDialog(cubit: context.read()),
       ),
     );
   }

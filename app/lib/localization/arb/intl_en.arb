@@ -88,9 +88,6 @@
   "manageChestPage_title": "Manage chest",
   "ok": "OK",
   "or": "or",
-  "verifyOTPPage_error_invalidToken": "This pin is invalid. Please try again.",
-  "verifyOTPPage_message": "Please enter the pin we sent to your inbox.",
-  "verifyOTPPage_title": "One-Time pin verification",
   "peoplePage_personItem_age": "{age} {age, plural, =0{years} =1{year} other{years}} old",
   "@peoplePage_personItem_age": {
     "placeholders": {
@@ -113,6 +110,7 @@
   "save": "Save",
   "settingsPage_contactTile_title": "Contact",
   "settingsPage_createChestTile_title": "Create a new chest",
+  "settingsPage_demoTile_title": "Demo",
   "settingsPage_invitationsTile_title": "Invitations",
   "settingsPage_languageTile_device": "Device",
   "settingsPage_languageTile_title": "Language",
@@ -120,7 +118,7 @@
   "settingsPage_logsTile_title": "Logs",
   "settingsPage_manageChestTile_title": "Manage this chest",
   "settingsPage_privacyPolicyTile_title": "Privacy policy",
-  "settingsPage_signoutTile_title": "Log out",
+  "settingsPage_signoutButton": "Log out",
   "settingsPage_termsOfServiceTile_title": "Terms of service",
   "settingsPage_themeTile_title": "Theme",
   "signinPage_ageConfirmation": "I am at least 13 years old.",
@@ -142,5 +140,8 @@
   "themeDialog_darkMode": "Dark mode",
   "themeDialog_device": "Device",
   "themeDialog_lightMode": "Light mode",
-  "themeDialog_title": "Change theme"
+  "themeDialog_title": "Change theme",
+  "verifyOTPPage_error_invalidToken": "This pin is invalid. Please try again.",
+  "verifyOTPPage_message": "Please enter the pin we sent to your inbox.",
+  "verifyOTPPage_title": "One-Time pin verification"
 }

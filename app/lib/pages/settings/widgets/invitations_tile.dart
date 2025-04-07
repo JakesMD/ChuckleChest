@@ -15,7 +15,7 @@ class CInvitationsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      minVerticalPadding: 16,
+      minVerticalPadding: 24,
       leading: const Icon(Icons.inbox_rounded),
       title: Text(context.cAppL10n.settingsPage_invitationsTile_title),
       onTap: () => context.router.push(const CInvitationsRoute()),

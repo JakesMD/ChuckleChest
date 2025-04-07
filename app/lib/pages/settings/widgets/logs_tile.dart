@@ -15,7 +15,7 @@ class CLogsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      minVerticalPadding: 16,
+      minVerticalPadding: 24,
       leading: const Icon(Icons.developer_mode_rounded),
       title: Text(context.cAppL10n.settingsPage_logsTile_title),
       onTap: () => context.router.push(const CLogsRoute()),

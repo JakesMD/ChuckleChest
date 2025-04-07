@@ -1,5 +1,4 @@
 export 'app_settings_cubit.dart';
-export 'chest_creation_cubit.dart';
 export 'chest_people_fetch_cubit.dart';
 export 'current_chest_cubit.dart';
 export 'current_user_cubit.dart';
