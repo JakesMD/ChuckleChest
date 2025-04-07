@@ -109,23 +109,23 @@ abstract class CAppL10n {
   /// **'Changes will propagate to other users next time they open the app.'**
   String get changesPropagationBanner_message;
 
-  /// No description provided for @chestCreationDialog_createButton.
+  /// No description provided for @createChestPage_createButton.
   ///
   /// In en, this message translates to:
   /// **'Create'**
-  String get chestCreationDialog_createButton;
+  String get createChestPage_createButton;
 
-  /// No description provided for @chestCreationDialog_label_chestName.
+  /// No description provided for @createChestPage_hint_chestName.
   ///
   /// In en, this message translates to:
   /// **'Chest name'**
-  String get chestCreationDialog_label_chestName;
+  String get createChestPage_hint_chestName;
 
-  /// No description provided for @chestCreationDialog_title.
+  /// No description provided for @createChestPage_title.
   ///
   /// In en, this message translates to:
   /// **'Create a new chest'**
-  String get chestCreationDialog_title;
+  String get createChestPage_title;
 
   /// No description provided for @close.
   ///

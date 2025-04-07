@@ -5,7 +5,6 @@ import 'package:chuckle_chest/pages/get_started/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 
 /// {@template CGetStartedPage}
 ///
@@ -92,38 +91,55 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
+  Future<void> _onRefresh(BuildContext context) =>
+      context.read<CUserInvitationsFetchCubit>().fetchUserInvitations();
+
+  void _onCreateChestPressed(BuildContext context) =>
+      context.pushRoute(CCreateChestRoute());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CAppBar(
-        context: context,
+      appBar: AppBar(
         title: Text(context.cAppL10n.getStartedPage_title),
+        centerTitle: true,
         actions: const [CGetStartedPageMoreMenu()],
+        bottom: CAppBarLoadingIndicator(
+          listeners: [
+            CLoadingListener<CSignoutCubit, CSignoutState>(),
+            CLoadingListener<CInvitationAcceptCubit, CInvitationAcceptState>(),
+          ],
+        ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Text(
-            context.cAppL10n.getStartedPage_invitationSection_title,
-            style: context.cTextTheme.titleMedium,
-          ),
-          const SizedBox(height: 8),
-          const CInvitationSection(),
-          const SizedBox(height: 48),
-          SignedSpacingRow(
-            spacing: 16,
-            children: [
-              const Expanded(child: Divider()),
-              Text(
-                context.cAppL10n.or,
-                style: const TextStyle(fontStyle: FontStyle.italic),
-              ),
-              const Expanded(child: Divider()),
-            ],
-          ),
-          const SizedBox(height: 24),
-          const CCreateChestButton(),
-        ],
+      body: RefreshIndicator(
+        key: const Key('get_started_page_refresh_indicator'),
+        onRefresh: () => _onRefresh(context),
+        child: CResponsiveListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+          children: [
+            Text(
+              context.cAppL10n.getStartedPage_invitationSection_title,
+              style: context.cTextTheme.titleSmall,
+            ),
+            const SizedBox(height: 16),
+            const CInvitationSection(),
+            const SizedBox(height: 48),
+            Row(
+              spacing: 24,
+              children: [
+                const Expanded(child: Divider()),
+                Text(context.cAppL10n.or),
+                const Expanded(child: Divider()),
+              ],
+            ),
+            const SizedBox(height: 48),
+            OutlinedButton.icon(
+              onPressed: () => _onCreateChestPressed(context),
+              label: Text(context.cAppL10n.getStartedPage_createChestButton),
+              icon: const Icon(Icons.add_rounded),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:chuckle_chest/shared/widgets/loading_indicator.dart';
+import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,11 +13,11 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
   /// {@macro CLoadingButton}
   const CLoadingButton({
     required this.child,
-    required this.isLoading,
     required this.onPressed,
     required this.builder,
     this.isSmall = false,
     this.isEnabled = true,
+    this.isLoading,
     this.loadingIndicatorColor,
     super.key,
   });
@@ -29,7 +29,7 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
   final void Function(BuildContext context, B bloc)? onPressed;
 
   /// The function that determines the bloc state is a loading state.
-  final bool Function(S) isLoading;
+  final bool Function(S)? isLoading;
 
   /// The builder that will be used to build the button.
   final Widget Function(
@@ -52,38 +52,44 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
     final bloc = context.read<B>();
 
     return BlocBuilder<B, S>(
-      buildWhen: (previous, current) =>
-          isLoading(previous) != isLoading(current),
-      builder: (context, state) => builder(
-        context,
-        Stack(
-          children: [
-            Opacity(
-              opacity: isLoading(state) ? 0 : 1,
-              child: Center(child: child),
-            ),
-            if (isLoading(state))
-              Positioned.fill(
-                child: Center(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) => isSmall
-                        ? CBouncyBallLoadingIndicator(
-                            color: loadingIndicatorColor,
-                            ballSize: constraints.maxHeight * 0.3,
-                          )
-                        : CCradleLoadingIndicator(
-                            color: loadingIndicatorColor,
-                            ballSize: constraints.maxHeight * 0.6,
-                          ),
+      buildWhen: (previous, current) => isLoading != null
+          ? isLoading!(previous) != isLoading!(current)
+          : (current as CRequestCubitState).inProgress,
+      builder: (context, state) {
+        final isInProgress =
+            isLoading?.call(state) ?? (state as CRequestCubitState).inProgress;
+
+        return builder(
+          context,
+          Stack(
+            children: [
+              Opacity(
+                opacity: isInProgress ? 0 : 1,
+                child: Center(child: child),
+              ),
+              if (isInProgress)
+                Positioned.fill(
+                  child: Center(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => isSmall
+                          ? CBouncyBallLoadingIndicator(
+                              color: loadingIndicatorColor,
+                              ballSize: constraints.maxHeight * 0.3,
+                            )
+                          : CCradleLoadingIndicator(
+                              color: loadingIndicatorColor,
+                              ballSize: constraints.maxHeight * 0.6,
+                            ),
+                    ),
                   ),
                 ),
-              ),
-          ],
-        ),
-        !isLoading(state) && isEnabled
-            ? () => onPressed?.call(context, bloc)
-            : null,
-      ),
+            ],
+          ),
+          !isInProgress && isEnabled
+              ? () => onPressed?.call(context, bloc)
+              : null,
+        );
+      },
     );
   }
 }

@@ -16,13 +16,13 @@ class CAppL10nEn extends CAppL10n {
       'Changes will propagate to other users next time they open the app.';
 
   @override
-  String get chestCreationDialog_createButton => 'Create';
+  String get createChestPage_createButton => 'Create';
 
   @override
-  String get chestCreationDialog_label_chestName => 'Chest name';
+  String get createChestPage_hint_chestName => 'Chest name';
 
   @override
-  String get chestCreationDialog_title => 'Create a new chest';
+  String get createChestPage_title => 'Create a new chest';
 
   @override
   String get close => 'Close';

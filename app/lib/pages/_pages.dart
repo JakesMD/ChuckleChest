@@ -1,6 +1,7 @@
 export 'base/page.dart';
 export 'chest/page.dart';
 export 'collections/page.dart';
+export 'create_chest/page.dart';
 export 'create_gem/page.dart';
 export 'demo/page.dart';
 export 'edit_avatar/page.dart';

@@ -19,6 +19,8 @@ class CInvitationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CUserInvitationsFetchCubit, CUserInvitationsFetchState>(
+      buildWhen: (previous, state) =>
+          !((state.succeeded || previous.failed) && state.inProgress),
       builder: (context, state) => switch (state.status) {
         CRequestCubitStatus.initial => const Padding(
             padding: EdgeInsets.all(16),
@@ -65,11 +67,11 @@ class _CInvitationTile extends StatelessWidget {
         invitation.assignedRole.cLocalize(context),
       ),
       trailing: BlocBuilder<CInvitationAcceptCubit, CInvitationAcceptState>(
-        builder: (context, state) => ElevatedButton(
+        builder: (context, state) => FilledButton(
           onPressed: state.status != CRequestCubitStatus.inProgress
-              ? () => context.read<CInvitationAcceptCubit>().acceptInvitation(
-                    chestID: invitation.chestID,
-                  )
+              ? () => context
+                  .read<CInvitationAcceptCubit>()
+                  .acceptInvitation(chestID: invitation.chestID)
               : null,
           child: state.status != CRequestCubitStatus.inProgress
               ? Text(

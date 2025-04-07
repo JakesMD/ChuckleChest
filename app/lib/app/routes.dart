@@ -92,6 +92,11 @@ class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
               guards: [CNoChestsGuard(currentUserCubit: currentUserCubit)],
             ),
             AutoRoute(
+              path: 'create-chest',
+              page: CCreateChestRoute.page,
+              fullscreenDialog: true,
+            ),
+            AutoRoute(
               path: 'chest',
               page: CChestRoute.page,
               initial: true,

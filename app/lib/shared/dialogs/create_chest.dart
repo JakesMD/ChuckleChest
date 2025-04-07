@@ -35,12 +35,12 @@ class CCreateChestDialog extends StatelessWidget with CDialogMixin {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(context.cAppL10n.chestCreationDialog_title),
+      title: Text(context.cAppL10n.createChestPage_title),
       content: TextFormField(
         key: _formKey,
         validator: (value) => _nameInput.formFieldValidator(value, context),
         decoration: InputDecoration(
-          labelText: context.cAppL10n.chestCreationDialog_label_chestName,
+          labelText: context.cAppL10n.createChestPage_hint_chestName,
           border: const OutlineInputBorder(),
         ),
       ),
@@ -51,7 +51,7 @@ class CCreateChestDialog extends StatelessWidget with CDialogMixin {
         ),
         TextButton(
           onPressed: () => _onCreatePressed(context),
-          child: Text(context.cAppL10n.chestCreationDialog_createButton),
+          child: Text(context.cAppL10n.createChestPage_createButton),
         ),
       ],
     );

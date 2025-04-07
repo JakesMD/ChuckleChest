@@ -39,6 +39,14 @@ abstract class _$CAppRouter extends RootStackRouter {
         child: WrappedRoute(child: const CCollectionsPage()),
       );
     },
+    CCreateChestRoute.name: (routeData) {
+      final args = routeData.argsAs<CCreateChestRouteArgs>(
+          orElse: () => const CCreateChestRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: CCreateChestPage(key: args.key)),
+      );
+    },
     CCreateGemRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -293,6 +301,35 @@ class CCollectionsRoute extends PageRouteInfo<void> {
   static const String name = 'CCollectionsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CCreateChestPage]
+class CCreateChestRoute extends PageRouteInfo<CCreateChestRouteArgs> {
+  CCreateChestRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CCreateChestRoute.name,
+          args: CCreateChestRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'CCreateChestRoute';
+
+  static const PageInfo<CCreateChestRouteArgs> page =
+      PageInfo<CCreateChestRouteArgs>(name);
+}
+
+class CCreateChestRouteArgs {
+  const CCreateChestRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CCreateChestRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

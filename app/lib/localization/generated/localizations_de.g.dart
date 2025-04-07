@@ -16,13 +16,13 @@ class CAppL10nDe extends CAppL10n {
       'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
 
   @override
-  String get chestCreationDialog_createButton => 'Erstellen';
+  String get createChestPage_createButton => 'Erstellen';
 
   @override
-  String get chestCreationDialog_label_chestName => 'Name der Truhe';
+  String get createChestPage_hint_chestName => 'Name der Truhe';
 
   @override
-  String get chestCreationDialog_title => 'Neue Truhe erstellen';
+  String get createChestPage_title => 'Neue Truhe erstellen';
 
   @override
   String get close => 'Schließen';
