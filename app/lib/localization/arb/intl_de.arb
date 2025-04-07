@@ -2,9 +2,6 @@
   "@@locale": "de",
   "cancel": "Abbrechen",
   "changesPropagationBanner_message": "Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.",
-  "createChestPage_createButton": "Erstellen",
-  "createChestPage_hint_chestName": "Name der Truhe",
-  "createChestPage_title": "Neue Truhe erstellen",
   "close": "Schließen",
   "collectionView_noGemsTitle": "Keine Gemme zu zeigen",
   "collectionView_shareSheet_createLinkButton": "Link erstellen",
@@ -16,6 +13,9 @@
   "collectionsPage_section_title_other": "Sonstige",
   "collectionsPage_section_title_years": "Springe zu Jahr",
   "copiedToClipboard": "In die Zwischenablage kopiert.",
+  "createChestPage_createButton": "Erstellen",
+  "createChestPage_hint_chestName": "Name der Truhe",
+  "createChestPage_title": "Neue Truhe erstellen",
   "delete": "Löschen",
   "editAvatarPage_pickPhotoButton": "Foto auswählen",
   "editAvatarPage_title": "Bild Für {year} Bearbeiten",
@@ -46,6 +46,14 @@
   "gem_share_message": "Schau dir diese Gemme auf ChuckleChest an! 😂 {link}",
   "gem_share_subject": "Das ist so gut! 😂",
   "gem_swipeMessage": "Wischen, um das nächste zu sehen.",
+  "gem_title": "Gemme {number}",
+  "@gem_title": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
   "getStartedPage_createChestButton": "Neue Truhe erstellen",
   "getStartedPage_invitationSection_noInvitations": "Keine Einladungen",
   "getStartedPage_invitationSection_title": "Einladung annehmen",

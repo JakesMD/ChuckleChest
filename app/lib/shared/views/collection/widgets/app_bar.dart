@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/app/routes.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:chuckle_chest/shared/views/collection/logic/_logic.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,13 @@ class CCollectionViewAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return CAppBar(
-      context: context,
+    return AppBar(
       title: BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
-        builder: (context, state) => Text(state.appBarTitle),
+        builder: (context, state) => Text(
+          state.currentGem != null
+              ? context.cAppL10n.gem_title(state.currentGem!.number)
+              : '',
+        ),
       ),
       actions: [
         if (userRole != CUserRole.viewer)

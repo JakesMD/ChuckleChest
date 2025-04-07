@@ -15,6 +15,7 @@ class CResponsiveListView<T> extends StatelessWidget {
     required List<Widget> children,
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
     this.controller,
+    this.physics,
     super.key,
   })  : _children = children,
         _items = null,
@@ -27,6 +28,7 @@ class CResponsiveListView<T> extends StatelessWidget {
     required Widget Function(BuildContext, T) itemBuilder,
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
     this.controller,
+    this.physics,
     super.key,
   })  : _items = items,
         _itemBuilder = itemBuilder,
@@ -40,6 +42,7 @@ class CResponsiveListView<T> extends StatelessWidget {
     required Widget Function(BuildContext) separatorBuilder,
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
     this.controller,
+    this.physics,
     super.key,
   })  : _items = items,
         _itemBuilder = itemBuilder,
@@ -64,6 +67,9 @@ class CResponsiveListView<T> extends StatelessWidget {
   /// The scroll controller to use for the list view.
   final ScrollController? controller;
 
+  /// The physics to use for the list view.
+  final ScrollPhysics? physics;
+
   @override
   Widget build(BuildContext context) {
     return CResponsivePadding(
@@ -80,6 +86,7 @@ class CResponsiveListView<T> extends StatelessWidget {
         if (_separatorBuilder != null) {
           return ListView.separated(
             controller: controller,
+            physics: physics,
             padding: padding,
             itemCount: _items!.length,
             itemBuilder: (context, index) =>
@@ -90,6 +97,7 @@ class CResponsiveListView<T> extends StatelessWidget {
 
         return ListView.builder(
           controller: controller,
+          physics: physics,
           padding: padding,
           itemCount: _items!.length,
           itemBuilder: (context, index) =>

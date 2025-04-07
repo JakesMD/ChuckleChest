@@ -16,15 +16,6 @@ class CAppL10nEn extends CAppL10n {
       'Changes will propagate to other users next time they open the app.';
 
   @override
-  String get createChestPage_createButton => 'Create';
-
-  @override
-  String get createChestPage_hint_chestName => 'Chest name';
-
-  @override
-  String get createChestPage_title => 'Create a new chest';
-
-  @override
   String get close => 'Close';
 
   @override
@@ -58,6 +49,15 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get copiedToClipboard => 'Copied to clipboard.';
+
+  @override
+  String get createChestPage_createButton => 'Create';
+
+  @override
+  String get createChestPage_hint_chestName => 'Chest name';
+
+  @override
+  String get createChestPage_title => 'Create a new chest';
 
   @override
   String get delete => 'Delete';
@@ -132,6 +132,11 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get gem_swipeMessage => 'Swipe to view next.';
+
+  @override
+  String gem_title(int number) {
+    return 'Gem $number';
+  }
 
   @override
   String get getStartedPage_createChestButton => 'Create a new chest';

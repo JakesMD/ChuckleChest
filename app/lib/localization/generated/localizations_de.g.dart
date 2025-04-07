@@ -16,15 +16,6 @@ class CAppL10nDe extends CAppL10n {
       'Änderungen werden beim nächsten Öffnen der App von anderen Benutzern übernommen.';
 
   @override
-  String get createChestPage_createButton => 'Erstellen';
-
-  @override
-  String get createChestPage_hint_chestName => 'Name der Truhe';
-
-  @override
-  String get createChestPage_title => 'Neue Truhe erstellen';
-
-  @override
   String get close => 'Schließen';
 
   @override
@@ -57,6 +48,15 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get copiedToClipboard => 'In die Zwischenablage kopiert.';
+
+  @override
+  String get createChestPage_createButton => 'Erstellen';
+
+  @override
+  String get createChestPage_hint_chestName => 'Name der Truhe';
+
+  @override
+  String get createChestPage_title => 'Neue Truhe erstellen';
 
   @override
   String get delete => 'Löschen';
@@ -133,6 +133,11 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get gem_swipeMessage => 'Wischen, um das nächste zu sehen.';
+
+  @override
+  String gem_title(int number) {
+    return 'Gemme $number';
+  }
 
   @override
   String get getStartedPage_createChestButton => 'Neue Truhe erstellen';

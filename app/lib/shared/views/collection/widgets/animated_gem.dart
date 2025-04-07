@@ -89,54 +89,57 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
         : <CLine>[];
 
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: restart,
-        child: ListView(
-          key: key,
-          controller: scrollController,
-          physics: const CAutoScrollingPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          children: [
-            CAnimatedTypingText(
-              delay: Duration.zero,
-              text: widget.gem.occurredAt.cLocalize(
-                context,
-                dateFormat: CDateFormat.yearMonth,
+      body: CResponsivePadding(
+        padding: const EdgeInsets.symmetric(vertical: 32),
+        builder: (context, responsivePadding) => RefreshIndicator(
+          onRefresh: restart,
+          child: ListView(
+            key: key,
+            controller: scrollController,
+            physics: const CAutoScrollingPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            padding: responsivePadding,
+            children: [
+              CAnimatedTypingText(
+                delay: Duration.zero,
+                text: widget.gem.occurredAt.cLocalize(
+                  context,
+                  dateFormat: CDateFormat.yearMonth,
+                ),
+                textStyle: Theme.of(context).textTheme.labelMedium!,
+                textAlign: TextAlign.center,
               ),
-              textStyle: Theme.of(context).textTheme.labelMedium!,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: lines
-                  .map(
-                    (line) => CAnimatedLine(
-                      line: line,
-                      people: people,
-                      occurredAt: widget.gem.occurredAt,
-                      onAnimationCompleted: onLineAnimationCompleted,
+              const SizedBox(height: 12),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: lines
+                    .map(
+                      (line) => CAnimatedLine(
+                        line: line,
+                        people: people,
+                        occurredAt: widget.gem.occurredAt,
+                        onAnimationCompleted: onLineAnimationCompleted,
+                      ),
+                    )
+                    .toList(),
+              ),
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 300),
+                opacity: showPullSwipeMessages ? 1 : 0,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(
+                      '''${!widget.isLastGem ? '${context.cAppL10n.gem_swipeMessage} ' : ''}${context.cAppL10n.gem_restartMessage}''',
+                      style: context.cTextTheme.labelMedium!
+                          .copyWith(fontStyle: FontStyle.italic),
                     ),
-                  )
-                  .toList(),
-            ),
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 300),
-              opacity: showPullSwipeMessages ? 1 : 0,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Text(
-                    '''${!widget.isLastGem ? '${context.cAppL10n.gem_swipeMessage} ' : ''}${context.cAppL10n.gem_restartMessage}''',
-                    style: context.cTextTheme.labelMedium!
-                        .copyWith(fontStyle: FontStyle.italic),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: _CScrollToBottomFAB(

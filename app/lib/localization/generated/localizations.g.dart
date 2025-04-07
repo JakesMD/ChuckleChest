@@ -109,24 +109,6 @@ abstract class CAppL10n {
   /// **'Changes will propagate to other users next time they open the app.'**
   String get changesPropagationBanner_message;
 
-  /// No description provided for @createChestPage_createButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Create'**
-  String get createChestPage_createButton;
-
-  /// No description provided for @createChestPage_hint_chestName.
-  ///
-  /// In en, this message translates to:
-  /// **'Chest name'**
-  String get createChestPage_hint_chestName;
-
-  /// No description provided for @createChestPage_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Create a new chest'**
-  String get createChestPage_title;
-
   /// No description provided for @close.
   ///
   /// In en, this message translates to:
@@ -192,6 +174,24 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Copied to clipboard.'**
   String get copiedToClipboard;
+
+  /// No description provided for @createChestPage_createButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get createChestPage_createButton;
+
+  /// No description provided for @createChestPage_hint_chestName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest name'**
+  String get createChestPage_hint_chestName;
+
+  /// No description provided for @createChestPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new chest'**
+  String get createChestPage_title;
 
   /// No description provided for @delete.
   ///
@@ -330,6 +330,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Swipe to view next.'**
   String get gem_swipeMessage;
+
+  /// No description provided for @gem_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Gem {number}'**
+  String gem_title(int number);
 
   /// No description provided for @getStartedPage_createChestButton.
   ///
