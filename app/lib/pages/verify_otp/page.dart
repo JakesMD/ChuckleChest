@@ -29,7 +29,7 @@ class CVerifyOTPPage extends StatelessWidget implements AutoRouteWrapper {
       child: BlocListener<COTPVerificationCubit, COTPVerificationState>(
         listener: (context, state) => switch (state.failure) {
           COTPVerificationException.invalidToken => CErrorSnackBar(
-              message: context.cAppL10n.otpVerificationPage_error_invalidToken,
+              message: context.cAppL10n.verifyOTPPage_error_invalidToken,
             ).show(context),
           COTPVerificationException.unknown =>
             const CErrorSnackBar().show(context),
@@ -51,7 +51,7 @@ class CVerifyOTPPage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.cAppL10n.otpVerificationPage_title),
+        title: Text(context.cAppL10n.verifyOTPPage_title),
         centerTitle: true,
         bottom: CAppBarLoadingIndicator(
           listeners: [
@@ -63,7 +63,7 @@ class CVerifyOTPPage extends StatelessWidget implements AutoRouteWrapper {
         builder: (context, state) => CResponsiveListView(
           children: [
             Text(
-              context.cAppL10n.otpVerificationPage_message,
+              context.cAppL10n.verifyOTPPage_message,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),

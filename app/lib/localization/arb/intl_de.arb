@@ -88,9 +88,9 @@
   "manageChestPage_title": "Truhe verwalten",
   "ok": "Ok",
   "or": "oder",
-  "otpVerificationPage_error_invalidToken": "Dieser Code ist ungültig. Bitte versuche es erneut.",
-  "otpVerificationPage_message": "Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.",
-  "otpVerificationPage_title": "Ein-Mal-Code-Bestätigung",
+  "verifyOTPPage_error_invalidToken": "Dieser Code ist ungültig. Bitte versuche es erneut.",
+  "verifyOTPPage_message": "Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.",
+  "verifyOTPPage_title": "Ein-Mal-Code-Bestätigung",
   "peoplePage_personItem_age": "{age} {age, plural, =0{Jahre} =1{Jahr} other{Jahre}} alt",
   "@peoplePage_personItem_age": {
     "placeholders": {

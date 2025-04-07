@@ -225,15 +225,15 @@ class CAppL10nDe extends CAppL10n {
   String get or => 'oder';
 
   @override
-  String get otpVerificationPage_error_invalidToken =>
+  String get verifyOTPPage_error_invalidToken =>
       'Dieser Code ist ungültig. Bitte versuche es erneut.';
 
   @override
-  String get otpVerificationPage_message =>
+  String get verifyOTPPage_message =>
       'Bitte gebe den Code ein, den wir dir per E-Mail geschickt haben.';
 
   @override
-  String get otpVerificationPage_title => 'Ein-Mal-Code-Bestätigung';
+  String get verifyOTPPage_title => 'Ein-Mal-Code-Bestätigung';
 
   @override
   String peoplePage_personItem_age(int age) {

@@ -499,23 +499,23 @@ abstract class CAppL10n {
   /// **'or'**
   String get or;
 
-  /// No description provided for @otpVerificationPage_error_invalidToken.
+  /// No description provided for @verifyOTPPage_error_invalidToken.
   ///
   /// In en, this message translates to:
   /// **'This pin is invalid. Please try again.'**
-  String get otpVerificationPage_error_invalidToken;
+  String get verifyOTPPage_error_invalidToken;
 
-  /// No description provided for @otpVerificationPage_message.
+  /// No description provided for @verifyOTPPage_message.
   ///
   /// In en, this message translates to:
   /// **'Please enter the pin we sent to your inbox.'**
-  String get otpVerificationPage_message;
+  String get verifyOTPPage_message;
 
-  /// No description provided for @otpVerificationPage_title.
+  /// No description provided for @verifyOTPPage_title.
   ///
   /// In en, this message translates to:
   /// **'One-Time pin verification'**
-  String get otpVerificationPage_title;
+  String get verifyOTPPage_title;
 
   /// No description provided for @peoplePage_personItem_age.
   ///

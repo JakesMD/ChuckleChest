@@ -220,15 +220,15 @@ class CAppL10nEn extends CAppL10n {
   String get or => 'or';
 
   @override
-  String get otpVerificationPage_error_invalidToken =>
+  String get verifyOTPPage_error_invalidToken =>
       'This pin is invalid. Please try again.';
 
   @override
-  String get otpVerificationPage_message =>
+  String get verifyOTPPage_message =>
       'Please enter the pin we sent to your inbox.';
 
   @override
-  String get otpVerificationPage_title => 'One-Time pin verification';
+  String get verifyOTPPage_title => 'One-Time pin verification';
 
   @override
   String peoplePage_personItem_age(int age) {
