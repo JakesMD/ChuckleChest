@@ -39,17 +39,14 @@ body {
 .demo {
     display: flex;
     justify-content: center;
-    padding: 80px 48px 0px 48px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
     overflow: visible;
 }
 
 .iframe-container {
     width: 100%;
     max-width: 480px;
-    max-height: 480px;
-    aspect-ratio: 9/19.5;
-    border-radius: 56px 56px 0 0;
+    aspect-ratio: 1/1.5;
+    border-radius: 56px;
     overflow: hidden;
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.25);
 }
@@ -119,7 +116,7 @@ footer p {
     }
 
     .iframe-container {
-        border-radius: 48px 48px 0 0;
+        border-radius: 48px;
     }
 
     footer nav a {
@@ -147,7 +144,7 @@ footer p {
     }
 
     .iframe-container {
-        border-radius: 32px 32px 0 0;
+        border-radius: 32px;
     }
 
     footer nav a {
