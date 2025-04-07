@@ -12,10 +12,26 @@ class CChangesPropagationBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialBanner(
-      content: Text(context.cAppL10n.changesPropagationBanner_message),
-      leading: const Icon(Icons.info_rounded),
-      actions: [Container()],
+    return Container(
+      color: Theme.of(context).colorScheme.secondary,
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        spacing: 16,
+        children: [
+          Icon(
+            Icons.info_rounded,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+          Expanded(
+            child: Text(
+              context.cAppL10n.changesPropagationBanner_message,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

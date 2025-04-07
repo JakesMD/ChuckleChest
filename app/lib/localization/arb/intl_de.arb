@@ -39,6 +39,7 @@
   "editGemPage_title_create": "Gemme erstellen",
   "editGemPage_title_edit": "Gemme bearbeiten",
   "editPersonPage_dateOfBirthTile_title": "Geburtsdatum",
+  "editPersonPage_editNicknameDialog_hint_nickname": "Spitzname",
   "editPersonPage_editNicknameDialog_title": "Spitzname bearbeiten",
   "editPersonPage_nicknameTile_title": "Spitzname",
   "editPersonPage_title": "Person bearbeiten",

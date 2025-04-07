@@ -31,17 +31,18 @@ class CDateOfBirthTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CPersonUpdateCubit, CPersonUpdateState>(
-      builder: (context, state) => ListTile(
-        leading: const Icon(Icons.today_rounded),
-        title: Text(context.cAppL10n.editPersonPage_dateOfBirthTile_title),
-        subtitle: Text(state.person.dateOfBirth.cLocalize(context)),
-        trailing: state.status == CRequestCubitStatus.inProgress
-            ? const CBouncyBallLoadingIndicator()
-            : const Icon(Icons.edit_rounded),
-        onTap: () => _onPressed(context),
-        enabled: state.status != CRequestCubitStatus.inProgress,
-      ),
+    final state = context.watch<CPersonUpdateCubit>().state;
+
+    return ListTile(
+      minVerticalPadding: 24,
+      leading: const Icon(Icons.today_rounded),
+      title: Text(context.cAppL10n.editPersonPage_dateOfBirthTile_title),
+      subtitle: Text(state.person.dateOfBirth.cLocalize(context)),
+      trailing: state.status == CRequestCubitStatus.inProgress
+          ? const CBouncyBallLoadingIndicator()
+          : const Icon(Icons.edit_rounded),
+      onTap: () => _onPressed(context),
+      enabled: state.status != CRequestCubitStatus.inProgress,
     );
   }
 }

@@ -62,22 +62,31 @@ class CEditPersonPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CAppBar(
-        context: context,
+      appBar: AppBar(
         leading: BackButton(onPressed: () => _onBackPressed(context)),
         title: Text(context.cAppL10n.editPersonPage_title),
+        bottom: CAppBarLoadingIndicator(
+          listeners: [
+            CLoadingListener<CPersonUpdateCubit, CPersonUpdateState>(),
+          ],
+        ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.only(bottom: 16),
-        children: const [
+      body: const Column(
+        children: [
           CChangesPropagationBanner(),
-          SizedBox(height: 16),
-          CNicknameTile(),
-          CDateOfBirthTile(),
-          SizedBox(height: 48),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: CAvatarSection(),
+          Expanded(
+            child: CResponsiveListView(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              children: [
+                CNicknameTile(),
+                CDateOfBirthTile(),
+                SizedBox(height: 48),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: CAvatarSection(),
+                ),
+              ],
+            ),
           ),
         ],
       ),

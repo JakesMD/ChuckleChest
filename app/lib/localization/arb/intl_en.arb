@@ -39,6 +39,7 @@
   "editGemPage_title_create": "Create a gem",
   "editGemPage_title_edit": "Edit the gem",
   "editPersonPage_dateOfBirthTile_title": "Date of birth",
+  "editPersonPage_editNicknameDialog_hint_nickname": "Nickname",
   "editPersonPage_editNicknameDialog_title": "Edit nickname",
   "editPersonPage_nicknameTile_title": "Nickname",
   "editPersonPage_title": "Edit person",

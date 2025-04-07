@@ -111,6 +111,9 @@ class CAppL10nEn extends CAppL10n {
   String get editPersonPage_dateOfBirthTile_title => 'Date of birth';
 
   @override
+  String get editPersonPage_editNicknameDialog_hint_nickname => 'Nickname';
+
+  @override
   String get editPersonPage_editNicknameDialog_title => 'Edit nickname';
 
   @override

@@ -33,13 +33,15 @@ class CEditNicknameDialog extends StatelessWidget with CDialogMixin {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(context.cAppL10n.editPersonPage_editNicknameDialog_title),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       content: TextFormField(
         key: _formKey,
         initialValue: cubit.state.person.nickname,
         validator: (value) => _name.formFieldValidator(value, context),
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
-          labelText: context.cAppL10n.editGemPage_editLineDialog_hint_line,
+          labelText:
+              context.cAppL10n.editPersonPage_editNicknameDialog_hint_nickname,
           border: const OutlineInputBorder(),
         ),
       ),

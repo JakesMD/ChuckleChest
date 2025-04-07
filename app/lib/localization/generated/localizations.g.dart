@@ -289,6 +289,12 @@ abstract class CAppL10n {
   /// **'Date of birth'**
   String get editPersonPage_dateOfBirthTile_title;
 
+  /// No description provided for @editPersonPage_editNicknameDialog_hint_nickname.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get editPersonPage_editNicknameDialog_hint_nickname;
+
   /// No description provided for @editPersonPage_editNicknameDialog_title.
   ///
   /// In en, this message translates to:
