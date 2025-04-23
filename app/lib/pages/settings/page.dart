@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
+import 'package:chuckle_chest/pages/home/widgets/_widgets.dart';
 import 'package:chuckle_chest/pages/settings/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
@@ -39,27 +40,30 @@ class CSettingsPage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     final isOwner = context.currentChest.isUserOwner;
 
-    return CResponsiveListView(
-      padding: const EdgeInsets.fromLTRB(0, 16, 0, 32),
-      children: [
-        if (isOwner) const CManageChestTile(),
-        if (isOwner) const Divider(height: 16),
-        const CInvitationsTile(),
-        const CCreateChestTile(),
-        const Divider(height: 16),
-        const CLanguageTile(),
-        const CThemeTile(),
-        const Divider(height: 16),
-        const CContactTile(),
-        const CPrivacyPolicyTile(),
-        const CTermsOfServiceTile(),
-        const CLicensesTile(),
-        const CDemoTile(),
-        const CLogsTile(),
-        const Divider(height: 16),
-        const SizedBox(height: 32),
-        const CSignoutButton(),
-      ],
+    return Scaffold(
+      appBar: AppBar(title: const CHomePageAppBarTitle()),
+      body: CResponsiveListView(
+        padding: const EdgeInsets.fromLTRB(0, 16, 0, 32),
+        children: [
+          if (isOwner) const CManageChestTile(),
+          if (isOwner) const Divider(height: 16),
+          const CInvitationsTile(),
+          const CCreateChestTile(),
+          const Divider(height: 16),
+          const CLanguageTile(),
+          const CThemeTile(),
+          const Divider(height: 16),
+          const CContactTile(),
+          const CPrivacyPolicyTile(),
+          const CTermsOfServiceTile(),
+          const CLicensesTile(),
+          const CDemoTile(),
+          const CLogsTile(),
+          const Divider(height: 16),
+          const SizedBox(height: 32),
+          const CSignoutButton(),
+        ],
+      ),
     );
   }
 }

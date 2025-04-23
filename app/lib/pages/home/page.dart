@@ -3,7 +3,6 @@ import 'package:cauth_repository/cauth_repository.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/home/logic/_logic.dart';
-import 'package:chuckle_chest/pages/home/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +52,6 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
     if (result != null) cubit.updatePerson(person: result as CPerson);
   }
 
-  void _onChestSelected(BuildContext context, CAuthUserChest chest) =>
-      context.router.replace(CChestRoute(chestID: chest.id));
-
   void _onFABPressed(BuildContext context, int index) {
     switch (index) {
       case 0:
@@ -79,13 +75,6 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-
-        final childWithAppBar = Scaffold(
-          appBar: AppBar(
-            title: CHomePageAppBarTitle(onChestSelected: _onChestSelected),
-          ),
-          body: child,
-        );
 
         return Scaffold(
           floatingActionButton: tabsRouter.activeIndex != 2 && !isViewer
@@ -152,10 +141,10 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
                         ),
                       ],
                     ),
-                    Expanded(child: childWithAppBar),
+                    Expanded(child: child),
                   ],
                 )
-              : childWithAppBar,
+              : child,
         );
       },
     );

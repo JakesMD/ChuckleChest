@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cauth_repository/cauth_repository.dart';
+import 'package:chuckle_chest/app/_app.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@endtemplate}
 class CHomePageAppBarTitle extends StatelessWidget {
   /// {@macro CHomePageAppBarTitle}
-  const CHomePageAppBarTitle({
-    required this.onChestSelected,
-    super.key,
-  });
+  const CHomePageAppBarTitle({super.key});
 
-  /// Callback for when a chest is selected.
-  final void Function(BuildContext, CAuthUserChest) onChestSelected;
+  void _onChestSelected(BuildContext context, CAuthUserChest chest) =>
+      context.router.replace(CChestRoute(chestID: chest.id));
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class CHomePageAppBarTitle extends StatelessWidget {
               return chests
                   .map(
                     (chest) => PopupMenuItem(
-                      onTap: () => onChestSelected(context, chest),
+                      onTap: () => _onChestSelected(context, chest),
                       child: Text(chest.name),
                     ),
                   )

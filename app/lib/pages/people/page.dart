@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/pages/home/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:cperson_repository/cperson_repository.dart';
 import 'package:flutter/material.dart';
@@ -37,19 +38,22 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     final state = context.watch<CChestPeopleFetchCubit>().state;
 
-    return CResponsiveListView.builder(
-      padding: const EdgeInsets.only(top: 16, bottom: 80),
-      items: state.people,
-      itemBuilder: (context, person) => ListTile(
-        minVerticalPadding: 16,
-        leading: CAvatar.fromPerson(person: person, date: DateTime.now()),
-        title: Text(person.nickname),
-        subtitle: Text(
-          context.cAppL10n
-              .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
+    return Scaffold(
+      appBar: AppBar(title: const CHomePageAppBarTitle()),
+      body: CResponsiveListView.builder(
+        padding: const EdgeInsets.only(top: 16, bottom: 80),
+        items: state.people,
+        itemBuilder: (context, person) => ListTile(
+          minVerticalPadding: 16,
+          leading: CAvatar.fromPerson(person: person, date: DateTime.now()),
+          title: Text(person.nickname),
+          subtitle: Text(
+            context.cAppL10n
+                .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
+          ),
+          trailing: const Icon(Icons.edit_rounded),
+          onTap: () => _onTileTapped(context, person),
         ),
-        trailing: const Icon(Icons.edit_rounded),
-        onTap: () => _onTileTapped(context, person),
       ),
     );
   }
