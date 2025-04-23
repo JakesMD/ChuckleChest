@@ -164,9 +164,6 @@ class CAppL10nEn extends CAppL10n {
   String get getStartedPage_invitationSection_title => 'Accept an invitation';
 
   @override
-  String get getStartedPage_invitationTile_acceptButton => 'Accept';
-
-  @override
   String get getStartedPage_logoutButton => 'Log out';
 
   @override
@@ -194,10 +191,10 @@ class CAppL10nEn extends CAppL10n {
   String get inputError_text_empty => 'Please enter some text.';
 
   @override
-  String get invitationsPage_acceptButton => 'Accept';
+  String get invitationTile_acceptButton => 'Accept';
 
   @override
-  String get invitationsPage_noInvitationsMessage => 'No invitations';
+  String get invitationsPage_noInvitationsMessage => 'No invitations.';
 
   @override
   String get invitationsPage_title => 'Invitations';

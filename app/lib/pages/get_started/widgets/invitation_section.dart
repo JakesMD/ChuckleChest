@@ -1,5 +1,3 @@
-import 'package:cchest_repository/cchest_repository.dart';
-import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +34,7 @@ class CInvitationSection extends StatelessWidget {
             ? Column(
                 children: state.invitations
                     .map(
-                      (invitation) => _CInvitationTile(invitation: invitation),
+                      (invitation) => CInvitationTile(invitation: invitation),
                     )
                     .toList(),
               )
@@ -50,36 +48,6 @@ class CInvitationSection extends StatelessWidget {
                 ),
               ),
       },
-    );
-  }
-}
-
-class _CInvitationTile extends StatelessWidget {
-  const _CInvitationTile({required this.invitation});
-
-  final CUserInvitation invitation;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(invitation.chestName),
-      subtitle: Text(
-        invitation.assignedRole.cLocalize(context),
-      ),
-      trailing: BlocBuilder<CInvitationAcceptCubit, CInvitationAcceptState>(
-        builder: (context, state) => FilledButton(
-          onPressed: state.status != CRequestCubitStatus.inProgress
-              ? () => context
-                  .read<CInvitationAcceptCubit>()
-                  .acceptInvitation(chestID: invitation.chestID)
-              : null,
-          child: state.status != CRequestCubitStatus.inProgress
-              ? Text(
-                  context.cAppL10n.getStartedPage_invitationTile_acceptButton,
-                )
-              : const CCradleLoadingIndicator(ballSize: 8),
-        ),
-      ),
     );
   }
 }

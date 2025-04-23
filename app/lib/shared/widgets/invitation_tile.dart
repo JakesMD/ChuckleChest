@@ -7,8 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template CInvitationTile}
 ///
-/// The tile on the invitations page that represents an invitation that the user
-/// can accept.
+/// The tile that represents an invitation that the user can accept.
 ///
 /// {@endtemplate}
 class CInvitationTile extends StatelessWidget {
@@ -24,14 +23,14 @@ class CInvitationTile extends StatelessWidget {
       title: Text(invitation.chestName),
       subtitle: Text(invitation.assignedRole.cLocalize(context)),
       trailing: BlocBuilder<CInvitationAcceptCubit, CInvitationAcceptState>(
-        builder: (context, state) => ElevatedButton(
+        builder: (context, state) => FilledButton(
           onPressed: state.status != CRequestCubitStatus.inProgress
               ? () => context
                   .read<CInvitationAcceptCubit>()
                   .acceptInvitation(chestID: invitation.chestID)
               : null,
           child: state.status != CRequestCubitStatus.inProgress
-              ? Text(context.cAppL10n.invitationsPage_acceptButton)
+              ? Text(context.cAppL10n.invitationTile_acceptButton)
               : const CCradleLoadingIndicator(ballSize: 8),
         ),
       ),

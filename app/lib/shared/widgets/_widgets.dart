@@ -8,6 +8,7 @@ export 'dialog.dart';
 export 'error_snack_bar.dart';
 export 'fade_in.dart';
 export 'info_snack_bar.dart';
+export 'invitation_tile.dart';
 export 'loading_button.dart';
 export 'loading_indicator.dart';
 export 'responsive_list_view.dart';

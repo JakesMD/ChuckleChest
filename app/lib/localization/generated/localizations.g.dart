@@ -385,12 +385,6 @@ abstract class CAppL10n {
   /// **'Accept an invitation'**
   String get getStartedPage_invitationSection_title;
 
-  /// No description provided for @getStartedPage_invitationTile_acceptButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Accept'**
-  String get getStartedPage_invitationTile_acceptButton;
-
   /// No description provided for @getStartedPage_logoutButton.
   ///
   /// In en, this message translates to:
@@ -445,16 +439,16 @@ abstract class CAppL10n {
   /// **'Please enter some text.'**
   String get inputError_text_empty;
 
-  /// No description provided for @invitationsPage_acceptButton.
+  /// No description provided for @invitationTile_acceptButton.
   ///
   /// In en, this message translates to:
   /// **'Accept'**
-  String get invitationsPage_acceptButton;
+  String get invitationTile_acceptButton;
 
   /// No description provided for @invitationsPage_noInvitationsMessage.
   ///
   /// In en, this message translates to:
-  /// **'No invitations'**
+  /// **'No invitations.'**
   String get invitationsPage_noInvitationsMessage;
 
   /// No description provided for @invitationsPage_title.

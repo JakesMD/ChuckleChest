@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/invitations/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,10 +64,7 @@ class CInvitationsPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CAppBar(
-        context: context,
-        title: Text(context.cAppL10n.invitationsPage_title),
-      ),
+      appBar: AppBar(title: Text(context.cAppL10n.invitationsPage_title)),
       body: BlocBuilder<CUserInvitationsFetchCubit, CUserInvitationsFetchState>(
         builder: (context, state) => switch (state.status) {
           CRequestCubitStatus.initial =>
@@ -78,12 +74,11 @@ class CInvitationsPage extends StatelessWidget implements AutoRouteWrapper {
           CRequestCubitStatus.failed =>
             const Center(child: Icon(Icons.error_rounded)),
           CRequestCubitStatus.succeeded => state.invitations.isNotEmpty
-              ? ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  itemCount: state.invitations.length,
-                  itemBuilder: (context, index) => CInvitationTile(
-                    invitation: state.invitations[index],
-                  ),
+              ? CResponsiveListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  items: state.invitations,
+                  itemBuilder: (context, invitation) =>
+                      CInvitationTile(invitation: invitation),
                 )
               : Center(
                   child: Text(
