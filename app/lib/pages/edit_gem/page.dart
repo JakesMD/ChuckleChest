@@ -91,6 +91,8 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
                 ? context.cAppL10n.editGemPage_title_create
                 : context.cAppL10n.editGemPage_title_edit,
           ),
+          actions: const [CSaveGemButton()],
+          actionsPadding: const EdgeInsetsDirectional.only(end: 8),
           bottom: CAppBarLoadingIndicator(
             listeners: [CLoadingListener<CGemSaveCubit, CGemSaveState>()],
           ),
@@ -117,7 +119,6 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
           ),
         ),
         bottomNavigationBar: const CEditGemPageBottomAppBar(),
-        floatingActionButton: const CSaveGemFAB(),
       ),
     );
   }
