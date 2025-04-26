@@ -128,7 +128,7 @@ abstract class _$CAppRouter extends RootStackRouter {
     CInvitedRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const CInvitedTab()),
+        child: WrappedRoute(child: const CInvitedPage()),
       );
     },
     CLoginRoute.name: (routeData) {
@@ -154,7 +154,7 @@ abstract class _$CAppRouter extends RootStackRouter {
     CMembersRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const CMembersTab()),
+        child: WrappedRoute(child: const CMembersPage()),
       );
     },
     CPeopleRoute.name: (routeData) {
@@ -565,7 +565,7 @@ class CInvitationsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CInvitedTab]
+/// [CInvitedPage]
 class CInvitedRoute extends PageRouteInfo<void> {
   const CInvitedRoute({List<PageRouteInfo>? children})
       : super(
@@ -635,7 +635,7 @@ class CManageChestRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CMembersTab]
+/// [CMembersPage]
 class CMembersRoute extends PageRouteInfo<void> {
   const CMembersRoute({List<PageRouteInfo>? children})
       : super(

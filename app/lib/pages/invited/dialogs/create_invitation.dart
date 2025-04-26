@@ -1,6 +1,6 @@
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
-import 'package:chuckle_chest/pages/manage_chest/logic/_logic.dart';
+import 'package:chuckle_chest/pages/invited/logic/_logic.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

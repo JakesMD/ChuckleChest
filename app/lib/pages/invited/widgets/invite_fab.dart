@@ -1,19 +1,19 @@
-import 'package:chuckle_chest/pages/manage_chest/dialogs/_dialogs.dart';
-import 'package:chuckle_chest/pages/manage_chest/logic/invitation_creation_cubit.dart';
+import 'package:chuckle_chest/pages/invited/dialogs/_dialogs.dart';
+import 'package:chuckle_chest/pages/invited/logic/_logic.dart';
 import 'package:chuckle_chest/shared/logic/_logic.dart';
 import 'package:chuckle_chest/shared/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// {@template CManageChestPageFAB}
+/// {@template CInviteFAB}
 ///
 /// The floating action button that allows the user to create an invitation to
 /// the chest.
 ///
 /// {@endtemplate}
-class CManageChestPageFAB extends StatelessWidget {
-  /// {@macro CManageChestPageFAB}
-  const CManageChestPageFAB({super.key});
+class CInviteFAB extends StatelessWidget {
+  /// {@macro CInviteFAB}
+  const CInviteFAB({super.key});
 
   @override
   Widget build(BuildContext context) {

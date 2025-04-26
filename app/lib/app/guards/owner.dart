@@ -10,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class COwnerGuard implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final userRole = router.navigatorKey.currentContext!
-        .read<CCurrentChestCubit>()
+    final userRole = router.navigatorKey.currentContext
+        ?.read<CCurrentChestCubit>()
         .state
         .userRole;
 

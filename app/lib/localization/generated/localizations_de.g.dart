@@ -203,6 +203,9 @@ class CAppL10nDe extends CAppL10n {
   String get invitationsPage_title => 'Einladungen';
 
   @override
+  String get invitedPage_title => 'Eingeladen';
+
+  @override
   String get languageDialog_title => 'Sprache ändern';
 
   @override
@@ -223,13 +226,16 @@ class CAppL10nDe extends CAppL10n {
   String get manageChestPage_editChestNameDialog_title => 'Name bearbeiten';
 
   @override
-  String get manageChestPage_tab_invited => 'Eingeladen';
+  String get manageChestPage_invitedTile_title => 'Eingeladen';
 
   @override
-  String get manageChestPage_tab_members => 'Mitglieder';
+  String get manageChestPage_membersTile_title => 'Mitglieder';
 
   @override
   String get manageChestPage_title => 'Truhe verwalten';
+
+  @override
+  String get membersPage_title => 'Mitglieder';
 
   @override
   String get ok => 'Ok';

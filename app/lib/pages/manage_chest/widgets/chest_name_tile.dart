@@ -22,7 +22,8 @@ class CChestNameTile extends StatelessWidget {
       builder: (context, chest) =>
           BlocBuilder<CChestNameUpdateCubit, CChestNameUpdateState>(
         builder: (context, state) => ListTile(
-          minVerticalPadding: 32,
+          minVerticalPadding: 24,
+          leading: const Icon(Icons.inventory_2_rounded),
           title: Text(context.cAppL10n.manageChestPage_chestNameTile_title),
           subtitle: Text(chest.name),
           trailing: state.status != CRequestCubitStatus.inProgress

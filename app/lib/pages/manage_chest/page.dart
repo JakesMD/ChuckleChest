@@ -1,13 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chuckle_chest/app/routes.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
 import 'package:chuckle_chest/pages/manage_chest/logic/_logic.dart';
 import 'package:chuckle_chest/pages/manage_chest/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-export 'tabs/_tabs.dart';
 
 /// {@template CManageChestPage}
 ///
@@ -30,10 +27,6 @@ class CManageChestPage extends StatelessWidget implements AutoRouteWrapper {
             chestID: context.read<CCurrentChestCubit>().state.id,
           ),
         ),
-        BlocProvider(
-          create: (_) =>
-              CInvitationCreationCubit(chestRepository: context.read()),
-        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -55,28 +48,23 @@ class CManageChestPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter.tabBar(
-      routes: const [CMembersRoute(), CInvitedRoute()],
-      builder: (context, child, controller) => Scaffold(
-        appBar: CAppBar(
-          context: context,
-          title: Text(context.cAppL10n.manageChestPage_title),
-        ),
-        body: Column(
-          children: [
-            const CChangesPropagationBanner(),
-            const CChestNameTile(),
-            TabBar(
-              controller: controller,
-              tabs: [
-                Tab(text: context.cAppL10n.manageChestPage_tab_members),
-                Tab(text: context.cAppL10n.manageChestPage_tab_invited),
+    return Scaffold(
+      appBar: AppBar(title: Text(context.cAppL10n.manageChestPage_title)),
+      body: const Column(
+        children: [
+          CChangesPropagationBanner(),
+          Expanded(
+            child: CResponsiveListView(
+              padding: EdgeInsets.zero,
+              children: [
+                CChestNameTile(),
+                Divider(height: 16),
+                CMembersTile(),
+                CInvitedTile(),
               ],
             ),
-            Expanded(child: child),
-          ],
-        ),
-        floatingActionButton: const CManageChestPageFAB(),
+          ),
+        ],
       ),
     );
   }

@@ -457,6 +457,12 @@ abstract class CAppL10n {
   /// **'Invitations'**
   String get invitationsPage_title;
 
+  /// No description provided for @invitedPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Invited'**
+  String get invitedPage_title;
+
   /// No description provided for @languageDialog_title.
   ///
   /// In en, this message translates to:
@@ -493,23 +499,29 @@ abstract class CAppL10n {
   /// **'Edit chest name'**
   String get manageChestPage_editChestNameDialog_title;
 
-  /// No description provided for @manageChestPage_tab_invited.
+  /// No description provided for @manageChestPage_invitedTile_title.
   ///
   /// In en, this message translates to:
   /// **'Invited'**
-  String get manageChestPage_tab_invited;
+  String get manageChestPage_invitedTile_title;
 
-  /// No description provided for @manageChestPage_tab_members.
+  /// No description provided for @manageChestPage_membersTile_title.
   ///
   /// In en, this message translates to:
   /// **'Members'**
-  String get manageChestPage_tab_members;
+  String get manageChestPage_membersTile_title;
 
   /// No description provided for @manageChestPage_title.
   ///
   /// In en, this message translates to:
   /// **'Manage chest'**
   String get manageChestPage_title;
+
+  /// No description provided for @membersPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get membersPage_title;
 
   /// No description provided for @ok.
   ///

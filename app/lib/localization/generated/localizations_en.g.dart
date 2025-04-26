@@ -200,6 +200,9 @@ class CAppL10nEn extends CAppL10n {
   String get invitationsPage_title => 'Invitations';
 
   @override
+  String get invitedPage_title => 'Invited';
+
+  @override
   String get languageDialog_title => 'Change language';
 
   @override
@@ -218,13 +221,16 @@ class CAppL10nEn extends CAppL10n {
   String get manageChestPage_editChestNameDialog_title => 'Edit chest name';
 
   @override
-  String get manageChestPage_tab_invited => 'Invited';
+  String get manageChestPage_invitedTile_title => 'Invited';
 
   @override
-  String get manageChestPage_tab_members => 'Members';
+  String get manageChestPage_membersTile_title => 'Members';
 
   @override
   String get manageChestPage_title => 'Manage chest';
+
+  @override
+  String get membersPage_title => 'Members';
 
   @override
   String get ok => 'OK';

@@ -1,22 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cchest_repository/cchest_repository.dart';
-import 'package:chuckle_chest/pages/manage_chest/logic/_logic.dart';
-import 'package:chuckle_chest/pages/manage_chest/widgets/_widgets.dart';
+import 'package:chuckle_chest/localization/l10n.dart';
+import 'package:chuckle_chest/pages/members/logic/_logic.dart';
+import 'package:chuckle_chest/pages/members/widgets/_widgets.dart';
 import 'package:chuckle_chest/shared/_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// {@template CMembersTab}
+/// {@template CMembersPage}
 ///
-/// This tab on the manage chest page displays the list of users that have been
-/// invited to the chest and allows the user to change thier roles.
+/// The page that displays the list of members and allows the user to change
+/// their roles.
 ///
 /// {@endtemplate}
 @RoutePage()
-class CMembersTab extends StatelessWidget implements AutoRouteWrapper {
-  /// {@macro CMembersTab}
-  const CMembersTab({super.key});
+class CMembersPage extends StatelessWidget implements AutoRouteWrapper {
+  /// {@macro CMembersPage}
+  const CMembersPage({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -62,21 +63,23 @@ class CMembersTab extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CMembersFetchCubit, CMembersFetchState>(
-      builder: (context, membersState) => switch (membersState.status) {
-        CRequestCubitStatus.initial =>
-          const Center(child: CCradleLoadingIndicator()),
-        CRequestCubitStatus.inProgress =>
-          const Center(child: CCradleLoadingIndicator()),
-        CRequestCubitStatus.failed =>
-          const Center(child: Icon(Icons.error_rounded)),
-        CRequestCubitStatus.succeeded => ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: membersState.members.length,
-            itemBuilder: (context, index) =>
-                CMemberCard(member: membersState.members[index]),
-          ),
-      },
+    return Scaffold(
+      appBar: AppBar(title: Text(context.cAppL10n.membersPage_title)),
+      body: BlocBuilder<CMembersFetchCubit, CMembersFetchState>(
+        builder: (context, membersState) => switch (membersState.status) {
+          CRequestCubitStatus.initial =>
+            const Center(child: CCradleLoadingIndicator()),
+          CRequestCubitStatus.inProgress =>
+            const Center(child: CCradleLoadingIndicator()),
+          CRequestCubitStatus.failed =>
+            const Center(child: Icon(Icons.error_rounded)),
+          CRequestCubitStatus.succeeded => CResponsiveListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              items: membersState.members,
+              itemBuilder: (context, member) => CMemberCard(member: member),
+            ),
+        },
+      ),
     );
   }
 }
