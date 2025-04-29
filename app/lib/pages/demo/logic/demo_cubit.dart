@@ -53,17 +53,27 @@ class CDemoCubit extends Cubit<CDemoState> {
     CPerson(
       id: BigInt.zero,
       nickname: 'Amy',
-      dateOfBirth: DateTime(2020),
+      dateOfBirth: DateTime(2020, 2, 2),
       avatarURLs: [
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-2.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtMi5qcGciLCJpYXQiOjE3Mzg4Mzc4ODIsImV4cCI6NDg5MjQzNzg4Mn0.4kTSz1uubxK4ELdtnQjAa2P1PGFKVX5dcPquiLqFeW4',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-2.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtMi5wbmciLCJpYXQiOjE3NDU5NTA3OTksImV4cCI6NDg5OTU1MDc5OX0.LLnRB8vARDCRmFlUJz8boHXdcR4PrFQeWNLECpPPUlA',
           year: 2022,
         ),
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-4.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtNC5qcGciLCJpYXQiOjE3Mzg4Mzc5MTIsImV4cCI6NDg5MjQzNzkxMn0.QrvZmm8Lm5WxKwLgXcCp5kTTY5Fs_J_lqo2G88SN05E',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-3.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtMy5wbmciLCJpYXQiOjE3NDU5NTA5NTgsImV4cCI6NDg5OTU1MDk1OH0.i7pgda7kMdF2IDGHjaM4VSn_8gh_xsXxMrsWpNFrV3M',
+          year: 2023,
+        ),
+        const CAvatarURL(
+          url:
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-4.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtNC5wbmciLCJpYXQiOjE3NDU5NTA4MzMsImV4cCI6NDg5OTU1MDgzM30.AydG_eHfJfva6bYD1m_Rx5OKuduT8JbtuIR5eBp2_zc',
           year: 2024,
+        ),
+        const CAvatarURL(
+          url:
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/girl-5.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL2dpcmwtNS5wbmciLCJpYXQiOjE3NDU5NTEwMDUsImV4cCI6NDg5OTU1MTAwNX0.WLl5oM3Wkkavfota2OciMLs3SGMM_-OInXJ2q-_448g',
+          year: 2025,
         ),
       ],
       chestID: 'demo',
@@ -71,17 +81,27 @@ class CDemoCubit extends Cubit<CDemoState> {
     CPerson(
       id: BigInt.one,
       nickname: 'Mum',
-      dateOfBirth: DateTime(1993),
+      dateOfBirth: DateTime(1993, 5, 5),
       avatarURLs: [
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-29.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTI5LmpwZyIsImlhdCI6MTczODgzNzkyOCwiZXhwIjo0ODkyNDM3OTI4fQ.cBVOX0kIfiQ0iLHOLo77Pyk8U178nBrEGOCIcGA5-KY',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-29.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTI5LnBuZyIsImlhdCI6MTc0NTk1MDg3MSwiZXhwIjo0ODk5NTUwODcxfQ.Ka4KTyvlJQcpxWq4_AHKQpCmuG93zunDru-7bBVsQQs',
           year: 2022,
         ),
         const CAvatarURL(
           url:
-              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-31.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTMxLmpwZyIsImlhdCI6MTczODgzNzk0NywiZXhwIjo0ODkyNDM3OTQ3fQ.RhF2kAKQht7igPWa8A8mJwca7p_zSTX5Zpoe9I1vV-g',
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-30.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTMwLnBuZyIsImlhdCI6MTc0NTk1MTEyNSwiZXhwIjo0ODk5NTUxMTI1fQ.loN9CC5kK1ZhiAbEKhGxAsNC3dBDU3LmhXFJsygg06w',
+          year: 2023,
+        ),
+        const CAvatarURL(
+          url:
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-31.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTMxLnBuZyIsImlhdCI6MTc0NTk1MDg5MywiZXhwIjo0ODk5NTUwODkzfQ.RqLC_VDDYJbirAWS6If86egs7LSFL3AjdqmTwzbTkJE',
           year: 2024,
+        ),
+        const CAvatarURL(
+          url:
+              'https://mgopsyysiuhacmfpxpdd.supabase.co/storage/v1/object/sign/demo/woman-32.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW1vL3dvbWFuLTMyLnBuZyIsImlhdCI6MTc0NTk1MTE0MiwiZXhwIjo0ODk5NTUxMTQyfQ.GjEjc1ZQEpQ7Hpau4siH8CD1NXRj5MmBUeX7b3w8J9E',
+          year: 2025,
         ),
       ],
       chestID: 'demo',
@@ -90,6 +110,79 @@ class CDemoCubit extends Cubit<CDemoState> {
 
   /// The demo gems.
   List<CSharedGem> get gems => [
+        CSharedGem(
+          id: 'demo4',
+          number: 202,
+          occurredAt: DateTime(2022, 10, 14),
+          lines: [
+            CLine(
+              id: BigInt.zero,
+              text: 'Do you love Mummy, Amy?',
+              personID: BigInt.one,
+              gemID: 'demo4',
+              chestID: 'demo',
+            ),
+            CLine(
+              id: BigInt.one,
+              text: 'Amy looks down at her socks.',
+              personID: null,
+              gemID: 'demo4',
+              chestID: 'demo',
+            ),
+            CLine(
+              id: BigInt.two,
+              text: 'No. Got my "I love Daddy" socks on today.',
+              personID: BigInt.zero,
+              gemID: 'demo4',
+              chestID: 'demo',
+            ),
+          ],
+          chestID: 'demo',
+          shareToken: null,
+          people: _people,
+        ),
+        CSharedGem(
+          id: 'demo5',
+          number: 426,
+          occurredAt: DateTime(2024, 12, 22),
+          lines: [
+            CLine(
+              id: BigInt.zero,
+              text: 'Amy announcing the next song at the nativity:',
+              personID: null,
+              gemID: 'demo5',
+              chestID: 'demo',
+            ),
+            CLine(
+              id: BigInt.one,
+              text: 'A whale in a manger!',
+              personID: BigInt.zero,
+              gemID: 'demo5',
+              chestID: 'demo',
+            ),
+          ],
+          chestID: 'demo',
+          shareToken: null,
+          people: _people,
+        ),
+        CSharedGem(
+          id: 'demo6',
+          number: 457,
+          occurredAt: DateTime(2025, 3, 15),
+          lines: [
+            CLine(
+              id: BigInt.zero,
+              text:
+                  '''Mummy, how do you know that it's a baby? You might have just eaten too much.''',
+              personID: BigInt.zero,
+              gemID: 'demo6',
+              chestID: 'demo',
+            ),
+          ],
+          chestID: 'demo',
+          shareToken: null,
+          people: _people,
+        ),
         CSharedGem(
           id: 'demo1',
           number: 156,
@@ -186,37 +279,6 @@ class CDemoCubit extends Cubit<CDemoState> {
           people: _people,
         ),
         CSharedGem(
-          id: 'demo4',
-          number: 202,
-          occurredAt: DateTime(2022, 10, 14),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text: 'Do you love Mummy, Amy?',
-              personID: BigInt.one,
-              gemID: 'demo4',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.one,
-              text: 'Amy looks down at her socks.',
-              personID: null,
-              gemID: 'demo4',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.two,
-              text: 'No. Got my "I love Daddy" socks on today.',
-              personID: BigInt.zero,
-              gemID: 'demo4',
-              chestID: 'demo',
-            ),
-          ],
-          chestID: 'demo',
-          shareToken: null,
-          people: _people,
-        ),
-        CSharedGem(
           id: 'demo5',
           number: 426,
           occurredAt: DateTime(2024, 12, 22),
@@ -243,7 +305,8 @@ class CDemoCubit extends Cubit<CDemoState> {
       ];
 
   /// The gem tokens.
-  List<String> get gemTokens => gems.map((gem) => gem.id).toList()..shuffle();
+  List<String> get gemTokens =>
+      gems.map((gem) => gem.id).toList(); // ..shuffle();
 
   /// Fakes fetching a gem.
   Future<void> emitGemWithToken(String token) async {

@@ -1,7 +1,7 @@
 name: chuckle_chest
 description: A free and open-source app for preserving memories that were not caught on camera.
 publish_to: "none"
-version: 0.20.0+1
+version: 0.20.1+1
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
