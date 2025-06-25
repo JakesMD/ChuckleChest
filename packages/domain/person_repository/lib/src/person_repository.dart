@@ -36,7 +36,7 @@ class CPersonRepository {
   }) =>
       personClient.fetchChestPeople(chestID: chestID).thenConvert(
             onFailure: CChestPeopleFetchException.fromRaw,
-            onSuccess: (records) => records.map(CPerson.fromRecord).toList(),
+            onSuccess: (records) => records.map(CPerson.fromRaw).toList(),
           );
 
   /// Updates the person with the same ID.
@@ -61,7 +61,7 @@ class CPersonRepository {
       personClient.personStream(personID: personID).map(
             (outcome) => outcome.resolve(
               onFailure: (e) => bobsFailure(CPersonStreamException.fromRaw(e)),
-              onSuccess: (r) => bobsSuccess(CPerson.fromRecord(r)),
+              onSuccess: (r) => bobsSuccess(CPerson.fromRaw(r)),
             ),
           );
 
@@ -121,6 +121,6 @@ class CPersonRepository {
   }) =>
       personClient.insertPerson(chestID: chestID).thenConvert(
             onFailure: CPersonCreationException.fromRaw,
-            onSuccess: CPerson.fromRecord,
+            onSuccess: CPerson.fromRaw,
           );
 }

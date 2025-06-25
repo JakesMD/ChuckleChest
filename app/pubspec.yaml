@@ -1,13 +1,13 @@
 name: chuckle_chest
 description: A free and open-source app for preserving memories that were not caught on camera.
 publish_to: "none"
-version: 0.20.2+1
+version: 0.21.0
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
-  auto_route: ^8.1.4
+  auto_route: ^10.1.0
   bloc: ^9.0.0
   bloc_concurrency: ^0.3.0
   bobs_jobs: ^0.0.1-dev.16
@@ -40,7 +40,7 @@ dependencies:
   url_launcher: ^6.3.0
 
 dev_dependencies:
-  auto_route_generator: ^8.0.0
+  auto_route_generator: ^10.2.3
   build_runner: ^2.4.10
   flutter_test:
     sdk: flutter
@@ -49,6 +49,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   fonts:
     - family: ReadexPro

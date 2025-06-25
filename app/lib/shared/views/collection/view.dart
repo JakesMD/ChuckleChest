@@ -178,9 +178,7 @@ class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
                     state.needsRestart,
                 builder: (context, state) => state.currentGem != null
                     ? CAnimatedGem(
-                        key: Key(
-                          '${state.currentGem!.id}-${state.needsRestart}',
-                        ),
+                        key: UniqueKey(),
                         gem: state.currentGem!,
                         isLastGem: state.isLastGem,
                       )

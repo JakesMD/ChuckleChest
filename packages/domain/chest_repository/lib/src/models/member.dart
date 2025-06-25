@@ -18,12 +18,12 @@ class CMember with EquatableMixin {
 
   /// {@macro CMember}
   ///
-  /// Creates a new [CMember] from the given [record].
-  CMember.fromRecord(CUserRolesTableRecord record)
-      : chestID = record.chestID,
-        userID = record.user.id,
-        username = record.user.username,
-        role = record.role;
+  /// Creates a new [CMember] from the given [raw].
+  CMember.fromRaw(CRawMember raw)
+      : chestID = raw.chestID,
+        userID = raw.user.id,
+        username = raw.user.username,
+        role = raw.role;
 
   /// The ID of the chest the user is a member of.
   final String chestID;

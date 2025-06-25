@@ -7,10 +7,10 @@ enum CUserInvitationsFetchException {
 
   /// Converts the raw exception to a [CUserInvitationsFetchException].
   static CUserInvitationsFetchException fromRaw(
-    CRawUserInvitationsFetchException e,
+    CRawInvitationsFetchException e,
   ) {
     return switch (e) {
-      CRawUserInvitationsFetchException.unknown =>
+      CRawInvitationsFetchException.unknown =>
         CUserInvitationsFetchException.unknown,
     };
   }

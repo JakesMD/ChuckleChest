@@ -21,25 +21,17 @@ class CGem with EquatableMixin {
 
   /// {@macro CGem}
   ///
-  /// Converts a [CGemsTableRecord] to a [CGem].
-  factory CGem.fromRecord(CGemsTableRecord record) {
-    final sortedRawLines = record.lines..sort((a, b) => a.id.compareTo(b.id));
-
-    String? shareToken;
-
-    try {
-      shareToken = record.shareToken?.token;
-    } on SupaException catch (_) {
-      shareToken = null;
-    }
+  /// Converts a [CRawGem] to a [CGem].
+  factory CGem.fromRaw(CRawGem raw) {
+    final sortedRawLines = raw.lines..sort((a, b) => a.id.compareTo(b.id));
 
     return CGem(
-      id: record.id,
-      number: record.number,
-      occurredAt: record.occurredAt,
-      lines: sortedRawLines.map(CLine.fromRecord).toList(),
-      chestID: record.chestID,
-      shareToken: shareToken,
+      id: raw.id,
+      number: raw.number,
+      occurredAt: raw.occurredAt,
+      lines: sortedRawLines.map(CLine.fromRaw).toList(),
+      chestID: raw.chestID,
+      shareToken: raw.shareToken?.token,
     );
   }
 

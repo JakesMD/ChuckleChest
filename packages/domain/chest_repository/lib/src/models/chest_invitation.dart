@@ -17,11 +17,11 @@ class CChestInvitation with EquatableMixin {
 
   /// {@macro CChestInvitation}
   ///
-  /// Creates a new [CChestInvitation] from the given [record].
-  CChestInvitation.fromRecord(CInvitationsTableRecord record)
-      : chestID = record.chestID,
-        email = record.email,
-        assignedRole = record.assignedRole;
+  /// Creates a new [CChestInvitation] from the given [raw].
+  CChestInvitation.fromRaw(CRawInvitation raw)
+      : chestID = raw.chest.id,
+        email = raw.email,
+        assignedRole = raw.assignedRole;
 
   /// The ID of the chest the invitation is for.
   final String chestID;

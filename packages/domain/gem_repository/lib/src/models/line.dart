@@ -18,13 +18,13 @@ base class CLine with EquatableMixin {
 
   /// {@macro CLine}
   ///
-  /// Converts a [CLinesTableRecord] to a [CLine].
-  CLine.fromRecord(CLinesTableRecord record)
-      : id = record.id,
-        text = record.text,
-        personID = record.personID,
-        gemID = record.gemID,
-        chestID = record.chestID;
+  /// Converts a [CRawLine] to a [CLine].
+  CLine.fromRaw(CRawLine raw)
+      : id = raw.id,
+        text = raw.text,
+        personID = raw.personID,
+        gemID = raw.gemID,
+        chestID = raw.chestID;
 
   /// The unique identifier of the line.
   final BigInt? id;
@@ -58,7 +58,7 @@ base class CLine with EquatableMixin {
   CLinesTableInsert toInsert() => CLinesTableInsert(
         id: id,
         text: text,
-        personID: personID,
+        personID: PgNullable(personID),
         gemID: gemID,
         chestID: chestID,
       );

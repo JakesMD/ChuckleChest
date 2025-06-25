@@ -23,7 +23,7 @@ class CSignedOutGuard implements AutoRouteGuard {
       CGuardLog('CSignedOutGuard', resolver).log();
       resolver
         ..next(false)
-        ..redirect(const CBaseRoute(), replace: true);
+        ..redirectUntil(const CBaseRoute(), replace: true);
       return;
     }
     resolver.next();

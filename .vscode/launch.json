@@ -47,7 +47,8 @@
                 "--target",
                 "lib/main_development.dart",
                 "--dart-define-from-file",
-                "secrets.development.json"
+                "secrets.development.json",
+                "--web-experimental-hot-reload"
             ]
         },
         {

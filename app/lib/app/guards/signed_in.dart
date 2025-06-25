@@ -23,7 +23,7 @@ class CSignedInGuard implements AutoRouteGuard {
       CGuardLog('CSignedInGuard', resolver).log();
       resolver
         ..next(false)
-        ..redirect(const CSigninRoute(), replace: true);
+        ..redirectUntil(const CSigninRoute(), replace: true);
       return;
     }
     resolver.next();

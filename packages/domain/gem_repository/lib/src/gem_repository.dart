@@ -53,7 +53,7 @@ class CGemRepository {
   BobsJob<CGemFetchException, CGem> fetchGem({required String gemID}) =>
       gemClient.fetchGem(gemID: gemID).thenConvert(
             onFailure: CGemFetchException.fromRaw,
-            onSuccess: CGem.fromRecord,
+            onSuccess: CGem.fromRaw,
           );
 
   /// Saves the gem with the given [gem], [deletedLines].
@@ -116,7 +116,7 @@ class CGemRepository {
   }) =>
       gemClient.fetchGemFromShareToken(shareToken: shareToken).thenConvert(
             onFailure: CGemFetchFromShareTokenException.fromRaw,
-            onSuccess: (result) => CSharedGem.fromRecords(result.$1, result.$2),
+            onSuccess: (result) => CSharedGem.fromRaw(result.$1, result.$2),
           );
 
   /// Creates a share token for the a gem.

@@ -3,104 +3,38 @@
 part of 'gems.dart';
 
 // **************************************************************************
-// SupaTableGenerator
+// PgUpsertGenerator
 // **************************************************************************
 
-// ignore_for_file: strict_raw_type
-// ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: lines_longer_than_80_chars
-// coverage:ignore-file
+// Typedefs are self-documenting.
+// ignore_for_line: public_member_api_docs
+typedef CGemsTableInsert = CGemsTableUpsert;
 
-/// The base class that links all classes for [CGemsTable] together
-/// to create full type safety.
-base class CGemsTableCore extends SupaCore {}
-
-/// {@template CGemsTableRecord}
+/// {@template CGemsTableUpsert}
 ///
-/// Represents a record fetched from [CGemsTable].
+/// Represents the data required to perform an insert or upsert operation on the
+/// [CGemsTable] table.
 ///
 /// {@endtemplate}
-class CGemsTableRecord extends SupaRecord<CGemsTableCore> {
-  /// {@macro CGemsTableRecord}
-  const CGemsTableRecord(super.json);
-
-  /// The unique identifier of the gem.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  String get id => call(CGemsTable.id);
-
-  /// The number of the gem.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  int get number => call(CGemsTable.number);
-
-  /// The date and time when the story occurred.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  DateTime get occurredAt => call(CGemsTable.occurredAt);
-
-  /// The time the gem was created.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  DateTime get createdAt => call(CGemsTable.createdAt);
-
-  /// The unique identifier of the chest the gem belongs to.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  String get chestID => call(CGemsTable.chestID);
-
-  /// The lines of the story.
-  ///
-  /// This will throw an exception if no joined columns were fetched.
-  ///
-  /// An InvalidType error here is often caused by a misspelling of the prefix in the @SupaTableJoinHere annotation.
-  List<CLinesTableRecord> get lines => reference(CGemsTable.lines);
-
-  /// The token for sharing the gem.
-  ///
-  /// This will throw an exception if no joined columns were fetched.
-  ///
-  /// An InvalidType error here is often caused by a misspelling of the prefix in the @SupaTableJoinHere annotation.
-  CGemShareTokensTableRecord? get shareToken =>
-      referenceSingle(CGemsTable.shareToken);
-}
-
-/// {@template CGemsTableInsert}
-///
-/// Represents an insert operation on [CGemsTable].
-///
-/// {@endtemplate}
-class CGemsTableInsert extends SupaInsert<CGemsTableCore> {
-  /// {@macro CGemsTableInsert}
-  const CGemsTableInsert({
-    this.id,
-    this.number,
+class CGemsTableUpsert extends PgUpsert<CGemsTable> {
+  /// {@macro CGemsTableUpsert}
+  CGemsTableUpsert({
     required this.occurredAt,
-    this.createdAt,
     required this.chestID,
-  });
+    this.createdAt,
+    this.number,
+    this.id,
+  }) : super([
+          CGemsTable.occurredAt(occurredAt),
+          CGemsTable.chestID(chestID),
+          if (createdAt != null) CGemsTable.createdAt(createdAt),
+          if (number != null) CGemsTable.number(number),
+          if (id != null) CGemsTable.id(id),
+        ]);
 
-  /// The unique identifier of the gem.
-  final String? id;
-
-  /// The number of the gem.
-  final int? number;
-
-  /// The date and time when the story occurred.
   final DateTime occurredAt;
-
-  /// The time the gem was created.
-  final DateTime? createdAt;
-
-  /// The unique identifier of the chest the gem belongs to.
   final String chestID;
-
-  @override
-  Set<SupaValue<CGemsTableCore, dynamic, dynamic>> get values => {
-        if (id != null) CGemsTable.id(id!),
-        if (number != null) CGemsTable.number(number!),
-        CGemsTable.occurredAt(occurredAt),
-        if (createdAt != null) CGemsTable.createdAt(createdAt!),
-        CGemsTable.chestID(chestID),
-      };
+  final DateTime? createdAt;
+  final int? number;
+  final String? id;
 }

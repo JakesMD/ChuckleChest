@@ -3,11 +3,11 @@
 
 /// Represents an exception that occurs when fetching user invitations data
 /// fails.
-enum CRawUserInvitationsFetchException {
+enum CRawInvitationsFetchException {
   /// The failure was unitentifiable.
   unknown;
 
-  factory CRawUserInvitationsFetchException.fromError(Object error) {
-    return CRawUserInvitationsFetchException.unknown;
+  factory CRawInvitationsFetchException.fromError(Object error) {
+    return CRawInvitationsFetchException.unknown;
   }
 }

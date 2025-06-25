@@ -3,59 +3,29 @@
 part of 'users.dart';
 
 // **************************************************************************
-// SupaTableGenerator
+// PgUpsertGenerator
 // **************************************************************************
 
-// ignore_for_file: strict_raw_type
-// ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: lines_longer_than_80_chars
-// coverage:ignore-file
+// Typedefs are self-documenting.
+// ignore_for_line: public_member_api_docs
+typedef CUsersTableInsert = CUsersTableUpsert;
 
-/// The base class that links all classes for [CUsersTable] together
-/// to create full type safety.
-base class CUsersTableCore extends SupaCore {}
-
-/// {@template CUsersTableRecord}
+/// {@template CUsersTableUpsert}
 ///
-/// Represents a record fetched from [CUsersTable].
+/// Represents the data required to perform an insert or upsert operation on the
+/// [CUsersTable] table.
 ///
 /// {@endtemplate}
-class CUsersTableRecord extends SupaRecord<CUsersTableCore> {
-  /// {@macro CUsersTableRecord}
-  const CUsersTableRecord(super.json);
-
-  /// The ID of the user.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  String get id => call(CUsersTable.id);
-
-  /// The username of the user.
-  ///
-  /// This will throw an exception if the column was not fetched.
-  String? get username => call(CUsersTable.username);
-}
-
-/// {@template CUsersTableInsert}
-///
-/// Represents an insert operation on [CUsersTable].
-///
-/// {@endtemplate}
-class CUsersTableInsert extends SupaInsert<CUsersTableCore> {
-  /// {@macro CUsersTableInsert}
-  const CUsersTableInsert({
+class CUsersTableUpsert extends PgUpsert<CUsersTable> {
+  /// {@macro CUsersTableUpsert}
+  CUsersTableUpsert({
     required this.id,
     this.username,
-  });
+  }) : super([
+          CUsersTable.id(id),
+          if (username != null) CUsersTable.username(username.value),
+        ]);
 
-  /// The ID of the user.
   final String id;
-
-  /// The username of the user.
-  final String? username;
-
-  @override
-  Set<SupaValue<CUsersTableCore, dynamic, dynamic>> get values => {
-        CUsersTable.id(id),
-        if (username != null) CUsersTable.username(username),
-      };
+  final PgNullable<String>? username;
 }

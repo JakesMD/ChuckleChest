@@ -49,15 +49,14 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
 
     final supabaseClient = Supabase.instance.client;
 
-    final chestsTable = CChestsTable(supabaseClient: supabaseClient);
-    final gemsTable = CGemsTable(supabaseClient: supabaseClient);
-    final linesTable = CLinesTable(supabaseClient: supabaseClient);
-    final peopleTable = CPeopleTable(supabaseClient: supabaseClient);
-    final avatarsTable = CAvatarsTable(supabaseClient: supabaseClient);
-    final invitationsTable = CInvitationsTable(supabaseClient: supabaseClient);
-    final userRolesTable = CUserRolesTable(supabaseClient: supabaseClient);
-    final gemShareTokensTable =
-        CGemShareTokensTable(supabaseClient: supabaseClient);
+    final chestsTable = CChestsTable(supabaseClient);
+    final gemsTable = CGemsTable(supabaseClient);
+    final linesTable = CLinesTable(supabaseClient);
+    final peopleTable = CPeopleTable(supabaseClient);
+    final avatarsTable = CAvatarsTable(supabaseClient);
+    final invitationsTable = CInvitationsTable(supabaseClient);
+    final userRolesTable = CUserRolesTable(supabaseClient);
+    final gemShareTokensTable = CGemShareTokensTable(supabaseClient);
 
     platformClient = CPlatformClient();
     authClient = CAuthClient(authClient: supabaseClient.auth);
@@ -65,11 +64,13 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
       chestsTable: chestsTable,
       invitationsTable: invitationsTable,
       userRolesTable: userRolesTable,
+      supabaseClient: supabaseClient,
     );
     gemClient = CGemClient(
       gemsTable: gemsTable,
       linesTable: linesTable,
       gemShareTokensTable: gemShareTokensTable,
+      supabaseClient: supabaseClient,
     );
     personClient = CPersonClient(
       peopleTable: peopleTable,

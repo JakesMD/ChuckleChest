@@ -23,24 +23,17 @@ class CPersonClient {
   final CAvatarsTable avatarsTable;
 
   /// Fetches all the people belonging to th chest with the given `chestID`.
-  BobsJob<CRawChestPeopleFetchException, List<CPeopleTableRecord>>
-      fetchChestPeople({required String chestID}) => BobsJob.attempt(
-            run: () => peopleTable.fetch(
-              columns: {
-                CPeopleTable.id,
-                CPeopleTable.chestID,
-                CPeopleTable.nickname,
-                CPeopleTable.dateOfBirth,
-                CPeopleTable.avatars({
-                  CAvatarsTable.year,
-                  CAvatarsTable.imageURL,
-                }),
-              },
-              modifier: peopleTable.order(CPeopleTable.nickname),
-              filter: peopleTable.equal(CPeopleTable.chestID(chestID)),
-            ),
-            onError: CRawChestPeopleFetchException.fromError,
-          );
+  BobsJob<CRawChestPeopleFetchException, List<CRawPerson>> fetchChestPeople({
+    required String chestID,
+  }) =>
+      BobsJob.attempt(
+        run: () => peopleTable.fetchModels(
+          modelBuilder: CRawPerson.builder,
+          filter: CPeopleTable.chestID.equals(chestID),
+          modifier: peopleTable.order(CPeopleTable.nickname),
+        ),
+        onError: CRawChestPeopleFetchException.fromError,
+      );
 
   /// Updates the person with the given `personID`.
   BobsJob<CRawPersonUpdateException, BobsNothing> updatePerson({
@@ -50,24 +43,22 @@ class CPersonClient {
   }) =>
       BobsJob.attempt(
         run: () => peopleTable.update(
-          values: {
+          values: [
             if (nickname != null) CPeopleTable.nickname(nickname),
             if (dateOfBirth != null) CPeopleTable.dateOfBirth(dateOfBirth),
-          },
-          filter: peopleTable.equal(CPeopleTable.id(personID)),
-          modifier: peopleTable.none(),
+          ],
+          filter: CPeopleTable.id.equals(personID),
         ),
         onError: CRawPersonUpdateException.fromError,
       ).thenConvert(onFailure: (e) => e, onSuccess: (_) => bobsNothing);
 
   /// Streams the person with the given `personID`.
-  Stream<BobsOutcome<CRawPersonStreamException, CPeopleTableRecord>>
-      personStream({required BigInt personID}) async* {
+  Stream<BobsOutcome<CRawPersonStreamException, CRawPerson>> personStream({
+    required BigInt personID,
+  }) async* {
     try {
-      final transformer = StreamTransformer<
-          CPeopleTableRecord,
-          BobsOutcome<CRawPersonStreamException,
-              CPeopleTableRecord>>.fromHandlers(
+      final transformer = StreamTransformer<CRawPerson,
+          BobsOutcome<CRawPersonStreamException, CRawPerson>>.fromHandlers(
         handleData: (data, sink) => sink.add(bobsSuccess(data)),
         handleError: (e, s, sink) =>
             sink.add(bobsFailure(CRawPersonStreamException.fromError(e))),
@@ -75,11 +66,10 @@ class CPersonClient {
       );
 
       final stream = peopleTable
-          .stream(
-            filter: peopleTable.sEqual(CPeopleTable.id(personID)),
-            modifier: peopleTable.sLimit(1),
+          .streamModel(
+            modelBuilder: CRawPerson.builder,
+            filter: CPeopleTable.id.streamEquals(personID),
           )
-          .map((list) => list.first)
           .transform(transformer);
 
       yield* stream;
@@ -90,41 +80,41 @@ class CPersonClient {
 
   /// Updates or inserts the given `avatar`.
   BobsJob<CRawAvatarUpsertException, BobsNothing> upsertAvatar({
-    required CAvatarsTableInsert avatar,
+    required CAvatarsTableUpsert avatar,
   }) =>
       BobsJob.attempt(
         run: () => avatarsTable.upsert(
-          records: [avatar],
-          filter: avatarsTable.equal(CAvatarsTable.personID(avatar.personID)),
-          modifier: avatarsTable.none(),
+          upserts: [avatar],
+          filter: CAvatarsTable.personID.equals(avatar.personID),
         ),
         onError: CRawAvatarUpsertException.fromError,
       ).thenConvert(onFailure: (e) => e, onSuccess: (_) => bobsNothing);
 
   /// Streams all the avatars belonging to the person with the given `personID`.
-  BobsJob<CRawAvatarsStreamException, Stream<List<CAvatarsTableRecord>>>
+  BobsJob<CRawAvatarsStreamException, Stream<List<CRawPersonAvatar>>>
       avatarsStream({required BigInt personID}) => BobsJob.attempt(
-            run: () => avatarsTable.stream(
-              filter: avatarsTable.sEqual(CAvatarsTable.personID(personID)),
-              modifier: avatarsTable.sOrder(CAvatarsTable.year),
+            run: () => avatarsTable.streamModels(
+              modelBuilder: CRawPersonAvatar.builder,
+              filter: CAvatarsTable.personID.streamEquals(personID),
+              modifier: avatarsTable.orderStream(CAvatarsTable.year),
             ),
             onError: CRawAvatarsStreamException.fromError,
           );
 
   /// Inserts a new person with the given `chestID`.
-  BobsJob<CRawPersonInsertException, CPeopleTableRecord> insertPerson({
+  BobsJob<CRawPersonInsertException, CRawPerson> insertPerson({
     required String chestID,
   }) =>
       BobsJob.attempt(
-        run: () => peopleTable.insert(
-          records: [
+        run: () => peopleTable.insertAndFetchModel(
+          inserts: [
             CPeopleTableInsert(
               chestID: chestID,
               nickname: 'New Person',
               dateOfBirth: DateTime.now(),
             ),
           ],
-          modifier: peopleTable.limit(1).single(),
+          modelBuilder: CRawPerson.builder,
         ),
         onError: CRawPersonInsertException.fromError,
       ).thenConvert(onFailure: (e) => e, onSuccess: (person) => person);

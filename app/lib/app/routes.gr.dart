@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -9,247 +10,20 @@
 
 part of 'routes.dart';
 
-abstract class _$CAppRouter extends RootStackRouter {
-  // ignore: unused_element
-  _$CAppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, PageFactory> pagesMap = {
-    CBaseRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CBasePage()),
-      );
-    },
-    CChangeAvatarRoute.name: (routeData) {
-      final args = routeData.argsAs<CChangeAvatarRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CChangeAvatarPage(
-          personID: args.personID,
-          avatarURL: args.avatarURL,
-          key: args.key,
-        )),
-      );
-    },
-    CChestRoute.name: (routeData) {
-      final args = routeData.argsAs<CChestRouteArgs>(
-          orElse: () => const CChestRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CChestPage(
-          chestID: args.chestID,
-          key: args.key,
-        )),
-      );
-    },
-    CCollectionsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CCollectionsPage()),
-      );
-    },
-    CCreateChestRoute.name: (routeData) {
-      final args = routeData.argsAs<CCreateChestRouteArgs>(
-          orElse: () => const CCreateChestRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: CCreateChestPage(key: args.key)),
-      );
-    },
-    CCreateGemRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CCreateGemPage()),
-      );
-    },
-    CDemoRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CDemoPage()),
-      );
-    },
-    CEditGemRoute.name: (routeData) {
-      final args = routeData.argsAs<CEditGemRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CEditGemPage(
-          initialGem: args.initialGem,
-          key: args.key,
-        )),
-      );
-    },
-    CEditPersonRoute.name: (routeData) {
-      final args = routeData.argsAs<CEditPersonRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CEditPersonPage(
-          person: args.person,
-          isPersonNew: args.isPersonNew,
-          key: args.key,
-        )),
-      );
-    },
-    CGemRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<CGemRouteArgs>(
-          orElse: () => CGemRouteArgs(gemID: pathParams.getString('gemID')));
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CGemPage(
-          gemID: args.gemID,
-          key: args.key,
-        )),
-      );
-    },
-    CGetStartedRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CGetStartedPage()),
-      );
-    },
-    CHomeRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CHomePage()),
-      );
-    },
-    CInvitationsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CInvitationsPage()),
-      );
-    },
-    CInvitedRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CInvitedPage()),
-      );
-    },
-    CLoginRoute.name: (routeData) {
-      final args = routeData.argsAs<CLoginRouteArgs>(
-          orElse: () => const CLoginRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: CLoginTab(key: args.key)),
-      );
-    },
-    CLogsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const CLogsPage(),
-      );
-    },
-    CManageChestRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CManageChestPage()),
-      );
-    },
-    CMembersRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CMembersPage()),
-      );
-    },
-    CPeopleRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CPeoplePage()),
-      );
-    },
-    CRandomCollectionRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CRandomCollectionPage()),
-      );
-    },
-    CRecentsCollectionRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CRecentsCollectionPage()),
-      );
-    },
-    CSettingsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CSettingsPage()),
-      );
-    },
-    CSharedGemRoute.name: (routeData) {
-      final queryParams = routeData.queryParams;
-      final args = routeData.argsAs<CSharedGemRouteArgs>(
-          orElse: () =>
-              CSharedGemRouteArgs(shareToken: queryParams.optString('token')));
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CSharedGemPage(
-          shareToken: args.shareToken,
-          key: args.key,
-        )),
-      );
-    },
-    CSigninRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CSigninPage()),
-      );
-    },
-    CSignupRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const CSignupTab()),
-      );
-    },
-    CVerifyOTPRoute.name: (routeData) {
-      final queryParams = routeData.queryParams;
-      final args = routeData.argsAs<CVerifyOTPRouteArgs>(
-          orElse: () =>
-              CVerifyOTPRouteArgs(email: queryParams.optString('email')));
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CVerifyOTPPage(
-          email: args.email,
-          key: args.key,
-        )),
-      );
-    },
-    CYearCollectionRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<CYearCollectionRouteArgs>(
-          orElse: () =>
-              CYearCollectionRouteArgs(year: pathParams.getInt('year')));
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(
-            child: CYearCollectionPage(
-          year: args.year,
-          key: args.key,
-        )),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [CBasePage]
 class CBaseRoute extends PageRouteInfo<void> {
   const CBaseRoute({List<PageRouteInfo>? children})
-      : super(
-          CBaseRoute.name,
-          initialChildren: children,
-        );
+      : super(CBaseRoute.name, initialChildren: children);
 
   static const String name = 'CBaseRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CBasePage());
+    },
+  );
 }
 
 /// generated route for
@@ -272,8 +46,19 @@ class CChangeAvatarRoute extends PageRouteInfo<CChangeAvatarRouteArgs> {
 
   static const String name = 'CChangeAvatarRoute';
 
-  static const PageInfo<CChangeAvatarRouteArgs> page =
-      PageInfo<CChangeAvatarRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CChangeAvatarRouteArgs>();
+      return WrappedRoute(
+        child: CChangeAvatarPage(
+          personID: args.personID,
+          avatarURL: args.avatarURL,
+          key: args.key,
+        ),
+      );
+    },
+  );
 }
 
 class CChangeAvatarRouteArgs {
@@ -293,34 +78,47 @@ class CChangeAvatarRouteArgs {
   String toString() {
     return 'CChangeAvatarRouteArgs{personID: $personID, avatarURL: $avatarURL, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CChangeAvatarRouteArgs) return false;
+    return personID == other.personID &&
+        avatarURL == other.avatarURL &&
+        key == other.key;
+  }
+
+  @override
+  int get hashCode => personID.hashCode ^ avatarURL.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [CChestPage]
 class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
-  CChestRoute({
-    String? chestID,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+  CChestRoute({String? chestID, Key? key, List<PageRouteInfo>? children})
+      : super(
           CChestRoute.name,
-          args: CChestRouteArgs(
-            chestID: chestID,
-            key: key,
-          ),
+          args: CChestRouteArgs(chestID: chestID, key: key),
           initialChildren: children,
         );
 
   static const String name = 'CChestRoute';
 
-  static const PageInfo<CChestRouteArgs> page = PageInfo<CChestRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CChestRouteArgs>(
+        orElse: () => const CChestRouteArgs(),
+      );
+      return WrappedRoute(
+        child: CChestPage(chestID: args.chestID, key: args.key),
+      );
+    },
+  );
 }
 
 class CChestRouteArgs {
-  const CChestRouteArgs({
-    this.chestID,
-    this.key,
-  });
+  const CChestRouteArgs({this.chestID, this.key});
 
   final String? chestID;
 
@@ -330,29 +128,39 @@ class CChestRouteArgs {
   String toString() {
     return 'CChestRouteArgs{chestID: $chestID, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CChestRouteArgs) return false;
+    return chestID == other.chestID && key == other.key;
+  }
+
+  @override
+  int get hashCode => chestID.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [CCollectionsPage]
 class CCollectionsRoute extends PageRouteInfo<void> {
   const CCollectionsRoute({List<PageRouteInfo>? children})
-      : super(
-          CCollectionsRoute.name,
-          initialChildren: children,
-        );
+      : super(CCollectionsRoute.name, initialChildren: children);
 
   static const String name = 'CCollectionsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CCollectionsPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CCreateChestPage]
 class CCreateChestRoute extends PageRouteInfo<CCreateChestRouteArgs> {
-  CCreateChestRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+  CCreateChestRoute({Key? key, List<PageRouteInfo>? children})
+      : super(
           CCreateChestRoute.name,
           args: CCreateChestRouteArgs(key: key),
           initialChildren: children,
@@ -360,8 +168,15 @@ class CCreateChestRoute extends PageRouteInfo<CCreateChestRouteArgs> {
 
   static const String name = 'CCreateChestRoute';
 
-  static const PageInfo<CCreateChestRouteArgs> page =
-      PageInfo<CCreateChestRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CCreateChestRouteArgs>(
+        orElse: () => const CCreateChestRouteArgs(),
+      );
+      return WrappedRoute(child: CCreateChestPage(key: args.key));
+    },
+  );
 }
 
 class CCreateChestRouteArgs {
@@ -373,34 +188,48 @@ class CCreateChestRouteArgs {
   String toString() {
     return 'CCreateChestRouteArgs{key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CCreateChestRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for
 /// [CCreateGemPage]
 class CCreateGemRoute extends PageRouteInfo<void> {
   const CCreateGemRoute({List<PageRouteInfo>? children})
-      : super(
-          CCreateGemRoute.name,
-          initialChildren: children,
-        );
+      : super(CCreateGemRoute.name, initialChildren: children);
 
   static const String name = 'CCreateGemRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CCreateGemPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CDemoPage]
 class CDemoRoute extends PageRouteInfo<void> {
   const CDemoRoute({List<PageRouteInfo>? children})
-      : super(
-          CDemoRoute.name,
-          initialChildren: children,
-        );
+      : super(CDemoRoute.name, initialChildren: children);
 
   static const String name = 'CDemoRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CDemoPage());
+    },
+  );
 }
 
 /// generated route for
@@ -412,24 +241,25 @@ class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           CEditGemRoute.name,
-          args: CEditGemRouteArgs(
-            initialGem: initialGem,
-            key: key,
-          ),
+          args: CEditGemRouteArgs(initialGem: initialGem, key: key),
           initialChildren: children,
         );
 
   static const String name = 'CEditGemRoute';
 
-  static const PageInfo<CEditGemRouteArgs> page =
-      PageInfo<CEditGemRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CEditGemRouteArgs>();
+      return WrappedRoute(
+        child: CEditGemPage(initialGem: args.initialGem, key: args.key),
+      );
+    },
+  );
 }
 
 class CEditGemRouteArgs {
-  const CEditGemRouteArgs({
-    required this.initialGem,
-    this.key,
-  });
+  const CEditGemRouteArgs({required this.initialGem, this.key});
 
   final CGem? initialGem;
 
@@ -439,6 +269,16 @@ class CEditGemRouteArgs {
   String toString() {
     return 'CEditGemRouteArgs{initialGem: $initialGem, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CEditGemRouteArgs) return false;
+    return initialGem == other.initialGem && key == other.key;
+  }
+
+  @override
+  int get hashCode => initialGem.hashCode ^ key.hashCode;
 }
 
 /// generated route for
@@ -461,8 +301,19 @@ class CEditPersonRoute extends PageRouteInfo<CEditPersonRouteArgs> {
 
   static const String name = 'CEditPersonRoute';
 
-  static const PageInfo<CEditPersonRouteArgs> page =
-      PageInfo<CEditPersonRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CEditPersonRouteArgs>();
+      return WrappedRoute(
+        child: CEditPersonPage(
+          person: args.person,
+          isPersonNew: args.isPersonNew,
+          key: args.key,
+        ),
+      );
+    },
+  );
 }
 
 class CEditPersonRouteArgs {
@@ -482,35 +333,49 @@ class CEditPersonRouteArgs {
   String toString() {
     return 'CEditPersonRouteArgs{person: $person, isPersonNew: $isPersonNew, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CEditPersonRouteArgs) return false;
+    return person == other.person &&
+        isPersonNew == other.isPersonNew &&
+        key == other.key;
+  }
+
+  @override
+  int get hashCode => person.hashCode ^ isPersonNew.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [CGemPage]
 class CGemRoute extends PageRouteInfo<CGemRouteArgs> {
-  CGemRoute({
-    required String gemID,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+  CGemRoute({required String gemID, Key? key, List<PageRouteInfo>? children})
+      : super(
           CGemRoute.name,
-          args: CGemRouteArgs(
-            gemID: gemID,
-            key: key,
-          ),
+          args: CGemRouteArgs(gemID: gemID, key: key),
           rawPathParams: {'gemID': gemID},
           initialChildren: children,
         );
 
   static const String name = 'CGemRoute';
 
-  static const PageInfo<CGemRouteArgs> page = PageInfo<CGemRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<CGemRouteArgs>(
+        orElse: () => CGemRouteArgs(gemID: pathParams.getString('gemID')),
+      );
+      return WrappedRoute(
+        child: CGemPage(gemID: args.gemID, key: args.key),
+      );
+    },
+  );
 }
 
 class CGemRouteArgs {
-  const CGemRouteArgs({
-    required this.gemID,
-    this.key,
-  });
+  const CGemRouteArgs({required this.gemID, this.key});
 
   final String gemID;
 
@@ -520,71 +385,87 @@ class CGemRouteArgs {
   String toString() {
     return 'CGemRouteArgs{gemID: $gemID, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CGemRouteArgs) return false;
+    return gemID == other.gemID && key == other.key;
+  }
+
+  @override
+  int get hashCode => gemID.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [CGetStartedPage]
 class CGetStartedRoute extends PageRouteInfo<void> {
   const CGetStartedRoute({List<PageRouteInfo>? children})
-      : super(
-          CGetStartedRoute.name,
-          initialChildren: children,
-        );
+      : super(CGetStartedRoute.name, initialChildren: children);
 
   static const String name = 'CGetStartedRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CGetStartedPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CHomePage]
 class CHomeRoute extends PageRouteInfo<void> {
   const CHomeRoute({List<PageRouteInfo>? children})
-      : super(
-          CHomeRoute.name,
-          initialChildren: children,
-        );
+      : super(CHomeRoute.name, initialChildren: children);
 
   static const String name = 'CHomeRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CHomePage());
+    },
+  );
 }
 
 /// generated route for
 /// [CInvitationsPage]
 class CInvitationsRoute extends PageRouteInfo<void> {
   const CInvitationsRoute({List<PageRouteInfo>? children})
-      : super(
-          CInvitationsRoute.name,
-          initialChildren: children,
-        );
+      : super(CInvitationsRoute.name, initialChildren: children);
 
   static const String name = 'CInvitationsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CInvitationsPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CInvitedPage]
 class CInvitedRoute extends PageRouteInfo<void> {
   const CInvitedRoute({List<PageRouteInfo>? children})
-      : super(
-          CInvitedRoute.name,
-          initialChildren: children,
-        );
+      : super(CInvitedRoute.name, initialChildren: children);
 
   static const String name = 'CInvitedRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CInvitedPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CLoginTab]
 class CLoginRoute extends PageRouteInfo<CLoginRouteArgs> {
-  CLoginRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+  CLoginRoute({Key? key, List<PageRouteInfo>? children})
+      : super(
           CLoginRoute.name,
           args: CLoginRouteArgs(key: key),
           initialChildren: children,
@@ -592,7 +473,15 @@ class CLoginRoute extends PageRouteInfo<CLoginRouteArgs> {
 
   static const String name = 'CLoginRoute';
 
-  static const PageInfo<CLoginRouteArgs> page = PageInfo<CLoginRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CLoginRouteArgs>(
+        orElse: () => const CLoginRouteArgs(),
+      );
+      return WrappedRoute(child: CLoginTab(key: args.key));
+    },
+  );
 }
 
 class CLoginRouteArgs {
@@ -604,104 +493,128 @@ class CLoginRouteArgs {
   String toString() {
     return 'CLoginRouteArgs{key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CLoginRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for
 /// [CLogsPage]
 class CLogsRoute extends PageRouteInfo<void> {
   const CLogsRoute({List<PageRouteInfo>? children})
-      : super(
-          CLogsRoute.name,
-          initialChildren: children,
-        );
+      : super(CLogsRoute.name, initialChildren: children);
 
   static const String name = 'CLogsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CLogsPage();
+    },
+  );
 }
 
 /// generated route for
 /// [CManageChestPage]
 class CManageChestRoute extends PageRouteInfo<void> {
   const CManageChestRoute({List<PageRouteInfo>? children})
-      : super(
-          CManageChestRoute.name,
-          initialChildren: children,
-        );
+      : super(CManageChestRoute.name, initialChildren: children);
 
   static const String name = 'CManageChestRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CManageChestPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CMembersPage]
 class CMembersRoute extends PageRouteInfo<void> {
   const CMembersRoute({List<PageRouteInfo>? children})
-      : super(
-          CMembersRoute.name,
-          initialChildren: children,
-        );
+      : super(CMembersRoute.name, initialChildren: children);
 
   static const String name = 'CMembersRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CMembersPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CPeoplePage]
 class CPeopleRoute extends PageRouteInfo<void> {
   const CPeopleRoute({List<PageRouteInfo>? children})
-      : super(
-          CPeopleRoute.name,
-          initialChildren: children,
-        );
+      : super(CPeopleRoute.name, initialChildren: children);
 
   static const String name = 'CPeopleRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CPeoplePage());
+    },
+  );
 }
 
 /// generated route for
 /// [CRandomCollectionPage]
 class CRandomCollectionRoute extends PageRouteInfo<void> {
   const CRandomCollectionRoute({List<PageRouteInfo>? children})
-      : super(
-          CRandomCollectionRoute.name,
-          initialChildren: children,
-        );
+      : super(CRandomCollectionRoute.name, initialChildren: children);
 
   static const String name = 'CRandomCollectionRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CRandomCollectionPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CRecentsCollectionPage]
 class CRecentsCollectionRoute extends PageRouteInfo<void> {
   const CRecentsCollectionRoute({List<PageRouteInfo>? children})
-      : super(
-          CRecentsCollectionRoute.name,
-          initialChildren: children,
-        );
+      : super(CRecentsCollectionRoute.name, initialChildren: children);
 
   static const String name = 'CRecentsCollectionRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CRecentsCollectionPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CSettingsPage]
 class CSettingsRoute extends PageRouteInfo<void> {
   const CSettingsRoute({List<PageRouteInfo>? children})
-      : super(
-          CSettingsRoute.name,
-          initialChildren: children,
-        );
+      : super(CSettingsRoute.name, initialChildren: children);
 
   static const String name = 'CSettingsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CSettingsPage());
+    },
+  );
 }
 
 /// generated route for
@@ -713,25 +626,30 @@ class CSharedGemRoute extends PageRouteInfo<CSharedGemRouteArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           CSharedGemRoute.name,
-          args: CSharedGemRouteArgs(
-            shareToken: shareToken,
-            key: key,
-          ),
+          args: CSharedGemRouteArgs(shareToken: shareToken, key: key),
           rawQueryParams: {'token': shareToken},
           initialChildren: children,
         );
 
   static const String name = 'CSharedGemRoute';
 
-  static const PageInfo<CSharedGemRouteArgs> page =
-      PageInfo<CSharedGemRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final queryParams = data.queryParams;
+      final args = data.argsAs<CSharedGemRouteArgs>(
+        orElse: () =>
+            CSharedGemRouteArgs(shareToken: queryParams.optString('token')),
+      );
+      return WrappedRoute(
+        child: CSharedGemPage(shareToken: args.shareToken, key: args.key),
+      );
+    },
+  );
 }
 
 class CSharedGemRouteArgs {
-  const CSharedGemRouteArgs({
-    required this.shareToken,
-    this.key,
-  });
+  const CSharedGemRouteArgs({required this.shareToken, this.key});
 
   final String? shareToken;
 
@@ -741,64 +659,80 @@ class CSharedGemRouteArgs {
   String toString() {
     return 'CSharedGemRouteArgs{shareToken: $shareToken, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CSharedGemRouteArgs) return false;
+    return shareToken == other.shareToken && key == other.key;
+  }
+
+  @override
+  int get hashCode => shareToken.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [CSigninPage]
 class CSigninRoute extends PageRouteInfo<void> {
   const CSigninRoute({List<PageRouteInfo>? children})
-      : super(
-          CSigninRoute.name,
-          initialChildren: children,
-        );
+      : super(CSigninRoute.name, initialChildren: children);
 
   static const String name = 'CSigninRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CSigninPage());
+    },
+  );
 }
 
 /// generated route for
 /// [CSignupTab]
 class CSignupRoute extends PageRouteInfo<void> {
   const CSignupRoute({List<PageRouteInfo>? children})
-      : super(
-          CSignupRoute.name,
-          initialChildren: children,
-        );
+      : super(CSignupRoute.name, initialChildren: children);
 
   static const String name = 'CSignupRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CSignupTab());
+    },
+  );
 }
 
 /// generated route for
 /// [CVerifyOTPPage]
 class CVerifyOTPRoute extends PageRouteInfo<CVerifyOTPRouteArgs> {
-  CVerifyOTPRoute({
-    String? email,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+  CVerifyOTPRoute({String? email, Key? key, List<PageRouteInfo>? children})
+      : super(
           CVerifyOTPRoute.name,
-          args: CVerifyOTPRouteArgs(
-            email: email,
-            key: key,
-          ),
+          args: CVerifyOTPRouteArgs(email: email, key: key),
           rawQueryParams: {'email': email},
           initialChildren: children,
         );
 
   static const String name = 'CVerifyOTPRoute';
 
-  static const PageInfo<CVerifyOTPRouteArgs> page =
-      PageInfo<CVerifyOTPRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final queryParams = data.queryParams;
+      final args = data.argsAs<CVerifyOTPRouteArgs>(
+        orElse: () =>
+            CVerifyOTPRouteArgs(email: queryParams.optString('email')),
+      );
+      return WrappedRoute(
+        child: CVerifyOTPPage(email: args.email, key: args.key),
+      );
+    },
+  );
 }
 
 class CVerifyOTPRouteArgs {
-  const CVerifyOTPRouteArgs({
-    this.email,
-    this.key,
-  });
+  const CVerifyOTPRouteArgs({this.email, this.key});
 
   final String? email;
 
@@ -808,6 +742,16 @@ class CVerifyOTPRouteArgs {
   String toString() {
     return 'CVerifyOTPRouteArgs{email: $email, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CVerifyOTPRouteArgs) return false;
+    return email == other.email && key == other.key;
+  }
+
+  @override
+  int get hashCode => email.hashCode ^ key.hashCode;
 }
 
 /// generated route for
@@ -819,25 +763,29 @@ class CYearCollectionRoute extends PageRouteInfo<CYearCollectionRouteArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           CYearCollectionRoute.name,
-          args: CYearCollectionRouteArgs(
-            year: year,
-            key: key,
-          ),
+          args: CYearCollectionRouteArgs(year: year, key: key),
           rawPathParams: {'year': year},
           initialChildren: children,
         );
 
   static const String name = 'CYearCollectionRoute';
 
-  static const PageInfo<CYearCollectionRouteArgs> page =
-      PageInfo<CYearCollectionRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<CYearCollectionRouteArgs>(
+        orElse: () => CYearCollectionRouteArgs(year: pathParams.getInt('year')),
+      );
+      return WrappedRoute(
+        child: CYearCollectionPage(year: args.year, key: args.key),
+      );
+    },
+  );
 }
 
 class CYearCollectionRouteArgs {
-  const CYearCollectionRouteArgs({
-    required this.year,
-    this.key,
-  });
+  const CYearCollectionRouteArgs({required this.year, this.key});
 
   final int year;
 
@@ -847,4 +795,14 @@ class CYearCollectionRouteArgs {
   String toString() {
     return 'CYearCollectionRouteArgs{year: $year, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CYearCollectionRouteArgs) return false;
+    return year == other.year && key == other.key;
+  }
+
+  @override
+  int get hashCode => year.hashCode ^ key.hashCode;
 }

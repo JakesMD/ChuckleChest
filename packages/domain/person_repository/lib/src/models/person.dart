@@ -23,13 +23,13 @@ class CPerson with EquatableMixin {
 
   /// {@macro CPerson}
   ///
-  /// Converts a [CPeopleTableRecord] to a [CPerson].
-  factory CPerson.fromRecord(CPeopleTableRecord record) {
+  /// Converts a [CRawPerson] to a [CPerson].
+  factory CPerson.fromRaw(CRawPerson record) {
     final avatars = <CAvatarURL>[];
 
     try {
       avatars
-        ..addAll(record.avatars.map(CAvatarURL.fromRecord).toList())
+        ..addAll(record.avatars.map(CAvatarURL.fromRaw).toList())
         ..sort((a, b) => a.year.compareTo(b.year));
     } catch (e) {
       //

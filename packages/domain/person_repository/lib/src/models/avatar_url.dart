@@ -8,17 +8,14 @@ import 'package:equatable/equatable.dart';
 /// {@endtemplate}
 class CAvatarURL with EquatableMixin {
   /// {@macro CAvatarURL}
-  const CAvatarURL({
-    required this.year,
-    required this.url,
-  });
+  const CAvatarURL({required this.year, required this.url});
 
   /// {@macro CAvatarURL}
   ///
-  /// Converts a [CAvatarsTableRecord] to a [CAvatarURL].
-  CAvatarURL.fromRecord(CAvatarsTableRecord record)
-      : year = record.year,
-        url = record.imageURL;
+  /// Converts a [CRawPersonAvatar] to a [CAvatarURL].
+  CAvatarURL.fromRaw(CRawPersonAvatar raw)
+      : year = raw.year,
+        url = raw.imageURL;
 
   /// The year the avatar was taken.
   final int year;

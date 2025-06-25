@@ -1,5 +1,3 @@
-// coverage:ignore-file
-
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 part 'chests.g.dart';
@@ -9,22 +7,18 @@ part 'chests.g.dart';
 /// Represents the `chests` table in the Supabase database.
 ///
 /// {@endtemplate}
-@SupaTableHere()
-class CChestsTable extends SupaTable<CChestsTableCore, CChestsTableRecord> {
+@PgTableHere()
+class CChestsTable extends SupabaseTable<CChestsTable> {
   /// {@macro CChestsTable}
-  const CChestsTable({required super.supabaseClient})
-      : super(
-          CChestsTableRecord.new,
-          tableName: 'chests',
-          primaryKey: const ['id'],
-        );
+  CChestsTable(super.client) : super(tableName: tableName, primaryKey: [id]);
+
+  /// The name of the table in the Supabase database.
+  static const tableName = PgTableName<CChestsTable>('chests');
 
   /// The unique identifier of the chests.
-  @SupaColumnHere<String>(hasDefault: true)
-  static const id = SupaColumn<CChestsTableCore, String, String>(name: 'id');
+  @PgColumnHasDefault()
+  static final id = PgStringColumn<CChestsTable>('id');
 
   /// The name of the chest.
-  @SupaColumnHere<String>()
-  static const name =
-      SupaColumn<CChestsTableCore, String, String>(name: 'name');
+  static final name = PgStringColumn<CChestsTable>('name');
 }

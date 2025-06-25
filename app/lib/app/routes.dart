@@ -19,7 +19,7 @@ part 'routes.gr.dart';
 ///
 /// {@endtemplate}
 @AutoRouterConfig(replaceInRouteName: 'Page|Tab,Route')
-class CAppRouter extends _$CAppRouter implements AutoRouteGuard {
+class CAppRouter extends RootStackRouter implements AutoRouteGuard {
   /// {@macro CAppRouter}
   CAppRouter({required BuildContext dependencyContext})
       : currentUserCubit = dependencyContext.read<CCurrentUserCubit>();

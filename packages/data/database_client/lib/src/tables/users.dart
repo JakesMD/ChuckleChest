@@ -9,22 +9,17 @@ part 'users.g.dart';
 /// Represents the `user` table in the Supabase database.
 ///
 /// {@endtemplate}
-@SupaTableHere()
-class CUsersTable extends SupaTable<CUsersTableCore, CUsersTableRecord> {
+@PgTableHere()
+class CUsersTable extends SupabaseTable<CUsersTable> {
   /// {@macro CUsersTable}
-  const CUsersTable({required super.supabaseClient})
-      : super(
-          CUsersTableRecord.new,
-          tableName: 'users',
-          primaryKey: const ['id'],
-        );
+  CUsersTable(super.client) : super(tableName: tableName, primaryKey: [id]);
+
+  /// The name of the table in the Supabase database.
+  static const tableName = PgTableName<CUsersTable>('users');
 
   /// The ID of the user.
-  @SupaColumnHere<String>()
-  static const id = SupaColumn<CUsersTableCore, String, String>(name: 'id');
+  static final id = PgStringColumn<CUsersTable>('id');
 
   /// The username of the user.
-  @SupaColumnHere<String?>()
-  static const username =
-      SupaColumn<CUsersTableCore, String?, String?>(name: 'username');
+  static final username = PgMaybeStringColumn<CUsersTable>('username');
 }

@@ -1,6 +1,7 @@
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:supabase/supabase.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
 /// {@template CChestClient}
@@ -14,6 +15,7 @@ class CChestClient {
     required this.chestsTable,
     required this.invitationsTable,
     required this.userRolesTable,
+    required this.supabaseClient,
   });
 
   /// The table that represents the `chests` table in the database.
@@ -25,31 +27,29 @@ class CChestClient {
   /// The table that represents the `user_roles` table in the database.
   final CUserRolesTable userRolesTable;
 
+  /// The Supabase client.
+  final SupabaseClient supabaseClient;
+
   /// Creates a new chest with the given `chestName`.
   BobsJob<CRawChestInsertException, String> createChest({
     required String chestName,
   }) =>
       BobsJob.attempt(
-        run: () => chestsTable.insert(
-          records: [CChestsTableInsert(name: chestName)],
-          columns: {CChestsTable.id},
-          modifier: chestsTable.limit(1).single(),
+        run: () => chestsTable.insertAndFetchValue(
+          inserts: [CChestsTableInsert(name: chestName)],
+          column: CChestsTable.id,
         ),
         onError: CRawChestInsertException.fromError,
-      ).then(run: (record) => record.id);
+      );
 
   /// Fetches the invitations for the user with the given `email`.
-  BobsJob<CRawUserInvitationsFetchException, List<CInvitationsTableRecord>>
+  BobsJob<CRawInvitationsFetchException, List<CRawInvitation>>
       fetchUserInvitations({required String email}) => BobsJob.attempt(
-            run: () => invitationsTable.fetch(
-              columns: {
-                CInvitationsTable.assignedRole,
-                CInvitationsTable.chest({CChestsTable.name, CChestsTable.id}),
-              },
-              filter: invitationsTable.equal(CInvitationsTable.email(email)),
-              modifier: invitationsTable.all(),
+            run: () => invitationsTable.fetchModels(
+              modelBuilder: CRawInvitation.builder,
+              filter: CInvitationsTable.email.equals(email),
             ),
-            onError: CRawUserInvitationsFetchException.fromError,
+            onError: CRawInvitationsFetchException.fromError,
           );
 
   /// Accepts the invitation to the chest with the given `chestID`.
@@ -58,7 +58,7 @@ class CChestClient {
   }) =>
       BobsJob.attempt(
         run: () async {
-          await invitationsTable.supabaseClient.rpc(
+          await supabaseClient.rpc(
             'accept_invitation',
             params: {'chest_id_param': chestID},
           );
@@ -76,9 +76,8 @@ class CChestClient {
       BobsJob.attempt(
         run: () async {
           await chestsTable.update(
-            values: {CChestsTable.name(name)},
-            filter: chestsTable.equal(CChestsTable.id(chestID)),
-            modifier: chestsTable.none(),
+            values: [CChestsTable.name(name)],
+            filter: CChestsTable.id.equals(chestID),
           );
           return bobsNothing;
         },
@@ -86,38 +85,26 @@ class CChestClient {
       );
 
   /// Fetches the invitations for the chest with the given `chestID`.
-  BobsJob<CRawChestInvitationsFetchException, List<CInvitationsTableRecord>>
+  BobsJob<CRawChestInvitationsFetchException, List<CRawInvitation>>
       fetchChestInvitations({required String chestID}) => BobsJob.attempt(
-            run: () => invitationsTable.fetch(
-              columns: {
-                CInvitationsTable.email,
-                CInvitationsTable.assignedRole,
-                CInvitationsTable.chestID,
-              },
-              filter:
-                  invitationsTable.equal(CInvitationsTable.chestID(chestID)),
-              modifier: invitationsTable.all(),
+            run: () => invitationsTable.fetchModels(
+              modelBuilder: CRawInvitation.builder,
+              filter: CInvitationsTable.chestID.equals(chestID),
             ),
             onError: CRawChestInvitationsFetchException.fromError,
           );
 
   /// Fetches all the members of the chest with the given `chestID`.
-  BobsJob<CRawChestMembersFetchException, List<CUserRolesTableRecord>>
-      fetchChestMembers({required String chestID}) => BobsJob.attempt(
-            run: () => userRolesTable.fetch(
-              columns: {
-                CUserRolesTable.chestID,
-                CUserRolesTable.role,
-                CUserRolesTable.user({
-                  CUsersTable.id,
-                  CUsersTable.username,
-                }),
-              },
-              filter: userRolesTable.equal(CUserRolesTable.chestID(chestID)),
-              modifier: userRolesTable.all(),
-            ),
-            onError: CRawChestMembersFetchException.fromError,
-          );
+  BobsJob<CRawChestMembersFetchException, List<CRawMember>> fetchChestMembers({
+    required String chestID,
+  }) =>
+      BobsJob.attempt(
+        run: () => userRolesTable.fetchModels(
+          modelBuilder: CRawMember.builder,
+          filter: CUserRolesTable.chestID.equals(chestID),
+        ),
+        onError: CRawChestMembersFetchException.fromError,
+      );
 
   /// Updates the role of the member with the given `userID` in the chest with
   /// the given `chestID` to the given `role`.
@@ -129,10 +116,10 @@ class CChestClient {
       BobsJob.attempt(
         run: () async {
           await userRolesTable.update(
-            values: {CUserRolesTable.role(role)},
+            values: [CUserRolesTable.role(role)],
             filter: userRolesTable
-                .equal(CUserRolesTable.chestID(chestID))
-                .equal(CUserRolesTable.userID(userID)),
+                .where(CUserRolesTable.chestID.equals(chestID))
+                .and(CUserRolesTable.userID.equals(userID)),
             modifier: userRolesTable.none(),
           );
           return bobsNothing;
@@ -150,14 +137,13 @@ class CChestClient {
       BobsJob.attempt(
         run: () async {
           await invitationsTable.insert(
-            records: [
+            inserts: [
               CInvitationsTableInsert(
                 chestID: chestID,
                 email: email,
                 assignedRole: assignedRole,
               ),
             ],
-            modifier: invitationsTable.none(),
           );
           return bobsNothing;
         },

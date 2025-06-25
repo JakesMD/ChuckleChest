@@ -1,5 +1,3 @@
-// coverage:ignore-file
-
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
@@ -10,47 +8,32 @@ part 'people.g.dart';
 /// Represents the `people` table in the Supabase database.
 ///
 /// {@endtemplate}
-@SupaTableHere()
-class CPeopleTable extends SupaTable<CPeopleTableCore, CPeopleTableRecord> {
+@PgTableHere()
+class CPeopleTable extends SupabaseTable<CPeopleTable> {
   /// {@macro CPeopleTable}
-  const CPeopleTable({required super.supabaseClient})
-      : super(
-          CPeopleTableRecord.new,
-          tableName: 'people',
-          primaryKey: const ['id'],
-        );
+  CPeopleTable(super.client) : super(tableName: tableName, primaryKey: [id]);
+
+  /// The name of the table in the Supabase database.
+  static const tableName = PgTableName<CPeopleTable>('people');
 
   /// The unique identifier of the line.
-  @SupaColumnHere<BigInt>(hasDefault: true)
-  static const id = SupaColumn<CPeopleTableCore, BigInt, int>(name: 'id');
+  @PgColumnHasDefault()
+  static final id = PgBigIntColumn<CPeopleTable>('id');
 
   /// The nickname of the person who made the person.
-  @SupaColumnHere<String>()
-  static const nickname =
-      SupaColumn<CPeopleTableCore, String, String>(name: 'nickname');
+  static final nickname = PgStringColumn<CPeopleTable>('nickname');
 
   /// The date of birth of the person who made the person.
-  @SupaColumnHere<DateTime>()
-  static const dateOfBirth =
-      SupaColumn<CPeopleTableCore, DateTime, String>(name: 'date_of_birth');
+  static final dateOfBirth = PgUTCDateTimeColumn<CPeopleTable>('date_of_birth');
+
+  /// The unique identifier of the chest to which the person belongs.
+  static final chestID = PgStringColumn<CPeopleTable>('chest_id');
 
   /// The URLs of the photos of the person at different ages.
   /// The family or friend who is being quoted.
-  @SupaTableJoinHere(
-    'CAvatarsTable',
-    'avatars',
-    SupaJoinType.oneToMany,
-  )
-  static final avatars = SupaTableJoin<CPeopleTableCore, CAvatarsTableCore>(
-    tableName: 'avatars',
-    joiningColumn: CPeopleTable.id,
-    record: CAvatarsTableRecord.new,
-    joinType: SupaJoinType.oneToMany,
+  static final avatars = PgJoinToMany<CPeopleTable, CAvatarsTable>(
+    joinColumn: id,
+    joinedTableName: CAvatarsTable.tableName,
     foreignKey: 'connection_avatar_urls_connection_id_fkey',
   );
-
-  /// The unique identifier of the chest to which the person belongs.
-  @SupaColumnHere<String>()
-  static const chestID =
-      SupaColumn<CPeopleTableCore, String, String>(name: 'chest_id');
 }

@@ -17,11 +17,11 @@ class CUserInvitation with EquatableMixin {
 
   /// {@macro CUserInvitation}
   ///
-  /// Creates a new [CUserInvitation] from the given [record].
-  CUserInvitation.fromRecord(CInvitationsTableRecord record)
-      : chestID = record.chest.id,
-        assignedRole = record.assignedRole,
-        chestName = record.chest.name;
+  /// Creates a new [CUserInvitation] from the given [raw].
+  CUserInvitation.fromRecord(CRawInvitation raw)
+      : chestID = raw.chest.id,
+        assignedRole = raw.assignedRole,
+        chestName = raw.chest.name;
 
   /// The ID of the chest the user is invited to.
   final String chestID;

@@ -54,7 +54,7 @@ class CChestRepository {
           chestClient.fetchChestInvitations(chestID: chestID).thenConvert(
                 onFailure: CChestInvitationsFetchException.fromRaw,
                 onSuccess: (invitations) =>
-                    invitations.map(CChestInvitation.fromRecord).toList(),
+                    invitations.map(CChestInvitation.fromRaw).toList(),
               );
 
   /// Fetches the members for the chest with the given [chestID].
@@ -63,7 +63,7 @@ class CChestRepository {
   }) =>
       chestClient.fetchChestMembers(chestID: chestID).thenConvert(
             onFailure: CMembersFetchException.fromRaw,
-            onSuccess: (members) => members.map(CMember.fromRecord).toList(),
+            onSuccess: (members) => members.map(CMember.fromRaw).toList(),
           );
 
   /// Updates the role of the [member] to the given [role].

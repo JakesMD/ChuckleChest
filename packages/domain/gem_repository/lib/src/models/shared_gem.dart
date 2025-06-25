@@ -22,14 +22,13 @@ class CSharedGem extends CGem {
 
   /// {@macro CSharedGem}
   ///
-  /// Converts a [CGemsTableRecord] and a list of [CPeopleTableRecord] to a
-  /// [CSharedGem].
-  factory CSharedGem.fromRecords(
-    CGemsTableRecord gemRecord,
-    List<CPeopleTableRecord> peopleRecords,
+  /// Converts a [CRawGem] and a list of [CRawPerson]s to a [CSharedGem].
+  factory CSharedGem.fromRaw(
+    CRawGem rawGem,
+    List<CRawPerson> rawPeople,
   ) {
-    final gem = CGem.fromRecord(gemRecord);
-    final people = peopleRecords.map(CPerson.fromRecord).toList();
+    final gem = CGem.fromRaw(rawGem);
+    final people = rawPeople.map(CPerson.fromRaw).toList();
 
     return CSharedGem(
       id: gem.id,
