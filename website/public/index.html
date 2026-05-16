@@ -4,68 +4,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A free and open-source app for preserving memories that were not caught on camera.">
+    <meta name="description" content="ChuckleChest is a free, open-source app for preserving your family's funniest quotes, stories, and moments — brought to life in animated gems. Private by default, shareable by invite.">
+    <meta name="author" content="Jacob Drew">
+    <meta name="application-name" content="ChuckleChest">
+    <meta name="theme-color" content="#C97208">
 
-    <!-- Favicon -->
+    <meta property="og:title" content="ChuckleChest — Preserve your family's best stories">
+    <meta property="og:description" content="A free, open-source app for preserving your family's funniest quotes, stories, and moments. Private by default, shareable by invite.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chucklechest.app">
+    <meta property="og:site_name" content="ChuckleChest">
+    <meta property="og:image" content="https://chucklechest.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://chucklechest.app/og-image.png">
+    <meta name="twitter:title" content="ChuckleChest — Preserve your family's best stories">
+    <meta name="twitter:description" content="A free, open-source app for preserving your family's funniest quotes, stories, and moments. Private by default, shareable by invite.">
+
+    <link rel="canonical" href="https://chucklechest.app">
+
     <link rel="icon" type="image/png" sizes="32x32" href="app/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="app/icons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="app/icons/favicon-16x16.png">
 
+    <title>ChuckleChest — Preserve your family's best stories</title>
 
-    <title>ChuckleChest - For priceless memories caught off camera.</title>
-    <link rel="stylesheet" href="chucklechest.css">
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const texts = [
-                "Because legendary stories deserve a place to live.",
-                "Because some memories are too priceless to forget.",
-                "Because the best moments aren’t always caught on camera.",
-
-            ];
-
-            let index = 0;
-
-            function changeText() {
-                const headline = document.getElementById("headline");
-                headline.textContent = texts[index];
-                index = (index + 1) % texts.length;
-            }
-
-            setInterval(changeText, 4000);
-        });
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ChuckleChest",
+        "url": "https://chucklechest.app",
+        "description": "A free, open-source app for preserving your family's funniest quotes, stories, and moments — brought to life in animated gems.",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requires a modern web browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Jacob Drew",
+            "url": "https://github.com/JakesMD"
+        },
+        "softwareVersion": "0.21.0",
+        "keywords": "family memories, family quotes, memory app, family stories, preserve memories"
+    }
     </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <section class="logo">
-        <img src="logo.svg" alt="ChuckleChest logo" />
-    </section>
 
-    <section class="tagline">
-        <h id="headline">Because the best moments aren’t always caught on camera.</h>
-    </section>
+    <header class="nav">
+        <a href="/" class="nav-logo-link">
+            <img src="logo.svg" alt="ChuckleChest" class="nav-logo">
+        </a>
+        <a href="https://chucklechest.app/app?install=true" class="nav-cta">Get started</a>
+    </header>
 
-    <section class="demo">
-        <div class="iframe-container">
-            <iframe src="https://chucklechest.app/app/#/demo"></iframe>
-        </div>
-    </section>
+    <main>
 
-    <section class="cta">
-        <a href="https://chucklechest.app/app?install=true" class="button">Get started</a>
-    </section>
+        <!-- ─── Hero ─── -->
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-pill">Free &amp; open source</div>
+                <div class="hero-headline-wrap">
+                    <div class="hero-h1 hero-h1--ghost" aria-hidden="true">Because the best moments aren't always caught on camera.</div>
+                    <div class="hero-h1 hero-h1--ghost" aria-hidden="true">Because someday you'll wish you'd written that down.</div>
+                    <div class="hero-h1 hero-h1--ghost" aria-hidden="true">Because the funniest stories deserve to last forever.</div>
+                    <h1 class="hero-h1" id="hero-headline">Because the best moments aren't always caught on camera.</h1>
+                </div>
+                <p class="hero-sub">
+                    ChuckleChest preserves the quotes and stories your family will retell for years.
+                </p>
+                <a href="https://chucklechest.app/app?install=true" class="btn-primary">
+                    Get started — it's free <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </section>
 
-    <footer>
-        <nav>
+        <!-- ─── Demo ─── -->
+        <section class="demo">
+            <div class="demo-inner">
+                <p class="eyebrow">Try it live</p>
+                <p class="demo-tagline">Each gem is animated to make memories fun to relive.</p>
+                <div class="phone-shell">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen phone-screen--desktop">
+                        <iframe
+                            src="https://chucklechest.app/app/#/demo"
+                            title="ChuckleChest live demo"
+                        ></iframe>
+                    </div>
+                    <a
+                        href="https://chucklechest.app/app/#/demo"
+                        target="_blank"
+                        rel="noopener"
+                        class="phone-screen phone-screen--mobile"
+                        aria-label="Open live demo in new tab"
+                    >
+                        <span class="demo-tap-label">Try it live</span>
+                        <span class="demo-tap-sub">Opens in new tab →</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── Features ─── -->
+        <section class="features">
+            <div class="features-inner">
+
+                <div class="feature-card feature-card--wide">
+                    <span class="feature-num">01</span>
+                    <h3>Remember the context</h3>
+                    <p>Each gem records exactly who said it and how old they were — even if the story happened 15 years ago. The details that make memories meaningful.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-num">02</span>
+                    <h3>See them as they were</h3>
+                    <p>Add a photo for each person at different ages. Every gem shows exactly how they looked when the story happened.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-num">03</span>
+                    <h3>Private by default</h3>
+                    <p>Your memories stay yours. Share individual gems via link, or invite family to a chest. You control access.</p>
+                </div>
+
+                <div class="feature-card feature-card--dark feature-card--wide">
+                    <span class="feature-num">04</span>
+                    <h3>Free &amp; open source</h3>
+                    <p>No subscriptions. No ads. No catch. The code lives on GitHub — free to read, fork, and contribute to.</p>
+                    <a href="https://github.com/JakesMD/ChuckleChest" class="feature-link">View on GitHub →</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ─── Final CTA ─── -->
+        <section class="cta-band">
+            <div class="cta-band-inner">
+                <p class="eyebrow eyebrow--light">ChuckleChest</p>
+                <h2 class="cta-band-h2">
+                    Start preserving<br><em>the moments that matter.</em>
+                </h2>
+                <a href="https://chucklechest.app/app?install=true" class="btn-primary btn-primary--light">
+                    Get started — it's free <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <nav class="footer-nav">
             <a href="https://github.com/JakesMD/ChuckleChest">GitHub</a>
-            <a href="https://chucklechest.app/privacy">Privacy</a>
-            <a href="https://chucklechest.app/terms">Terms</a>
-            <a href="https://chucklechest.app/contact">Contact</a>
+            <a href="privacy/">Privacy</a>
+            <a href="terms/">Terms</a>
+            <a href="contact/">Contact</a>
         </nav>
-        <p>&copy; Jacob Drew 2025</p>
+        <p class="footer-copy">ChuckleChest &mdash; &copy; Jacob Drew 2025</p>
     </footer>
+
+
+    <script>
+        const texts = [
+            "Because the best moments aren't always caught on camera.",
+            "Because the funniest stories deserve to last forever.",
+            "Because someday you'll wish you'd written that down.",
+        ];
+
+        const el = document.getElementById("hero-headline");
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function buildText(text) {
+            el.innerHTML = "";
+            for (const ch of text) {
+                const s = document.createElement("span");
+                s.textContent = ch;
+                s.style.color = "transparent";
+                el.appendChild(s);
+            }
+            charIndex = 0;
+        }
+
+        function chars() { return Array.from(el.children); }
+
+        function setActive(index) {
+            chars().forEach(c => c.classList.remove("hero-char--active"));
+            if (index >= 0) chars()[index].classList.add("hero-char--active");
+        }
+
+        function tick() {
+            const ch = chars();
+
+            if (!isDeleting) {
+                ch[charIndex].style.color = "";
+                setActive(charIndex);
+                charIndex++;
+                if (charIndex >= ch.length) {
+                    isDeleting = true;
+                    setTimeout(tick, 2800);
+                } else {
+                    setTimeout(tick, 52);
+                }
+            } else {
+                charIndex--;
+                ch[charIndex].style.color = "transparent";
+                setActive(charIndex - 1);
+                if (charIndex <= 0) {
+                    textIndex = (textIndex + 1) % texts.length;
+                    buildText(texts[textIndex]);
+                    isDeleting = false;
+                    setTimeout(tick, 480);
+                } else {
+                    setTimeout(tick, 28);
+                }
+            }
+        }
+
+        // Init: show first text fully, cursor at end
+        buildText(texts[0]);
+        chars().forEach(c => c.style.color = "");
+        charIndex = chars().length;
+        setActive(charIndex - 1);
+        setTimeout(() => { isDeleting = true; tick(); }, 2800);
+    </script>
+
 </body>
 
 </html>

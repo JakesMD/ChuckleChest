@@ -1,31 +1,126 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with ChuckleChest.">
+    <link rel="canonical" href="https://chucklechest.app/contact">
+    <link rel="icon" type="image/png" sizes="32x32" href="../app/icons/favicon-32x32.png">
+    <title>Contact — ChuckleChest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../page.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&display=swap');
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 40px;
+        }
 
+        .contact-card {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            border: none;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
 
-        body {
-            font-family: 'Afacad', sans-serif;
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 40px 16px;
+        .contact-card:hover {
+            background: var(--bg-alt);
+            transform: translateY(-2px);
+        }
+
+        .contact-card-num {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--amber);
+        }
+
+        .contact-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1.25;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        .contact-card p {
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--ink-2);
+            margin: 0;
+            flex: 1;
+        }
+
+        .contact-card-cta {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--amber);
+            margin-top: 4px;
+        }
+
+        .response-note {
+            margin-top: 32px;
+            font-size: 15px;
+            color: var(--ink-3);
+        }
+
+        @media (max-width: 520px) {
+            .contact-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
-    <h1 id="contact">Contact</h1>
-    <p>Got something to share? Whether it’s feedback, a bug report, or a privacy concern, we’d love to hear from you!
-    </p>
-    <h2 id="-feedback-bugs-feature-requests">🛠 Feedback, Bugs &amp; Feature Requests</h2>
-    <p>If you’ve found a bug, have a feature idea, or just want to provide feedback, the best way to do so is by opening
-        an issue on GitHub:</p>
-    <p>🔗 <a href="https://github.com/JakesMD/ChuckleChest/issues">Submit an issue on GitHub</a></p>
-    <h2 id="-privacy-data-concerns">🔒 Privacy &amp; Data Concerns</h2>
-    <p>Your privacy is important to us. If you have any questions about how ChuckleChest handles your data or need
-        assistance with privacy-related matters, please reach out via email:</p>
-    <p>📧 jakesmd5@gmail.com</p>
+
+    <header class="nav">
+        <a href="../" class="nav-logo-link">
+            <img src="../logo.svg" alt="ChuckleChest" class="nav-logo">
+        </a>
+        <a href="https://chucklechest.app/app?install=true" class="nav-cta">Get started</a>
+    </header>
+
+    <main class="page-wrap">
+        <h1>Get in touch</h1>
+        <p>ChuckleChest is maintained by one person. Feedback, bug reports, and questions are all welcome — choose the right channel below.</p>
+
+        <div class="contact-grid">
+            <a href="https://github.com/JakesMD/ChuckleChest/issues" class="contact-card">
+                <span class="contact-card-num">01</span>
+                <h2>Bugs &amp; feature requests</h2>
+                <p>Found something broken or have an idea to make ChuckleChest better? GitHub issues are the best place — they're public, tracked, and easy to follow up on.</p>
+                <span class="contact-card-cta">Open an issue on GitHub →</span>
+            </a>
+            <a href="mailto:jakesmd5@gmail.com" class="contact-card">
+                <span class="contact-card-num">02</span>
+                <h2>Everything else</h2>
+                <p>Privacy concerns, account questions, or anything you'd rather not post publicly — send an email directly.</p>
+                <span class="contact-card-cta">jakesmd5@gmail.com →</span>
+            </a>
+        </div>
+
+        <p class="response-note">ChuckleChest is a one-person project. Responses are best-effort and may take a few days.</p>
+    </main>
+
+    <footer class="footer">
+        <nav class="footer-nav">
+            <a href="https://github.com/JakesMD/ChuckleChest">GitHub</a>
+            <a href="../privacy/">Privacy</a>
+            <a href="../terms/">Terms</a>
+            <a href="../contact/">Contact</a>
+        </nav>
+        <p class="footer-copy">&copy; Jacob Drew 2025</p>
+    </footer>
+
 </body>
 
 </html>
