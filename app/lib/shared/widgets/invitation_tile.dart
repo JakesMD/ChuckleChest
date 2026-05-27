@@ -25,9 +25,9 @@ class CInvitationTile extends StatelessWidget {
       trailing: BlocBuilder<CInvitationAcceptCubit, CInvitationAcceptState>(
         builder: (context, state) => FilledButton(
           onPressed: state.status != CRequestCubitStatus.inProgress
-              ? () => context
-                  .read<CInvitationAcceptCubit>()
-                  .acceptInvitation(chestID: invitation.chestID)
+              ? () => context.read<CInvitationAcceptCubit>().acceptInvitation(
+                  chestID: invitation.chestID,
+                )
               : null,
           child: state.status != CRequestCubitStatus.inProgress
               ? Text(context.cAppL10n.invitationTile_acceptButton)

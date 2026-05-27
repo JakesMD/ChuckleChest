@@ -24,8 +24,9 @@ class CBasePage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => CSessionRefreshCubit(authRepository: context.read())
-        ..refreshSession(),
+      create: (context) =>
+          CSessionRefreshCubit(authRepository: context.read())
+            ..refreshSession(),
       child: this,
     );
   }

@@ -13,15 +13,13 @@ class CGemShareTokenCreationState
   /// {@macro CGemShareTokenCreationState}
   ///
   /// The initial state.
-  CGemShareTokenCreationState.initial()
-      : gemID = '',
-        super.initial();
+  CGemShareTokenCreationState.initial() : gemID = '', super.initial();
 
   /// {@macro CGemShareTokenCreationState}
   ///
   /// The in progress state.
   CGemShareTokenCreationState.inProgress({required this.gemID})
-      : super.inProgress();
+    : super.inProgress();
 
   /// {@macro CGemShareTokenCreationState}
   ///

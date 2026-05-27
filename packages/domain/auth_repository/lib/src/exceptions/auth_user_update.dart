@@ -10,8 +10,7 @@ enum CAuthUserUpdateException {
   @internal
   static CAuthUserUpdateException fromRaw(
     CRawAuthUserUpdateException exception,
-  ) =>
-      switch (exception) {
-        CRawAuthUserUpdateException.unknown => CAuthUserUpdateException.unknown,
-      };
+  ) => switch (exception) {
+    CRawAuthUserUpdateException.unknown => CAuthUserUpdateException.unknown,
+  };
 }

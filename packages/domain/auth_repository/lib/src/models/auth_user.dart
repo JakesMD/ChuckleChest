@@ -22,10 +22,10 @@ class CAuthUser with EquatableMixin {
   /// Creates a [CAuthUser] from a [CRawAuthUser].
   @internal
   CAuthUser.fromRawUser(CRawAuthUser user)
-      : id = user.id,
-        username = user.username,
-        email = user.email!,
-        chests = user.chests.map(CAuthUserChest.fromRawUserChest).toList();
+    : id = user.id,
+      username = user.username,
+      email = user.email!,
+      chests = user.chests.map(CAuthUserChest.fromRawUserChest).toList();
 
   /// The user's unique identifier.
   final String id;
@@ -40,10 +40,5 @@ class CAuthUser with EquatableMixin {
   final List<CAuthUserChest> chests;
 
   @override
-  List<Object?> get props => [
-        id,
-        username,
-        email,
-        chests,
-      ];
+  List<Object?> get props => [id, username, email, chests];
 }

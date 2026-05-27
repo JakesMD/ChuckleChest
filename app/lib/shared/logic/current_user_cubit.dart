@@ -9,8 +9,9 @@ import 'package:chuckle_chest/shared/_shared.dart';
 /// The state for the [CCurrentUserCubit].
 ///
 /// {@endtemplate}
-class CCurrentUserState extends CStreamCubitState<CCurrentUserStreamException,
-    BobsMaybe<CAuthUser>> {
+class CCurrentUserState
+    extends
+        CStreamCubitState<CCurrentUserStreamException, BobsMaybe<CAuthUser>> {
   /// {@macro CCurrentUserState}
   const CCurrentUserState({required super.outcome});
 
@@ -25,10 +26,10 @@ class CCurrentUserState extends CStreamCubitState<CCurrentUserStreamException,
 
   @override
   String toString() => switch (status) {
-        CStreamCubitStatus.hasSuccess => 'hasSuccess($user)',
-        CStreamCubitStatus.hasFailure => 'hasFailure($failure)',
-        CStreamCubitStatus.waiting => 'waiting()',
-      };
+    CStreamCubitStatus.hasSuccess => 'hasSuccess($user)',
+    CStreamCubitStatus.hasFailure => 'hasFailure($failure)',
+    CStreamCubitStatus.waiting => 'waiting()',
+  };
 }
 
 /// {@template CCurrentUserCubit}
@@ -36,22 +37,27 @@ class CCurrentUserState extends CStreamCubitState<CCurrentUserStreamException,
 /// The cubit that handles streaming the current user.
 ///
 /// {@endtemplate}
-class CCurrentUserCubit extends CStreamCubit<CCurrentUserState,
-    CCurrentUserStreamException, BobsMaybe<CAuthUser>> {
+class CCurrentUserCubit
+    extends
+        CStreamCubit<
+          CCurrentUserState,
+          CCurrentUserStreamException,
+          BobsMaybe<CAuthUser>
+        > {
   /// {@macro CCurrentUserCubit}
   CCurrentUserCubit({required this.authRepository})
-      : super(const CCurrentUserState(outcome: null));
+    : super(const CCurrentUserState(outcome: null));
 
   /// The repository this cubit uses to stream the auth user.
   final CAuthRepository authRepository;
 
   @override
   StreamSubscription<
-          BobsOutcome<CCurrentUserStreamException, BobsMaybe<CAuthUser>>>
-      initSubscription() => authRepository
-          .currentUserStream()
-          .stream()
-          .listen((outcome) => emit(CCurrentUserState(outcome: outcome)));
+    BobsOutcome<CCurrentUserStreamException, BobsMaybe<CAuthUser>>
+  >
+  initSubscription() => authRepository.currentUserStream().stream().listen(
+    (outcome) => emit(CCurrentUserState(outcome: outcome)),
+  );
 
   /// Stream that emits `true` if the user is signed in.
   Stream<bool> get isSignedInStream =>

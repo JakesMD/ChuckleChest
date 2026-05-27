@@ -12,9 +12,7 @@ class CGemFetchState extends CRequestCubitState<CGemFetchException, CGem> {
   /// {@macro CGemFetchState}
   ///
   /// The initial state.
-  CGemFetchState.initial()
-      : gemID = '',
-        super.initial();
+  CGemFetchState.initial() : gemID = '', super.initial();
 
   /// {@macro CGemFetchState}
   ///
@@ -25,7 +23,7 @@ class CGemFetchState extends CRequestCubitState<CGemFetchException, CGem> {
   ///
   /// The completed state.
   CGemFetchState.completed({required super.outcome, required this.gemID})
-      : super.completed();
+    : super.completed();
 
   /// The gem that was fetched.
   CGem get gem => success;
@@ -45,7 +43,7 @@ class CGemFetchState extends CRequestCubitState<CGemFetchException, CGem> {
 class CGemFetchCubit extends Cubit<CGemFetchState> {
   /// {@macro CGemFetchCubit}
   CGemFetchCubit({required this.gemRepository})
-      : super(CGemFetchState.initial());
+    : super(CGemFetchState.initial());
 
   /// The repository this bloc uses to retrieve gem data.
   final CGemRepository gemRepository;

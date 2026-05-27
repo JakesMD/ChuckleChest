@@ -12,22 +12,18 @@ class CLoginState extends CRequestCubitState<CLoginException, BobsNothing> {
   /// {@macro CLoginState}
   ///
   /// The initial state.
-  CLoginState.initial()
-      : email = '',
-        super.initial();
+  CLoginState.initial() : email = '', super.initial();
 
   /// {@macro CLoginState}
   ///
   /// The in progress state.
-  CLoginState.inProgress()
-      : email = '',
-        super.inProgress();
+  CLoginState.inProgress() : email = '', super.inProgress();
 
   /// {@macro CLoginState}
   ///
   /// The completed state.
   CLoginState.completed({required super.outcome, required this.email})
-      : super.completed();
+    : super.completed();
 
   /// The email that was used to log in.
   final String email;

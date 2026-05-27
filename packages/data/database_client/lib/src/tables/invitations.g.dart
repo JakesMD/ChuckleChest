@@ -23,10 +23,10 @@ class CInvitationsTableUpsert extends PgUpsert<CInvitationsTable> {
     required this.chestID,
     required this.assignedRole,
   }) : super([
-          CInvitationsTable.email(email),
-          CInvitationsTable.chestID(chestID),
-          CInvitationsTable.assignedRole(assignedRole),
-        ]);
+         CInvitationsTable.email(email),
+         CInvitationsTable.chestID(chestID),
+         CInvitationsTable.assignedRole(assignedRole),
+       ]);
 
   final String email;
   final String chestID;

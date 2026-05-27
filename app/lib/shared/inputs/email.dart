@@ -12,9 +12,9 @@ enum CEmailInputError {
 
   /// Returns the error message for the given error in the context locale.
   String localize(BuildContext context) => switch (this) {
-        CEmailInputError.empty => context.cAppL10n.inputError_email_empty,
-        CEmailInputError.invalid => context.cAppL10n.inputError_email_invalid,
-      };
+    CEmailInputError.empty => context.cAppL10n.inputError_email_empty,
+    CEmailInputError.invalid => context.cAppL10n.inputError_email_invalid,
+  };
 }
 
 /// {@template CCEmailInput}

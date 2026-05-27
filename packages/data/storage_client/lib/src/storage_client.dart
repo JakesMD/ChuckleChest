@@ -32,14 +32,18 @@ class CStorageClient {
     required Uint8List avatarFile,
   }) =>
       BobsJob.attempt(
-        run: () => supabaseClient.storage.from('avatars').uploadBinary(
+        run: () => supabaseClient.storage
+            .from('avatars')
+            .uploadBinary(
               'chests/$chestID/$personID-$year.jpg',
               avatarFile,
               fileOptions: const FileOptions(upsert: true),
             ),
         onError: CRawAvatarUploadException.fromError,
       ).thenAttempt(
-        run: (path) => supabaseClient.storage.from('avatars').createSignedUrl(
+        run: (path) => supabaseClient.storage
+            .from('avatars')
+            .createSignedUrl(
               path.replaceFirst('avatars/', ''),
               60 * 60 * 24 * 365 * 100,
             ),

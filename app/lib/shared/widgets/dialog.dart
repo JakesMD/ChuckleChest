@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 mixin CDialogMixin on StatelessWidget {
   /// Builds and displays the dialog.
   Future<void> show(BuildContext context) async {
-    await showDialog<void>(
-      context: context,
-      builder: build,
-    );
+    await showDialog<void>(context: context, builder: build);
   }
 }

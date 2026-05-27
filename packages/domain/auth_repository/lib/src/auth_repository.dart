@@ -20,24 +20,21 @@ class CAuthRepository {
 
   /// The stream for the currently logged in user.
   BobsStream<CCurrentUserStreamException, BobsMaybe<CAuthUser>>
-      currentUserStream() => authClient.currentUserStream().thenConvert(
-            onSuccess: (user) => user.convert(CAuthUser.fromRawUser),
-            onFailure: CCurrentUserStreamException.fromRaw,
-          );
+  currentUserStream() => authClient.currentUserStream().thenConvert(
+    onSuccess: (user) => user.convert(CAuthUser.fromRawUser),
+    onFailure: CCurrentUserStreamException.fromRaw,
+  );
 
   /// Sends a one-time-password for signup to the given email.
   BobsJob<CSignupException, BobsNothing> signUpWithOTP({
     required String email,
     required String username,
-  }) =>
-      authClient
-          .signUpWithOTP(email: email, username: username)
-          .thenConvertFailure(CSignupException.fromRaw);
+  }) => authClient
+      .signUpWithOTP(email: email, username: username)
+      .thenConvertFailure(CSignupException.fromRaw);
 
   /// Sends a one-time-password for login to the given email.
-  BobsJob<CLoginException, BobsNothing> logInWithOTP({
-    required String email,
-  }) =>
+  BobsJob<CLoginException, BobsNothing> logInWithOTP({required String email}) =>
       authClient
           .logInWithOTP(email: email)
           .thenConvertFailure(CLoginException.fromRaw);
@@ -47,10 +44,9 @@ class CAuthRepository {
   BobsJob<COTPVerificationException, BobsNothing> verifyOTP({
     required String email,
     required String pin,
-  }) =>
-      authClient
-          .verifyOTP(email: email, pin: pin)
-          .thenConvertFailure(COTPVerificationException.fromRaw);
+  }) => authClient
+      .verifyOTP(email: email, pin: pin)
+      .thenConvertFailure(COTPVerificationException.fromRaw);
 
   /// Signs out the current user, if there is a logged in user.
   BobsJob<CSignoutException, BobsNothing> signOut() =>
@@ -59,10 +55,9 @@ class CAuthRepository {
   /// Updates the current user's profile.
   BobsJob<CAuthUserUpdateException, BobsNothing> updateUser({
     required String username,
-  }) =>
-      authClient
-          .updateUser(update: CRawAuthUserUpdate(username: username))
-          .thenConvertFailure(CAuthUserUpdateException.fromRaw);
+  }) => authClient
+      .updateUser(update: CRawAuthUserUpdate(username: username))
+      .thenConvertFailure(CAuthUserUpdateException.fromRaw);
 
   /// Refreshes the current user's session.
   ///

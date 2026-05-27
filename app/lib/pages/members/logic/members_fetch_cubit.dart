@@ -12,24 +12,18 @@ class CMembersFetchState
   /// {@macro CMembersFetchState}
   ///
   /// The initial state.
-  CMembersFetchState.initial()
-      : members = [],
-        super.initial();
+  CMembersFetchState.initial() : members = [], super.initial();
 
   /// {@macro CMembersFetchState}
   ///
   /// The in-progress state.
-  CMembersFetchState.inProgress()
-      : members = [],
-        super.inProgress();
+  CMembersFetchState.inProgress() : members = [], super.inProgress();
 
   /// {@macro CMembersFetchState}
   ///
   /// The completed state.
-  CMembersFetchState.completed({
-    required super.outcome,
-    required this.members,
-  }) : super.completed();
+  CMembersFetchState.completed({required super.outcome, required this.members})
+    : super.completed();
 
   /// The list of chest members that were fetched.
   final List<CMember> members;
@@ -45,10 +39,8 @@ class CMembersFetchState
 /// {@endtemplate}
 class CMembersFetchCubit extends Cubit<CMembersFetchState> {
   /// {@macro CMembersFetchCubit}
-  CMembersFetchCubit({
-    required this.chestRepository,
-    required this.chestID,
-  }) : super(CMembersFetchState.initial());
+  CMembersFetchCubit({required this.chestRepository, required this.chestID})
+    : super(CMembersFetchState.initial());
 
   /// The repository this cubit uses to fetch chest members.
   final CChestRepository chestRepository;

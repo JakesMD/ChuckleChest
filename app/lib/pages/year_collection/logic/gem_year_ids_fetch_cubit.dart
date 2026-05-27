@@ -36,10 +36,8 @@ class CGemYearIDsFetchState
 /// {@endtemplate}
 class CGemYearIDsFetchCubit extends Cubit<CGemYearIDsFetchState> {
   /// {@macro CGemYearIDsFetchCubit}
-  CGemYearIDsFetchCubit({
-    required this.gemRepository,
-    required this.chestID,
-  }) : super(CGemYearIDsFetchState.initial());
+  CGemYearIDsFetchCubit({required this.gemRepository, required this.chestID})
+    : super(CGemYearIDsFetchState.initial());
 
   /// The repository this bloc uses to fetch the gem IDs.
   final CGemRepository gemRepository;

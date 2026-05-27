@@ -24,7 +24,7 @@ class CRecentGemIDsFetchState
   ///
   /// The completed state.
   CRecentGemIDsFetchState.completed({required super.outcome})
-      : super.completed();
+    : super.completed();
 
   /// The IDs of the recent gems that were fetched.
   List<String> get ids => success;
@@ -37,10 +37,8 @@ class CRecentGemIDsFetchState
 /// {@endtemplate}
 class CRecentGemIDsFetchCubit extends Cubit<CRecentGemIDsFetchState> {
   /// {@macro CRecentGemIDsFetchCubit}
-  CRecentGemIDsFetchCubit({
-    required this.gemRepository,
-    required this.chestID,
-  }) : super(CRecentGemIDsFetchState.initial());
+  CRecentGemIDsFetchCubit({required this.gemRepository, required this.chestID})
+    : super(CRecentGemIDsFetchState.initial());
 
   /// The repository this cubit uses to fetch the gem IDs.
   final CGemRepository gemRepository;
@@ -52,8 +50,9 @@ class CRecentGemIDsFetchCubit extends Cubit<CRecentGemIDsFetchState> {
   Future<void> fetchRecentGemIDs() async {
     emit(CRecentGemIDsFetchState.inProgress());
 
-    final result =
-        await gemRepository.fetchRecentGemIDs(chestID: chestID).run();
+    final result = await gemRepository
+        .fetchRecentGemIDs(chestID: chestID)
+        .run();
 
     emit(CRecentGemIDsFetchState.completed(outcome: result));
   }

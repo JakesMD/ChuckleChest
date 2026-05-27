@@ -57,14 +57,14 @@ class CCollectionViewState {
 class CCollectionViewCubit extends Cubit<CCollectionViewState> {
   /// {@macro CCollectionViewCubit}
   CCollectionViewCubit({required this.gemTokens, required this.onNewGem})
-      : super(
-          CCollectionViewState(
-            gems: gemTokens
-                .map<(String, CGem?)>((token) => (token, null))
-                .toList(),
-            currentIndex: 0,
-          ),
-        ) {
+    : super(
+        CCollectionViewState(
+          gems: gemTokens
+              .map<(String, CGem?)>((token) => (token, null))
+              .toList(),
+          currentIndex: 0,
+        ),
+      ) {
     onPageChanged(0);
   }
 
@@ -87,10 +87,10 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
   void onShareTokenCreated(String gemID, String token) {
     final index = state.gems.indexWhere((record) => record.$2?.id == gemID);
     final record = state.gems.removeAt(index);
-    state.gems.insert(
-      index,
-      (record.$1, record.$2?.copyWith(shareToken: bobsPresent(token))),
-    );
+    state.gems.insert(index, (
+      record.$1,
+      record.$2?.copyWith(shareToken: bobsPresent(token)),
+    ));
 
     emit(state.copyWith(gems: state.gems));
   }

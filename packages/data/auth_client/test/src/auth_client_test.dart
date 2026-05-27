@@ -12,10 +12,10 @@ import 'package:test_beautifier/test_beautifier.dart';
 class FakeSession extends Fake implements Session {
   @override
   String get accessToken => JWT({
-        'chests': {
-          'chest_id': {'name': 'name', 'role': 'viewer'},
-        },
-      }).sign(SecretKey(''));
+    'chests': {
+      'chest_id': {'name': 'name', 'role': 'viewer'},
+    },
+  }).sign(SecretKey(''));
 
   @override
   String? get refreshToken => 'refreshToken';
@@ -23,13 +23,13 @@ class FakeSession extends Fake implements Session {
   // This indirectly tests the CRawAuthUser.fromSupabaseUser() method.
   @override
   User get user => const User(
-        id: 'id',
-        email: 'email',
-        appMetadata: {},
-        userMetadata: {'username': 'username'},
-        aud: '',
-        createdAt: '',
-      );
+    id: 'id',
+    email: 'email',
+    appMetadata: {},
+    userMetadata: {'username': 'username'},
+    aud: '',
+    createdAt: '',
+  );
 }
 
 class FakeUser extends Fake implements User {}
@@ -69,20 +69,14 @@ void main() {
 
     group('currentUser', () {
       test(
-        requirement(
-          When: 'user is signed in',
-          Then: 'returns user',
-        ),
+        requirement(When: 'user is signed in', Then: 'returns user'),
         procedure(() async {
           when(() => goTrueClient.currentSession).thenReturn(FakeSession());
           expect(client.currentUser, fakeUser);
         }),
       );
       test(
-        requirement(
-          When: 'user is signed out',
-          Then: 'returns null',
-        ),
+        requirement(When: 'user is signed out', Then: 'returns null'),
         procedure(() async {
           when(() => goTrueClient.currentSession).thenReturn(null);
           expect(client.currentUser, null);
@@ -96,18 +90,19 @@ void main() {
       setUp(() {
         controller = StreamController();
 
-        when(() => goTrueClient.onAuthStateChange)
-            .thenAnswer((_) => controller.stream);
+        when(
+          () => goTrueClient.onAuthStateChange,
+        ).thenAnswer((_) => controller.stream);
       });
 
       test(
-        requirement(
-          When: 'user signs out',
-          Then: 'returns [absent]',
-        ),
+        requirement(When: 'user signs out', Then: 'returns [absent]'),
         procedure(() async {
-          late BobsOutcome<CRawCurrentUserStreamException,
-              BobsMaybe<CRawAuthUser>> result;
+          late BobsOutcome<
+            CRawCurrentUserStreamException,
+            BobsMaybe<CRawAuthUser>
+          >
+          result;
           client.currentUserStream().stream().listen((event) => result = event);
 
           controller.add(const AuthState(AuthChangeEvent.signedOut, null));
@@ -118,13 +113,13 @@ void main() {
       );
 
       test(
-        requirement(
-          When: 'user signs in',
-          Then: 'returns user',
-        ),
+        requirement(When: 'user signs in', Then: 'returns user'),
         procedure(() async {
-          late BobsOutcome<CRawCurrentUserStreamException,
-              BobsMaybe<CRawAuthUser>> result;
+          late BobsOutcome<
+            CRawCurrentUserStreamException,
+            BobsMaybe<CRawAuthUser>
+          >
+          result;
           client.currentUserStream().stream().listen((event) => result = event);
 
           controller.add(AuthState(AuthChangeEvent.signedIn, FakeSession()));
@@ -135,13 +130,13 @@ void main() {
       );
 
       test(
-        requirement(
-          When: 'user is initially signed in',
-          Then: 'returns user',
-        ),
+        requirement(When: 'user is initially signed in', Then: 'returns user'),
         procedure(() async {
-          late BobsOutcome<CRawCurrentUserStreamException,
-              BobsMaybe<CRawAuthUser>> result;
+          late BobsOutcome<
+            CRawCurrentUserStreamException,
+            BobsMaybe<CRawAuthUser>
+          >
+          result;
           client.currentUserStream().stream().listen((event) => result = event);
 
           controller.add(
@@ -159,8 +154,11 @@ void main() {
           Then: 'returns [unkown] failure',
         ),
         procedure(() async {
-          late BobsOutcome<CRawCurrentUserStreamException,
-              BobsMaybe<CRawAuthUser>> result;
+          late BobsOutcome<
+            CRawCurrentUserStreamException,
+            BobsMaybe<CRawAuthUser>
+          >
+          result;
           client.currentUserStream().stream().listen((event) => result = event);
 
           controller.addError(Exception());
@@ -184,13 +182,11 @@ void main() {
       final logInWithOTPJob = client.logInWithOTP(email: 'a@a.a');
 
       test(
-        requirement(
-          When: 'login with OTP succeeds',
-          Then: 'returns [nothing]',
-        ),
+        requirement(When: 'login with OTP succeeds', Then: 'returns [nothing]'),
         procedure(() async {
-          when(mockSignInWithOtp)
-              .thenAnswer((_) async => AuthResponse(user: FakeUser()));
+          when(
+            mockSignInWithOtp,
+          ).thenAnswer((_) async => AuthResponse(user: FakeUser()));
 
           final result = await logInWithOTPJob.run();
 
@@ -218,8 +214,9 @@ void main() {
           Then: 'returns [user not found] exception',
         ),
         procedure(() async {
-          when(mockSignInWithOtp)
-              .thenThrow(const AuthException('', statusCode: '422'));
+          when(
+            mockSignInWithOtp,
+          ).thenThrow(const AuthException('', statusCode: '422'));
 
           final result = await logInWithOTPJob.run();
 
@@ -233,8 +230,9 @@ void main() {
           Then: 'returns [email rate limit exceeded] exception',
         ),
         procedure(() async {
-          when(mockSignInWithOtp)
-              .thenThrow(const AuthException('', statusCode: '429'));
+          when(
+            mockSignInWithOtp,
+          ).thenThrow(const AuthException('', statusCode: '429'));
 
           final result = await logInWithOTPJob.run();
 
@@ -278,8 +276,9 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockSignInWithOtp)
-              .thenAnswer((_) async => AuthResponse(user: FakeUser()));
+          when(
+            mockSignInWithOtp,
+          ).thenAnswer((_) async => AuthResponse(user: FakeUser()));
 
           final result = await signUpWithOTPJob.run();
 
@@ -307,8 +306,9 @@ void main() {
           Then: 'returns [rate limit exceeded] exception',
         ),
         procedure(() async {
-          when(mockSignInWithOtp)
-              .thenThrow(const AuthException('', statusCode: '429'));
+          when(
+            mockSignInWithOtp,
+          ).thenThrow(const AuthException('', statusCode: '429'));
 
           final result = await signUpWithOTPJob.run();
 
@@ -349,8 +349,9 @@ void main() {
           Then: 'returns [nothing]',
         ),
         procedure(() async {
-          when(mockVerifyOTP)
-              .thenAnswer((_) async => AuthResponse(user: FakeUser()));
+          when(
+            mockVerifyOTP,
+          ).thenAnswer((_) async => AuthResponse(user: FakeUser()));
 
           final result = await verifyOTPJob.run();
 
@@ -365,8 +366,9 @@ void main() {
           Then: 'returns [invalid token] exception',
         ),
         procedure(() async {
-          when(mockVerifyOTP)
-              .thenThrow(const AuthException('', statusCode: '403'));
+          when(
+            mockVerifyOTP,
+          ).thenThrow(const AuthException('', statusCode: '403'));
 
           final result = await verifyOTPJob.run();
 
@@ -448,10 +450,7 @@ void main() {
       );
 
       test(
-        requirement(
-          When: 'update user succeeds',
-          Then: 'returns [nothing]',
-        ),
+        requirement(When: 'update user succeeds', Then: 'returns [nothing]'),
         procedure(() async {
           when(mockUpdateUser).thenAnswer((_) async => FakeUserResponse());
 

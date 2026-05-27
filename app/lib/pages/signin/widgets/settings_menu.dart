@@ -15,14 +15,14 @@ class CSettingsMenu extends StatelessWidget {
   const CSettingsMenu({super.key});
 
   void _onChangeThemePressed(BuildContext context) => showDialog(
-        context: context,
-        builder: (_) => CChangeThemeDialog(cubit: context.read()),
-      );
+    context: context,
+    builder: (_) => CChangeThemeDialog(cubit: context.read()),
+  );
 
   void _onChangeLanguagePressed(BuildContext context) => showDialog(
-        context: context,
-        builder: (_) => CChangeLanguageDialog(cubit: context.read()),
-      );
+    context: context,
+    builder: (_) => CChangeLanguageDialog(cubit: context.read()),
+  );
 
   void _onLogsPressed(BuildContext context) =>
       context.pushRoute(const CLogsRoute());

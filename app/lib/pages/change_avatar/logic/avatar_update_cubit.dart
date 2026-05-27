@@ -37,7 +37,7 @@ class CAvatarUpdateState
 class CAvatarUpdateCubit extends Cubit<CAvatarUpdateState> {
   /// {@macro CAvatarUpdateCubit}
   CAvatarUpdateCubit({required this.personRepository})
-      : super(CAvatarUpdateState.initial());
+    : super(CAvatarUpdateState.initial());
 
   /// The repository this cubit uses to update the person's avatar.
   final CPersonRepository personRepository;

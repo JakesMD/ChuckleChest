@@ -48,8 +48,9 @@ class CPeoplePage extends StatelessWidget implements AutoRouteWrapper {
           leading: CAvatar.fromPerson(person: person, date: DateTime.now()),
           title: Text(person.nickname),
           subtitle: Text(
-            context.cAppL10n
-                .peoplePage_personItem_age(person.ageAtDate(DateTime.now())),
+            context.cAppL10n.peoplePage_personItem_age(
+              person.ageAtDate(DateTime.now()),
+            ),
           ),
           trailing: const Icon(Icons.edit_rounded),
           onTap: () => _onTileTapped(context, person),

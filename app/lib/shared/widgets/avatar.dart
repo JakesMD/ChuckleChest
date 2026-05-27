@@ -18,8 +18,8 @@ class CAvatar extends StatelessWidget {
     this.onPressed,
     this.icon,
     super.key,
-  })  : personID = null,
-        people = null;
+  }) : personID = null,
+       people = null;
 
   /// {@macro CAvatar}
   const CAvatar.fromPersonID({
@@ -82,13 +82,14 @@ class CAvatar extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         shape: const CircleBorder(),
         child: InkWell(
-          onTap: onPressed ??
+          onTap:
+              onPressed ??
               (url != null
                   ? () => CAvatarDialog(
-                        nickname: person?.nickname ?? '',
-                        year: date.year,
-                        imageURL: url!,
-                      ).show(context)
+                      nickname: person?.nickname ?? '',
+                      year: date.year,
+                      imageURL: url!,
+                    ).show(context)
                   : null),
           child: Center(child: icon),
         ),

@@ -12,7 +12,7 @@ part 'member.g.dart';
 @PgModelHere()
 class CRawMember extends PgModel<CUserRolesTable> {
   /// {@macro CRawMember}
-  CRawMember(super.json) : super(builder: builder);
+  CRawMember(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CUserRolesTable, CRawMember>(

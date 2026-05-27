@@ -14,9 +14,10 @@ class CSaveGemButton extends StatelessWidget {
   void _onPressed(BuildContext context) {
     final editState = context.read<CGemEditCubit>().state;
 
-    context
-        .read<CGemSaveCubit>()
-        .saveGem(gem: editState.gem, deletedLines: editState.deletedLines);
+    context.read<CGemSaveCubit>().saveGem(
+      gem: editState.gem,
+      deletedLines: editState.deletedLines,
+    );
   }
 
   @override

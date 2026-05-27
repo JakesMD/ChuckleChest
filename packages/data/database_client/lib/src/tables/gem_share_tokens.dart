@@ -11,11 +11,12 @@ part 'gem_share_tokens.g.dart';
 class CGemShareTokensTable extends SupabaseTable<CGemShareTokensTable> {
   /// {@macro CGemShareTokensTable}
   CGemShareTokensTable(super.client)
-      : super(tableName: tableName, primaryKey: [gemID]);
+    : super(tableName: tableName, primaryKey: [gemID]);
 
   /// The name of the table in the Supabase database.
-  static const tableName =
-      PgTableName<CGemShareTokensTable>('gem_share_tokens');
+  static const tableName = PgTableName<CGemShareTokensTable>(
+    'gem_share_tokens',
+  );
 
   /// The ID of the chest the gem belongs to.
   static final chestID = PgStringColumn<CGemShareTokensTable>('chest_id');

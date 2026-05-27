@@ -9,8 +9,8 @@ enum CTextInputError {
 
   /// Returns the error message for the given error in the context locale.
   String localize(BuildContext context) => switch (this) {
-        CTextInputError.empty => context.cAppL10n.inputError_text_empty,
-      };
+    CTextInputError.empty => context.cAppL10n.inputError_text_empty,
+  };
 }
 
 /// {@template CTextInput}

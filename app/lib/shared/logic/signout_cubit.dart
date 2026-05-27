@@ -34,7 +34,7 @@ class CSignoutState extends CRequestCubitState<CSignoutException, BobsNothing> {
 class CSignoutCubit extends Cubit<CSignoutState> {
   /// {@macro CSignoutCubit}
   CSignoutCubit({required this.authRepository})
-      : super(CSignoutState.initial());
+    : super(CSignoutState.initial());
 
   /// The repository this bloc uses to log the current user out.
   final CAuthRepository authRepository;

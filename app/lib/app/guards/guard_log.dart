@@ -9,10 +9,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 /// {@endtemplate}
 class CGuardLog extends TalkerLog {
   /// {@macro CGuardLog}
-  CGuardLog(
-    String guardName,
-    NavigationResolver resolver,
-  ) : super('Navigation to ${resolver.routeName} denied by $guardName.');
+  CGuardLog(String guardName, NavigationResolver resolver)
+    : super('Navigation to ${resolver.routeName} denied by $guardName.');
 
   @override
   String get title => 'guard';

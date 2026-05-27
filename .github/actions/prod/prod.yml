@@ -1,0 +1,39 @@
+name: Prod
+description: Runs checks and deploys the production version of the app.
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: 🐦 Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        cache: true
+
+    - name: ⚡️ Setup Supabase
+      uses: supabase/setup-cli@v1
+      with:
+        version: latest
+
+    - name: 🧊 Install Task
+      uses: arduino/setup-task@v2
+
+    - name: 🕵️ Run checks
+      shell: bash
+      run: task ci SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
+
+    - name: 🔧 Setup GitHub Pages
+      uses: actions/configure-pages@v5
+
+    - name: 📤 Upload production app
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: "./website/public"
+
+    - name: 🗃️ Push database changes
+      shell: bash
+      run: task db:push SUPABASE_PROJECT_ID=${{ env.SUPABASE_PROJECT_ID }} DRY_RUN=false
+
+    - name: 🚀 Deploy production website and app
+      id: deployment
+      uses: actions/deploy-pages@v4

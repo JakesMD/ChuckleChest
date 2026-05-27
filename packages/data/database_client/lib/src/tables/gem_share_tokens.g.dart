@@ -23,10 +23,10 @@ class CGemShareTokensTableUpsert extends PgUpsert<CGemShareTokensTable> {
     required this.gemID,
     this.token,
   }) : super([
-          CGemShareTokensTable.chestID(chestID),
-          CGemShareTokensTable.gemID(gemID),
-          if (token != null) CGemShareTokensTable.token(token),
-        ]);
+         CGemShareTokensTable.chestID(chestID),
+         CGemShareTokensTable.gemID(gemID),
+         if (token != null) CGemShareTokensTable.token(token),
+       ]);
 
   final String chestID;
   final String gemID;

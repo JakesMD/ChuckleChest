@@ -16,13 +16,13 @@ class CCurrentChestCubit extends Cubit<CAuthUserChest> {
     required String? lastViewedChest,
     required this.authRepository,
   }) : super(
-          authRepository.currentUser!.chests.firstWhere(
-            (chest) => chestID != null
-                ? chest.id == chestID
-                : chest.id == lastViewedChest,
-            orElse: () => authRepository.currentUser!.chests.first,
-          ),
-        );
+         authRepository.currentUser!.chests.firstWhere(
+           (chest) => chestID != null
+               ? chest.id == chestID
+               : chest.id == lastViewedChest,
+           orElse: () => authRepository.currentUser!.chests.first,
+         ),
+       );
 
   /// The repository this cubit uses to retrieve user data.
   final CAuthRepository authRepository;

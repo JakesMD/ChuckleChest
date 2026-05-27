@@ -12,22 +12,18 @@ class CSignupState extends CRequestCubitState<CSignupException, BobsNothing> {
   /// {@macro CSignupState}
   ///
   /// The initial state.
-  CSignupState.initial()
-      : email = '',
-        super.initial();
+  CSignupState.initial() : email = '', super.initial();
 
   /// {@macro CSignupState}
   ///
   /// The in progress state.
-  CSignupState.inProgress()
-      : email = '',
-        super.inProgress();
+  CSignupState.inProgress() : email = '', super.inProgress();
 
   /// {@macro CSignupState}
   ///
   /// The completed state.
   CSignupState.completed({required super.outcome, required this.email})
-      : super.completed();
+    : super.completed();
 
   /// The email that was used to sign up.
   final String email;

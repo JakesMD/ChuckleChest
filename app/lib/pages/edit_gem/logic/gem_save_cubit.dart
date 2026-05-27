@@ -46,8 +46,9 @@ class CGemSaveCubit extends Cubit<CGemSaveState> {
   }) async {
     emit(CGemSaveState.inProgress());
 
-    final result =
-        await gemRepository.saveGem(gem: gem, deletedLines: deletedLines).run();
+    final result = await gemRepository
+        .saveGem(gem: gem, deletedLines: deletedLines)
+        .run();
 
     emit(CGemSaveState.completed(outcome: result));
   }

@@ -15,11 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@endtemplate}
 class CAnimatedGem extends StatefulWidget {
   /// {@macro CAnimatedGem}
-  const CAnimatedGem({
-    required this.gem,
-    required this.isLastGem,
-    super.key,
-  });
+  const CAnimatedGem({required this.gem, required this.isLastGem, super.key});
 
   /// The gem to display.
   final CGem gem;
@@ -132,8 +128,9 @@ class _CAnimatedGemState extends State<CAnimatedGem> with AutoRouteAware {
                     padding: const EdgeInsets.all(24),
                     child: Text(
                       '''${!widget.isLastGem ? '${context.cAppL10n.gem_swipeMessage} ' : ''}${context.cAppL10n.gem_restartMessage}''',
-                      style: context.cTextTheme.labelMedium!
-                          .copyWith(fontStyle: FontStyle.italic),
+                      style: context.cTextTheme.labelMedium!.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ),
                 ),
@@ -193,10 +190,7 @@ class __CScrollToBottomFABState extends State<_CScrollToBottomFAB> {
         opacity: animation,
         child: RotationTransition(
           turns: Tween<double>(begin: 0.75, end: 1).animate(animation),
-          child: ScaleTransition(
-            scale: animation,
-            child: child,
-          ),
+          child: ScaleTransition(scale: animation, child: child),
         ),
       ),
       duration: const Duration(milliseconds: 150),

@@ -29,10 +29,11 @@ class CVerifyOTPPage extends StatelessWidget implements AutoRouteWrapper {
       child: BlocListener<COTPVerificationCubit, COTPVerificationState>(
         listener: (context, state) => switch (state.failure) {
           COTPVerificationException.invalidToken => CErrorSnackBar(
-              message: context.cAppL10n.verifyOTPPage_error_invalidToken,
-            ).show(context),
-          COTPVerificationException.unknown =>
-            const CErrorSnackBar().show(context),
+            message: context.cAppL10n.verifyOTPPage_error_invalidToken,
+          ).show(context),
+          COTPVerificationException.unknown => const CErrorSnackBar().show(
+            context,
+          ),
         },
         listenWhen: (_, state) => state.failed,
         child: this,
@@ -42,9 +43,10 @@ class CVerifyOTPPage extends StatelessWidget implements AutoRouteWrapper {
 
   void _onOTPSubmited(BuildContext context, String pin) {
     if (email == null) return;
-    context
-        .read<COTPVerificationCubit>()
-        .verifyOTP(email: email!.toLowerCase(), pin: pin);
+    context.read<COTPVerificationCubit>().verifyOTP(
+      email: email!.toLowerCase(),
+      pin: pin,
+    );
   }
 
   @override

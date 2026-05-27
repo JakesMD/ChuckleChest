@@ -11,12 +11,12 @@ part 'gem_share_token.g.dart';
 @PgModelHere()
 class CRawGemShareToken extends PgModel<CGemShareTokensTable> {
   /// {@macro CRawGemShareToken}
-  CRawGemShareToken(super.json) : super(builder: builder);
+  CRawGemShareToken(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder =
       PgModelBuilder<CGemShareTokensTable, CRawGemShareToken>(
-    constructor: CRawGemShareToken.new,
-    columns: [CGemShareTokensTable.token],
-  );
+        constructor: CRawGemShareToken.new,
+        columns: [CGemShareTokensTable.token],
+      );
 }

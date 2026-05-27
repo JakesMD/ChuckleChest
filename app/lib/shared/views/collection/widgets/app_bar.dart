@@ -19,10 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CCollectionViewAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   /// {@macro CCollectionViewAppBar}
-  const CCollectionViewAppBar({
-    required this.userRole,
-    super.key,
-  });
+  const CCollectionViewAppBar({required this.userRole, super.key});
 
   /// The role of the user viewing the gems.
   ///

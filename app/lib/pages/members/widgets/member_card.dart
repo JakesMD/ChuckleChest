@@ -14,10 +14,7 @@ import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 /// {@endtemplate}
 class CMemberCard extends StatelessWidget {
   /// {@macro CMemberCard}
-  const CMemberCard({
-    required this.member,
-    super.key,
-  });
+  const CMemberCard({required this.member, super.key});
 
   /// The member that this card represents.
   final CMember member;
@@ -48,23 +45,22 @@ class CMemberCard extends StatelessWidget {
                 segments: [
                   ButtonSegment(
                     value: CUserRole.viewer,
-                    label: Text(
-                      CUserRole.viewer.cLocalize(context),
-                    ),
+                    label: Text(CUserRole.viewer.cLocalize(context)),
                   ),
                   ButtonSegment(
                     value: CUserRole.collaborator,
-                    label: Text(
-                      CUserRole.collaborator.cLocalize(context),
-                    ),
+                    label: Text(CUserRole.collaborator.cLocalize(context)),
                   ),
                 ],
                 selected: {member.role},
-                onSelectionChanged: state.status !=
-                        CRequestCubitStatus.inProgress
+                onSelectionChanged:
+                    state.status != CRequestCubitStatus.inProgress
                     ? (Set<CUserRole> selected) => context
-                        .read<CMemberRoleUpdateCubit>()
-                        .updateMemberRole(member: member, role: selected.first)
+                          .read<CMemberRoleUpdateCubit>()
+                          .updateMemberRole(
+                            member: member,
+                            role: selected.first,
+                          )
                     : null,
               ),
             ],

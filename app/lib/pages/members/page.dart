@@ -30,9 +30,8 @@ class CMembersPage extends StatelessWidget implements AutoRouteWrapper {
           )..fetchMembers(),
         ),
         BlocProvider(
-          create: (_) => CMemberRoleUpdateCubit(
-            chestRepository: context.read(),
-          ),
+          create: (_) =>
+              CMemberRoleUpdateCubit(chestRepository: context.read()),
         ),
       ],
       child: MultiBlocListener(
@@ -47,12 +46,13 @@ class CMembersPage extends StatelessWidget implements AutoRouteWrapper {
             listener: (context, state) => switch (state.status) {
               CRequestCubitStatus.initial => null,
               CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
+              CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                context,
+              ),
               CRequestCubitStatus.succeeded =>
                 context.read<CMembersFetchCubit>().updateMember(
-                      member: (state.member as BobsPresent<CMember>).value,
-                    ),
+                  member: (state.member as BobsPresent<CMember>).value,
+                ),
             },
           ),
         ],
@@ -67,17 +67,20 @@ class CMembersPage extends StatelessWidget implements AutoRouteWrapper {
       appBar: AppBar(title: Text(context.cAppL10n.membersPage_title)),
       body: BlocBuilder<CMembersFetchCubit, CMembersFetchState>(
         builder: (context, membersState) => switch (membersState.status) {
-          CRequestCubitStatus.initial =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.inProgress =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.failed =>
-            const Center(child: Icon(Icons.error_rounded)),
+          CRequestCubitStatus.initial => const Center(
+            child: CCradleLoadingIndicator(),
+          ),
+          CRequestCubitStatus.inProgress => const Center(
+            child: CCradleLoadingIndicator(),
+          ),
+          CRequestCubitStatus.failed => const Center(
+            child: Icon(Icons.error_rounded),
+          ),
           CRequestCubitStatus.succeeded => CResponsiveListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              items: membersState.members,
-              itemBuilder: (context, member) => CMemberCard(member: member),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            items: membersState.members,
+            itemBuilder: (context, member) => CMemberCard(member: member),
+          ),
         },
       ),
     );

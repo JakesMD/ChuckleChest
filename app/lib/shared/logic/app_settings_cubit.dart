@@ -29,12 +29,11 @@ class CAppSettingsState {
     Locale? locale,
     ThemeMode? themeMode,
     String? lastViewedChest,
-  }) =>
-      CAppSettingsState(
-        locale: locale ?? this.locale,
-        themeMode: themeMode ?? this.themeMode,
-        lastViewedChest: lastViewedChest ?? this.lastViewedChest,
-      );
+  }) => CAppSettingsState(
+    locale: locale ?? this.locale,
+    themeMode: themeMode ?? this.themeMode,
+    lastViewedChest: lastViewedChest ?? this.lastViewedChest,
+  );
 }
 
 /// {@template CAppSettingsCubit}
@@ -45,7 +44,7 @@ class CAppSettingsState {
 class CAppSettingsCubit extends HydratedCubit<CAppSettingsState> {
   /// {@macro CAppSettingsCubit}
   CAppSettingsCubit()
-      : super(const CAppSettingsState(themeMode: ThemeMode.system));
+    : super(const CAppSettingsState(themeMode: ThemeMode.system));
 
   /// Updates the current locale.
   void changeLocale({required Locale newLocale}) =>
@@ -61,23 +60,20 @@ class CAppSettingsCubit extends HydratedCubit<CAppSettingsState> {
 
   @override
   CAppSettingsState fromJson(Map<String, dynamic> json) => CAppSettingsState(
-        locale: json.containsKey('languageCode')
-            ? Locale(
-                json['languageCode'] as String,
-                json['countryCode'] as String?,
-              )
-            : null,
-        themeMode: json.containsKey('themeMode')
-            ? ThemeMode.values[json['themeMode'] as int]
-            : ThemeMode.system,
-        lastViewedChest: json['lastViewedChest'] as String?,
-      );
+    locale: json.containsKey('languageCode')
+        ? Locale(json['languageCode'] as String, json['countryCode'] as String?)
+        : null,
+    themeMode: json.containsKey('themeMode')
+        ? ThemeMode.values[json['themeMode'] as int]
+        : ThemeMode.system,
+    lastViewedChest: json['lastViewedChest'] as String?,
+  );
 
   @override
   Map<String, dynamic> toJson(CAppSettingsState state) => {
-        if (state.locale != null) 'languageCode': state.locale!.languageCode,
-        if (state.locale != null) 'countryCode': state.locale!.countryCode,
-        'themeMode': state.themeMode.index,
-        'lastViewedChest': state.lastViewedChest,
-      };
+    if (state.locale != null) 'languageCode': state.locale!.languageCode,
+    if (state.locale != null) 'countryCode': state.locale!.countryCode,
+    'themeMode': state.themeMode.index,
+    'lastViewedChest': state.lastViewedChest,
+  };
 }

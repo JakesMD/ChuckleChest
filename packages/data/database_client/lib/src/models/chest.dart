@@ -11,7 +11,7 @@ part 'chest.g.dart';
 @PgModelHere()
 class CRawChest extends PgModel<CChestsTable> {
   /// {@macro CRawChest}
-  CRawChest(super.json) : super(builder: builder);
+  CRawChest(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CChestsTable, CRawChest>(

@@ -26,7 +26,7 @@ class CChestPeopleFetchState
   ///
   /// The completed state.
   CChestPeopleFetchState.completed({required super.outcome})
-      : super.completed();
+    : super.completed();
 
   /// The people in the chest sorted in age order.
   ///
@@ -47,7 +47,7 @@ class CChestPeopleFetchState
 class CChestPeopleFetchCubit extends Cubit<CChestPeopleFetchState> {
   /// {@macro CChestPeopleFetchCubit}
   CChestPeopleFetchCubit({required this.personRepository})
-      : super(CChestPeopleFetchState.initial());
+    : super(CChestPeopleFetchState.initial());
 
   /// The repository this cubit uses to fetch chest people.
   final CPersonRepository personRepository;
@@ -56,8 +56,9 @@ class CChestPeopleFetchCubit extends Cubit<CChestPeopleFetchState> {
   Future<void> fetchChestPeople({required String chestID}) async {
     emit(CChestPeopleFetchState.inProgress());
 
-    final result =
-        await personRepository.fetchChestPeople(chestID: chestID).run();
+    final result = await personRepository
+        .fetchChestPeople(chestID: chestID)
+        .run();
 
     emit(CChestPeopleFetchState.completed(outcome: result));
   }

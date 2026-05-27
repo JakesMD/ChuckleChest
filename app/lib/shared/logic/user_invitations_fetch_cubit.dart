@@ -9,8 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// The state for the [CUserInvitationsFetchCubit].
 ///
 /// {@endtemplate}
-class CUserInvitationsFetchState extends CRequestCubitState<
-    CUserInvitationsFetchException, List<CUserInvitation>> {
+class CUserInvitationsFetchState
+    extends
+        CRequestCubitState<
+          CUserInvitationsFetchException,
+          List<CUserInvitation>
+        > {
   /// {@macro CUserInvitationsFetchState}
   ///
   /// The initial state.
@@ -25,7 +29,7 @@ class CUserInvitationsFetchState extends CRequestCubitState<
   ///
   /// The completed state.
   CUserInvitationsFetchState.completed({required super.outcome})
-      : super.completed();
+    : super.completed();
 
   /// The invitations that were fetched.
   List<CUserInvitation> get invitations => success;

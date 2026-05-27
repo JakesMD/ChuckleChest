@@ -21,9 +21,9 @@ class CInviteFAB extends StatelessWidget {
       builder: (context, state) => FloatingActionButton(
         onPressed: state.status != CRequestCubitStatus.inProgress
             ? () => CCreateInvitationDialog(
-                  chestID: context.read<CCurrentChestCubit>().state.id,
-                  cubit: context.read(),
-                ).show(context)
+                chestID: context.read<CCurrentChestCubit>().state.id,
+                cubit: context.read(),
+              ).show(context)
             : null,
         child: state.status != CRequestCubitStatus.inProgress
             ? const Icon(Icons.add_rounded)

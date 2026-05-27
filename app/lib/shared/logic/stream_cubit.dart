@@ -60,10 +60,10 @@ class CStreamCubitState<F, S> with EquatableMixin {
 
   @override
   String toString() => switch (status) {
-        CStreamCubitStatus.hasSuccess => 'hasSuccess($success)',
-        CStreamCubitStatus.hasFailure => 'hasFailure($failure)',
-        CStreamCubitStatus.waiting => 'waiting()',
-      };
+    CStreamCubitStatus.hasSuccess => 'hasSuccess($success)',
+    CStreamCubitStatus.hasFailure => 'hasFailure($failure)',
+    CStreamCubitStatus.waiting => 'waiting()',
+  };
 }
 
 /// {@template CStreamCubit}

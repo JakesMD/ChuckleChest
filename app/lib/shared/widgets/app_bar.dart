@@ -17,7 +17,7 @@ class CAppBar extends AppBar {
     super.actions,
     super.key,
   }) : super(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          centerTitle: true,
-        );
+         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+         centerTitle: true,
+       );
 }

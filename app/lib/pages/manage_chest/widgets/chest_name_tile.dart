@@ -21,23 +21,23 @@ class CChestNameTile extends StatelessWidget {
     return BlocBuilder<CCurrentChestCubit, CAuthUserChest>(
       builder: (context, chest) =>
           BlocBuilder<CChestNameUpdateCubit, CChestNameUpdateState>(
-        builder: (context, state) => ListTile(
-          minVerticalPadding: 24,
-          leading: const Icon(Icons.inventory_2_rounded),
-          title: Text(context.cAppL10n.manageChestPage_chestNameTile_title),
-          subtitle: Text(chest.name),
-          trailing: state.status != CRequestCubitStatus.inProgress
-              ? const Icon(Icons.edit_rounded)
-              : const CBouncyBallLoadingIndicator(),
-          enabled: state.status != CRequestCubitStatus.inProgress,
-          onTap: state.status != CRequestCubitStatus.inProgress
-              ? () => CEditChestNameDialog(
-                    initialName: chest.name,
-                    cubit: context.read(),
-                  ).show(context)
-              : null,
-        ),
-      ),
+            builder: (context, state) => ListTile(
+              minVerticalPadding: 24,
+              leading: const Icon(Icons.inventory_2_rounded),
+              title: Text(context.cAppL10n.manageChestPage_chestNameTile_title),
+              subtitle: Text(chest.name),
+              trailing: state.status != CRequestCubitStatus.inProgress
+                  ? const Icon(Icons.edit_rounded)
+                  : const CBouncyBallLoadingIndicator(),
+              enabled: state.status != CRequestCubitStatus.inProgress,
+              onTap: state.status != CRequestCubitStatus.inProgress
+                  ? () => CEditChestNameDialog(
+                      initialName: chest.name,
+                      cubit: context.read(),
+                    ).show(context)
+                  : null,
+            ),
+          ),
     );
   }
 }

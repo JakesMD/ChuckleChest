@@ -56,18 +56,20 @@ class _CFadeInState extends State<CFadeIn>
 
     controller = AnimationController(duration: widget.duration, vsync: this);
 
-    sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: controller, curve: widget.curve),
-    );
+    sizeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
-    fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: controller, curve: widget.curve),
-    );
+    fadeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
-    slideAnimation =
-        Tween<Offset>(begin: widget.slideOffset, end: Offset.zero).animate(
-      CurvedAnimation(parent: controller, curve: widget.curve),
-    );
+    slideAnimation = Tween<Offset>(
+      begin: widget.slideOffset,
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: controller, curve: widget.curve));
 
     if (widget.isAnimated) {
       delayTimer = Timer(widget.delay, () => controller.forward());
@@ -97,10 +99,7 @@ class _CFadeInState extends State<CFadeIn>
       clipBehavior: Clip.none,
       child: FadeTransition(
         opacity: fadeAnimation,
-        child: SlideTransition(
-          position: slideAnimation,
-          child: widget.child,
-        ),
+        child: SlideTransition(position: slideAnimation, child: widget.child),
       ),
     );
   }

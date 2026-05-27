@@ -15,14 +15,14 @@ class CGetStartedPageMoreMenu extends StatelessWidget {
   const CGetStartedPageMoreMenu({super.key});
 
   void _onChangeThemePressed(BuildContext context) => showDialog(
-        context: context,
-        builder: (_) => CChangeThemeDialog(cubit: context.read()),
-      );
+    context: context,
+    builder: (_) => CChangeThemeDialog(cubit: context.read()),
+  );
 
   void _onChangeLanguagePressed(BuildContext context) => showDialog(
-        context: context,
-        builder: (_) => CChangeLanguageDialog(cubit: context.read()),
-      );
+    context: context,
+    builder: (_) => CChangeLanguageDialog(cubit: context.read()),
+  );
 
   void _onSignOutPressed(BuildContext context) =>
       context.read<CSignoutCubit>().signOut();
