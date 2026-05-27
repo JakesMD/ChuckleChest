@@ -38,10 +38,6 @@ jobs:
         steps:
             - name: 📚 Git checkout
               uses: actions/checkout@v4
-              with:
-                  ref: main
-                  fetch-depth: 0
-                  token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 🔖 Detect version bump type from labels
               id: bump_type

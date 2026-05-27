@@ -24,10 +24,6 @@ jobs:
         steps:
             - name: 📚 Git checkout
               uses: actions/checkout@v4
-              with:
-                  ref: main
-                  fetch-depth: 0
-                  token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 🚀 Deploy production (dry-run)
               uses: ./.github/actions/dry-run
