@@ -51,9 +51,11 @@ tasks:
   dart:check-coverage:
     desc: Combines the test coverage from all of the packages and checks for 100% coverage.
     cmds:
+      - mkdir -p coverage
       - true > coverage/lcov.info
       - dart pub global run combine_coverage --repo-path=.
-      - sed -i '' 's|SF:.*/ChuckleChest/|SF:/|' coverage/lcov.info
+      - sed -i.bak 's|SF:.*/ChuckleChest/|SF:/|' coverage/lcov.info
+      - rm -f coverage/lcov.info.bak
       - dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='\.g\.dart$'
       - dart bin/check_coverage.dart coverage/lcov.info
 
