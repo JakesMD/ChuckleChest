@@ -12,4 +12,4 @@ dependencies:
   image: ^4.5.4
 
 dev_dependencies:
-  very_good_analysis: ^7.0.0
+  very_good_analysis: ^10.2.0

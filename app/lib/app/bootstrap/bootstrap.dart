@@ -10,7 +10,7 @@ import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// The talker that controls all logging across the app.
-final cTalker = TalkerFlutter.init();
+final Talker cTalker = TalkerFlutter.init();
 
 /// Bootstraps the app with the given [builder].
 ///
@@ -56,7 +56,7 @@ Future<void> bootstrap(
       runApp(CAppDependenciesProvider(builder: builder));
       cTalker.info('App started');
     },
-    (Object error, StackTrace stack) {
+    (error, stack) {
       cTalker.handle(error, stack, 'Uncaught app exception');
     },
   );

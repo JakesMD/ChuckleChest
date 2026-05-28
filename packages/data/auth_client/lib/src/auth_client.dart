@@ -1,3 +1,7 @@
+// Warning incorrect. Don't want to set value to null, instead not even provide
+// a value at all.
+// ignore_for_file: use_null_aware_elements
+
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cauth_client/cauth_client.dart';
 import 'package:supabase/supabase.dart';

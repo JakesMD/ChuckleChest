@@ -22,10 +22,12 @@ class CPlatformClient {
     required String subject,
     required Rect sharePositionOrigin,
   }) => BobsJob.attempt(
-    run: () => Share.share(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
+    run: () => SharePlus.instance.share(
+      ShareParams(
+        text: text,
+        subject: subject,
+        sharePositionOrigin: sharePositionOrigin,
+      ),
     ),
     onError: CShareException.fromError,
   ).thenConvertSuccess((_) => bobsNothing);

@@ -89,7 +89,7 @@ class CShareSheet extends StatelessWidget {
   void show(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) => this,
+      builder: (context) => this,
     );
   }
 }

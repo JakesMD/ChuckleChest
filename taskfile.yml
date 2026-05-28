@@ -65,7 +65,9 @@ tasks:
 
   dart:pub-upgrade:
     desc: Upgrades the pub dependencies.
-    cmd: flutter pub upgrade
+    cmds:
+      - flutter pub upgrade --major-versions
+      - flutter pub outdated
 
   dart:test:
     desc: Runs all the tests of the app and packages.
