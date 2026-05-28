@@ -25,7 +25,7 @@ tasks:
       - task: setup
       - task: dart:test
       # - task: db:test
-      - task: dart:check_coverage
+      - task: dart:check-coverage
       - task: dart:build
       - task: website:update
 
@@ -48,7 +48,7 @@ tasks:
       - cmd: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define=SUPABASE_PROJECT_URL=${{.SUPABASE_PROJECT_URL}} --dart-define=SUPABASE_ANON_KEY=${{.SUPABASE_ANON_KEY}} --release --base-href "/app/"
         if: '[ "$CI" = "true" ]'
 
-  dart:check_coverage:
+  dart:check-coverage:
     desc: Combines the test coverage from all of the packages and checks for 100% coverage.
     cmds:
       - true > coverage/lcov.info
