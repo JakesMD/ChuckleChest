@@ -19,10 +19,10 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
   const CGetStartedPage({super.key});
 
   void _navigateToChest(BuildContext context, String chestID) {
-    context.router.replaceAll(
-      [const CBaseRoute(), CChestRoute(chestID: chestID)],
-      updateExistingRoutes: false,
-    );
+    context.router.replaceAll([
+      const CBaseRoute(),
+      CChestRoute(chestID: chestID),
+    ], updateExistingRoutes: false);
   }
 
   @override
@@ -39,9 +39,8 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
           )..fetchUserInvitations(),
         ),
         BlocProvider(
-          create: (context) => CInvitationAcceptCubit(
-            chestRepository: context.read(),
-          ),
+          create: (context) =>
+              CInvitationAcceptCubit(chestRepository: context.read()),
         ),
       ],
       child: MultiBlocListener(
@@ -50,20 +49,25 @@ class CGetStartedPage extends StatelessWidget implements AutoRouteWrapper {
             listener: (context, state) => switch (state.status) {
               CRequestCubitStatus.initial => null,
               CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.succeeded =>
-                context.router.replace(const CSigninRoute()),
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
+              CRequestCubitStatus.succeeded => context.router.replace(
+                const CSigninRoute(),
+              ),
+              CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                context,
+              ),
             },
           ),
           BlocListener<CInvitationAcceptCubit, CInvitationAcceptState>(
             listener: (context, state) => switch (state.status) {
               CRequestCubitStatus.initial => null,
               CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.succeeded =>
-                _navigateToChest(context, state.chestID),
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
+              CRequestCubitStatus.succeeded => _navigateToChest(
+                context,
+                state.chestID,
+              ),
+              CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                context,
+              ),
             },
           ),
           BlocListener<CUserInvitationsFetchCubit, CUserInvitationsFetchState>(

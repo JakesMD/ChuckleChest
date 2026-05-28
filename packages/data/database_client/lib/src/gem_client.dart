@@ -32,51 +32,48 @@ class CGemClient {
   /// Fetches the gem years for the given `chestID` from the database.
   BobsJob<CRawGemYearsFetchException, List<int>> fetchGemYears({
     required String chestID,
-  }) =>
-      BobsJob.attempt(
-        run: () async {
-          final response = await supabaseClient.rpc<List<dynamic>>(
-            'fetch_distinct_gem_years',
-            params: {'chest_id_param': chestID},
-          );
-          return response.cast<int>();
-        },
-        onError: CRawGemYearsFetchException.fromError,
+  }) => BobsJob.attempt(
+    run: () async {
+      final response = await supabaseClient.rpc<List<dynamic>>(
+        'fetch_distinct_gem_years',
+        params: {'chest_id_param': chestID},
       );
+      return response.cast<int>();
+    },
+    onError: CRawGemYearsFetchException.fromError,
+  );
 
   /// Fetches the gem IDs for the given `chestID` and `year` from the database.
   BobsJob<CRawGemIDsFetchException, List<String>> fetchGemIDsForYear({
     required String chestID,
     required int year,
-  }) =>
-      BobsJob.attempt(
-        run: () => gemsTable.fetchValues(
-          column: CGemsTable.id,
-          filter: gemsTable
-              .where(CGemsTable.chestID.equals(chestID))
-              .and(CGemsTable.occurredAt.greaterOrEqual(DateTime(year)))
-              .and(CGemsTable.occurredAt.less(DateTime(year + 1))),
-          modifier: gemsTable.order(CGemsTable.occurredAt, ascending: false),
-        ),
-        onError: CRawGemIDsFetchException.fromError,
-      );
+  }) => BobsJob.attempt(
+    run: () => gemsTable.fetchValues(
+      column: CGemsTable.id,
+      filter: gemsTable
+          .where(CGemsTable.chestID.equals(chestID))
+          .and(CGemsTable.occurredAt.greaterOrEqual(DateTime(year)))
+          .and(CGemsTable.occurredAt.less(DateTime(year + 1))),
+      modifier: gemsTable.order(CGemsTable.occurredAt, ascending: false),
+    ),
+    onError: CRawGemIDsFetchException.fromError,
+  );
 
   /// Fetches the most recent `limit` gem IDs for the given `chestID` from the
   /// database.
   BobsJob<CRawGemIDsFetchException, List<String>> fetchRecentGemIDs({
     required String chestID,
     required int limit,
-  }) =>
-      BobsJob.attempt(
-        run: () => gemsTable.fetchValues(
-          column: CGemsTable.id,
-          filter: CGemsTable.chestID.equals(chestID),
-          modifier: gemsTable
-              .order(CGemsTable.createdAt, ascending: false)
-              .limit(limit),
-        ),
-        onError: CRawGemIDsFetchException.fromError,
-      );
+  }) => BobsJob.attempt(
+    run: () => gemsTable.fetchValues(
+      column: CGemsTable.id,
+      filter: CGemsTable.chestID.equals(chestID),
+      modifier: gemsTable
+          .order(CGemsTable.createdAt, ascending: false)
+          .limit(limit),
+    ),
+    onError: CRawGemIDsFetchException.fromError,
+  );
 
   /// Fetches the gem with the given `gemID` from the database.
   BobsJob<CRawGemFetchException, CRawGem> fetchGem({required String gemID}) =>
@@ -98,10 +95,12 @@ class CGemClient {
     required List<CLinesTableInsert> lines,
   }) =>
       BobsJob.attempt(
-        run: () => gemsTable
-            .upsertAndFetchValue(upserts: [gem], column: CGemsTable.id),
-        onError: CRawGemSaveException.fromError,
-      )
+            run: () => gemsTable.upsertAndFetchValue(
+              upserts: [gem],
+              column: CGemsTable.id,
+            ),
+            onError: CRawGemSaveException.fromError,
+          )
           .thenAttempt(
             run: (gemID) async {
               await linesTable.delete(
@@ -160,50 +159,46 @@ class CGemClient {
   BobsJob<CRawRandomGemIDsFetchException, List<String>> fetchRandomGemIDs({
     required String chestID,
     required int limit,
-  }) =>
-      BobsJob.attempt(
-        run: () async {
-          final response = await supabaseClient.rpc<List<dynamic>>(
-            'fetch_random_gem_ids',
-            params: {'chest_id_param': chestID, 'limit_param': limit},
-          );
-          return response.cast<String>();
-        },
-        onError: CRawRandomGemIDsFetchException.fromError,
+  }) => BobsJob.attempt(
+    run: () async {
+      final response = await supabaseClient.rpc<List<dynamic>>(
+        'fetch_random_gem_ids',
+        params: {'chest_id_param': chestID, 'limit_param': limit},
       );
+      return response.cast<String>();
+    },
+    onError: CRawRandomGemIDsFetchException.fromError,
+  );
 
   /// Fetches the gem with the given `shareToken` from the database.
   BobsJob<CRawGemFetchFromShareTokenException, (CRawGem, List<CRawPerson>)>
-      fetchGemFromShareToken({
-    required String shareToken,
-  }) =>
-          BobsJob.attempt(
-            run: () async {
-              final response = await supabaseClient.rpc<Map<String, dynamic>>(
-                'fetch_gem_from_share_token',
-                params: {'share_token_param': shareToken},
-              );
+  fetchGemFromShareToken({required String shareToken}) => BobsJob.attempt(
+    run: () async {
+      final response = await supabaseClient.rpc<Map<String, dynamic>>(
+        'fetch_gem_from_share_token',
+        params: {'share_token_param': shareToken},
+      );
 
-              return (
-                CRawGem(response['gem'] as Map<String, dynamic>),
-                List.castFrom<dynamic, Map<String, dynamic>>(
-                  response['people'] as List<dynamic>,
-                ).map(CRawPerson.new).toList(),
-              );
-            },
-            onError: CRawGemFetchFromShareTokenException.fromError,
-          );
+      return (
+        CRawGem(response['gem'] as Map<String, dynamic>, null),
+        List.castFrom<dynamic, Map<String, dynamic>>(
+          response['people'] as List<dynamic>,
+        ).map((json) => CRawPerson(json, null)).toList(),
+      );
+    },
+    onError: CRawGemFetchFromShareTokenException.fromError,
+  );
 
   /// Creates a share link for the a gem.
   ///
   /// Inserts the given `record` into the `gem_share_tokens` table.
   BobsJob<CRawGemShareTokenInsertException, CRawGemShareToken>
-      createGemShareToken({required CGemShareTokensTableInsert record}) =>
-          BobsJob.attempt(
-            run: () => gemShareTokensTable.insertAndFetchModel(
-              inserts: [record],
-              modelBuilder: CRawGemShareToken.builder,
-            ),
-            onError: CRawGemShareTokenInsertException.fromError,
-          );
+  createGemShareToken({required CGemShareTokensTableInsert record}) =>
+      BobsJob.attempt(
+        run: () => gemShareTokensTable.insertAndFetchModel(
+          inserts: [record],
+          modelBuilder: CRawGemShareToken.builder,
+        ),
+        onError: CRawGemShareTokenInsertException.fromError,
+      );
 }

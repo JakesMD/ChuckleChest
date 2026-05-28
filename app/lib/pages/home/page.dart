@@ -30,15 +30,19 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
       child: Builder(
         builder: (context) =>
             BlocListener<CPersonCreationCubit, CPersonCreationState>(
-          listener: (context, state) => switch (state.status) {
-            CRequestCubitStatus.initial => null,
-            CRequestCubitStatus.inProgress => null,
-            CRequestCubitStatus.failed => const CErrorSnackBar().show(context),
-            CRequestCubitStatus.succeeded =>
-              _onPersonCreated(context, state.person)
-          },
-          child: this,
-        ),
+              listener: (context, state) => switch (state.status) {
+                CRequestCubitStatus.initial => null,
+                CRequestCubitStatus.inProgress => null,
+                CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                  context,
+                ),
+                CRequestCubitStatus.succeeded => _onPersonCreated(
+                  context,
+                  state.person,
+                ),
+              },
+              child: this,
+            ),
       ),
     );
   }
@@ -126,8 +130,9 @@ class CHomePage extends StatelessWidget implements AutoRouteWrapper {
                         if (!isViewer)
                           NavigationRailDestination(
                             icon: const Icon(Icons.family_restroom_outlined),
-                            selectedIcon:
-                                const Icon(Icons.family_restroom_rounded),
+                            selectedIcon: const Icon(
+                              Icons.family_restroom_rounded,
+                            ),
                             label: Text(
                               context.cAppL10n.homePage_bottomNav_people,
                             ),

@@ -15,9 +15,9 @@ void main() {
   group('CCoreL10n tests', () {
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate',
-        When: 'fetching CCoreL10n from BuildContext',
-        Then: 'returns CCoreL10n instance',
+        given: 'An app with CCoreL10n delegate',
+        whenever: 'fetching CCoreL10n from BuildContext',
+        then: 'returns CCoreL10n instance',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -37,9 +37,9 @@ void main() {
 
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'localizing a DateTime instance as yearMonthNumDayNum',
-        Then: 'returns a localized string',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'localizing a DateTime instance as yearMonthNumDayNum',
+        then: 'returns a localized string',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -56,18 +56,19 @@ void main() {
     );
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'localizing a DateTime instance as yearMonth',
-        Then: 'returns a localized string',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'localizing a DateTime instance as yearMonth',
+        then: 'returns a localized string',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              translation = DateTime(2024, 2, 10).cLocalize(
-                context,
-                dateFormat: CDateFormat.yearMonth,
-              );
+              translation = DateTime(
+                2024,
+                2,
+                10,
+              ).cLocalize(context, dateFormat: CDateFormat.yearMonth);
 
               return Container();
             },
@@ -84,9 +85,9 @@ void main() {
 
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'localizing a num instance with 2 digits',
-        Then: 'returns a localized string',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'localizing a num instance with 2 digits',
+        then: 'returns a localized string',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -108,9 +109,9 @@ void main() {
 
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'turning localized string into num',
-        Then: 'returns num with correct value',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'turning localized string into num',
+        then: 'returns num with correct value',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -128,9 +129,9 @@ void main() {
 
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'turning badly formatted localized string into num',
-        Then: 'returns null',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'turning badly formatted localized string into num',
+        then: 'returns null',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -152,9 +153,9 @@ void main() {
 
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'localizing a [UserRole.owner] instance.',
-        Then: 'returns a localized string',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'localizing a [UserRole.owner] instance.',
+        then: 'returns a localized string',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -172,9 +173,9 @@ void main() {
 
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'localizing a [UserRole.collaborator] instance.',
-        Then: 'returns a localized string',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'localizing a [UserRole.collaborator] instance.',
+        then: 'returns a localized string',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(
@@ -191,9 +192,9 @@ void main() {
     );
     testWidgets(
       requirement(
-        Given: 'An app with CCoreL10n delegate and en locale',
-        When: 'localizing a [UserRole.viewer] instance.',
-        Then: 'returns a localized string',
+        given: 'An app with CCoreL10n delegate and en locale',
+        whenever: 'localizing a [UserRole.viewer] instance.',
+        then: 'returns a localized string',
       ),
       widgetsProcedure((tester) async {
         await tester.pumpWidget(

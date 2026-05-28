@@ -26,28 +26,27 @@ class CPlatformRepository {
     required CImagePickSource source,
     int? width,
     int? height,
-  }) =>
-      platformClient
-          .pickImage(
-            source: source,
-            maxWidth: width ?? 1000,
-            maxHeight: height ?? 1000,
-          )
-          .thenConvertFailure(CImagePickException.fromFailure)
-          .thenAttempt(
-            run: (image) => image.resolve(
-              onAbsent: bobsAbsent,
-              onPresent: (image) async {
-                final command = img.Command()
-                  ..decodeImage(image)
-                  ..encodeJpg();
+  }) => platformClient
+      .pickImage(
+        source: source,
+        maxWidth: width ?? 1000,
+        maxHeight: height ?? 1000,
+      )
+      .thenConvertFailure(CImagePickException.fromFailure)
+      .thenAttempt(
+        run: (image) => image.resolve(
+          onAbsent: bobsAbsent,
+          onPresent: (image) async {
+            final command = img.Command()
+              ..decodeImage(image)
+              ..encodeJpg();
 
-                // This will throw if the image could not be decoded, which is
-                // what we want.
-                final bytes = (await command.executeThread()).outputBytes!;
-                return bobsPresent(bytes);
-              },
-            ),
-            onError: CImagePickException.fromError,
-          );
+            // This will throw if the image could not be decoded, which is
+            // what we want.
+            final bytes = (await command.executeThread()).outputBytes!;
+            return bobsPresent(bytes);
+          },
+        ),
+        onError: CImagePickException.fromError,
+      );
 }

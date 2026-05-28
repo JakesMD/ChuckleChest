@@ -37,7 +37,7 @@ class CChestCreationState
 class CChestCreationCubit extends Cubit<CChestCreationState> {
   /// {@macro CChestCreationCubit}
   CChestCreationCubit({required this.chestRepository})
-      : super(CChestCreationState.initial());
+    : super(CChestCreationState.initial());
 
   /// The repository this cubit uses to create the chest.
   final CChestRepository chestRepository;
@@ -46,8 +46,9 @@ class CChestCreationCubit extends Cubit<CChestCreationState> {
   Future<void> createChest({required String chestName}) async {
     emit(CChestCreationState.inProgress());
 
-    final result =
-        await chestRepository.createChest(chestName: chestName).run();
+    final result = await chestRepository
+        .createChest(chestName: chestName)
+        .run();
 
     emit(CChestCreationState.completed(outcome: result));
   }

@@ -45,18 +45,20 @@ class _CCradleLoadingIndicatorState extends State<CCradleLoadingIndicator>
       vsync: this,
     );
 
-    leftBallAnimation = Tween<double>(
-      begin: 0,
-      end: -widget.ballSize * 2,
-    ).animate(
-      CurvedAnimation(parent: leftBallController, curve: Curves.easeOutSine),
-    );
-    rightBallAnimation = Tween<double>(
-      begin: 0,
-      end: widget.ballSize * 2,
-    ).animate(
-      CurvedAnimation(parent: rightBallController, curve: Curves.easeOutSine),
-    );
+    leftBallAnimation = Tween<double>(begin: 0, end: -widget.ballSize * 2)
+        .animate(
+          CurvedAnimation(
+            parent: leftBallController,
+            curve: Curves.easeOutSine,
+          ),
+        );
+    rightBallAnimation = Tween<double>(begin: 0, end: widget.ballSize * 2)
+        .animate(
+          CurvedAnimation(
+            parent: rightBallController,
+            curve: Curves.easeOutSine,
+          ),
+        );
 
     leftBallController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -142,7 +144,8 @@ class CBouncyBallLoadingIndicator extends StatefulWidget {
 }
 
 class _CBouncyBallLoadingIndicatorState
-    extends State<CBouncyBallLoadingIndicator> with TickerProviderStateMixin {
+    extends State<CBouncyBallLoadingIndicator>
+    with TickerProviderStateMixin {
   late AnimationController ballController;
   late Animation<double> ballAnimation;
 
@@ -157,12 +160,13 @@ class _CBouncyBallLoadingIndicatorState
       vsync: this,
     );
 
-    ballAnimation = Tween<double>(
-      begin: widget.ballSize * 0.5,
-      end: -widget.ballSize * 1,
-    ).animate(
-      CurvedAnimation(parent: ballController, curve: Curves.easeOutSine),
-    );
+    ballAnimation =
+        Tween<double>(
+          begin: widget.ballSize * 0.5,
+          end: -widget.ballSize * 1,
+        ).animate(
+          CurvedAnimation(parent: ballController, curve: Curves.easeOutSine),
+        );
 
     ballController
       ..addStatusListener((status) {

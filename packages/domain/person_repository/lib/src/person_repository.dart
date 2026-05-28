@@ -33,37 +33,38 @@ class CPersonRepository {
   /// Fetches all the people belonging to the chest with the given `chestID`.
   BobsJob<CChestPeopleFetchException, List<CPerson>> fetchChestPeople({
     required String chestID,
-  }) =>
-      personClient.fetchChestPeople(chestID: chestID).thenConvert(
-            onFailure: CChestPeopleFetchException.fromRaw,
-            onSuccess: (records) => records.map(CPerson.fromRaw).toList(),
-          );
+  }) => personClient
+      .fetchChestPeople(chestID: chestID)
+      .thenConvert(
+        onFailure: CChestPeopleFetchException.fromRaw,
+        onSuccess: (records) => records.map(CPerson.fromRaw).toList(),
+      );
 
   /// Updates the person with the same ID.
   BobsJob<CPersonUpdateException, BobsNothing> updatePerson({
     required CPerson person,
-  }) =>
-      personClient
-          .updatePerson(
-            personID: person.id,
-            nickname: person.nickname,
-            dateOfBirth: person.dateOfBirth,
-          )
-          .thenConvert(
-            onFailure: CPersonUpdateException.fromRaw,
-            onSuccess: (_) => bobsNothing,
-          );
+  }) => personClient
+      .updatePerson(
+        personID: person.id,
+        nickname: person.nickname,
+        dateOfBirth: person.dateOfBirth,
+      )
+      .thenConvert(
+        onFailure: CPersonUpdateException.fromRaw,
+        onSuccess: (_) => bobsNothing,
+      );
 
   /// Streams the person with the given `personID`.
   Stream<BobsOutcome<CPersonStreamException, CPerson>> personStream({
     required BigInt personID,
-  }) =>
-      personClient.personStream(personID: personID).map(
-            (outcome) => outcome.resolve(
-              onFailure: (e) => bobsFailure(CPersonStreamException.fromRaw(e)),
-              onSuccess: (r) => bobsSuccess(CPerson.fromRaw(r)),
-            ),
-          );
+  }) => personClient
+      .personStream(personID: personID)
+      .map(
+        (outcome) => outcome.resolve(
+          onFailure: (e) => bobsFailure(CPersonStreamException.fromRaw(e)),
+          onSuccess: (r) => bobsSuccess(CPerson.fromRaw(r)),
+        ),
+      );
 
   /// Updates the avatar for the given `year` for the given `person` and returns
   /// the URL of the new avatar.
@@ -79,11 +80,7 @@ class CPersonRepository {
         run: () async {
           final command = img.Command()
             ..decodeImage(image)
-            ..copyResize(
-              width: 400,
-              height: 400,
-              maintainAspect: true,
-            )
+            ..copyResize(width: 400, height: 400, maintainAspect: true)
             ..encodeJpg();
           return (await command.executeThread()).outputBytes!;
         },
@@ -118,9 +115,10 @@ class CPersonRepository {
   /// Creates a default person with the given `chestID`.
   BobsJob<CPersonCreationException, CPerson> createPerson({
     required String chestID,
-  }) =>
-      personClient.insertPerson(chestID: chestID).thenConvert(
-            onFailure: CPersonCreationException.fromRaw,
-            onSuccess: CPerson.fromRaw,
-          );
+  }) => personClient
+      .insertPerson(chestID: chestID)
+      .thenConvert(
+        onFailure: CPersonCreationException.fromRaw,
+        onSuccess: CPerson.fromRaw,
+      );
 }

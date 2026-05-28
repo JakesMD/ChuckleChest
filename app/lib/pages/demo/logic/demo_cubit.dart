@@ -14,9 +14,7 @@ class CDemoState extends CRequestCubitState<BobsNothing, CSharedGem> {
   /// The initial state.
   ///
   /// {@macro CDemoState}
-  CDemoState.initial()
-      : gemID = '',
-        super.initial();
+  CDemoState.initial() : gemID = '', super.initial();
 
   /// The in progress state.
   ///
@@ -27,8 +25,8 @@ class CDemoState extends CRequestCubitState<BobsNothing, CSharedGem> {
   ///
   /// {@macro CDemoState}
   CDemoState.completed({required CSharedGem gem})
-      : gemID = gem.id,
-        super.completed(outcome: BobsSuccess(gem));
+    : gemID = gem.id,
+      super.completed(outcome: BobsSuccess(gem));
 
   /// THe unique identifier of the gem to be fetched.
   final String gemID;
@@ -110,175 +108,174 @@ class CDemoCubit extends Cubit<CDemoState> {
 
   /// The demo gems.
   List<CSharedGem> get gems => [
-        CSharedGem(
-          id: 'demo4',
-          number: 202,
-          occurredAt: DateTime(2022, 10, 14),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text: 'Do you love Mummy, Amy?',
-              personID: BigInt.one,
-              gemID: 'demo4',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.one,
-              text: 'Amy looks down at her socks.',
-              personID: null,
-              gemID: 'demo4',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.two,
-              text: 'No. Got my "I love Daddy" socks on today.',
-              personID: BigInt.zero,
-              gemID: 'demo4',
-              chestID: 'demo',
-            ),
-          ],
+    CSharedGem(
+      id: 'demo4',
+      number: 202,
+      occurredAt: DateTime(2022, 10, 14),
+      lines: [
+        CLine(
+          id: BigInt.zero,
+          text: 'Do you love Mummy, Amy?',
+          personID: BigInt.one,
+          gemID: 'demo4',
           chestID: 'demo',
-          shareToken: null,
-          people: _people,
         ),
-        CSharedGem(
-          id: 'demo5',
-          number: 426,
-          occurredAt: DateTime(2024, 12, 22),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text: 'Amy announcing the next song at the nativity:',
-              personID: null,
-              gemID: 'demo5',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.one,
-              text: 'A whale in a manger!',
-              personID: BigInt.zero,
-              gemID: 'demo5',
-              chestID: 'demo',
-            ),
-          ],
+        CLine(
+          id: BigInt.one,
+          text: 'Amy looks down at her socks.',
+          personID: null,
+          gemID: 'demo4',
           chestID: 'demo',
-          shareToken: null,
-          people: _people,
         ),
-        CSharedGem(
-          id: 'demo6',
-          number: 457,
-          occurredAt: DateTime(2025, 3, 15),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text:
-                  '''Mummy, how do you know that it's a baby? You might have just eaten too much.''',
-              personID: BigInt.zero,
-              gemID: 'demo6',
-              chestID: 'demo',
-            ),
-          ],
+        CLine(
+          id: BigInt.two,
+          text: 'No. Got my "I love Daddy" socks on today.',
+          personID: BigInt.zero,
+          gemID: 'demo4',
           chestID: 'demo',
-          shareToken: null,
-          people: _people,
         ),
-        CSharedGem(
-          id: 'demo1',
-          number: 156,
-          occurredAt: DateTime(2022, 8, 10),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text: "What's the baby doing?",
-              personID: BigInt.zero,
-              gemID: 'demo1',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.one,
-              text: "I think he's trying to suck his thumb like you do.",
-              personID: BigInt.one,
-              gemID: 'demo1',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.two,
-              text:
-                  '''Yes, I suck my thumb, dribble on my tiger pillow, and pick my nose.''',
-              personID: BigInt.zero,
-              gemID: 'demo1',
-              chestID: 'demo',
-            ),
-          ],
+      ],
+      chestID: 'demo',
+      shareToken: null,
+      people: _people,
+    ),
+    CSharedGem(
+      id: 'demo5',
+      number: 426,
+      occurredAt: DateTime(2024, 12, 22),
+      lines: [
+        CLine(
+          id: BigInt.zero,
+          text: 'Amy announcing the next song at the nativity:',
+          personID: null,
+          gemID: 'demo5',
           chestID: 'demo',
-          shareToken: null,
-          people: _people,
         ),
-        CSharedGem(
-          id: 'demo3',
-          number: 183,
-          occurredAt: DateTime(2022, 11, 18),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text: "We arrive at Gran's house.",
-              personID: null,
-              gemID: 'demo3',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.one,
-              text:
-                  'Amy runs straight to the kitchen and sits up at the table.',
-              personID: null,
-              gemID: 'demo3',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.two,
-              text: 'Cake please!',
-              personID: BigInt.zero,
-              gemID: 'demo3',
-              chestID: 'demo',
-            ),
-          ],
+        CLine(
+          id: BigInt.one,
+          text: 'A whale in a manger!',
+          personID: BigInt.zero,
+          gemID: 'demo5',
           chestID: 'demo',
-          shareToken: null,
-          people: _people,
         ),
-        CSharedGem(
-          id: 'demo2',
-          number: 157,
-          occurredAt: DateTime(2022, 8, 10),
-          lines: [
-            CLine(
-              id: BigInt.zero,
-              text: "Luke's just a baby, isn't he?",
-              personID: BigInt.zero,
-              gemID: 'demo2',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.one,
-              text: "Yes, he's not a big girl like you.",
-              personID: BigInt.one,
-              gemID: 'demo2',
-              chestID: 'demo',
-            ),
-            CLine(
-              id: BigInt.two,
-              text: "No, he can't pick his nose, can he?",
-              personID: BigInt.zero,
-              gemID: 'demo2',
-              chestID: 'demo',
-            ),
-          ],
+      ],
+      chestID: 'demo',
+      shareToken: null,
+      people: _people,
+    ),
+    CSharedGem(
+      id: 'demo6',
+      number: 457,
+      occurredAt: DateTime(2025, 3, 15),
+      lines: [
+        CLine(
+          id: BigInt.zero,
+          text:
+              '''Mummy, how do you know that it's a baby? You might have just eaten too much.''',
+          personID: BigInt.zero,
+          gemID: 'demo6',
           chestID: 'demo',
-          shareToken: null,
-          people: _people,
         ),
-      ];
+      ],
+      chestID: 'demo',
+      shareToken: null,
+      people: _people,
+    ),
+    CSharedGem(
+      id: 'demo1',
+      number: 156,
+      occurredAt: DateTime(2022, 8, 10),
+      lines: [
+        CLine(
+          id: BigInt.zero,
+          text: "What's the baby doing?",
+          personID: BigInt.zero,
+          gemID: 'demo1',
+          chestID: 'demo',
+        ),
+        CLine(
+          id: BigInt.one,
+          text: "I think he's trying to suck his thumb like you do.",
+          personID: BigInt.one,
+          gemID: 'demo1',
+          chestID: 'demo',
+        ),
+        CLine(
+          id: BigInt.two,
+          text:
+              '''Yes, I suck my thumb, dribble on my tiger pillow, and pick my nose.''',
+          personID: BigInt.zero,
+          gemID: 'demo1',
+          chestID: 'demo',
+        ),
+      ],
+      chestID: 'demo',
+      shareToken: null,
+      people: _people,
+    ),
+    CSharedGem(
+      id: 'demo3',
+      number: 183,
+      occurredAt: DateTime(2022, 11, 18),
+      lines: [
+        CLine(
+          id: BigInt.zero,
+          text: "We arrive at Gran's house.",
+          personID: null,
+          gemID: 'demo3',
+          chestID: 'demo',
+        ),
+        CLine(
+          id: BigInt.one,
+          text: 'Amy runs straight to the kitchen and sits up at the table.',
+          personID: null,
+          gemID: 'demo3',
+          chestID: 'demo',
+        ),
+        CLine(
+          id: BigInt.two,
+          text: 'Cake please!',
+          personID: BigInt.zero,
+          gemID: 'demo3',
+          chestID: 'demo',
+        ),
+      ],
+      chestID: 'demo',
+      shareToken: null,
+      people: _people,
+    ),
+    CSharedGem(
+      id: 'demo2',
+      number: 157,
+      occurredAt: DateTime(2022, 8, 10),
+      lines: [
+        CLine(
+          id: BigInt.zero,
+          text: "Luke's just a baby, isn't he?",
+          personID: BigInt.zero,
+          gemID: 'demo2',
+          chestID: 'demo',
+        ),
+        CLine(
+          id: BigInt.one,
+          text: "Yes, he's not a big girl like you.",
+          personID: BigInt.one,
+          gemID: 'demo2',
+          chestID: 'demo',
+        ),
+        CLine(
+          id: BigInt.two,
+          text: "No, he can't pick his nose, can he?",
+          personID: BigInt.zero,
+          gemID: 'demo2',
+          chestID: 'demo',
+        ),
+      ],
+      chestID: 'demo',
+      shareToken: null,
+      people: _people,
+    ),
+  ];
 
   /// The gem tokens.
   List<String> get gemTokens =>

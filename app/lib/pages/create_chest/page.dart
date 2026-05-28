@@ -21,17 +21,17 @@ class CCreateChestPage extends StatelessWidget implements AutoRouteWrapper {
 
   void _onSubmitted(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      context
-          .read<CChestCreationCubit>()
-          .createChest(chestName: _nameInput.value!);
+      context.read<CChestCreationCubit>().createChest(
+        chestName: _nameInput.value!,
+      );
     }
   }
 
   void _onChestCreated(BuildContext context, String chestID) {
-    context.router.replaceAll(
-      [const CBaseRoute(), CChestRoute(chestID: chestID)],
-      updateExistingRoutes: false,
-    );
+    context.router.replaceAll([
+      const CBaseRoute(),
+      CChestRoute(chestID: chestID),
+    ], updateExistingRoutes: false);
   }
 
   @override
@@ -43,8 +43,10 @@ class CCreateChestPage extends StatelessWidget implements AutoRouteWrapper {
           CRequestCubitStatus.initial => null,
           CRequestCubitStatus.inProgress => null,
           CRequestCubitStatus.failed => const CErrorSnackBar().show(context),
-          CRequestCubitStatus.succeeded =>
-            _onChestCreated(context, state.chestID),
+          CRequestCubitStatus.succeeded => _onChestCreated(
+            context,
+            state.chestID,
+          ),
         },
         child: this,
       ),
@@ -80,12 +82,12 @@ class CCreateChestPage extends StatelessWidget implements AutoRouteWrapper {
       ),
       floatingActionButton:
           BlocBuilder<CChestCreationCubit, CChestCreationState>(
-        builder: (context, state) => FloatingActionButton.extended(
-          onPressed: !state.inProgress ? () => _onSubmitted(context) : null,
-          icon: const Icon(Icons.add_rounded),
-          label: Text(context.cAppL10n.createChestPage_createButton),
-        ),
-      ),
+            builder: (context, state) => FloatingActionButton.extended(
+              onPressed: !state.inProgress ? () => _onSubmitted(context) : null,
+              icon: const Icon(Icons.add_rounded),
+              label: Text(context.cAppL10n.createChestPage_createButton),
+            ),
+          ),
     );
   }
 }

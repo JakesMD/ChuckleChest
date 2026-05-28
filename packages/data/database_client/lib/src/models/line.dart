@@ -11,7 +11,7 @@ part 'line.g.dart';
 @PgModelHere()
 class CRawLine extends PgModel<CLinesTable> {
   /// {@macro CRawLine}
-  CRawLine(super.json) : super(builder: builder);
+  CRawLine(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CLinesTable, CRawLine>(

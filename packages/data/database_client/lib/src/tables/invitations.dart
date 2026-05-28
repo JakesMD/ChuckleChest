@@ -13,7 +13,7 @@ part 'invitations.g.dart';
 class CInvitationsTable extends SupabaseTable<CInvitationsTable> {
   /// {@macro CInvitationsTable}
   CInvitationsTable(super.client)
-      : super(tableName: tableName, primaryKey: [chestID, email]);
+    : super(tableName: tableName, primaryKey: [chestID, email]);
 
   /// The name of the table in the Supabase database.
   static const tableName = PgTableName<CInvitationsTable>('invitations');
@@ -32,7 +32,7 @@ class CInvitationsTable extends SupabaseTable<CInvitationsTable> {
   );
 
   /// The chest the invitation is for.
-  static final chest = PgJoinToOne(
+  static final chest = PgJoinToOne<CInvitationsTable, CChestsTable>(
     joinColumn: chestID,
     joinedTableName: CChestsTable.tableName,
   );

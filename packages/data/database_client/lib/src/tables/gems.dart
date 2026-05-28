@@ -35,14 +35,14 @@ class CGemsTable extends SupabaseTable<CGemsTable> {
   static final chestID = PgStringColumn<CGemsTable>('chest_id');
 
   /// The lines of the story.
-  static final lines = PgJoinToMany(
+  static final lines = PgJoinToMany<CGemsTable, CLinesTable>(
     joinColumn: id,
     joinedTableName: CLinesTable.tableName,
     foreignKey: 'lines_gem_id_fkey',
   );
 
   /// The token for sharing the gem.
-  static final shareToken = PgMaybeJoinToOne(
+  static final shareToken = PgMaybeJoinToOne<CGemsTable, CGemShareTokensTable>(
     joinColumn: id,
     joinedTableName: CGemShareTokensTable.tableName,
     foreignKey: 'gem_share_tokens_gem_id_fkey',

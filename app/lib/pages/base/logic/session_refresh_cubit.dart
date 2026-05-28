@@ -36,7 +36,7 @@ class CSessionRefreshState
 class CSessionRefreshCubit extends Cubit<CSessionRefreshState> {
   /// {@macro CSessionRefreshCubit}
   CSessionRefreshCubit({required this.authRepository})
-      : super(CSessionRefreshState.initial());
+    : super(CSessionRefreshState.initial());
 
   /// The repository this cubit uses to refresh the session.
   final CAuthRepository authRepository;

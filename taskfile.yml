@@ -1,0 +1,114 @@
+version: '3'
+
+output: prefixed
+
+tasks:
+  default:
+    cmd: task --list
+
+  setup:
+    desc: Sets up the dev or CI environment. Run this after pulling from a branch.
+    cmds:
+      - task: dart:flutter-upgrade
+        if: '[ "$CI" != "true" ]'
+      - flutter pub global activate melos
+      - flutter pub global activate combine_coverage
+      - flutter pub global activate remove_from_coverage
+      - melos clean
+      - melos bootstrap
+      - melos format
+
+  ci:
+    desc: The procedure run by the CI workflow. Run this before pushing to GitHub.
+    cmds:
+      - task: setup
+      - dart analyze
+      - task: dart:test
+      # - task: db:test
+      - task: dart:check-coverage
+      - task: dart:build
+      - task: website:update
+
+  website:update:
+    desc: Update the website with the latest build of the app.
+    cmds:
+      - rm -rf website/public/app
+      - cp -r app/build/web website/public/app
+
+  dart:build:
+    desc: Builds the app.
+    vars:
+      FLAVOR: '{{.FLAVOR | default "production"}}'
+      SUPABASE_PROJECT_URL: '{{.SUPABASE_PROJECT_URL | default ""}}'
+      SUPABASE_ANON_KEY: '{{.SUPABASE_ANON_KEY | default ""}}'
+    dir: app
+    cmds:
+      - cmd: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define-from-file=secrets.{{.FLAVOR}}.json --release --base-href "/app/"
+        if: '[ "$CI" != "true" ]'
+      - cmd: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define=SUPABASE_PROJECT_URL=${{.SUPABASE_PROJECT_URL}} --dart-define=SUPABASE_ANON_KEY=${{.SUPABASE_ANON_KEY}} --release --base-href "/app/"
+        if: '[ "$CI" = "true" ]'
+
+  dart:check-coverage:
+    desc: Combines the test coverage from all of the packages and checks for 100% coverage.
+    cmds:
+      - mkdir -p coverage
+      - true > coverage/lcov.info
+      - dart pub global run combine_coverage --repo-path=.
+      - sed -i.bak 's|SF:.*/ChuckleChest/|SF:/|' coverage/lcov.info
+      - rm -f coverage/lcov.info.bak
+      - dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='\.g\.dart$'
+      - dart bin/check_coverage.dart coverage/lcov.info
+
+  dart:flutter-upgrade:
+    desc: Upgrades Flutter.
+    cmd: flutter upgrade --force
+
+  dart:pub-upgrade:
+    desc: Upgrades the pub dependencies.
+    cmds:
+      - flutter pub upgrade --major-versions
+      - flutter pub outdated
+
+  dart:test:
+    desc: Runs all the tests of the app and packages.
+    cmd: melos test --no-select
+
+  version:bump:
+    desc: Bumps the app version in app/pubspec.yaml and app/web/index.html.
+    requires:
+      vars:
+        - name: TYPE
+          enum: [patch, minor, major]
+    cmd: bash bin/bump_version.sh {{.TYPE}}
+
+  db:test:
+    desc: Run tests against the local Supabase database.
+    cmd: supabase db test
+
+  db:reset:
+    desc: Reset the local Supabase database.
+    cmd: supabase db reset
+
+  db:diff:
+    desc: Diff the current migration files with the current state of the schema, local or linked database.
+    requires:
+      vars:
+        - name: LOCATION
+          enum: [schema, local, linked]
+    cmds:
+      - cmd: supabase stop
+        if: '{{eq .LOCATION "schema"}}'
+      - cmd: supabase db diff {{if ne .LOCATION "schema"}}--{{.LOCATION}}{{end}} -f new_public
+      - cmd: supabase db diff {{if ne .LOCATION "schema"}}--{{.LOCATION}}{{end}} -f new_storage --schema storage
+      - cmd: supabase db diff {{if ne .LOCATION "schema"}}--{{.LOCATION}}{{end}} -f new_auth --schema auth
+
+  db:push:
+    desc: Push the database changes to the linked Supabase project.
+    requires:
+      vars:
+        - SUPABASE_PROJECT_ID
+    vars:
+      DRY_RUN: '{{.DRY_RUN | default "true"}}'
+    cmds:
+      - supabase link --project-ref {{.SUPABASE_PROJECT_ID}}
+      - supabase db push {{if eq .DRY_RUN "true"}}--dry-run{{end}}

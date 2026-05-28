@@ -12,10 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@endtemplate}
 class CEditableDate extends StatelessWidget {
   /// {@macro CEditableDate}
-  const CEditableDate({
-    required this.occurredAt,
-    super.key,
-  });
+  const CEditableDate({required this.occurredAt, super.key});
 
   /// The date of the gem.
   final DateTime occurredAt;

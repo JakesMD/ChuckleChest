@@ -12,7 +12,7 @@ part 'invitation.g.dart';
 @PgModelHere()
 class CRawInvitation extends PgModel<CInvitationsTable> {
   /// {@macro CRawInvitation}
-  CRawInvitation(super.json) : super(builder: builder);
+  CRawInvitation(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CInvitationsTable, CRawInvitation>(

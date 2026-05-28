@@ -24,11 +24,11 @@ class CAvatarsTableUpsert extends PgUpsert<CAvatarsTable> {
     required this.imageURL,
     required this.chestID,
   }) : super([
-          CAvatarsTable.personID(personID),
-          CAvatarsTable.year(year),
-          CAvatarsTable.imageURL(imageURL),
-          CAvatarsTable.chestID(chestID),
-        ]);
+         CAvatarsTable.personID(personID),
+         CAvatarsTable.year(year),
+         CAvatarsTable.imageURL(imageURL),
+         CAvatarsTable.chestID(chestID),
+       ]);
 
   final BigInt personID;
   final int year;

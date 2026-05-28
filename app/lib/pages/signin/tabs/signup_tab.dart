@@ -33,14 +33,15 @@ class CSignupTab extends StatefulWidget implements AutoRouteWrapper {
           CRequestCubitStatus.initial => null,
           CRequestCubitStatus.inProgress => null,
           CRequestCubitStatus.failed => switch (state.failure) {
-              CSignupException.emailRateLimitExceeded => CErrorSnackBar(
-                  message:
-                      context.cAppL10n.signinPage_error_emailRateLimitExceeded,
-                ).show(context),
-              CSignupException.unknown => const CErrorSnackBar().show(context),
-            },
-          CRequestCubitStatus.succeeded =>
-            _onSignupSuccessful(context, state.email),
+            CSignupException.emailRateLimitExceeded => CErrorSnackBar(
+              message: context.cAppL10n.signinPage_error_emailRateLimitExceeded,
+            ).show(context),
+            CSignupException.unknown => const CErrorSnackBar().show(context),
+          },
+          CRequestCubitStatus.succeeded => _onSignupSuccessful(
+            context,
+            state.email,
+          ),
         },
         child: this,
       ),
@@ -85,9 +86,9 @@ class _CSignupTabState extends State<CSignupTab> {
   void onSubmitted(BuildContext context) {
     if (formKey.currentState?.validate() ?? false) {
       context.read<CSignupCubit>().signUp(
-            username: usernameInput.value!,
-            email: emailInput.value!,
-          );
+        username: usernameInput.value!,
+        email: emailInput.value!,
+      );
     }
   }
 
@@ -127,8 +128,10 @@ class _CSignupTabState extends State<CSignupTab> {
             ),
           ),
           ListTile(
-            leading:
-                Checkbox(value: isPrivacyAccepted, onChanged: onPrivacyToggled),
+            leading: Checkbox(
+              value: isPrivacyAccepted,
+              onChanged: onPrivacyToggled,
+            ),
             title: RichText(
               text: TextSpan(
                 text: context.cAppL10n.signinPage_agreement,
@@ -151,8 +154,10 @@ class _CSignupTabState extends State<CSignupTab> {
             ),
           ),
           ListTile(
-            leading:
-                Checkbox(value: isTermsAccepted, onChanged: onTermsToggled),
+            leading: Checkbox(
+              value: isTermsAccepted,
+              onChanged: onTermsToggled,
+            ),
             title: RichText(
               text: TextSpan(
                 text: context.cAppL10n.signinPage_agreement,
@@ -177,7 +182,8 @@ class _CSignupTabState extends State<CSignupTab> {
           const SizedBox(height: 64),
           BlocBuilder<CSignupCubit, CSignupState>(
             builder: (context, state) => FilledButton(
-              onPressed: !state.inProgress &&
+              onPressed:
+                  !state.inProgress &&
                       isPrivacyAccepted &&
                       isTermsAccepted &&
                       isAgeConfirmed

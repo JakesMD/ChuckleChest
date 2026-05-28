@@ -10,9 +10,9 @@ void main() {
     group('isUserViewer', () {
       test(
         requirement(
-          Given: 'A chest with viewer role',
-          When: 'isUserViewer is called',
-          Then: 'returns true',
+          given: 'A chest with viewer role',
+          whenever: 'isUserViewer is called',
+          then: 'returns true',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.viewer);
@@ -22,9 +22,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with collaborator role',
-          When: 'isUserViewer is called',
-          Then: 'returns false',
+          given: 'A chest with collaborator role',
+          whenever: 'isUserViewer is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.collaborator);
@@ -34,9 +34,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with owner role',
-          When: 'isUserViewer is called',
-          Then: 'returns false',
+          given: 'A chest with owner role',
+          whenever: 'isUserViewer is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.owner);
@@ -47,9 +47,9 @@ void main() {
     group('isUserCollaborator', () {
       test(
         requirement(
-          Given: 'A chest with viewer role',
-          When: 'isUserCollaborator is called',
-          Then: 'returns false',
+          given: 'A chest with viewer role',
+          whenever: 'isUserCollaborator is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.viewer);
@@ -59,9 +59,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with collaborator role',
-          When: 'isUserCollaborator is called',
-          Then: 'returns true',
+          given: 'A chest with collaborator role',
+          whenever: 'isUserCollaborator is called',
+          then: 'returns true',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.collaborator);
@@ -71,9 +71,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with owner role',
-          When: 'isUserCollaborator is called',
-          Then: 'returns false',
+          given: 'A chest with owner role',
+          whenever: 'isUserCollaborator is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.owner);
@@ -85,9 +85,9 @@ void main() {
     group('isUserOwner', () {
       test(
         requirement(
-          Given: 'A chest with viewer role',
-          When: 'isUserOwner is called',
-          Then: 'returns false',
+          given: 'A chest with viewer role',
+          whenever: 'isUserOwner is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.viewer);
@@ -97,9 +97,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with collaborator role',
-          When: 'isUserOwner is called',
-          Then: 'returns false',
+          given: 'A chest with collaborator role',
+          whenever: 'isUserOwner is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.collaborator);
@@ -109,9 +109,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with owner role',
-          When: 'isUserOwner is called',
-          Then: 'returns true',
+          given: 'A chest with owner role',
+          whenever: 'isUserOwner is called',
+          then: 'returns true',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.owner);
@@ -123,9 +123,9 @@ void main() {
     group('isUserManager', () {
       test(
         requirement(
-          Given: 'A chest with viewer role',
-          When: 'isUserManager is called',
-          Then: 'returns false',
+          given: 'A chest with viewer role',
+          whenever: 'isUserManager is called',
+          then: 'returns false',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.viewer);
@@ -135,9 +135,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with collaborator role',
-          When: 'isUserManager is called',
-          Then: 'returns true',
+          given: 'A chest with collaborator role',
+          whenever: 'isUserManager is called',
+          then: 'returns true',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.collaborator);
@@ -147,9 +147,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'A chest with owner role',
-          When: 'isUserManager is called',
-          Then: 'returns true',
+          given: 'A chest with owner role',
+          whenever: 'isUserManager is called',
+          then: 'returns true',
         ),
         procedure(() {
           final chest = createChest(userRole: CUserRole.owner);

@@ -1,19 +1,21 @@
 name: cdatabase_client
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
+  sdk: ^3.11.0
+  
+resolution: workspace
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.16
+  bobs_jobs: any
   ccore:
-  supabase: ^2.3.0
-  typesafe_supabase: ^0.0.4
+  supabase: ^2.10.6
+  typesafe_supabase: ^0.2.0
 
 dev_dependencies:
   build_runner: ^2.4.12
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
-  test_beautifier: ^1.1.0
-  typesafe_postgrest: ^0.2.0
-  very_good_analysis: ^7.0.0
+  test_beautifier: ^3.0.0
+  typesafe_postgrest: ^0.4.1
+  very_good_analysis: ^10.2.0

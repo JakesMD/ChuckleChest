@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-final _seedColor = Colors.primaries[
-    Random(DateTime.now().millisecondsSinceEpoch)
-        .nextInt(Colors.primaries.length)];
+final MaterialColor _seedColor =
+    Colors.primaries[Random(
+      DateTime.now().millisecondsSinceEpoch,
+    ).nextInt(Colors.primaries.length)];
 
 /// The theme data for the application.
 class CAppTheme {

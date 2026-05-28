@@ -11,7 +11,7 @@ part 'user.g.dart';
 @PgModelHere()
 class CRawUser extends PgModel<CUsersTable> {
   /// {@macro CRawUser}
-  CRawUser(super.json) : super(builder: builder);
+  CRawUser(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CUsersTable, CRawUser>(

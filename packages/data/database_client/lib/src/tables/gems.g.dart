@@ -25,12 +25,12 @@ class CGemsTableUpsert extends PgUpsert<CGemsTable> {
     this.number,
     this.id,
   }) : super([
-          CGemsTable.occurredAt(occurredAt),
-          CGemsTable.chestID(chestID),
-          if (createdAt != null) CGemsTable.createdAt(createdAt),
-          if (number != null) CGemsTable.number(number),
-          if (id != null) CGemsTable.id(id),
-        ]);
+         CGemsTable.occurredAt(occurredAt),
+         CGemsTable.chestID(chestID),
+         if (createdAt != null) CGemsTable.createdAt(createdAt),
+         if (number != null) CGemsTable.number(number),
+         if (id != null) CGemsTable.id(id),
+       ]);
 
   final DateTime occurredAt;
   final String chestID;

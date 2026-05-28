@@ -10,10 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CAppBarLoadingIndicator extends StatefulWidget
     implements PreferredSizeWidget {
   /// {@macro CAppBarLoadingIndicator}
-  const CAppBarLoadingIndicator({
-    required this.listeners,
-    super.key,
-  });
+  const CAppBarLoadingIndicator({required this.listeners, super.key});
 
   /// The list of loading listeners.
   // ignore: strict_raw_type

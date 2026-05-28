@@ -1,7 +1,9 @@
 name: ccore
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
+  sdk: ^3.11.0
+  
+resolution: workspace
 
 dependencies:
   flutter:
@@ -14,5 +16,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  test_beautifier: ^1.1.0
-  very_good_analysis: ^7.0.0
+  test_beautifier: ^3.0.0
+  very_good_analysis: ^10.2.0

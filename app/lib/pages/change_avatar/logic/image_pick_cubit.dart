@@ -41,7 +41,7 @@ class CImagePickState
 class CImagePickCubit extends Cubit<CImagePickState> {
   /// {@macro CImagePickCubit}
   CImagePickCubit({required this.platformRepository})
-      : super(CImagePickState.initial());
+    : super(CImagePickState.initial());
 
   /// The repository this cubit uses to pick images.
   final CPlatformRepository platformRepository;

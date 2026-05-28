@@ -36,8 +36,9 @@ class CManageChestPage extends StatelessWidget implements AutoRouteWrapper {
               CRequestCubitStatus.inProgress => null,
               CRequestCubitStatus.succeeded =>
                 context.read<CCurrentChestCubit>().updateName(state.name),
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
+              CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                context,
+              ),
             },
           ),
         ],

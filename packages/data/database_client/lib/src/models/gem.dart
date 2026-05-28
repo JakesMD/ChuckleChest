@@ -11,7 +11,7 @@ part 'gem.g.dart';
 @PgModelHere()
 class CRawGem extends PgModel<CGemsTable> {
   /// {@macro CRawGem}
-  CRawGem(super.json) : super(builder: builder);
+  CRawGem(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CGemsTable, CRawGem>(

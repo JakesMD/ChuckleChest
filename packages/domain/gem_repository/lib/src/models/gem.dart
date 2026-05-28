@@ -57,32 +57,33 @@ class CGem with EquatableMixin {
   ///
   /// Returns a new [CGem] with the given fields replaced.
   CGem copyWith({DateTime? occurredAt, BobsMaybe<String>? shareToken}) => CGem(
-        id: id,
-        number: number,
-        occurredAt: occurredAt ?? this.occurredAt,
-        lines: [...lines],
-        chestID: chestID,
-        shareToken: shareToken?.resolve(
-              onPresent: (p) => p,
-              onAbsent: () => this.shareToken,
-            ) ??
-            this.shareToken,
-      );
+    id: id,
+    number: number,
+    occurredAt: occurredAt ?? this.occurredAt,
+    lines: [...lines],
+    chestID: chestID,
+    shareToken:
+        shareToken?.resolve(
+          onPresent: (p) => p,
+          onAbsent: () => this.shareToken,
+        ) ??
+        this.shareToken,
+  );
 
   /// Converts the gem to a [CGemsTableInsert].
   CGemsTableInsert toInsert() => CGemsTableInsert(
-        id: id.isNotEmpty ? id : null,
-        occurredAt: occurredAt,
-        chestID: chestID,
-      );
+    id: id.isNotEmpty ? id : null,
+    occurredAt: occurredAt,
+    chestID: chestID,
+  );
 
   @override
   List<Object?> get props => [
-        id,
-        number,
-        occurredAt,
-        lines,
-        chestID,
-        shareToken,
-      ];
+    id,
+    number,
+    occurredAt,
+    lines,
+    chestID,
+    shareToken,
+  ];
 }

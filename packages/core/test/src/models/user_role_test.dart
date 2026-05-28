@@ -7,9 +7,9 @@ void main() {
     group('parse', () {
       test(
         requirement(
-          Given: 'a valid owner string',
-          When: 'the string is parsed',
-          Then: 'returns a [CUserRole.owner] instance',
+          given: 'a valid owner string',
+          whenever: 'the string is parsed',
+          then: 'returns a [CUserRole.owner] instance',
         ),
         procedure(() {
           expect(CUserRole.parse('owner'), CUserRole.owner);
@@ -17,9 +17,9 @@ void main() {
       );
       test(
         requirement(
-          Given: 'a valid collaborator string',
-          When: 'the string is parsed',
-          Then: 'returns a [CUserRole.collaborator] instance',
+          given: 'a valid collaborator string',
+          whenever: 'the string is parsed',
+          then: 'returns a [CUserRole.collaborator] instance',
         ),
         procedure(() {
           expect(CUserRole.parse('collaborator'), CUserRole.collaborator);
@@ -28,9 +28,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'a valid viewer string',
-          When: 'the string is parsed',
-          Then: 'returns a [CUserRole.viewer] instance',
+          given: 'a valid viewer string',
+          whenever: 'the string is parsed',
+          then: 'returns a [CUserRole.viewer] instance',
         ),
         procedure(() {
           expect(CUserRole.parse('viewer'), CUserRole.viewer);
@@ -38,9 +38,9 @@ void main() {
       );
       test(
         requirement(
-          Given: 'an invalid string',
-          When: 'the string is parsed',
-          Then: 'returns a [CUserRole.viewer] instance',
+          given: 'an invalid string',
+          whenever: 'the string is parsed',
+          then: 'returns a [CUserRole.viewer] instance',
         ),
         procedure(() {
           expect(CUserRole.parse('akfjkkflajkal'), CUserRole.viewer);

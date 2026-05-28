@@ -24,7 +24,7 @@ class CPersonUpdateState
   ///
   /// The completed state.
   CPersonUpdateState.completed({required super.outcome, required this.person})
-      : super.completed();
+    : super.completed();
 
   /// The person being updated.
   final CPerson person;
@@ -34,19 +34,21 @@ class CPersonUpdateState
   /// Returns a copy of this state with the given fields replaced by the new
   /// values.
   CPersonUpdateState copyWith({CPerson? person}) => switch (status) {
-        CRequestCubitStatus.initial =>
-          CPersonUpdateState.initial(person: person ?? this.person),
-        CRequestCubitStatus.inProgress =>
-          CPersonUpdateState.inProgress(person: person ?? this.person),
-        CRequestCubitStatus.failed => CPersonUpdateState.completed(
-            outcome: outcome,
-            person: person ?? this.person,
-          ),
-        CRequestCubitStatus.succeeded => CPersonUpdateState.completed(
-            outcome: outcome,
-            person: person ?? this.person,
-          ),
-      };
+    CRequestCubitStatus.initial => CPersonUpdateState.initial(
+      person: person ?? this.person,
+    ),
+    CRequestCubitStatus.inProgress => CPersonUpdateState.inProgress(
+      person: person ?? this.person,
+    ),
+    CRequestCubitStatus.failed => CPersonUpdateState.completed(
+      outcome: outcome,
+      person: person ?? this.person,
+    ),
+    CRequestCubitStatus.succeeded => CPersonUpdateState.completed(
+      outcome: outcome,
+      person: person ?? this.person,
+    ),
+  };
 
   @override
   List<Object?> get props => super.props..add(person);
@@ -60,7 +62,7 @@ class CPersonUpdateState
 class CPersonUpdateCubit extends Cubit<CPersonUpdateState> {
   /// {@macro CPersonUpdateCubit}
   CPersonUpdateCubit({required this.personRepository, required CPerson person})
-      : super(CPersonUpdateState.initial(person: person));
+    : super(CPersonUpdateState.initial(person: person));
 
   /// The repository this cubit uses to update a person.
   final CPersonRepository personRepository;

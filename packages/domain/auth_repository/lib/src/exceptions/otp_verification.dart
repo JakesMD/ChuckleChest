@@ -13,11 +13,9 @@ enum COTPVerificationException {
   @internal
   static COTPVerificationException fromRaw(
     CRawOTPVerificationException exception,
-  ) =>
-      switch (exception) {
-        CRawOTPVerificationException.invalidToken =>
-          COTPVerificationException.invalidToken,
-        CRawOTPVerificationException.unknown =>
-          COTPVerificationException.unknown,
-      };
+  ) => switch (exception) {
+    CRawOTPVerificationException.invalidToken =>
+      COTPVerificationException.invalidToken,
+    CRawOTPVerificationException.unknown => COTPVerificationException.unknown,
+  };
 }

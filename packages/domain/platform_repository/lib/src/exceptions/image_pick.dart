@@ -11,9 +11,7 @@ enum CImagePickException {
   /// Creates the exception from the given failure.
   static CImagePickException fromFailure(
     bplatorm_client.CImagePickException e,
-  ) =>
-      switch (e) {
-        bplatorm_client.CImagePickException.unknown =>
-          CImagePickException.unknown,
-      };
+  ) => switch (e) {
+    bplatorm_client.CImagePickException.unknown => CImagePickException.unknown,
+  };
 }

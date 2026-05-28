@@ -1,10 +1,12 @@
 name: cperson_repository
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
+  sdk: ^3.11.0
+  
+resolution: workspace
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.16
+  bobs_jobs: any
   ccore:
   cdatabase_client:
   cplatform_client:
@@ -16,5 +18,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
-  test_beautifier: ^1.1.0
-  very_good_analysis: ^7.0.0
+  test_beautifier: ^3.0.0
+  very_good_analysis: ^10.2.0

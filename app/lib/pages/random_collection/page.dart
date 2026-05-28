@@ -42,14 +42,22 @@ class CRandomCollectionPage extends StatelessWidget
     return BlocBuilder<CRandomGemIDsFetchCubit, CRandomGemIDsFetchState>(
       builder: (context, state) => Scaffold(
         body: switch (state.status) {
-          CRequestCubitStatus.initial =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.inProgress =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.failed =>
-            const Center(child: Icon(Icons.error_rounded)),
-          CRequestCubitStatus.succeeded => CCollectionView<CGemFetchCubit,
-                CGemFetchState, CGemFetchException, CGem>(
+          CRequestCubitStatus.initial => const Center(
+            child: CCradleLoadingIndicator(),
+          ),
+          CRequestCubitStatus.inProgress => const Center(
+            child: CCradleLoadingIndicator(),
+          ),
+          CRequestCubitStatus.failed => const Center(
+            child: Icon(Icons.error_rounded),
+          ),
+          CRequestCubitStatus.succeeded =>
+            CCollectionView<
+              CGemFetchCubit,
+              CGemFetchState,
+              CGemFetchException,
+              CGem
+            >(
               gemTokens: state.ids,
               userRole: context.read<CCurrentChestCubit>().state.userRole,
               gemFromState: (state) => state.gem,
@@ -57,11 +65,12 @@ class CRandomCollectionPage extends StatelessWidget
               triggerFetchGem: (context, token) =>
                   context.read<CGemFetchCubit>().fetchGem(gemID: token),
               onFetchFailed: (failure) => switch (failure) {
-                CGemFetchException.notFound =>
-                  const CErrorSnackBar(message: "We couldn't find that gem.")
-                      .show(context),
-                CGemFetchException.unknown =>
-                  const CErrorSnackBar().show(context),
+                CGemFetchException.notFound => const CErrorSnackBar(
+                  message: "We couldn't find that gem.",
+                ).show(context),
+                CGemFetchException.unknown => const CErrorSnackBar().show(
+                  context,
+                ),
               },
             ),
         },

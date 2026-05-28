@@ -15,8 +15,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// because it can be used by non authenticated users viewing shared gems.
 ///
 /// {@endtemplate}
-class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
-    O> extends CWrappedWidget {
+class CCollectionView<
+  C extends Cubit<S>,
+  S extends CRequestCubitState<F, O>,
+  F,
+  O
+>
+    extends CWrappedWidget {
   /// {@macro CCollectionView}
   const CCollectionView({
     required this.gemTokens,
@@ -86,37 +91,42 @@ class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
                 CRequestCubitStatus.failed => onFetchFailed(state.failure),
                 CRequestCubitStatus.succeeded =>
                   context.read<CCollectionViewCubit>().onGemFetched(
-                        gemFromState(state),
-                        gemTokenFromState(state),
-                      ),
+                    gemFromState(state),
+                    gemTokenFromState(state),
+                  ),
               },
             ),
             BlocListener<CGemShareCubit, CGemShareState>(
               listener: (context, state) => switch (state.status) {
                 CRequestCubitStatus.initial => null,
                 CRequestCubitStatus.inProgress => null,
-                CRequestCubitStatus.failed =>
-                  const CErrorSnackBar().show(context),
-                CRequestCubitStatus.succeeded => state.shareMethod ==
-                        CGemShareMethod.clipboard
-                    ? CInfoSnackBar(message: context.cAppL10n.copiedToClipboard)
-                        .show(context)
-                    : null,
+                CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                  context,
+                ),
+                CRequestCubitStatus.succeeded =>
+                  state.shareMethod == CGemShareMethod.clipboard
+                      ? CInfoSnackBar(
+                          message: context.cAppL10n.copiedToClipboard,
+                        ).show(context)
+                      : null,
               },
             ),
             if (userRole != CUserRole.viewer)
-              BlocListener<CGemShareTokenCreationCubit,
-                  CGemShareTokenCreationState>(
+              BlocListener<
+                CGemShareTokenCreationCubit,
+                CGemShareTokenCreationState
+              >(
                 listener: (context, state) => switch (state.status) {
                   CRequestCubitStatus.initial => null,
                   CRequestCubitStatus.inProgress => null,
-                  CRequestCubitStatus.failed =>
-                    const CErrorSnackBar().show(context),
+                  CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                    context,
+                  ),
                   CRequestCubitStatus.succeeded => _updateGemShareToken(
-                      context,
-                      state.gemID,
-                      state.shareToken,
-                    ),
+                    context,
+                    state.gemID,
+                    state.shareToken,
+                  ),
                 },
               ),
           ],
@@ -140,11 +150,11 @@ class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
     final sharePositionOrigin = box!.localToGlobal(Offset.zero) & box.size;
 
     context.read<CGemShareCubit>().shareGem(
-          shareToken: shareToken,
-          message: context.cAppL10n.gem_share_message,
-          subject: context.cAppL10n.gem_share_subject,
-          sharePositionOrigin: sharePositionOrigin,
-        );
+      shareToken: shareToken,
+      message: context.cAppL10n.gem_share_message,
+      subject: context.cAppL10n.gem_share_subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   @override
@@ -165,12 +175,15 @@ class CCollectionView<C extends Cubit<S>, S extends CRequestCubitState<F, O>, F,
         itemBuilder: (context, index) => BlocBuilder<C, S>(
           buildWhen: (_, state) => gemTokenFromState(state) == gemTokens[index],
           builder: (context, fetchState) => switch (fetchState.status) {
-            CRequestCubitStatus.initial =>
-              const Center(child: CCradleLoadingIndicator()),
-            CRequestCubitStatus.inProgress =>
-              const Center(child: CCradleLoadingIndicator()),
-            CRequestCubitStatus.failed =>
-              const Center(child: Icon(Icons.error_rounded)),
+            CRequestCubitStatus.initial => const Center(
+              child: CCradleLoadingIndicator(),
+            ),
+            CRequestCubitStatus.inProgress => const Center(
+              child: CCradleLoadingIndicator(),
+            ),
+            CRequestCubitStatus.failed => const Center(
+              child: Icon(Icons.error_rounded),
+            ),
             CRequestCubitStatus.succeeded =>
               BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
                 buildWhen: (_, state) =>

@@ -62,7 +62,8 @@ class CCreateInvitationDialog extends StatelessWidget with CDialogMixin {
                 validator: (value) => _email.formFieldValidator(value, context),
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  labelText: context.cAppL10n
+                  labelText: context
+                      .cAppL10n
                       .manageChestPage_createInvitationDialog_hint_email,
                   border: const OutlineInputBorder(),
                 ),
@@ -72,15 +73,11 @@ class CCreateInvitationDialog extends StatelessWidget with CDialogMixin {
                   segments: [
                     ButtonSegment(
                       value: CUserRole.viewer,
-                      label: Text(
-                        CUserRole.viewer.cLocalize(context),
-                      ),
+                      label: Text(CUserRole.viewer.cLocalize(context)),
                     ),
                     ButtonSegment(
                       value: CUserRole.collaborator,
-                      label: Text(
-                        CUserRole.collaborator.cLocalize(context),
-                      ),
+                      label: Text(CUserRole.collaborator.cLocalize(context)),
                     ),
                   ],
                   selected: {state},

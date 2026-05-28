@@ -36,7 +36,8 @@ class CLoadingButton<B extends StateStreamable<S>, S> extends StatelessWidget {
     BuildContext context,
     Widget text,
     void Function()? onPressed,
-  ) builder;
+  )
+  builder;
 
   /// Whether the button is small.
   final bool isSmall;

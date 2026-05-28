@@ -56,11 +56,11 @@ class CSizeTransition extends AnimatedWidget {
     this.fixedCrossAxisSizeFactor,
     this.child,
     super.key,
-  })  : assert(
-          fixedCrossAxisSizeFactor == null || fixedCrossAxisSizeFactor >= 0,
-          'fixedCrossAxisSizeFactor must be null or non-negative',
-        ),
-        super(listenable: sizeFactor);
+  }) : assert(
+         fixedCrossAxisSizeFactor == null || fixedCrossAxisSizeFactor >= 0,
+         'fixedCrossAxisSizeFactor must be null or non-negative',
+       ),
+       super(listenable: sizeFactor);
 
   /// [Axis.horizontal] if [sizeFactor] modifies the width, otherwise
   /// [Axis.vertical].

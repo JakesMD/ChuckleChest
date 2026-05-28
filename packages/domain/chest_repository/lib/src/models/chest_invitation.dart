@@ -19,9 +19,9 @@ class CChestInvitation with EquatableMixin {
   ///
   /// Creates a new [CChestInvitation] from the given [raw].
   CChestInvitation.fromRaw(CRawInvitation raw)
-      : chestID = raw.chest.id,
-        email = raw.email,
-        assignedRole = raw.assignedRole;
+    : chestID = raw.chest.id,
+      email = raw.email,
+      assignedRole = raw.assignedRole;
 
   /// The ID of the chest the invitation is for.
   final String chestID;

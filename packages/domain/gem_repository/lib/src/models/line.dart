@@ -20,11 +20,11 @@ base class CLine with EquatableMixin {
   ///
   /// Converts a [CRawLine] to a [CLine].
   CLine.fromRaw(CRawLine raw)
-      : id = raw.id,
-        text = raw.text,
-        personID = raw.personID,
-        gemID = raw.gemID,
-        chestID = raw.chestID;
+    : id = raw.id,
+      text = raw.text,
+      personID = raw.personID,
+      gemID = raw.gemID,
+      chestID = raw.chestID;
 
   /// The unique identifier of the line.
   final BigInt? id;
@@ -47,21 +47,21 @@ base class CLine with EquatableMixin {
   ///
   /// Returns a new [CLine] with the given fields replaced.
   CLine copyWith({String? text, BigInt? personID}) => CLine(
-        id: id,
-        text: text ?? this.text,
-        personID: personID ?? this.personID,
-        gemID: gemID,
-        chestID: chestID,
-      );
+    id: id,
+    text: text ?? this.text,
+    personID: personID ?? this.personID,
+    gemID: gemID,
+    chestID: chestID,
+  );
 
   /// Converts the line to a [CLinesTableInsert].
   CLinesTableInsert toInsert() => CLinesTableInsert(
-        id: id,
-        text: text,
-        personID: PgNullable(personID),
-        gemID: gemID,
-        chestID: chestID,
-      );
+    id: id,
+    text: text,
+    personID: PgNullable(personID),
+    gemID: gemID,
+    chestID: chestID,
+  );
 
   /// Whether the line is a quote.
   bool get isQuote => personID != null;

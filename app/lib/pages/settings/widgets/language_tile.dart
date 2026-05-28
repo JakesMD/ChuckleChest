@@ -23,10 +23,10 @@ class CLanguageTile extends StatelessWidget {
       subtitle: Text(
         locale != null
             ? locale.languageCode == 'en'
-                ? locale.countryCode == 'GB'
-                    ? 'English GB'
-                    : 'English US'
-                : 'Deutsch'
+                  ? locale.countryCode == 'GB'
+                        ? 'English GB'
+                        : 'English US'
+                  : 'Deutsch'
             : context.cAppL10n.settingsPage_languageTile_device,
       ),
       onTap: () => showDialog(

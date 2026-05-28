@@ -11,26 +11,26 @@ class CPlatformClient {
   /// Copies the given [text] to the clipboard.
   BobsJob<CClipboardCopyException, BobsNothing> copyToClipboard({
     required String text,
-  }) =>
-      BobsJob.attempt(
-        run: () => Clipboard.setData(ClipboardData(text: text)),
-        onError: CClipboardCopyException.fromError,
-      ).thenConvertSuccess((_) => bobsNothing);
+  }) => BobsJob.attempt(
+    run: () => Clipboard.setData(ClipboardData(text: text)),
+    onError: CClipboardCopyException.fromError,
+  ).thenConvertSuccess((_) => bobsNothing);
 
   /// Shares the given [text] and [subject] at the given [sharePositionOrigin].
   BobsJob<CShareException, BobsNothing> share({
     required String text,
     required String subject,
     required Rect sharePositionOrigin,
-  }) =>
-      BobsJob.attempt(
-        run: () => Share.share(
-          text,
-          subject: subject,
-          sharePositionOrigin: sharePositionOrigin,
-        ),
-        onError: CShareException.fromError,
-      ).thenConvertSuccess((_) => bobsNothing);
+  }) => BobsJob.attempt(
+    run: () => SharePlus.instance.share(
+      ShareParams(
+        text: text,
+        subject: subject,
+        sharePositionOrigin: sharePositionOrigin,
+      ),
+    ),
+    onError: CShareException.fromError,
+  ).thenConvertSuccess((_) => bobsNothing);
 
   /// The operating system the app is running on.
   static COperatingSystem get operatingSystem {
@@ -72,16 +72,18 @@ class CPlatformClient {
     int? maxHeight,
   }) =>
       BobsJob.attempt(
-        run: () => ImagePicker().pickImage(
-          source: switch (source) {
-            CImagePickSource.camera => ImageSource.camera,
-            CImagePickSource.gallery => ImageSource.gallery,
-          },
-          maxWidth: maxWidth?.toDouble(),
-          maxHeight: maxHeight?.toDouble(),
-        ),
-        onError: CImagePickException.fromError,
-      ).thenConvertSuccess(bobsMaybe).thenAttempt(
+            run: () => ImagePicker().pickImage(
+              source: switch (source) {
+                CImagePickSource.camera => ImageSource.camera,
+                CImagePickSource.gallery => ImageSource.gallery,
+              },
+              maxWidth: maxWidth?.toDouble(),
+              maxHeight: maxHeight?.toDouble(),
+            ),
+            onError: CImagePickException.fromError,
+          )
+          .thenConvertSuccess(bobsMaybe)
+          .thenAttempt(
             run: (image) => image.resolve(
               onPresent: (data) async {
                 final bytes = await data.readAsBytes();

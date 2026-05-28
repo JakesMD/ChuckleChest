@@ -98,8 +98,8 @@ extension CL10nStringExtension on String {
 extension CL10nUserRoleExtension on CUserRole {
   /// {@macro CL10nUserRoleExtension}
   String cLocalize(BuildContext context) => switch (this) {
-        CUserRole.owner => context.cCoreL10n.userRole_owner,
-        CUserRole.collaborator => context.cCoreL10n.userRole_collaborator,
-        CUserRole.viewer => context.cCoreL10n.userRole_viewer,
-      };
+    CUserRole.owner => context.cCoreL10n.userRole_owner,
+    CUserRole.collaborator => context.cCoreL10n.userRole_collaborator,
+    CUserRole.viewer => context.cCoreL10n.userRole_viewer,
+  };
 }

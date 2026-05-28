@@ -15,15 +15,15 @@ class CInvitationCreationState
   ///
   /// The initial state.
   CInvitationCreationState.initial()
-      : invitation = bobsAbsent(),
-        super.initial();
+    : invitation = bobsAbsent(),
+      super.initial();
 
   /// {@macro CInvitationCreationState}
   ///
   /// The in-progress state.
   CInvitationCreationState.inProgress()
-      : invitation = bobsAbsent(),
-        super.inProgress();
+    : invitation = bobsAbsent(),
+      super.inProgress();
 
   /// {@macro CInvitationCreationState}
   ///
@@ -45,7 +45,7 @@ class CInvitationCreationState
 class CInvitationCreationCubit extends Cubit<CInvitationCreationState> {
   /// {@macro CInvitationCreationCubit}
   CInvitationCreationCubit({required this.chestRepository})
-      : super(CInvitationCreationState.initial());
+    : super(CInvitationCreationState.initial());
 
   /// The repository this cubit uses to create invitations.
   final CChestRepository chestRepository;
@@ -64,8 +64,9 @@ class CInvitationCreationCubit extends Cubit<CInvitationCreationState> {
       chestID: chestID,
     );
 
-    final result =
-        await chestRepository.createInvitation(invitation: invitation).run();
+    final result = await chestRepository
+        .createInvitation(invitation: invitation)
+        .run();
 
     emit(
       CInvitationCreationState.completed(

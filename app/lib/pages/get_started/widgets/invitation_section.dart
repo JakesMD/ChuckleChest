@@ -21,32 +21,35 @@ class CInvitationSection extends StatelessWidget {
           !((state.succeeded || previous.failed) && state.inProgress),
       builder: (context, state) => switch (state.status) {
         CRequestCubitStatus.initial => const Padding(
-            padding: EdgeInsets.all(16),
-            child: Center(child: CCradleLoadingIndicator()),
-          ),
+          padding: EdgeInsets.all(16),
+          child: Center(child: CCradleLoadingIndicator()),
+        ),
         CRequestCubitStatus.inProgress => const Padding(
-            padding: EdgeInsets.all(16),
-            child: Center(child: CCradleLoadingIndicator()),
-          ),
-        CRequestCubitStatus.failed =>
-          const Center(child: Icon(Icons.error_rounded)),
-        CRequestCubitStatus.succeeded => state.invitations.isNotEmpty
-            ? Column(
-                children: state.invitations
-                    .map(
-                      (invitation) => CInvitationTile(invitation: invitation),
-                    )
-                    .toList(),
-              )
-            : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    context.cAppL10n
-                        .getStartedPage_invitationSection_noInvitations,
+          padding: EdgeInsets.all(16),
+          child: Center(child: CCradleLoadingIndicator()),
+        ),
+        CRequestCubitStatus.failed => const Center(
+          child: Icon(Icons.error_rounded),
+        ),
+        CRequestCubitStatus.succeeded =>
+          state.invitations.isNotEmpty
+              ? Column(
+                  children: state.invitations
+                      .map(
+                        (invitation) => CInvitationTile(invitation: invitation),
+                      )
+                      .toList(),
+                )
+              : Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      context
+                          .cAppL10n
+                          .getStartedPage_invitationSection_noInvitations,
+                    ),
                   ),
                 ),
-              ),
       },
     );
   }

@@ -14,15 +14,13 @@ class CInvitationAcceptState
   /// {@macro CInvitationAcceptState}
   ///
   /// The initial state.
-  CInvitationAcceptState.initial()
-      : chestID = '',
-        super.initial();
+  CInvitationAcceptState.initial() : chestID = '', super.initial();
 
   /// {@macro CInvitationAcceptState}
   ///
   /// The in progress state.
   CInvitationAcceptState.inProgress({required this.chestID})
-      : super.inProgress();
+    : super.inProgress();
 
   /// {@macro CInvitationAcceptState}
   ///
@@ -44,7 +42,7 @@ class CInvitationAcceptState
 class CInvitationAcceptCubit extends Cubit<CInvitationAcceptState> {
   /// {@macro CInvitationAcceptCubit}
   CInvitationAcceptCubit({required this.chestRepository})
-      : super(CInvitationAcceptState.initial());
+    : super(CInvitationAcceptState.initial());
 
   /// The repository this cubit uses to accept invitations.
   final CChestRepository chestRepository;
@@ -53,8 +51,9 @@ class CInvitationAcceptCubit extends Cubit<CInvitationAcceptState> {
   Future<void> acceptInvitation({required String chestID}) async {
     emit(CInvitationAcceptState.inProgress(chestID: chestID));
 
-    final result =
-        await chestRepository.acceptInvitation(chestID: chestID).run();
+    final result = await chestRepository
+        .acceptInvitation(chestID: chestID)
+        .run();
 
     emit(CInvitationAcceptState.completed(outcome: result, chestID: chestID));
   }

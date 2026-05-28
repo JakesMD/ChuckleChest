@@ -10,8 +10,7 @@ enum CSessionRefreshException {
   @internal
   static CSessionRefreshException fromRaw(
     CRawSessionRefreshException exception,
-  ) =>
-      switch (exception) {
-        CRawSessionRefreshException.unknown => CSessionRefreshException.unknown
-      };
+  ) => switch (exception) {
+    CRawSessionRefreshException.unknown => CSessionRefreshException.unknown,
+  };
 }

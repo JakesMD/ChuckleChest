@@ -1,13 +1,15 @@
 name: cplatform_client
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
+  sdk: ^3.11.0
+  
+resolution: workspace
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.16
+  bobs_jobs: any
   ccore:
   flutter:
     sdk: flutter
   image_picker: ^1.1.2
-  share_plus: ^10.0.2
-  very_good_analysis: ^7.0.0
+  share_plus: ^13.1.0
+  very_good_analysis: ^10.2.0

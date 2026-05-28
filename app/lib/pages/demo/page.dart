@@ -19,10 +19,7 @@ class CDemoPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CDemoCubit(),
-      child: this,
-    );
+    return BlocProvider(create: (context) => CDemoCubit(), child: this);
   }
 
   @override

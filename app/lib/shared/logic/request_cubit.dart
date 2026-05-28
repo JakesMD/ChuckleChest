@@ -30,29 +30,29 @@ class CRequestCubitState<F, S> with EquatableMixin {
   ///
   /// The initial state. It sets `status` to `CRequestCubitStatus.initial`.
   CRequestCubitState.initial({this.outcome})
-      : status = CRequestCubitStatus.initial;
+    : status = CRequestCubitStatus.initial;
 
   /// {@macro CRequestCubitState}
   ///
   /// The in progress state. It sets `status` to
   /// `CRequestCubitStatus.inProgress`.
   CRequestCubitState.inProgress({this.outcome})
-      : status = CRequestCubitStatus.inProgress;
+    : status = CRequestCubitStatus.inProgress;
 
   /// {@macro CRequestCubitState}
   ///
   /// The completed state. It sets `status` to `CRequestCubitStatus.failed` or
   /// `CRequestCubitStatus.succeeded` based on the outcome.
   CRequestCubitState.completed({required this.outcome})
-      : status = outcome is BobsFailure<F, S>
-            ? CRequestCubitStatus.failed
-            : CRequestCubitStatus.succeeded;
+    : status = outcome is BobsFailure<F, S>
+          ? CRequestCubitStatus.failed
+          : CRequestCubitStatus.succeeded;
 
   /// {@macro CRequestCubitState}
   ///
   /// The completed state.
   CRequestCubitState.succeeded({required this.outcome})
-      : status = CRequestCubitStatus.succeeded;
+    : status = CRequestCubitStatus.succeeded;
 
   /// The outcome of the latest item in the stream.
   final BobsOutcome<F, S>? outcome;
@@ -83,9 +83,9 @@ class CRequestCubitState<F, S> with EquatableMixin {
 
   @override
   String toString() => switch (status) {
-        CRequestCubitStatus.initial => 'initial()',
-        CRequestCubitStatus.inProgress => 'inProgress()',
-        CRequestCubitStatus.failed => 'failed($failure)',
-        CRequestCubitStatus.succeeded => 'succeeded($success)',
-      };
+    CRequestCubitStatus.initial => 'initial()',
+    CRequestCubitStatus.inProgress => 'inProgress()',
+    CRequestCubitStatus.failed => 'failed($failure)',
+    CRequestCubitStatus.succeeded => 'succeeded($success)',
+  };
 }

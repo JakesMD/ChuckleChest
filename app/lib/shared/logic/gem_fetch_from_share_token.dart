@@ -13,15 +13,13 @@ class CGemFetchFromShareTokenState
   /// {@macro CGemFetchFromShareTokenState}
   ///
   /// The initial state.
-  CGemFetchFromShareTokenState.initial()
-      : shareToken = '',
-        super.initial();
+  CGemFetchFromShareTokenState.initial() : shareToken = '', super.initial();
 
   /// {@macro CGemFetchFromShareTokenState}
   ///
   /// The in progress state.
   CGemFetchFromShareTokenState.inProgress({required this.shareToken})
-      : super.inProgress();
+    : super.inProgress();
 
   /// {@macro CGemFetchFromShareTokenState}
   ///
@@ -49,7 +47,7 @@ class CGemFetchFromShareTokenState
 class CGemFetchFromShareTokenCubit extends Cubit<CGemFetchFromShareTokenState> {
   /// {@macro CGemFetchFromShareTokenCubit}
   CGemFetchFromShareTokenCubit({required this.gemRepository})
-      : super(CGemFetchFromShareTokenState.initial());
+    : super(CGemFetchFromShareTokenState.initial());
 
   /// The repository this cubit uses to fetch shared gems.
   final CGemRepository gemRepository;

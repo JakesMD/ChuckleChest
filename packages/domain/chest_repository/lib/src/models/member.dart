@@ -20,10 +20,10 @@ class CMember with EquatableMixin {
   ///
   /// Creates a new [CMember] from the given [raw].
   CMember.fromRaw(CRawMember raw)
-      : chestID = raw.chestID,
-        userID = raw.user.id,
-        username = raw.user.username,
-        role = raw.role;
+    : chestID = raw.chestID,
+      userID = raw.user.id,
+      username = raw.user.username,
+      role = raw.role;
 
   /// The ID of the chest the user is a member of.
   final String chestID;

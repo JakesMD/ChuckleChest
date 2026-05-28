@@ -10,9 +10,8 @@ enum CCurrentUserStreamException {
   @internal
   static CCurrentUserStreamException fromRaw(
     CRawCurrentUserStreamException exception,
-  ) =>
-      switch (exception) {
-        CRawCurrentUserStreamException.unknown =>
-          CCurrentUserStreamException.unknown,
-      };
+  ) => switch (exception) {
+    CRawCurrentUserStreamException.unknown =>
+      CCurrentUserStreamException.unknown,
+  };
 }

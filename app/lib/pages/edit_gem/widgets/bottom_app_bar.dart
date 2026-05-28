@@ -21,10 +21,10 @@ class CEditGemPageBottomAppBar extends StatelessWidget {
       CEditNarrationDialog(cubit: context.read()).show(context);
 
   void _onAddQuotePressed(BuildContext context) => CEditQuoteDialog(
-        cubit: context.read(),
-        occurredAt: context.read<CGemEditCubit>().state.gem.occurredAt,
-        people: context.read<CChestPeopleFetchCubit>().state.people,
-      ).show(context);
+    cubit: context.read(),
+    occurredAt: context.read<CGemEditCubit>().state.gem.occurredAt,
+    people: context.read<CChestPeopleFetchCubit>().state.people,
+  ).show(context);
 
   @override
   Widget build(BuildContext context) {

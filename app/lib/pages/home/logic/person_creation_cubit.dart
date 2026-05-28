@@ -36,7 +36,7 @@ class CPersonCreationState
 class CPersonCreationCubit extends Cubit<CPersonCreationState> {
   /// {@macro CPersonCreationCubit}
   CPersonCreationCubit({required this.personRepository, required this.chestID})
-      : super(CPersonCreationState.initial());
+    : super(CPersonCreationState.initial());
 
   /// The repository this cubit uses to create a person.
   final CPersonRepository personRepository;

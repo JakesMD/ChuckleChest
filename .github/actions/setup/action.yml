@@ -1,0 +1,19 @@
+name: Setup
+description: Sets up Flutter, Supabase CLI, and Task.
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: 🐦 Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        cache: true
+
+    - name: ⚡️ Setup Supabase
+      uses: supabase/setup-cli@v1
+      with:
+        version: latest
+
+    - name: 🧊 Install Task
+      uses: arduino/setup-task@v2

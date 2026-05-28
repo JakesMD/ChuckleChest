@@ -57,9 +57,9 @@ void main() {
     group('currentUser', () {
       test(
         requirement(
-          Given: 'user is signed in',
-          When: 'get current user',
-          Then: 'returns user',
+          given: 'user is signed in',
+          whenever: 'get current user',
+          then: 'returns user',
         ),
         procedure(() async {
           when(() => authClient.currentUser).thenReturn(fakeRawUser);
@@ -69,9 +69,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'user is signed out',
-          When: 'get current user',
-          Then: 'returns null',
+          given: 'user is signed out',
+          whenever: 'get current user',
+          then: 'returns null',
         ),
         procedure(() async {
           when(() => authClient.currentUser).thenReturn(null);
@@ -82,20 +82,19 @@ void main() {
 
     group('currentUserStream', () {
       late StreamController<
-          BobsOutcome<CRawCurrentUserStreamException,
-              BobsMaybe<CRawAuthUser>>> controller;
+        BobsOutcome<CRawCurrentUserStreamException, BobsMaybe<CRawAuthUser>>
+      >
+      controller;
 
       setUp(() {
         controller = StreamController();
-        when(authClient.currentUserStream)
-            .thenAnswer((_) => BobsStream(stream: () => controller.stream));
+        when(
+          authClient.currentUserStream,
+        ).thenAnswer((_) => BobsStream(stream: () => controller.stream));
       });
 
       test(
-        requirement(
-          When: 'user signs in',
-          Then: 'returns user',
-        ),
+        requirement(whenever: 'user signs in', then: 'returns user'),
         procedure(() async {
           var result = bobsSuccess(bobsAbsent<CAuthUser>());
           repo.currentUserStream().stream().listen((event) => result = event);
@@ -108,10 +107,7 @@ void main() {
       );
 
       test(
-        requirement(
-          When: 'user signs out',
-          Then: 'returns user',
-        ),
+        requirement(whenever: 'user signs out', then: 'returns user'),
         procedure(() async {
           var result = bobsSuccess(bobsAbsent<CAuthUser>());
           repo.currentUserStream().stream().listen((event) => result = event);
@@ -124,8 +120,8 @@ void main() {
       );
       test(
         requirement(
-          When: 'stream emits [unknown] exception',
-          Then: 'returns [unknown] exception',
+          whenever: 'stream emits [unknown] exception',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           var result = bobsSuccess(bobsAbsent<CAuthUser>());
@@ -146,17 +142,14 @@ void main() {
             username: any(named: 'username'),
           );
 
-      BobsJob<CSignupException, BobsNothing> signUpWithOTPJob() =>
-          repo.signUpWithOTP(
-            email: fakeUser.email,
-            username: fakeUser.username,
-          );
+      BobsJob<CSignupException, BobsNothing> signUpWithOTPJob() => repo
+          .signUpWithOTP(email: fakeUser.email, username: fakeUser.username);
 
       test(
         requirement(
-          Given: 'email and username',
-          When: 'sign up with OTP succeeds',
-          Then: 'returns [nothing]',
+          given: 'email and username',
+          whenever: 'sign up with OTP succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockSignUpWithOTP).thenReturn(bobsFakeSuccessJob(bobsNothing));
@@ -169,9 +162,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'email and username',
-          When: 'sign up with OTP fails for email rate limit exceeded',
-          Then: 'returns [email rate limit exceeded] exception',
+          given: 'email and username',
+          whenever: 'sign up with OTP fails for email rate limit exceeded',
+          then: 'returns [email rate limit exceeded] exception',
         ),
         procedure(() async {
           when(mockSignUpWithOTP).thenReturn(
@@ -186,14 +179,14 @@ void main() {
 
       test(
         requirement(
-          Given: 'email and username',
-          When: 'sign up with OTP fails for unknown reason',
-          Then: 'returns [unknown] exception',
+          given: 'email and username',
+          whenever: 'sign up with OTP fails for unknown reason',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(mockSignUpWithOTP).thenReturn(
-            bobsFakeFailureJob(CRawSignupException.unknown),
-          );
+          when(
+            mockSignUpWithOTP,
+          ).thenReturn(bobsFakeFailureJob(CRawSignupException.unknown));
 
           final result = await signUpWithOTPJob().run();
 
@@ -207,15 +200,13 @@ void main() {
           authClient.logInWithOTP(email: any(named: 'email'));
 
       BobsJob<CLoginException, BobsNothing> logInWithOTPJob() =>
-          repo.logInWithOTP(
-            email: fakeUser.email,
-          );
+          repo.logInWithOTP(email: fakeUser.email);
 
       test(
         requirement(
-          Given: 'email',
-          When: 'log in with OTP succeeds',
-          Then: 'returns [nothing]',
+          given: 'email',
+          whenever: 'log in with OTP succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockLogInWithOTP).thenReturn(bobsFakeSuccessJob(bobsNothing));
@@ -228,9 +219,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'email',
-          When: 'log in with OTP fails for email rate limit exceeded',
-          Then: 'returns [email rate limit exceeded] exception',
+          given: 'email',
+          whenever: 'log in with OTP fails for email rate limit exceeded',
+          then: 'returns [email rate limit exceeded] exception',
         ),
         procedure(() async {
           when(mockLogInWithOTP).thenReturn(
@@ -245,14 +236,14 @@ void main() {
 
       test(
         requirement(
-          Given: 'email',
-          When: 'log in with OTP fails for user not found',
-          Then: 'returns [user not found] exception',
+          given: 'email',
+          whenever: 'log in with OTP fails for user not found',
+          then: 'returns [user not found] exception',
         ),
         procedure(() async {
-          when(mockLogInWithOTP).thenReturn(
-            bobsFakeFailureJob(CRawLoginException.userNotFound),
-          );
+          when(
+            mockLogInWithOTP,
+          ).thenReturn(bobsFakeFailureJob(CRawLoginException.userNotFound));
 
           final result = await logInWithOTPJob().run();
 
@@ -262,14 +253,14 @@ void main() {
 
       test(
         requirement(
-          Given: 'email',
-          When: 'log in with OTP fails for unknown reason',
-          Then: 'returns [unknown] exception',
+          given: 'email',
+          whenever: 'log in with OTP fails for unknown reason',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(mockLogInWithOTP).thenReturn(
-            bobsFakeFailureJob(CRawLoginException.unknown),
-          );
+          when(
+            mockLogInWithOTP,
+          ).thenReturn(bobsFakeFailureJob(CRawLoginException.unknown));
 
           final result = await logInWithOTPJob().run();
 
@@ -286,16 +277,13 @@ void main() {
           );
 
       BobsJob<COTPVerificationException, BobsNothing> verifyOTPJob() =>
-          repo.verifyOTP(
-            email: fakeUser.email,
-            pin: 'pin',
-          );
+          repo.verifyOTP(email: fakeUser.email, pin: 'pin');
 
       test(
         requirement(
-          Given: 'email and token',
-          When: 'verify OTP succeeds',
-          Then: 'returns [nothing]',
+          given: 'email and token',
+          whenever: 'verify OTP succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockVerifyOTP).thenReturn(bobsFakeSuccessJob(bobsNothing));
@@ -308,9 +296,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'email and token',
-          When: 'verify OTP fails for invalid token',
-          Then: 'returns [invalid token] exception',
+          given: 'email and token',
+          whenever: 'verify OTP fails for invalid token',
+          then: 'returns [invalid token] exception',
         ),
         procedure(() async {
           when(mockVerifyOTP).thenReturn(
@@ -325,9 +313,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'email and token',
-          When: 'verify OTP fails for unknown reason',
-          Then: 'returns [unknown] exception',
+          given: 'email and token',
+          whenever: 'verify OTP fails for unknown reason',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockVerifyOTP).thenReturn(
@@ -348,10 +336,7 @@ void main() {
       BobsJob<CSignoutException, BobsNothing> signOutJob() => repo.signOut();
 
       test(
-        requirement(
-          When: 'sign out succeeds',
-          Then: 'returns [nothing]',
-        ),
+        requirement(whenever: 'sign out succeeds', then: 'returns [nothing]'),
         procedure(() async {
           when(mockSignOut).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
@@ -363,13 +348,13 @@ void main() {
 
       test(
         requirement(
-          When: 'sign out fails for unknown reason',
-          Then: 'returns [unknown] exception',
+          whenever: 'sign out fails for unknown reason',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(mockSignOut).thenReturn(
-            bobsFakeFailureJob(CRawSignoutException.unknown),
-          );
+          when(
+            mockSignOut,
+          ).thenReturn(bobsFakeFailureJob(CRawSignoutException.unknown));
 
           final result = await signOutJob().run();
 
@@ -387,9 +372,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'username',
-          When: 'update user succeeds',
-          Then: 'returns [nothing]',
+          given: 'username',
+          whenever: 'update user succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockUpdateUser).thenReturn(bobsFakeSuccessJob(bobsNothing));
@@ -402,14 +387,14 @@ void main() {
 
       test(
         requirement(
-          Given: 'username',
-          When: 'update user fails for unknown reason',
-          Then: 'returns [unknown] exception',
+          given: 'username',
+          whenever: 'update user fails for unknown reason',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(mockUpdateUser).thenReturn(
-            bobsFakeFailureJob(CRawAuthUserUpdateException.unknown),
-          );
+          when(
+            mockUpdateUser,
+          ).thenReturn(bobsFakeFailureJob(CRawAuthUserUpdateException.unknown));
 
           final result = await updateUserJob().run();
 
@@ -427,8 +412,8 @@ void main() {
 
       test(
         requirement(
-          When: 'refresh session succeeds',
-          Then: 'returns [nothing]',
+          whenever: 'refresh session succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockRefreshSession).thenReturn(bobsFakeSuccessJob(bobsNothing));
@@ -441,13 +426,13 @@ void main() {
 
       test(
         requirement(
-          When: 'refresh session fails for unknown reason',
-          Then: 'returns [unknown] exception',
+          whenever: 'refresh session fails for unknown reason',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
-          when(mockRefreshSession).thenReturn(
-            bobsFakeFailureJob(CRawSessionRefreshException.unknown),
-          );
+          when(
+            mockRefreshSession,
+          ).thenReturn(bobsFakeFailureJob(CRawSessionRefreshException.unknown));
 
           final result = await refreshSessionJob().run();
 

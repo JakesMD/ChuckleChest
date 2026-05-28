@@ -7,21 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// The state for the [CChestInvitationsFetchCubit].
 ///
 /// {@endtemplate}
-class CChestInvitationsFetchState extends CRequestCubitState<
-    CChestInvitationsFetchException, List<CChestInvitation>> {
+class CChestInvitationsFetchState
+    extends
+        CRequestCubitState<
+          CChestInvitationsFetchException,
+          List<CChestInvitation>
+        > {
   /// {@macro CChestInvitationsFetchState}
   ///
   /// The initial state.
-  CChestInvitationsFetchState.initial()
-      : invitations = [],
-        super.initial();
+  CChestInvitationsFetchState.initial() : invitations = [], super.initial();
 
   /// {@macro CChestInvitationsFetchState}
   ///
   /// The in-progress state.
   CChestInvitationsFetchState.inProgress()
-      : invitations = [],
-        super.inProgress();
+    : invitations = [],
+      super.inProgress();
 
   /// {@macro CChestInvitationsFetchState}
   ///
@@ -60,8 +62,9 @@ class CChestInvitationsFetchCubit extends Cubit<CChestInvitationsFetchState> {
   Future<void> fetchChestInvitations() async {
     emit(CChestInvitationsFetchState.inProgress());
 
-    final result =
-        await chestRepository.fetchChestInvitations(chestID: chestID).run();
+    final result = await chestRepository
+        .fetchChestInvitations(chestID: chestID)
+        .run();
 
     emit(
       CChestInvitationsFetchState.completed(

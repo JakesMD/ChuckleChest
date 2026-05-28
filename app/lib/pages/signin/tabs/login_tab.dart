@@ -38,17 +38,18 @@ class CLoginTab extends StatelessWidget implements AutoRouteWrapper {
         CRequestCubitStatus.initial => null,
         CRequestCubitStatus.inProgress => null,
         CRequestCubitStatus.failed => switch (state.failure) {
-            CLoginException.emailRateLimitExceeded => CErrorSnackBar(
-                message:
-                    context.cAppL10n.signinPage_error_emailRateLimitExceeded,
-              ).show(context),
-            CLoginException.userNotFound => CErrorSnackBar(
-                message: context.cAppL10n.signinPage_error_userNotFound,
-              ).show(context),
-            CLoginException.unknown => const CErrorSnackBar().show(context),
-          },
-        CRequestCubitStatus.succeeded =>
-          _onLoginSuccessful(context, state.email),
+          CLoginException.emailRateLimitExceeded => CErrorSnackBar(
+            message: context.cAppL10n.signinPage_error_emailRateLimitExceeded,
+          ).show(context),
+          CLoginException.userNotFound => CErrorSnackBar(
+            message: context.cAppL10n.signinPage_error_userNotFound,
+          ).show(context),
+          CLoginException.unknown => const CErrorSnackBar().show(context),
+        },
+        CRequestCubitStatus.succeeded => _onLoginSuccessful(
+          context,
+          state.email,
+        ),
       },
       child: this,
     );

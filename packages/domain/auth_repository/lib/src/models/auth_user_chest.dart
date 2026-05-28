@@ -19,9 +19,9 @@ class CAuthUserChest with EquatableMixin {
   /// Creates a [CAuthUserChest] from a [CRawAuthUserChest].
   @internal
   CAuthUserChest.fromRawUserChest(CRawAuthUserChest chest)
-      : id = chest.id,
-        name = chest.name,
-        userRole = chest.userRole;
+    : id = chest.id,
+      name = chest.name,
+      userRole = chest.userRole;
 
   /// The unique identifier for the chest.
   final String id;
