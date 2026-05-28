@@ -59,8 +59,8 @@ jobs:
                   NEW_VERSION=$(task version:bump TYPE=${{ steps.bump_type.outputs.type }})
                   echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
 
-            - name: 🚀 Deploy production
-              uses: ./.github/actions/prod
+            - name: 🚀 Release
+              uses: ./.github/actions/release
 
             - name: 💾 Commit version bump
               if: steps.bump_type.outputs.type != 'none'

@@ -25,5 +25,5 @@ jobs:
             - name: 📚 Git checkout
               uses: actions/checkout@v4
 
-            - name: 🚀 Deploy production (dry-run)
-              uses: ./.github/actions/dry-run
+            - name: ✅ Preflight check
+              uses: ./.github/actions/preflight
