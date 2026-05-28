@@ -6,9 +6,9 @@ void main() {
   group('CDateTimeExtension tests', () {
     test(
       requirement(
-        Given: 'date-time of birthday',
-        When: 'fetch age before birthday',
-        Then: 'returns age',
+        given: 'date-time of birthday',
+        whenever: 'fetch age before birthday',
+        then: 'returns age',
       ),
       procedure(() {
         final result = DateTime(2003, 10, 4).cAge(DateTime(2024, 10, 3));
@@ -18,9 +18,9 @@ void main() {
 
     test(
       requirement(
-        Given: 'date-time of birthday',
-        When: 'fetch age after birthday',
-        Then: 'returns age',
+        given: 'date-time of birthday',
+        whenever: 'fetch age after birthday',
+        then: 'returns age',
       ),
       procedure(() {
         final result = DateTime(2003, 10, 4).cAge(DateTime(2024, 10, 5));
@@ -30,9 +30,9 @@ void main() {
 
     test(
       requirement(
-        Given: 'date-time of birthday',
-        When: 'fetch age on birthday',
-        Then: 'returns age',
+        given: 'date-time of birthday',
+        whenever: 'fetch age on birthday',
+        then: 'returns age',
       ),
       procedure(() {
         final result = DateTime(2003, 10, 4).cAge(DateTime(2024, 10, 4));
