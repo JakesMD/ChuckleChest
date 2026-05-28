@@ -335,6 +335,25 @@ void main() {
           expectBobsFailure(result, CRawSignupException.unknown);
         }),
       );
+
+      test(
+        requirement(
+          given: 'no avatar URL',
+          whenever: 'signup with OTP succeeds',
+          then: 'returns [nothing]',
+        ),
+        procedure(() async {
+          when(
+            mockSignInWithOtp,
+          ).thenAnswer((_) async => AuthResponse(user: FakeUser()));
+
+          final result = await client
+              .signUpWithOTP(email: 'email', username: 'name')
+              .run();
+
+          expectBobsSuccess(result, bobsNothing);
+        }),
+      );
     });
 
     group('verifyOTP', () {
@@ -480,6 +499,23 @@ void main() {
           final result = await updateUserJob.run();
 
           expectBobsFailure(result, CRawAuthUserUpdateException.unknown);
+        }),
+      );
+
+      test(
+        requirement(
+          given: 'no username',
+          whenever: 'update user succeeds',
+          then: 'returns [nothing]',
+        ),
+        procedure(() async {
+          when(mockUpdateUser).thenAnswer((_) async => FakeUserResponse());
+
+          final result = await client
+              .updateUser(update: const CRawAuthUserUpdate(username: null))
+              .run();
+
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
     });
