@@ -55,11 +55,11 @@ class CMemberCard extends StatelessWidget {
                 selected: {member.role},
                 onSelectionChanged:
                     state.status != CRequestCubitStatus.inProgress
-                    ? (Set<CUserRole> selected) => context
+                    ? (selected) => context
                           .read<CMemberRoleUpdateCubit>()
                           .updateMemberRole(
                             member: member,
-                            role: selected.first,
+                            role: (selected as Set<CUserRole>).first,
                           )
                     : null,
               ),

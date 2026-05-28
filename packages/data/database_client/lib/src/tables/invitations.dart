@@ -32,7 +32,7 @@ class CInvitationsTable extends SupabaseTable<CInvitationsTable> {
   );
 
   /// The chest the invitation is for.
-  static final chest = PgJoinToOne(
+  static final chest = PgJoinToOne<CInvitationsTable, CChestsTable>(
     joinColumn: chestID,
     joinedTableName: CChestsTable.tableName,
   );

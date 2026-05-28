@@ -8,7 +8,7 @@ resolution: workspace
 dependencies:
   bobs_jobs: any
   ccore:
-  dart_jsonwebtoken: ^2.14.0
+  dart_jsonwebtoken: ^3.4.1
   equatable: ^2.0.5
   meta: ^1.15.0
   supabase: ^2.3.0
@@ -17,5 +17,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
-  test_beautifier: ^1.1.0
-  very_good_analysis: ^7.0.0
+  test_beautifier: ^3.0.0
+  very_good_analysis: ^10.2.0

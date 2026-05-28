@@ -69,14 +69,14 @@ void main() {
 
     group('currentUser', () {
       test(
-        requirement(When: 'user is signed in', Then: 'returns user'),
+        requirement(whenever: 'user is signed in', then: 'returns user'),
         procedure(() async {
           when(() => goTrueClient.currentSession).thenReturn(FakeSession());
           expect(client.currentUser, fakeUser);
         }),
       );
       test(
-        requirement(When: 'user is signed out', Then: 'returns null'),
+        requirement(whenever: 'user is signed out', then: 'returns null'),
         procedure(() async {
           when(() => goTrueClient.currentSession).thenReturn(null);
           expect(client.currentUser, null);
@@ -96,7 +96,7 @@ void main() {
       });
 
       test(
-        requirement(When: 'user signs out', Then: 'returns [absent]'),
+        requirement(whenever: 'user signs out', then: 'returns [absent]'),
         procedure(() async {
           late BobsOutcome<
             CRawCurrentUserStreamException,
@@ -113,7 +113,7 @@ void main() {
       );
 
       test(
-        requirement(When: 'user signs in', Then: 'returns user'),
+        requirement(whenever: 'user signs in', then: 'returns user'),
         procedure(() async {
           late BobsOutcome<
             CRawCurrentUserStreamException,
@@ -130,7 +130,10 @@ void main() {
       );
 
       test(
-        requirement(When: 'user is initially signed in', Then: 'returns user'),
+        requirement(
+          whenever: 'user is initially signed in',
+          then: 'returns user',
+        ),
         procedure(() async {
           late BobsOutcome<
             CRawCurrentUserStreamException,
@@ -150,8 +153,8 @@ void main() {
 
       test(
         requirement(
-          When: 'current user fails',
-          Then: 'returns [unkown] failure',
+          whenever: 'current user fails',
+          then: 'returns [unkown] failure',
         ),
         procedure(() async {
           late BobsOutcome<
@@ -182,7 +185,10 @@ void main() {
       final logInWithOTPJob = client.logInWithOTP(email: 'a@a.a');
 
       test(
-        requirement(When: 'login with OTP succeeds', Then: 'returns [nothing]'),
+        requirement(
+          whenever: 'login with OTP succeeds',
+          then: 'returns [nothing]',
+        ),
         procedure(() async {
           when(
             mockSignInWithOtp,
@@ -196,8 +202,8 @@ void main() {
 
       test(
         requirement(
-          When: 'login with OTP fails',
-          Then: 'returns [unknown] exception',
+          whenever: 'login with OTP fails',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockSignInWithOtp).thenThrow(Exception());
@@ -210,8 +216,8 @@ void main() {
 
       test(
         requirement(
-          When: 'login with OTP and user not found',
-          Then: 'returns [user not found] exception',
+          whenever: 'login with OTP and user not found',
+          then: 'returns [user not found] exception',
         ),
         procedure(() async {
           when(
@@ -226,8 +232,8 @@ void main() {
 
       test(
         requirement(
-          When: 'login with OTP and email rate limit exceeded',
-          Then: 'returns [email rate limit exceeded] exception',
+          whenever: 'login with OTP and email rate limit exceeded',
+          then: 'returns [email rate limit exceeded] exception',
         ),
         procedure(() async {
           when(
@@ -242,8 +248,8 @@ void main() {
 
       test(
         requirement(
-          When: 'login with OTP throws unknown auth exception',
-          Then: 'returns [unknown] exception',
+          whenever: 'login with OTP throws unknown auth exception',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockSignInWithOtp).thenThrow(const AuthException(''));
@@ -272,8 +278,8 @@ void main() {
 
       test(
         requirement(
-          When: 'signup with OTP succeeds',
-          Then: 'returns [nothing]',
+          whenever: 'signup with OTP succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(
@@ -288,8 +294,8 @@ void main() {
 
       test(
         requirement(
-          When: 'signup with OTP fails',
-          Then: 'returns [unknown] exception',
+          whenever: 'signup with OTP fails',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockSignInWithOtp).thenThrow(Exception());
@@ -302,8 +308,8 @@ void main() {
 
       test(
         requirement(
-          When: 'signup with OTP throws rate limit exceeded exception',
-          Then: 'returns [rate limit exceeded] exception',
+          whenever: 'signup with OTP throws rate limit exceeded exception',
+          then: 'returns [rate limit exceeded] exception',
         ),
         procedure(() async {
           when(
@@ -318,8 +324,8 @@ void main() {
 
       test(
         requirement(
-          When: 'signup with OTP throws unknown AUTH exception',
-          Then: 'returns [unknown] exception',
+          whenever: 'signup with OTP throws unknown AUTH exception',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockSignInWithOtp).thenThrow(const AuthException(''));
@@ -327,6 +333,25 @@ void main() {
           final result = await signUpWithOTPJob.run();
 
           expectBobsFailure(result, CRawSignupException.unknown);
+        }),
+      );
+
+      test(
+        requirement(
+          given: 'no avatar URL',
+          whenever: 'signup with OTP succeeds',
+          then: 'returns [nothing]',
+        ),
+        procedure(() async {
+          when(
+            mockSignInWithOtp,
+          ).thenAnswer((_) async => AuthResponse(user: FakeUser()));
+
+          final result = await client
+              .signUpWithOTP(email: 'email', username: 'name')
+              .run();
+
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
     });
@@ -344,9 +369,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'valid token',
-          When: 'verify OTP succeeds',
-          Then: 'returns [nothing]',
+          given: 'valid token',
+          whenever: 'verify OTP succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(
@@ -361,9 +386,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'invalid token',
-          When: 'verify OTP',
-          Then: 'returns [invalid token] exception',
+          given: 'invalid token',
+          whenever: 'verify OTP',
+          then: 'returns [invalid token] exception',
         ),
         procedure(() async {
           when(
@@ -378,8 +403,8 @@ void main() {
 
       test(
         requirement(
-          When: 'verify OTP throws unknown auth exception',
-          Then: 'returns [unknown] exception',
+          whenever: 'verify OTP throws unknown auth exception',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockVerifyOTP).thenThrow(const AuthException(''));
@@ -392,8 +417,8 @@ void main() {
 
       test(
         requirement(
-          When: 'verify OTP fails',
-          Then: 'returns [unknown] exception',
+          whenever: 'verify OTP fails',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockVerifyOTP).thenThrow(Exception());
@@ -411,9 +436,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'The user is signed in',
-          When: 'sign out succeeds',
-          Then: 'returns [nothing]',
+          given: 'The user is signed in',
+          whenever: 'sign out succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockSignOut).thenAnswer((_) async {});
@@ -426,9 +451,9 @@ void main() {
 
       test(
         requirement(
-          Given: 'The user is signed in',
-          When: 'sign out fails',
-          Then: 'returns [unknown] exception',
+          given: 'The user is signed in',
+          whenever: 'sign out fails',
+          then: 'returns [unknown] exception',
         ),
         procedure(() async {
           when(mockSignOut).thenThrow(Exception());
@@ -450,7 +475,10 @@ void main() {
       );
 
       test(
-        requirement(When: 'update user succeeds', Then: 'returns [nothing]'),
+        requirement(
+          whenever: 'update user succeeds',
+          then: 'returns [nothing]',
+        ),
         procedure(() async {
           when(mockUpdateUser).thenAnswer((_) async => FakeUserResponse());
 
@@ -462,8 +490,8 @@ void main() {
 
       test(
         requirement(
-          When: 'update user fails',
-          Then: 'return [unknown] exception',
+          whenever: 'update user fails',
+          then: 'return [unknown] exception',
         ),
         procedure(() async {
           when(mockUpdateUser).thenThrow(Exception());
@@ -471,6 +499,23 @@ void main() {
           final result = await updateUserJob.run();
 
           expectBobsFailure(result, CRawAuthUserUpdateException.unknown);
+        }),
+      );
+
+      test(
+        requirement(
+          given: 'no username',
+          whenever: 'update user succeeds',
+          then: 'returns [nothing]',
+        ),
+        procedure(() async {
+          when(mockUpdateUser).thenAnswer((_) async => FakeUserResponse());
+
+          final result = await client
+              .updateUser(update: const CRawAuthUserUpdate(username: null))
+              .run();
+
+          expectBobsSuccess(result, bobsNothing);
         }),
       );
     });
@@ -484,8 +529,8 @@ void main() {
 
       test(
         requirement(
-          When: 'session refresh succeeds',
-          Then: 'returns [nothing]',
+          whenever: 'session refresh succeeds',
+          then: 'returns [nothing]',
         ),
         procedure(() async {
           when(mockRefreshSession).thenAnswer((_) async => FakeAuthResponse());
@@ -498,8 +543,8 @@ void main() {
 
       test(
         requirement(
-          When: 'session refresh fails',
-          Then: 'return [unknown] exception',
+          whenever: 'session refresh fails',
+          then: 'return [unknown] exception',
         ),
         procedure(() async {
           when(mockRefreshSession).thenThrow(Exception());

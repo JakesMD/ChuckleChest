@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-final _seedColor =
+final MaterialColor _seedColor =
     Colors.primaries[Random(
       DateTime.now().millisecondsSinceEpoch,
     ).nextInt(Colors.primaries.length)];
