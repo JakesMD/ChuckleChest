@@ -25,5 +25,8 @@ jobs:
             - name: 📚 Git checkout
               uses: actions/checkout@v4
 
+            - name: ⚙️ Setup
+              uses: ./.github/actions/setup
+
             - name: ✅ Preflight check
               uses: ./.github/actions/preflight

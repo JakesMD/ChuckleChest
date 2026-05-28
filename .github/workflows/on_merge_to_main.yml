@@ -52,12 +52,18 @@ jobs:
                       echo "type=none" >> "$GITHUB_OUTPUT"
                   fi
 
+            - name: ⚙️ Setup
+              uses: ./.github/actions/setup
+
             - name: ⬆️ Bump app version
               id: version
               if: steps.bump_type.outputs.type != 'none'
               run: |
                   NEW_VERSION=$(task version:bump TYPE=${{ steps.bump_type.outputs.type }})
                   echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+            - name: ✅ Preflight check
+              uses: ./.github/actions/preflight
 
             - name: 🚀 Release
               uses: ./.github/actions/release

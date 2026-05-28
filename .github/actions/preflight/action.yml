@@ -5,19 +5,6 @@ runs:
   using: "composite"
 
   steps:
-    - name: 🐦 Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        cache: true
-
-    - name: ⚡️ Setup Supabase
-      uses: supabase/setup-cli@v1
-      with:
-        version: latest
-
-    - name: 🧊 Install Task
-      uses: arduino/setup-task@v2
-
     - name: 🕵️ Run checks
       shell: bash
       run: task ci SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
