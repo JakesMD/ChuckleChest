@@ -53,7 +53,7 @@ tasks:
     cmds:
       - true > coverage/lcov.info
       - dart pub global run combine_coverage --repo-path=.
-      - sed -i '' 's|SF:.*/batchbase2/|SF:/|' coverage/lcov.info
+      - sed -i '' 's|SF:.*/ChuckleChest/|SF:/|' coverage/lcov.info
       - dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='\.g\.dart$'
       - dart bin/check_coverage.dart coverage/lcov.info
 
