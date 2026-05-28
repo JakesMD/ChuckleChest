@@ -7,7 +7,7 @@ tasks:
     cmd: task --list
 
   setup:
-    desc: Sets up the development environment. Run this after pulling from a branch.
+    desc: Sets up the dev or CI environment. Run this after pulling from a branch.
     cmds:
       - task: dart:flutter-upgrade
         if: '[ "$CI" != "true" ]'
@@ -17,12 +17,12 @@ tasks:
       - melos clean
       - melos bootstrap
       - melos format
-      - dart analyze
 
   ci:
-    desc: The procedure of the GitHub CI workflow. Run this before pushing to GitHub.
+    desc: The procedure run by the CI workflow. Run this before pushing to GitHub.
     cmds:
       - task: setup
+      - dart analyze
       - task: dart:test
       # - task: db:test
       - task: dart:check-coverage
