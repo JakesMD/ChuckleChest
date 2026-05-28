@@ -56,8 +56,9 @@ class _CAnimatedTypingTextState extends State<CAnimatedTypingText>
     super.initState();
 
     if (!widget.isAnimated) {
-      return WidgetsBinding.instance
-          .addPostFrameCallback((_) => widget.onCompleted?.call());
+      return WidgetsBinding.instance.addPostFrameCallback(
+        (_) => widget.onCompleted?.call(),
+      );
     }
 
     controller = AnimationController(
@@ -67,11 +68,9 @@ class _CAnimatedTypingTextState extends State<CAnimatedTypingText>
 
     animation = IntTween(begin: 0, end: widget.text.length).animate(controller)
       ..addListener(() => setState(() {}))
-      ..addStatusListener(
-        (status) {
-          if (status == AnimationStatus.completed) widget.onCompleted?.call();
-        },
-      );
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) widget.onCompleted?.call();
+      });
 
     delayTimer = Timer(widget.delay, () => controller.forward());
   }
@@ -104,9 +103,7 @@ class _CAnimatedTypingTextState extends State<CAnimatedTypingText>
           ),
           TextSpan(
             text: widget.text.substring(animation.value, widget.text.length),
-            style: widget.textStyle.copyWith(
-              color: Colors.transparent,
-            ),
+            style: widget.textStyle.copyWith(color: Colors.transparent),
           ),
         ],
       ),

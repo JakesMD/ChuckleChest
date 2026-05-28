@@ -18,13 +18,8 @@ typedef CChestsTableInsert = CChestsTableUpsert;
 /// {@endtemplate}
 class CChestsTableUpsert extends PgUpsert<CChestsTable> {
   /// {@macro CChestsTableUpsert}
-  CChestsTableUpsert({
-    required this.name,
-    this.id,
-  }) : super([
-          CChestsTable.name(name),
-          if (id != null) CChestsTable.id(id),
-        ]);
+  CChestsTableUpsert({required this.name, this.id})
+    : super([CChestsTable.name(name), if (id != null) CChestsTable.id(id)]);
 
   final String name;
   final String? id;

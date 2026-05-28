@@ -14,8 +14,8 @@ class CAvatarURL with EquatableMixin {
   ///
   /// Converts a [CRawPersonAvatar] to a [CAvatarURL].
   CAvatarURL.fromRaw(CRawPersonAvatar raw)
-      : year = raw.year,
-        url = raw.imageURL;
+    : year = raw.year,
+      url = raw.imageURL;
 
   /// The year the avatar was taken.
   final int year;

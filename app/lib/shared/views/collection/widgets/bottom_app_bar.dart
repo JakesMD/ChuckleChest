@@ -29,25 +29,34 @@ class CCollectionViewBottomAppBar extends StatelessWidget {
           BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
             builder: (context, viewState) =>
                 BlocBuilder<CGemShareCubit, CGemShareState>(
-              builder: (context, shareState) => BlocBuilder<
-                  CGemShareTokenCreationCubit, CGemShareTokenCreationState>(
-                builder: (context, tokenState) => IconButton(
-                  onPressed: viewState.currentGem != null &&
-                          shareState.status != CRequestCubitStatus.inProgress &&
-                          tokenState.status != CRequestCubitStatus.inProgress
-                      ? () => CShareSheet(
-                            gem: viewState.currentGem!,
-                            onShared: onShared,
-                            shareTokenCreationCubit: context.read(),
-                          ).show(context)
-                      : null,
-                  icon: shareState.status != CRequestCubitStatus.inProgress &&
-                          tokenState.status != CRequestCubitStatus.inProgress
-                      ? const Icon(Icons.share_rounded)
-                      : const CBouncyBallLoadingIndicator(),
+                  builder: (context, shareState) =>
+                      BlocBuilder<
+                        CGemShareTokenCreationCubit,
+                        CGemShareTokenCreationState
+                      >(
+                        builder: (context, tokenState) => IconButton(
+                          onPressed:
+                              viewState.currentGem != null &&
+                                  shareState.status !=
+                                      CRequestCubitStatus.inProgress &&
+                                  tokenState.status !=
+                                      CRequestCubitStatus.inProgress
+                              ? () => CShareSheet(
+                                  gem: viewState.currentGem!,
+                                  onShared: onShared,
+                                  shareTokenCreationCubit: context.read(),
+                                ).show(context)
+                              : null,
+                          icon:
+                              shareState.status !=
+                                      CRequestCubitStatus.inProgress &&
+                                  tokenState.status !=
+                                      CRequestCubitStatus.inProgress
+                              ? const Icon(Icons.share_rounded)
+                              : const CBouncyBallLoadingIndicator(),
+                        ),
+                      ),
                 ),
-              ),
-            ),
           ),
         ],
       ),

@@ -34,7 +34,7 @@ class COTPVerificationState
 class COTPVerificationCubit extends Cubit<COTPVerificationState> {
   /// {@macro COTPVerificationCubit}
   COTPVerificationCubit({required this.authRepository})
-      : super(COTPVerificationState.initial());
+    : super(COTPVerificationState.initial());
 
   /// The repository this cubit will use to verify the OTP.
   final CAuthRepository authRepository;

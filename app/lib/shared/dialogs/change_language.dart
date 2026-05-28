@@ -27,40 +27,38 @@ class CChangeLanguageDialog extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(vertical: 16),
       content: BlocBuilder<CAppSettingsCubit, CAppSettingsState>(
         bloc: cubit,
-        builder: (context, state) => Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
+        builder: (context, state) => RadioGroup(
+          groupValue: state.locale,
+          onChanged: (l) => _onChanged(context, l),
+          child: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                title: Text('English GB'),
+                value: Locale('en', 'GB'),
               ),
-              title: const Text('English GB'),
-              value: const Locale('en', 'GB'),
-              groupValue: state.locale,
-              onChanged: (l) => _onChanged(context, l),
-            ),
-            RadioListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                title: Text('English US'),
+                value: Locale('en', 'US'),
               ),
-              title: const Text('English US'),
-              value: const Locale('en', 'US'),
-              groupValue: state.locale,
-              onChanged: (l) => _onChanged(context, l),
-            ),
-            RadioListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
+              RadioListTile(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                title: Text('Deutsch'),
+                value: Locale('de'),
               ),
-              title: const Text('Deutsch'),
-              value: const Locale('de'),
-              groupValue: state.locale,
-              onChanged: (l) => _onChanged(context, l),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       actions: [

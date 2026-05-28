@@ -23,10 +23,10 @@ class CUserRolesTableUpsert extends PgUpsert<CUserRolesTable> {
     required this.userID,
     required this.role,
   }) : super([
-          CUserRolesTable.chestID(chestID),
-          CUserRolesTable.userID(userID),
-          CUserRolesTable.role(role),
-        ]);
+         CUserRolesTable.chestID(chestID),
+         CUserRolesTable.userID(userID),
+         CUserRolesTable.role(role),
+       ]);
 
   final String chestID;
   final String userID;

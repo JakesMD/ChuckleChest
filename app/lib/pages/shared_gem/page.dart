@@ -24,9 +24,8 @@ class CSharedGemPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => CGemFetchFromShareTokenCubit(
-        gemRepository: context.read(),
-      ),
+      create: (context) =>
+          CGemFetchFromShareTokenCubit(gemRepository: context.read()),
       child: this,
     );
   }
@@ -34,23 +33,25 @@ class CSharedGemPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CCollectionView<
-          CGemFetchFromShareTokenCubit,
-          CGemFetchFromShareTokenState,
-          CGemFetchFromShareTokenException,
-          CSharedGem>(
-        gemTokens: [shareToken ?? ''],
-        userRole: CUserRole.viewer,
-        gemFromState: (state) => state.gem,
-        gemTokenFromState: (state) => shareToken ?? '',
-        triggerFetchGem: (context, token) => context
-            .read<CGemFetchFromShareTokenCubit>()
-            .fetchGem(shareToken: token),
-        onFetchFailed: (failure) => switch (failure) {
-          CGemFetchFromShareTokenException.unknown =>
-            const CErrorSnackBar().show(context),
-        },
-      ),
+      body:
+          CCollectionView<
+            CGemFetchFromShareTokenCubit,
+            CGemFetchFromShareTokenState,
+            CGemFetchFromShareTokenException,
+            CSharedGem
+          >(
+            gemTokens: [shareToken ?? ''],
+            userRole: CUserRole.viewer,
+            gemFromState: (state) => state.gem,
+            gemTokenFromState: (state) => shareToken ?? '',
+            triggerFetchGem: (context, token) => context
+                .read<CGemFetchFromShareTokenCubit>()
+                .fetchGem(shareToken: token),
+            onFetchFailed: (failure) => switch (failure) {
+              CGemFetchFromShareTokenException.unknown =>
+                const CErrorSnackBar().show(context),
+            },
+          ),
     );
   }
 }

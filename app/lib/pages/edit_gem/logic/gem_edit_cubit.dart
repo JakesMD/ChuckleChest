@@ -27,23 +27,22 @@ class CGemEditState {
 /// {@endtemplate}
 class CGemEditCubit extends Cubit<CGemEditState> {
   /// {@macro CGemEditCubit}
-  CGemEditCubit({
-    required this.chestID,
-    required CGem? gem,
-  }) : super(
-          CGemEditState(
-            gem: gem ??
-                CGem(
-                  id: '',
-                  number: -1,
-                  occurredAt: DateTime.now(),
-                  lines: [],
-                  chestID: chestID,
-                  shareToken: null,
-                ),
-            deletedLines: [],
-          ),
-        );
+  CGemEditCubit({required this.chestID, required CGem? gem})
+    : super(
+        CGemEditState(
+          gem:
+              gem ??
+              CGem(
+                id: '',
+                number: -1,
+                occurredAt: DateTime.now(),
+                lines: [],
+                chestID: chestID,
+                shareToken: null,
+              ),
+          deletedLines: [],
+        ),
+      );
 
   /// The ID of the chest this gem belongs to.
   final String chestID;
@@ -70,10 +69,7 @@ class CGemEditCubit extends Cubit<CGemEditState> {
     required BigInt? personID,
   }) {
     final oldLine = state.gem.lines[lineIndex];
-    final newLine = oldLine.copyWith(
-      text: text,
-      personID: personID,
-    );
+    final newLine = oldLine.copyWith(text: text, personID: personID);
 
     state.gem.lines
       ..removeAt(lineIndex)
@@ -88,9 +84,7 @@ class CGemEditCubit extends Cubit<CGemEditState> {
 
     if (deletedLine.id != null) state.deletedLines.add(deletedLine);
 
-    emit(
-      CGemEditState(gem: state.gem, deletedLines: state.deletedLines),
-    );
+    emit(CGemEditState(gem: state.gem, deletedLines: state.deletedLines));
   }
 
   /// Updates the occurred at date of the gem.

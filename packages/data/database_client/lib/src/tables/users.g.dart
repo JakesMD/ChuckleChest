@@ -18,13 +18,11 @@ typedef CUsersTableInsert = CUsersTableUpsert;
 /// {@endtemplate}
 class CUsersTableUpsert extends PgUpsert<CUsersTable> {
   /// {@macro CUsersTableUpsert}
-  CUsersTableUpsert({
-    required this.id,
-    this.username,
-  }) : super([
-          CUsersTable.id(id),
-          if (username != null) CUsersTable.username(username.value),
-        ]);
+  CUsersTableUpsert({required this.id, this.username})
+    : super([
+        CUsersTable.id(id),
+        if (username != null) CUsersTable.username(username.value),
+      ]);
 
   final String id;
   final PgNullable<String>? username;

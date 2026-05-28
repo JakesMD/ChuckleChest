@@ -38,7 +38,7 @@ class CGemShareState
 class CGemShareCubit extends Cubit<CGemShareState> {
   /// {@macro CGemShareCubit}
   CGemShareCubit({required this.gemRepository})
-      : super(CGemShareState.initial());
+    : super(CGemShareState.initial());
 
   /// The repository this cubit uses to share gems.
   final CGemRepository gemRepository;

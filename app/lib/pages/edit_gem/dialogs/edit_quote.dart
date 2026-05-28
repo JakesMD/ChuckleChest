@@ -48,10 +48,7 @@ class CEditQuoteDialog extends StatelessWidget with CDialogMixin {
     if (!_formKey.currentState!.validate()) return;
 
     if (line == null) {
-      cubit.addLine(
-        personID: _personID.value,
-        text: _lineText.value!,
-      );
+      cubit.addLine(personID: _personID.value, text: _lineText.value!);
     } else {
       cubit.updateLine(
         lineIndex: index,
@@ -136,10 +133,7 @@ class _CPersonDropdownMenuFormField extends StatelessWidget {
 
     return FormField(
       initialValue: line?.personID,
-      validator: (value) => personIDInput.formFieldValidator(
-        value,
-        context,
-      ),
+      validator: (value) => personIDInput.formFieldValidator(value, context),
       builder: (state) => SignedSpacingRow(
         spacing: 16,
         children: [

@@ -4,13 +4,15 @@ publish_to: "none"
 version: 0.21.0
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
+  sdk: ^3.11.0
+  
+resolution: workspace
 
 dependencies:
   auto_route: ^10.1.0
   bloc: ^9.0.0
   bloc_concurrency: ^0.3.0
-  bobs_jobs: ^0.0.1-dev.16
+  bobs_jobs: any
   cauth_client:
   cauth_repository:
   cchest_repository:

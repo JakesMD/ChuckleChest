@@ -26,8 +26,8 @@ class CChangesPropagationBanner extends StatelessWidget {
             child: Text(
               context.cAppL10n.changesPropagationBanner_message,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
           ),
         ],

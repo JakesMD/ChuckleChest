@@ -14,16 +14,14 @@ class CMemberRoleUpdateState
   /// {@macro CMemberRoleUpdateState}
   ///
   /// The initial state.
-  CMemberRoleUpdateState.initial()
-      : member = bobsAbsent(),
-        super.initial();
+  CMemberRoleUpdateState.initial() : member = bobsAbsent(), super.initial();
 
   /// {@macro CMemberRoleUpdateState}
   ///
   /// The in-progress state.
   CMemberRoleUpdateState.inProgress()
-      : member = bobsAbsent(),
-        super.inProgress();
+    : member = bobsAbsent(),
+      super.inProgress();
 
   /// {@macro CMemberRoleUpdateState}
   ///
@@ -45,7 +43,7 @@ class CMemberRoleUpdateState
 class CMemberRoleUpdateCubit extends Cubit<CMemberRoleUpdateState> {
   /// {@macro CMemberRoleUpdateCubit}
   CMemberRoleUpdateCubit({required this.chestRepository})
-      : super(CMemberRoleUpdateState.initial());
+    : super(CMemberRoleUpdateState.initial());
 
   /// The repository this cubit uses to update roles.
   final CChestRepository chestRepository;

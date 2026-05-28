@@ -14,7 +14,7 @@ part of 'routes.dart';
 /// [CBasePage]
 class CBaseRoute extends PageRouteInfo<void> {
   const CBaseRoute({List<PageRouteInfo>? children})
-      : super(CBaseRoute.name, initialChildren: children);
+    : super(CBaseRoute.name, initialChildren: children);
 
   static const String name = 'CBaseRoute';
 
@@ -35,14 +35,14 @@ class CChangeAvatarRoute extends PageRouteInfo<CChangeAvatarRouteArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          CChangeAvatarRoute.name,
-          args: CChangeAvatarRouteArgs(
-            personID: personID,
-            avatarURL: avatarURL,
-            key: key,
-          ),
-          initialChildren: children,
-        );
+         CChangeAvatarRoute.name,
+         args: CChangeAvatarRouteArgs(
+           personID: personID,
+           avatarURL: avatarURL,
+           key: key,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'CChangeAvatarRoute';
 
@@ -96,11 +96,11 @@ class CChangeAvatarRouteArgs {
 /// [CChestPage]
 class CChestRoute extends PageRouteInfo<CChestRouteArgs> {
   CChestRoute({String? chestID, Key? key, List<PageRouteInfo>? children})
-      : super(
-          CChestRoute.name,
-          args: CChestRouteArgs(chestID: chestID, key: key),
-          initialChildren: children,
-        );
+    : super(
+        CChestRoute.name,
+        args: CChestRouteArgs(chestID: chestID, key: key),
+        initialChildren: children,
+      );
 
   static const String name = 'CChestRoute';
 
@@ -144,7 +144,7 @@ class CChestRouteArgs {
 /// [CCollectionsPage]
 class CCollectionsRoute extends PageRouteInfo<void> {
   const CCollectionsRoute({List<PageRouteInfo>? children})
-      : super(CCollectionsRoute.name, initialChildren: children);
+    : super(CCollectionsRoute.name, initialChildren: children);
 
   static const String name = 'CCollectionsRoute';
 
@@ -160,11 +160,11 @@ class CCollectionsRoute extends PageRouteInfo<void> {
 /// [CCreateChestPage]
 class CCreateChestRoute extends PageRouteInfo<CCreateChestRouteArgs> {
   CCreateChestRoute({Key? key, List<PageRouteInfo>? children})
-      : super(
-          CCreateChestRoute.name,
-          args: CCreateChestRouteArgs(key: key),
-          initialChildren: children,
-        );
+    : super(
+        CCreateChestRoute.name,
+        args: CCreateChestRouteArgs(key: key),
+        initialChildren: children,
+      );
 
   static const String name = 'CCreateChestRoute';
 
@@ -204,7 +204,7 @@ class CCreateChestRouteArgs {
 /// [CCreateGemPage]
 class CCreateGemRoute extends PageRouteInfo<void> {
   const CCreateGemRoute({List<PageRouteInfo>? children})
-      : super(CCreateGemRoute.name, initialChildren: children);
+    : super(CCreateGemRoute.name, initialChildren: children);
 
   static const String name = 'CCreateGemRoute';
 
@@ -220,7 +220,7 @@ class CCreateGemRoute extends PageRouteInfo<void> {
 /// [CDemoPage]
 class CDemoRoute extends PageRouteInfo<void> {
   const CDemoRoute({List<PageRouteInfo>? children})
-      : super(CDemoRoute.name, initialChildren: children);
+    : super(CDemoRoute.name, initialChildren: children);
 
   static const String name = 'CDemoRoute';
 
@@ -240,10 +240,10 @@ class CEditGemRoute extends PageRouteInfo<CEditGemRouteArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          CEditGemRoute.name,
-          args: CEditGemRouteArgs(initialGem: initialGem, key: key),
-          initialChildren: children,
-        );
+         CEditGemRoute.name,
+         args: CEditGemRouteArgs(initialGem: initialGem, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'CEditGemRoute';
 
@@ -290,14 +290,14 @@ class CEditPersonRoute extends PageRouteInfo<CEditPersonRouteArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          CEditPersonRoute.name,
-          args: CEditPersonRouteArgs(
-            person: person,
-            isPersonNew: isPersonNew,
-            key: key,
-          ),
-          initialChildren: children,
-        );
+         CEditPersonRoute.name,
+         args: CEditPersonRouteArgs(
+           person: person,
+           isPersonNew: isPersonNew,
+           key: key,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'CEditPersonRoute';
 
@@ -351,12 +351,12 @@ class CEditPersonRouteArgs {
 /// [CGemPage]
 class CGemRoute extends PageRouteInfo<CGemRouteArgs> {
   CGemRoute({required String gemID, Key? key, List<PageRouteInfo>? children})
-      : super(
-          CGemRoute.name,
-          args: CGemRouteArgs(gemID: gemID, key: key),
-          rawPathParams: {'gemID': gemID},
-          initialChildren: children,
-        );
+    : super(
+        CGemRoute.name,
+        args: CGemRouteArgs(gemID: gemID, key: key),
+        rawPathParams: {'gemID': gemID},
+        initialChildren: children,
+      );
 
   static const String name = 'CGemRoute';
 
@@ -401,7 +401,7 @@ class CGemRouteArgs {
 /// [CGetStartedPage]
 class CGetStartedRoute extends PageRouteInfo<void> {
   const CGetStartedRoute({List<PageRouteInfo>? children})
-      : super(CGetStartedRoute.name, initialChildren: children);
+    : super(CGetStartedRoute.name, initialChildren: children);
 
   static const String name = 'CGetStartedRoute';
 
@@ -417,7 +417,7 @@ class CGetStartedRoute extends PageRouteInfo<void> {
 /// [CHomePage]
 class CHomeRoute extends PageRouteInfo<void> {
   const CHomeRoute({List<PageRouteInfo>? children})
-      : super(CHomeRoute.name, initialChildren: children);
+    : super(CHomeRoute.name, initialChildren: children);
 
   static const String name = 'CHomeRoute';
 
@@ -433,7 +433,7 @@ class CHomeRoute extends PageRouteInfo<void> {
 /// [CInvitationsPage]
 class CInvitationsRoute extends PageRouteInfo<void> {
   const CInvitationsRoute({List<PageRouteInfo>? children})
-      : super(CInvitationsRoute.name, initialChildren: children);
+    : super(CInvitationsRoute.name, initialChildren: children);
 
   static const String name = 'CInvitationsRoute';
 
@@ -449,7 +449,7 @@ class CInvitationsRoute extends PageRouteInfo<void> {
 /// [CInvitedPage]
 class CInvitedRoute extends PageRouteInfo<void> {
   const CInvitedRoute({List<PageRouteInfo>? children})
-      : super(CInvitedRoute.name, initialChildren: children);
+    : super(CInvitedRoute.name, initialChildren: children);
 
   static const String name = 'CInvitedRoute';
 
@@ -465,11 +465,11 @@ class CInvitedRoute extends PageRouteInfo<void> {
 /// [CLoginTab]
 class CLoginRoute extends PageRouteInfo<CLoginRouteArgs> {
   CLoginRoute({Key? key, List<PageRouteInfo>? children})
-      : super(
-          CLoginRoute.name,
-          args: CLoginRouteArgs(key: key),
-          initialChildren: children,
-        );
+    : super(
+        CLoginRoute.name,
+        args: CLoginRouteArgs(key: key),
+        initialChildren: children,
+      );
 
   static const String name = 'CLoginRoute';
 
@@ -509,7 +509,7 @@ class CLoginRouteArgs {
 /// [CLogsPage]
 class CLogsRoute extends PageRouteInfo<void> {
   const CLogsRoute({List<PageRouteInfo>? children})
-      : super(CLogsRoute.name, initialChildren: children);
+    : super(CLogsRoute.name, initialChildren: children);
 
   static const String name = 'CLogsRoute';
 
@@ -525,7 +525,7 @@ class CLogsRoute extends PageRouteInfo<void> {
 /// [CManageChestPage]
 class CManageChestRoute extends PageRouteInfo<void> {
   const CManageChestRoute({List<PageRouteInfo>? children})
-      : super(CManageChestRoute.name, initialChildren: children);
+    : super(CManageChestRoute.name, initialChildren: children);
 
   static const String name = 'CManageChestRoute';
 
@@ -541,7 +541,7 @@ class CManageChestRoute extends PageRouteInfo<void> {
 /// [CMembersPage]
 class CMembersRoute extends PageRouteInfo<void> {
   const CMembersRoute({List<PageRouteInfo>? children})
-      : super(CMembersRoute.name, initialChildren: children);
+    : super(CMembersRoute.name, initialChildren: children);
 
   static const String name = 'CMembersRoute';
 
@@ -557,7 +557,7 @@ class CMembersRoute extends PageRouteInfo<void> {
 /// [CPeoplePage]
 class CPeopleRoute extends PageRouteInfo<void> {
   const CPeopleRoute({List<PageRouteInfo>? children})
-      : super(CPeopleRoute.name, initialChildren: children);
+    : super(CPeopleRoute.name, initialChildren: children);
 
   static const String name = 'CPeopleRoute';
 
@@ -573,7 +573,7 @@ class CPeopleRoute extends PageRouteInfo<void> {
 /// [CRandomCollectionPage]
 class CRandomCollectionRoute extends PageRouteInfo<void> {
   const CRandomCollectionRoute({List<PageRouteInfo>? children})
-      : super(CRandomCollectionRoute.name, initialChildren: children);
+    : super(CRandomCollectionRoute.name, initialChildren: children);
 
   static const String name = 'CRandomCollectionRoute';
 
@@ -589,7 +589,7 @@ class CRandomCollectionRoute extends PageRouteInfo<void> {
 /// [CRecentsCollectionPage]
 class CRecentsCollectionRoute extends PageRouteInfo<void> {
   const CRecentsCollectionRoute({List<PageRouteInfo>? children})
-      : super(CRecentsCollectionRoute.name, initialChildren: children);
+    : super(CRecentsCollectionRoute.name, initialChildren: children);
 
   static const String name = 'CRecentsCollectionRoute';
 
@@ -605,7 +605,7 @@ class CRecentsCollectionRoute extends PageRouteInfo<void> {
 /// [CSettingsPage]
 class CSettingsRoute extends PageRouteInfo<void> {
   const CSettingsRoute({List<PageRouteInfo>? children})
-      : super(CSettingsRoute.name, initialChildren: children);
+    : super(CSettingsRoute.name, initialChildren: children);
 
   static const String name = 'CSettingsRoute';
 
@@ -625,11 +625,11 @@ class CSharedGemRoute extends PageRouteInfo<CSharedGemRouteArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          CSharedGemRoute.name,
-          args: CSharedGemRouteArgs(shareToken: shareToken, key: key),
-          rawQueryParams: {'token': shareToken},
-          initialChildren: children,
-        );
+         CSharedGemRoute.name,
+         args: CSharedGemRouteArgs(shareToken: shareToken, key: key),
+         rawQueryParams: {'token': shareToken},
+         initialChildren: children,
+       );
 
   static const String name = 'CSharedGemRoute';
 
@@ -675,7 +675,7 @@ class CSharedGemRouteArgs {
 /// [CSigninPage]
 class CSigninRoute extends PageRouteInfo<void> {
   const CSigninRoute({List<PageRouteInfo>? children})
-      : super(CSigninRoute.name, initialChildren: children);
+    : super(CSigninRoute.name, initialChildren: children);
 
   static const String name = 'CSigninRoute';
 
@@ -691,7 +691,7 @@ class CSigninRoute extends PageRouteInfo<void> {
 /// [CSignupTab]
 class CSignupRoute extends PageRouteInfo<void> {
   const CSignupRoute({List<PageRouteInfo>? children})
-      : super(CSignupRoute.name, initialChildren: children);
+    : super(CSignupRoute.name, initialChildren: children);
 
   static const String name = 'CSignupRoute';
 
@@ -707,12 +707,12 @@ class CSignupRoute extends PageRouteInfo<void> {
 /// [CVerifyOTPPage]
 class CVerifyOTPRoute extends PageRouteInfo<CVerifyOTPRouteArgs> {
   CVerifyOTPRoute({String? email, Key? key, List<PageRouteInfo>? children})
-      : super(
-          CVerifyOTPRoute.name,
-          args: CVerifyOTPRouteArgs(email: email, key: key),
-          rawQueryParams: {'email': email},
-          initialChildren: children,
-        );
+    : super(
+        CVerifyOTPRoute.name,
+        args: CVerifyOTPRouteArgs(email: email, key: key),
+        rawQueryParams: {'email': email},
+        initialChildren: children,
+      );
 
   static const String name = 'CVerifyOTPRoute';
 
@@ -762,11 +762,11 @@ class CYearCollectionRoute extends PageRouteInfo<CYearCollectionRouteArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          CYearCollectionRoute.name,
-          args: CYearCollectionRouteArgs(year: year, key: key),
-          rawPathParams: {'year': year},
-          initialChildren: children,
-        );
+         CYearCollectionRoute.name,
+         args: CYearCollectionRouteArgs(year: year, key: key),
+         rawPathParams: {'year': year},
+         initialChildren: children,
+       );
 
   static const String name = 'CYearCollectionRoute';
 

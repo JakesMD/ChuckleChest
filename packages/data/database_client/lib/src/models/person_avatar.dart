@@ -11,14 +11,11 @@ part 'person_avatar.g.dart';
 @PgModelHere()
 class CRawPersonAvatar extends PgModel<CAvatarsTable> {
   /// {@macro CRawPersonAvatar}
-  CRawPersonAvatar(super.json) : super(builder: builder);
+  CRawPersonAvatar(super.json, super.values) : super(builder: builder);
 
   /// The builder for the model.
   static final builder = PgModelBuilder<CAvatarsTable, CRawPersonAvatar>(
     constructor: CRawPersonAvatar.new,
-    columns: [
-      CAvatarsTable.year,
-      CAvatarsTable.imageURL,
-    ],
+    columns: [CAvatarsTable.year, CAvatarsTable.imageURL],
   );
 }

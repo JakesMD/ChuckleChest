@@ -18,43 +18,46 @@ final cTalker = TalkerFlutter.init();
 Future<void> bootstrap(
   Widget Function(BuildContext dependencyContext) builder,
 ) async {
-  await runZonedGuarded(() async {
-    FlutterError.onError = (details) {
-      cTalker.error(details.toString(), details.exception, details.stack);
-    };
+  await runZonedGuarded(
+    () async {
+      FlutterError.onError = (details) {
+        cTalker.error(details.toString(), details.exception, details.stack);
+      };
 
-    WidgetsFlutterBinding.ensureInitialized();
+      WidgetsFlutterBinding.ensureInitialized();
 
-    Bloc.observer = TalkerBlocObserver(
-      talker: cTalker,
-      settings: const TalkerBlocLoggerSettings(
-        printChanges: true,
-        printCreations: true,
-        printClosings: true,
-      ),
-    );
+      Bloc.observer = TalkerBlocObserver(
+        talker: cTalker,
+        settings: const TalkerBlocLoggerSettings(
+          printChanges: true,
+          printCreations: true,
+          printClosings: true,
+        ),
+      );
 
-    BigBob.onFailure = (failure, error, stack) =>
-        cTalker.error(failure.toString(), error, stack);
+      BigBob.onFailure = (failure, error, stack) =>
+          cTalker.error(failure.toString(), error, stack);
 
-    HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: HydratedStorageDirectory.web,
-    );
-    cTalker.info('HydratedBloc storage initialized');
+      HydratedBloc.storage = await HydratedStorage.build(
+        storageDirectory: HydratedStorageDirectory.web,
+      );
+      cTalker.info('HydratedBloc storage initialized');
 
-    await Supabase.initialize(
-      url: const String.fromEnvironment('SUPABASE_PROJECT_URL'),
-      anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
-      debug: false,
-    );
-    cTalker.info('Supabase initialized');
+      await Supabase.initialize(
+        url: const String.fromEnvironment('SUPABASE_PROJECT_URL'),
+        anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+        debug: false,
+      );
+      cTalker.info('Supabase initialized');
 
-    await cInitializeL10n();
-    cTalker.info('L10n initialized');
+      await cInitializeL10n();
+      cTalker.info('L10n initialized');
 
-    runApp(CAppDependenciesProvider(builder: builder));
-    cTalker.info('App started');
-  }, (Object error, StackTrace stack) {
-    cTalker.handle(error, stack, 'Uncaught app exception');
-  });
+      runApp(CAppDependenciesProvider(builder: builder));
+      cTalker.info('App started');
+    },
+    (Object error, StackTrace stack) {
+      cTalker.handle(error, stack, 'Uncaught app exception');
+    },
+  );
 }

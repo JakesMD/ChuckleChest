@@ -9,8 +9,8 @@ enum CDropdownInputError {
 
   /// Returns the error message for the given error in the context locale.
   String localize(BuildContext context) => switch (this) {
-        CDropdownInputError.empty => context.cAppL10n.inputError_dropdown_empty,
-      };
+    CDropdownInputError.empty => context.cAppL10n.inputError_dropdown_empty,
+  };
 }
 
 /// {@template CDropdownInput}

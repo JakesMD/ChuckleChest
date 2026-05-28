@@ -37,8 +37,10 @@ class CInvitedPage extends StatelessWidget implements AutoRouteWrapper {
       ],
       child: MultiBlocListener(
         listeners: [
-          BlocListener<CChestInvitationsFetchCubit,
-              CChestInvitationsFetchState>(
+          BlocListener<
+            CChestInvitationsFetchCubit,
+            CChestInvitationsFetchState
+          >(
             listener: (context, state) => const CErrorSnackBar().show(context),
             listenWhen: (_, state) =>
                 state.status == CRequestCubitStatus.failed,
@@ -47,14 +49,14 @@ class CInvitedPage extends StatelessWidget implements AutoRouteWrapper {
             listener: (context, state) => switch (state.status) {
               CRequestCubitStatus.initial => null,
               CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
+              CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                context,
+              ),
               CRequestCubitStatus.succeeded =>
                 context.read<CChestInvitationsFetchCubit>().addInvitation(
-                      invitation:
-                          (state.invitation as BobsPresent<CChestInvitation>)
-                              .value,
-                    ),
+                  invitation:
+                      (state.invitation as BobsPresent<CChestInvitation>).value,
+                ),
             },
           ),
         ],
@@ -69,21 +71,24 @@ class CInvitedPage extends StatelessWidget implements AutoRouteWrapper {
       appBar: AppBar(title: Text(context.cAppL10n.invitedPage_title)),
       body:
           BlocBuilder<CChestInvitationsFetchCubit, CChestInvitationsFetchState>(
-        builder: (context, state) => switch (state.status) {
-          CRequestCubitStatus.initial =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.inProgress =>
-            const Center(child: CCradleLoadingIndicator()),
-          CRequestCubitStatus.failed =>
-            const Center(child: Icon(Icons.error_rounded)),
-          CRequestCubitStatus.succeeded => CResponsiveListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 32),
-              items: state.invitations,
-              itemBuilder: (context, invitation) =>
-                  CInvitedTile(invitation: invitation),
-            ),
-        },
-      ),
+            builder: (context, state) => switch (state.status) {
+              CRequestCubitStatus.initial => const Center(
+                child: CCradleLoadingIndicator(),
+              ),
+              CRequestCubitStatus.inProgress => const Center(
+                child: CCradleLoadingIndicator(),
+              ),
+              CRequestCubitStatus.failed => const Center(
+                child: Icon(Icons.error_rounded),
+              ),
+              CRequestCubitStatus.succeeded => CResponsiveListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                items: state.invitations,
+                itemBuilder: (context, invitation) =>
+                    CInvitedTile(invitation: invitation),
+              ),
+            },
+          ),
       floatingActionButton: const CInviteFAB(),
     );
   }

@@ -11,7 +11,7 @@ part 'avatars.g.dart';
 class CAvatarsTable extends SupabaseTable<CAvatarsTable> {
   /// {@macro CAvatarsTable}
   CAvatarsTable(super.client)
-      : super(tableName: tableName, primaryKey: [personID, year]);
+    : super(tableName: tableName, primaryKey: [personID, year]);
 
   /// The name of the table in the Supabase database.
   static const tableName = PgTableName<CAvatarsTable>('avatars');

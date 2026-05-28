@@ -38,21 +38,28 @@ class CGemPage extends StatelessWidget implements AutoRouteWrapper {
     return Theme(
       data: Theme.of(context).copyWith(colorScheme: colorScheme),
       child: Scaffold(
-        body: CCollectionView<CGemFetchCubit, CGemFetchState,
-            CGemFetchException, CGem>(
-          gemTokens: [gemID],
-          userRole: context.read<CCurrentChestCubit>().state.userRole,
-          gemFromState: (state) => state.gem,
-          gemTokenFromState: (state) => state.gemID,
-          triggerFetchGem: (context, token) =>
-              context.read<CGemFetchCubit>().fetchGem(gemID: token),
-          onFetchFailed: (failure) => switch (failure) {
-            CGemFetchException.notFound =>
-              const CErrorSnackBar(message: "We couldn't find that gem.")
-                  .show(context),
-            CGemFetchException.unknown => const CErrorSnackBar().show(context),
-          },
-        ),
+        body:
+            CCollectionView<
+              CGemFetchCubit,
+              CGemFetchState,
+              CGemFetchException,
+              CGem
+            >(
+              gemTokens: [gemID],
+              userRole: context.read<CCurrentChestCubit>().state.userRole,
+              gemFromState: (state) => state.gem,
+              gemTokenFromState: (state) => state.gemID,
+              triggerFetchGem: (context, token) =>
+                  context.read<CGemFetchCubit>().fetchGem(gemID: token),
+              onFetchFailed: (failure) => switch (failure) {
+                CGemFetchException.notFound => const CErrorSnackBar(
+                  message: "We couldn't find that gem.",
+                ).show(context),
+                CGemFetchException.unknown => const CErrorSnackBar().show(
+                  context,
+                ),
+              },
+            ),
       ),
     );
   }

@@ -44,11 +44,7 @@ class CAvatarSection extends StatelessWidget {
 /// {@endtemplate}
 class CEditableAvatar extends StatelessWidget {
   /// {@macro CEditableAvatar}
-  const CEditableAvatar({
-    required this.person,
-    required this.date,
-    super.key,
-  });
+  const CEditableAvatar({required this.person, required this.date, super.key});
 
   /// The person to edit the avatar for.
   final CPerson person;

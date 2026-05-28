@@ -25,12 +25,12 @@ class CLinesTableUpsert extends PgUpsert<CLinesTable> {
     required this.chestID,
     this.id,
   }) : super([
-          CLinesTable.text(text),
-          if (personID != null) CLinesTable.personID(personID.value),
-          CLinesTable.gemID(gemID),
-          CLinesTable.chestID(chestID),
-          if (id != null) CLinesTable.id(id),
-        ]);
+         CLinesTable.text(text),
+         if (personID != null) CLinesTable.personID(personID.value),
+         CLinesTable.gemID(gemID),
+         CLinesTable.chestID(chestID),
+         if (id != null) CLinesTable.id(id),
+       ]);
 
   final String text;
   final PgNullable<BigInt>? personID;

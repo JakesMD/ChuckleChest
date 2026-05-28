@@ -23,10 +23,7 @@ class CSharedGem extends CGem {
   /// {@macro CSharedGem}
   ///
   /// Converts a [CRawGem] and a list of [CRawPerson]s to a [CSharedGem].
-  factory CSharedGem.fromRaw(
-    CRawGem rawGem,
-    List<CRawPerson> rawPeople,
-  ) {
+  factory CSharedGem.fromRaw(CRawGem rawGem, List<CRawPerson> rawPeople) {
     final gem = CGem.fromRaw(rawGem);
     final people = rawPeople.map(CPerson.fromRaw).toList();
 

@@ -31,21 +31,23 @@ class CChestPage extends StatelessWidget implements AutoRouteWrapper {
       lazy: false,
       create: (context) => CCurrentChestCubit(
         chestID: chestID,
-        lastViewedChest:
-            context.read<CAppSettingsCubit>().state.lastViewedChest,
+        lastViewedChest: context
+            .read<CAppSettingsCubit>()
+            .state
+            .lastViewedChest,
         authRepository: context.read(),
       ),
       child: BlocProvider(
-        create: (context) => CChestPeopleFetchCubit(
-          personRepository: context.read(),
-        )..fetchChestPeople(
-            chestID: context.read<CCurrentChestCubit>().state.id,
-          ),
+        create: (context) =>
+            CChestPeopleFetchCubit(personRepository: context.read())
+              ..fetchChestPeople(
+                chestID: context.read<CCurrentChestCubit>().state.id,
+              ),
         child: BlocListener<CChestPeopleFetchCubit, CChestPeopleFetchState>(
           listener: (context, _) =>
               context.read<CAppSettingsCubit>().updateLastViewedChest(
-                    context.read<CCurrentChestCubit>().state.id,
-                  ),
+                context.read<CCurrentChestCubit>().state.id,
+              ),
           listenWhen: (_, state) => state.succeeded,
           child: this,
         ),

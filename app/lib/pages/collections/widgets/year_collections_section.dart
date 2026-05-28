@@ -26,45 +26,46 @@ class CYearCollectionsSection extends StatelessWidget {
     return BlocBuilder<CGemYearsFetchCubit, CGemYearsFetchState>(
       buildWhen: (_, state) => !state.inProgress,
       builder: (context, state) => switch (state.status) {
-        CRequestCubitStatus.initial =>
-          const Center(child: CCradleLoadingIndicator()),
-        CRequestCubitStatus.inProgress =>
-          const Center(child: CCradleLoadingIndicator()),
-        CRequestCubitStatus.failed =>
-          const Center(child: Icon(Icons.error_rounded)),
-        CRequestCubitStatus.succeeded => state.years.isNotEmpty
-            ? Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                spacing: 8,
-                runSpacing: 8,
-                children: state.years
-                    .map(
-                      (year) => _CYearCollectionCard(
-                        year: year,
-                        onCardPressed: _onCardPressed,
-                      ),
-                    )
-                    .toList(),
-              )
-            : Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Text(
-                    context.cAppL10n.collectionsPage_noGemsMessage,
-                    style: const TextStyle(fontStyle: FontStyle.italic),
+        CRequestCubitStatus.initial => const Center(
+          child: CCradleLoadingIndicator(),
+        ),
+        CRequestCubitStatus.inProgress => const Center(
+          child: CCradleLoadingIndicator(),
+        ),
+        CRequestCubitStatus.failed => const Center(
+          child: Icon(Icons.error_rounded),
+        ),
+        CRequestCubitStatus.succeeded =>
+          state.years.isNotEmpty
+              ? Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: state.years
+                      .map(
+                        (year) => _CYearCollectionCard(
+                          year: year,
+                          onCardPressed: _onCardPressed,
+                        ),
+                      )
+                      .toList(),
+                )
+              : Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text(
+                      context.cAppL10n.collectionsPage_noGemsMessage,
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
                   ),
                 ),
-              ),
       },
     );
   }
 }
 
 class _CYearCollectionCard extends StatelessWidget {
-  const _CYearCollectionCard({
-    required this.year,
-    required this.onCardPressed,
-  });
+  const _CYearCollectionCard({required this.year, required this.onCardPressed});
 
   final int year;
 
@@ -74,12 +75,13 @@ class _CYearCollectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final people = context.read<CChestPeopleFetchCubit>().state.people;
 
-    final avatars = people
-        .map((p) => p.avatarURLForDate(DateTime(year))?.url)
-        .where((a) => a != null)
-        .toList()
-        .cast<String>()
-      ..shuffle();
+    final avatars =
+        people
+            .map((p) => p.avatarURLForDate(DateTime(year))?.url)
+            .where((a) => a != null)
+            .toList()
+            .cast<String>()
+          ..shuffle();
 
     return Card.filled(
       clipBehavior: Clip.antiAlias,
@@ -98,26 +100,24 @@ class _CYearCollectionCard extends StatelessWidget {
                   (col) => Expanded(
                     child: SignedSpacingRow(
                       spacing: 4,
-                      children: List.generate(
-                        2,
-                        (row) {
-                          final index = col * 2 + row;
-                          final avatar =
-                              avatars.length > index ? avatars[index] : null;
+                      children: List.generate(2, (row) {
+                        final index = col * 2 + row;
+                        final avatar = avatars.length > index
+                            ? avatars[index]
+                            : null;
 
-                          return Expanded(
-                            child: ColoredBox(
-                              color: context.cColorScheme.surfaceContainer,
-                              child: avatar != null
-                                  ? FadeInImage.memoryNetwork(
-                                      placeholder: kTransparentImage,
-                                      image: avatar,
-                                    )
-                                  : Container(),
-                            ),
-                          );
-                        },
-                      ),
+                        return Expanded(
+                          child: ColoredBox(
+                            color: context.cColorScheme.surfaceContainer,
+                            child: avatar != null
+                                ? FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: avatar,
+                                  )
+                                : Container(),
+                          ),
+                        );
+                      }),
                     ),
                   ),
                 ),

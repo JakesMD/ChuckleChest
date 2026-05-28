@@ -12,8 +12,6 @@ class CRawAuthUserUpdate {
 
   /// Converts the raw data to a JSON object.
   Map<String, dynamic> toJson() {
-    return {
-      if (username != null) 'username': username,
-    };
+    return {if (username != null) 'username': username};
   }
 }

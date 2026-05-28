@@ -24,11 +24,11 @@ class CPeopleTableUpsert extends PgUpsert<CPeopleTable> {
     required this.chestID,
     this.id,
   }) : super([
-          CPeopleTable.nickname(nickname),
-          CPeopleTable.dateOfBirth(dateOfBirth),
-          CPeopleTable.chestID(chestID),
-          if (id != null) CPeopleTable.id(id),
-        ]);
+         CPeopleTable.nickname(nickname),
+         CPeopleTable.dateOfBirth(dateOfBirth),
+         CPeopleTable.chestID(chestID),
+         if (id != null) CPeopleTable.id(id),
+       ]);
 
   final String nickname;
   final DateTime dateOfBirth;

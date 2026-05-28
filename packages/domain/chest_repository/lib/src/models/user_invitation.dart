@@ -19,9 +19,9 @@ class CUserInvitation with EquatableMixin {
   ///
   /// Creates a new [CUserInvitation] from the given [raw].
   CUserInvitation.fromRecord(CRawInvitation raw)
-      : chestID = raw.chest.id,
-        assignedRole = raw.assignedRole,
-        chestName = raw.chest.name;
+    : chestID = raw.chest.id,
+      assignedRole = raw.assignedRole,
+      chestName = raw.chest.name;
 
   /// The ID of the chest the user is invited to.
   final String chestID;

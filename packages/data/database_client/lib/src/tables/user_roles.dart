@@ -13,7 +13,7 @@ part 'user_roles.g.dart';
 class CUserRolesTable extends SupabaseTable<CUserRolesTable> {
   /// {@macro CUserRolesTable}
   CUserRolesTable(super.client)
-      : super(tableName: tableName, primaryKey: [chestID, userID]);
+    : super(tableName: tableName, primaryKey: [chestID, userID]);
 
   /// The name of the table in the Supabase database.
   static const tableName = PgTableName<CUserRolesTable>('user_roles');

@@ -1,0 +1,22 @@
+name: Release
+description: Deploys the production version of the app.
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: 🔧 Setup GitHub Pages
+      uses: actions/configure-pages@v5
+
+    - name: 📤 Upload production app
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: "./website/public"
+
+    - name: 🗃️ Push database changes
+      shell: bash
+      run: task db:push SUPABASE_PROJECT_ID=${{ env.SUPABASE_PROJECT_ID }} DRY_RUN=false
+
+    - name: 🚀 Deploy production website and app
+      id: deployment
+      uses: actions/deploy-pages@v4

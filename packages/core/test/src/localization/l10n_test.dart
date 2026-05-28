@@ -64,10 +64,11 @@ void main() {
         await tester.pumpWidget(
           localizedApp(
             builder: (context) {
-              translation = DateTime(2024, 2, 10).cLocalize(
-                context,
-                dateFormat: CDateFormat.yearMonth,
-              );
+              translation = DateTime(
+                2024,
+                2,
+                10,
+              ).cLocalize(context, dateFormat: CDateFormat.yearMonth);
 
               return Container();
             },

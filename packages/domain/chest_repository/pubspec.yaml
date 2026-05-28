@@ -1,10 +1,12 @@
 name: cchest_repository
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
+  sdk: ^3.11.0
+  
+resolution: workspace
 
 dependencies:
-  bobs_jobs: ^0.0.1-dev.16
+  bobs_jobs: any
   ccore:
   cdatabase_client:
   equatable: ^2.0.5

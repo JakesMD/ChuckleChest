@@ -27,43 +27,41 @@ class CChangeThemeDialog extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(vertical: 16),
       content: BlocBuilder<CAppSettingsCubit, CAppSettingsState>(
         bloc: cubit,
-        builder: (context, state) => Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
+        builder: (context, state) => RadioGroup(
+          groupValue: state.themeMode,
+          onChanged: (t) => _onChanged(context, t),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                title: Text(context.cAppL10n.themeDialog_device),
+                value: ThemeMode.system,
+                secondary: const Icon(Icons.auto_mode_rounded),
               ),
-              title: Text(context.cAppL10n.themeDialog_device),
-              value: ThemeMode.system,
-              groupValue: state.themeMode,
-              onChanged: (t) => _onChanged(context, t),
-              secondary: const Icon(Icons.auto_mode_rounded),
-            ),
-            RadioListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
+              RadioListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                title: Text(context.cAppL10n.themeDialog_lightMode),
+                value: ThemeMode.light,
+                secondary: const Icon(Icons.light_mode_rounded),
               ),
-              title: Text(context.cAppL10n.themeDialog_lightMode),
-              value: ThemeMode.light,
-              groupValue: state.themeMode,
-              onChanged: (t) => _onChanged(context, t),
-              secondary: const Icon(Icons.light_mode_rounded),
-            ),
-            RadioListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
+              RadioListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                title: Text(context.cAppL10n.themeDialog_darkMode),
+                value: ThemeMode.dark,
+                secondary: const Icon(Icons.dark_mode_rounded),
               ),
-              title: Text(context.cAppL10n.themeDialog_darkMode),
-              value: ThemeMode.dark,
-              groupValue: state.themeMode,
-              onChanged: (t) => _onChanged(context, t),
-              secondary: const Icon(Icons.dark_mode_rounded),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       actions: [

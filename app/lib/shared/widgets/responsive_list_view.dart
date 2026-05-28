@@ -17,10 +17,10 @@ class CResponsiveListView<T> extends StatelessWidget {
     this.controller,
     this.physics,
     super.key,
-  })  : _children = children,
-        _items = null,
-        _itemBuilder = null,
-        _separatorBuilder = null;
+  }) : _children = children,
+       _items = null,
+       _itemBuilder = null,
+       _separatorBuilder = null;
 
   /// {@macro CResponsiveListView}
   const CResponsiveListView.builder({
@@ -30,10 +30,10 @@ class CResponsiveListView<T> extends StatelessWidget {
     this.controller,
     this.physics,
     super.key,
-  })  : _items = items,
-        _itemBuilder = itemBuilder,
-        _separatorBuilder = null,
-        _children = null;
+  }) : _items = items,
+       _itemBuilder = itemBuilder,
+       _separatorBuilder = null,
+       _children = null;
 
   /// {@macro CResponsiveListView}
   const CResponsiveListView.separated({
@@ -44,10 +44,10 @@ class CResponsiveListView<T> extends StatelessWidget {
     this.controller,
     this.physics,
     super.key,
-  })  : _items = items,
-        _itemBuilder = itemBuilder,
-        _separatorBuilder = separatorBuilder,
-        _children = null;
+  }) : _items = items,
+       _itemBuilder = itemBuilder,
+       _separatorBuilder = separatorBuilder,
+       _children = null;
 
   /// The children to display in a normal list view.
   final List<Widget>? _children;

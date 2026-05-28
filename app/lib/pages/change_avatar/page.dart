@@ -43,10 +43,12 @@ class CChangeAvatarPage extends StatelessWidget implements AutoRouteWrapper {
             listener: (context, state) => switch (state.status) {
               CRequestCubitStatus.initial => null,
               CRequestCubitStatus.inProgress => null,
-              CRequestCubitStatus.failed =>
-                const CErrorSnackBar().show(context),
-              CRequestCubitStatus.succeeded => context.router
-                  .maybePop(CAvatarURL(year: avatarURL.year, url: state.url)),
+              CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                context,
+              ),
+              CRequestCubitStatus.succeeded => context.router.maybePop(
+                CAvatarURL(year: avatarURL.year, url: state.url),
+              ),
             },
           ),
           BlocListener<CImagePickCubit, CImagePickState>(
@@ -71,11 +73,11 @@ class CChangeAvatarPage extends StatelessWidget implements AutoRouteWrapper {
   void _onCropped(BuildContext context, CropResult result) {
     if (result is CropSuccess) {
       context.read<CAvatarUpdateCubit>().updateAvatarForYear(
-            personID: personID,
-            image: result.croppedImage,
-            year: avatarURL.year,
-            chestID: context.read<CCurrentChestCubit>().state.id,
-          );
+        personID: personID,
+        image: result.croppedImage,
+        year: avatarURL.year,
+        chestID: context.read<CCurrentChestCubit>().state.id,
+      );
     } else {
       const CErrorSnackBar().show(context);
     }
