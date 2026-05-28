@@ -1,5 +1,5 @@
-name: Dry-run
-description: Runs checks and dry-runs deploying the production version of the app.
+name: Preflight check
+description: Runs checks and simulates deploying the production version of the app.
 
 runs:
   using: "composite"

@@ -1,4 +1,4 @@
-name: Prod
+name: Release
 description: Runs checks and deploys the production version of the app.
 
 runs:
