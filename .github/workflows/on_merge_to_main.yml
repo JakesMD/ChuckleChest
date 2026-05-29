@@ -56,7 +56,7 @@ jobs:
               id: version
               if: steps.bump_type.outputs.type != 'none'
               run: |
-                  NEW_VERSION=$(NO_COLOR=1 task --silent version:bump TYPE=${{ steps.bump_type.outputs.type }})
+                  NEW_VERSION=$(NO_COLOR=1 task --silent version:bump TYPE=${{ steps.bump_type.outputs.type }} | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
                   echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
 
             - name: ✅ Preflight check
