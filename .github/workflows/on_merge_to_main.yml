@@ -39,17 +39,14 @@ jobs:
             - name: 📚 Git checkout
               uses: actions/checkout@v4
 
-            - name: 🔖 Detect version bump type from labels
+            - name: 🔖 Detect version bump type from branch
               id: bump_type
               shell: bash
               run: |
-                  LABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
-                  if echo "$LABELS" | grep -q '"hotfix"'; then
-                      echo "type=patch" >> "$GITHUB_OUTPUT"
-                  elif echo "$LABELS" | grep -q '"release"'; then
+                  if [ "${{ github.event.pull_request.head.ref }}" == "develop" ]; then
                       echo "type=minor" >> "$GITHUB_OUTPUT"
                   else
-                      echo "type=none" >> "$GITHUB_OUTPUT"
+                      echo "type=patch" >> "$GITHUB_OUTPUT"
                   fi
 
             - name: ⚙️ Setup
@@ -59,7 +56,7 @@ jobs:
               id: version
               if: steps.bump_type.outputs.type != 'none'
               run: |
-                  NEW_VERSION=$(task version:bump TYPE=${{ steps.bump_type.outputs.type }})
+                  NEW_VERSION=$(NO_COLOR=1 task --silent version:bump TYPE=${{ steps.bump_type.outputs.type }})
                   echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
 
             - name: ✅ Preflight check
@@ -87,5 +84,6 @@ jobs:
               env:
                   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
+                  git remote set-url origin git@github.com:JakesMD/ChuckleChest.git
                   git checkout -B develop
-                  git push origin develop --force
+                  git push origin develop
