@@ -1,0 +1,32 @@
+name: on_merge_to_develop
+
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - develop
+
+jobs:
+    open-release-pr:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pull-requests: write
+        if: github.event.pull_request.merged == true
+
+        steps:
+            - name: 🔀 Open develop → main PR if none exists
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  EXISTING=$(gh pr list --repo ${{ github.repository }} --base main --head develop --state open --json number --jq 'length')
+                  if [ "$EXISTING" -eq 0 ]; then
+                      gh pr create \
+                          --repo ${{ github.repository }} \
+                          --base main \
+                          --head develop \
+                          --title "🚀 Release next minor version" \
+                          --draft \
+                          --body $'> [!NOTE]\n> Do not bump the version manually. CI will do this automatically when merged into main.'
+                  fi
