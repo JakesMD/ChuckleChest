@@ -70,15 +70,22 @@ jobs:
 
             - name: 💾 Commit version bump
               if: steps.bump_type.outputs.type != 'none'
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
+                  eval "$(ssh-agent -s -a $SSH_AUTH_SOCK)"
+                  echo "${{ secrets.DEPLOY_KEY }}" | ssh-add -
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git remote set-url origin git@github.com:JakesMD/ChuckleChest.git
                   git add app/pubspec.yaml app/web/index.html
                   git commit -m "Bump app version to ${{ steps.version.outputs.NEW_VERSION }}"
                   git push
 
             - name: 🌿 Recreate develop branch
               if: steps.bump_type.outputs.type == 'minor'
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
                   git checkout -B develop
                   git push origin develop --force
