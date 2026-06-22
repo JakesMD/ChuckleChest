@@ -1,0 +1,30 @@
+modules:
+  - dart: hobnobs/dart.yml
+  - db: hobnobs/database.yml
+
+tasks:
+  ci:
+    info: The procedure run by the CI workflow. Run this before pushing to GitHub.
+    steps:
+      - call: dart:setup
+      - call: dart:analyze
+      - call: dart:test
+      # - call: db:test
+      - call: dart:build
+      - call: website:update
+
+  website:update:
+    info: Update the website with the latest build of the app.
+    steps:
+      - run: rm -rf website/public/app
+      - run: cp -r app/build/web website/public/app
+
+  version:bump:
+    info: Bumps the version of the app and all of the packages.
+    if: '[ "$CI" = "true" ]'
+    steps:
+      - get:
+          - TYPE:
+              info: The version increment.
+              enum: [patch, minor, major]
+      - run: bash bin/bump_version.sh {{.TYPE}}

@@ -1,0 +1,36 @@
+tasks:
+  test:
+    info: Run tests against the local Supabase database.
+    steps:
+      - run: supabase db test
+
+  reset:
+    info: Resets the local Supabase database.
+    steps:
+      - run: supabase db reset
+
+  diff:
+    info: Diff the current migration files with the current state of the schema, local or linked database.
+    steps:
+      - get:
+          - LOCATION:
+              info: The location to diff against. Can be "local" or "remote".
+              enum: [schema, local, remote]
+      - run: supabase stop
+        if: '[ "{{.LOCATION}}" = "schema" ]'
+      - run: supabase db diff {{if ne .LOCATION "schema"}}--{{.LOCATION}}{{end}} -f new_public
+      - run: supabase db diff {{if ne .LOCATION "schema"}}--{{.LOCATION}}{{end}} -f new_storage --schema storage
+      - run: supabase db diff {{if ne .LOCATION "schema"}}--{{.LOCATION}}{{end}} -f new_auth --schema auth
+
+  push:
+    info: Push the database changes to the linked Supabase project.
+    steps:
+      - get:
+          - SUPABASE_PROJECT_ID:
+              info: The Supabase project ID.
+          - DRY_RUN:
+              info: Whether to do a dry run of the push.
+              enum: [true, false]
+              default: true
+      - run: supabase link --project-ref {{.SUPABASE_PROJECT_ID}}
+      - run: supabase db push {{if eq .DRY_RUN "true"}}--dry-run{{end}}
