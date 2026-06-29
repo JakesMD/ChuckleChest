@@ -24,6 +24,22 @@ shadow_port = 54320
 # server_version;` on the remote database to check.
 major_version = 15
 
+[db.migrations]
+schema_paths = [
+  "./schemas/pre.sql",
+  "./schemas/public/pre.sql",
+  "./schemas/public/functions/*.sql",
+  "./schemas/public/tables/*/table.sql",
+  "./schemas/public/tables/*/permissions.sql",
+  "./schemas/public/tables/*/indexes.sql",
+  "./schemas/public/tables/*/constraints.sql",
+  "./schemas/public/tables/*/policies.sql",
+  "./schemas/public/triggers/*.sql",
+  "./schemas/public/post.sql",
+  "./schemas/storage/buckets/*/policies.sql",
+  "./schemas/post.sql",
+]
+
 [db.pooler]
 enabled = false
 # Port to use for the local connection pooler.

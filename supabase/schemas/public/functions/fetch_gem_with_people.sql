@@ -1,0 +1,40 @@
+CREATE OR REPLACE FUNCTION public.fetch_gem_with_people(gem_id_param uuid)
+  RETURNS jsonb
+  LANGUAGE plpgsql
+  AS $function$
+DECLARE
+  gem_data_var jsonb;
+  lines_data_var jsonb;
+  people_data_var jsonb;
+BEGIN
+  SELECT
+    row_to_json(g) INTO gem_data_var
+  FROM
+    public.gems g
+  WHERE
+    g.id = gem_id_param
+  LIMIT 1;
+  -- Fetch the lines associated with the gem
+  SELECT
+    jsonb_agg(DISTINCT l) FILTER (WHERE l.id IS NOT NULL) INTO lines_data_var
+  FROM
+    public.lines l
+  WHERE
+    l.gem_id = gem_id_param;
+  -- Fetch the people associated with the lines
+  SELECT
+    jsonb_agg(DISTINCT p) FILTER (WHERE p.id IS NOT NULL) INTO people_data_var
+  FROM
+    public.people p
+  WHERE
+    p.id IN (
+      SELECT
+        l.person_id
+      FROM
+        public.lines l
+      WHERE
+        l.gem_id = gem_id_param);
+  -- Combine gem_data, lines_data, and people_data into a single JSONB object
+  RETURN jsonb_build_object('gem', jsonb_set(gem_data_var, '{lines}', lines_data_var, TRUE), 'people', people_data_var);
+END;
+$function$;
