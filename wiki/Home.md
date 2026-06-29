@@ -14,6 +14,7 @@ access.
 
 - **[Architecture](Architecture)** — Project structure, layered design, state
   management, dependency injection, routing
+- **[Testing](Testing)** — E2E test setup, mock clients, writing app-level tests
 - **[Localization](Localization)** — Multi-language support, ARB files, adding
   translations
 

@@ -60,6 +60,7 @@ tasks:
           sed -i.bak 's|SF:.*/ChuckleChest/|SF:/|' coverage/lcov.info
           rm -f coverage/lcov.info.bak
       - run: dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='\.g\.dart$'
+      - run: dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='^/app/'
       - run: dart bin/check_coverage.dart coverage/lcov.info
 
   localize:

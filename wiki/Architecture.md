@@ -93,6 +93,10 @@ The app uses **flutter_bloc** throughout:
 4. Provides repositories via `MultiRepositoryProvider`
 5. Provides app-wide cubits via `MultiBlocProvider`
 
+The provider accepts **optional client overrides** — in production it creates
+clients from Supabase, in tests mock clients are injected directly. See
+[Testing](Testing) for details.
+
 ### Routing
 
 - **auto_route** with code generation (`routes.gr.dart`)

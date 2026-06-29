@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:chuckle_chest/app/_app.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
@@ -21,11 +22,15 @@ class ChuckleChestApp extends StatelessWidget {
   ChuckleChestApp({
     required this.flavor,
     required BuildContext dependencyContext,
+    this.initialDeepLink,
     super.key,
   }) : _appRouter = CAppRouter(dependencyContext: dependencyContext);
 
   /// The flavor of the app.
   final CAppFlavor flavor;
+
+  /// Optional initial deep link for testing.
+  final String? initialDeepLink;
 
   final CAppRouter _appRouter;
 
@@ -51,7 +56,11 @@ class ChuckleChestApp extends StatelessWidget {
           Locale('en', 'US'),
         ],
         locale: state.locale,
-        routerConfig: _appRouter.configure(),
+        routerConfig: _appRouter.configure(
+          deepLinkBuilder: initialDeepLink != null
+              ? (_) => DeepLink.path(initialDeepLink!)
+              : null,
+        ),
         builder: (context, child) => Column(
           children: [
             CStagingBanner(appFlavor: flavor),

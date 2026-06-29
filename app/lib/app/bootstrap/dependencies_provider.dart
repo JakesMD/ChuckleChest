@@ -19,10 +19,37 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 /// {@endtemplate}
 class CAppDependenciesProvider extends StatefulWidget {
   /// {@macro CAppDependenciesProvider}
-  const CAppDependenciesProvider({required this.builder, super.key});
+  const CAppDependenciesProvider({
+    required this.builder,
+    this.authClient,
+    this.chestClient,
+    this.gemClient,
+    this.personClient,
+    this.platformClient,
+    this.storageClient,
+    super.key,
+  });
 
   /// The child to make the dependencies available to.
   final Widget Function(BuildContext) builder;
+
+  /// Optional client overrides for testing.
+  final CAuthClient? authClient;
+
+  /// Optional client overrides for testing.
+  final CChestClient? chestClient;
+
+  /// Optional client overrides for testing.
+  final CGemClient? gemClient;
+
+  /// Optional client overrides for testing.
+  final CPersonClient? personClient;
+
+  /// Optional client overrides for testing.
+  final CPlatformClient? platformClient;
+
+  /// Optional client overrides for testing.
+  final CStorageClient? storageClient;
 
   @override
   State<CAppDependenciesProvider> createState() =>
@@ -47,39 +74,48 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
   void initState() {
     super.initState();
 
-    final supabaseClient = Supabase.instance.client;
+    if (widget.authClient != null) {
+      authClient = widget.authClient!;
+      chestClient = widget.chestClient!;
+      gemClient = widget.gemClient!;
+      personClient = widget.personClient!;
+      platformClient = widget.platformClient!;
+      storageClient = widget.storageClient!;
+    } else {
+      final supabaseClient = Supabase.instance.client;
 
-    final chestsTable = CChestsTable(supabaseClient);
-    final gemsTable = CGemsTable(supabaseClient);
-    final linesTable = CLinesTable(supabaseClient);
-    final peopleTable = CPeopleTable(supabaseClient);
-    final avatarsTable = CAvatarsTable(supabaseClient);
-    final invitationsTable = CInvitationsTable(supabaseClient);
-    final userRolesTable = CUserRolesTable(supabaseClient);
-    final gemShareTokensTable = CGemShareTokensTable(supabaseClient);
+      final chestsTable = CChestsTable(supabaseClient);
+      final gemsTable = CGemsTable(supabaseClient);
+      final linesTable = CLinesTable(supabaseClient);
+      final peopleTable = CPeopleTable(supabaseClient);
+      final avatarsTable = CAvatarsTable(supabaseClient);
+      final invitationsTable = CInvitationsTable(supabaseClient);
+      final userRolesTable = CUserRolesTable(supabaseClient);
+      final gemShareTokensTable = CGemShareTokensTable(supabaseClient);
 
-    platformClient = CPlatformClient();
-    authClient = CAuthClient(authClient: supabaseClient.auth);
-    chestClient = CChestClient(
-      chestsTable: chestsTable,
-      invitationsTable: invitationsTable,
-      userRolesTable: userRolesTable,
-      supabaseClient: supabaseClient,
-    );
-    gemClient = CGemClient(
-      gemsTable: gemsTable,
-      linesTable: linesTable,
-      gemShareTokensTable: gemShareTokensTable,
-      supabaseClient: supabaseClient,
-    );
-    personClient = CPersonClient(
-      peopleTable: peopleTable,
-      avatarsTable: avatarsTable,
-    );
-    storageClient = CStorageClient(supabaseClient: supabaseClient);
+      platformClient = CPlatformClient();
+      authClient = CAuthClient(authClient: supabaseClient.auth);
+      chestClient = CChestClient(
+        chestsTable: chestsTable,
+        invitationsTable: invitationsTable,
+        userRolesTable: userRolesTable,
+        supabaseClient: supabaseClient,
+      );
+      gemClient = CGemClient(
+        gemsTable: gemsTable,
+        linesTable: linesTable,
+        gemShareTokensTable: gemShareTokensTable,
+        supabaseClient: supabaseClient,
+      );
+      personClient = CPersonClient(
+        peopleTable: peopleTable,
+        avatarsTable: avatarsTable,
+      );
+      storageClient = CStorageClient(supabaseClient: supabaseClient);
+    }
 
     authRepository = CAuthRepository(
-      authClient: CAuthClient(authClient: supabaseClient.auth),
+      authClient: authClient,
     );
     chestRepository = CChestRepository(chestClient: chestClient);
     gemRepository = CGemRepository(
