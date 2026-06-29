@@ -10,25 +10,4 @@ environment:
   sdk: ^3.11.0
 
 dev_dependencies:
-  melos: ^7.6.0
   very_good_analysis: any
-
-melos:
-  scripts:
-    test:
-      description: Runs all the tests of the specified package(s).
-      exec: flutter test --coverage --no-pub --test-randomize-ordering-seed random
-      packageFilters:
-        dirExists: test
-
-    localize:
-      description: Generates the translations for the specified package(s).
-      exec: dart $MELOS_ROOT_PATH/bin/sort_l10n.dart l10n.yaml && flutter gen-l10n
-      packageFilters:
-        fileExists: l10n.yaml
-
-    build_runner:
-      description: Runs build runner in the specified package(s).
-      exec: dart run build_runner build --delete-conflicting-outputs
-      packageFilters:
-        fileExists: pubspec.yaml
