@@ -5,6 +5,7 @@ modules:
 tasks:
   ci:
     info: The procedure run by the CI workflow. Run this before pushing to GitHub.
+    interactive: false
     steps:
       - call: dart:setup
       - call: dart:analyze

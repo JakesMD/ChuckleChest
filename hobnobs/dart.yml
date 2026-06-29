@@ -3,7 +3,7 @@ tasks:
     info: Sets up the dev or CI environment. Run this after pulling from a branch.
     dir: ../
     steps:
-      - call: flutter upgrade --force
+      - run: flutter upgrade --force
         if: '[ "$CI" != "true" ]'
       - run: |
           flutter pub global activate melos

@@ -45,7 +45,7 @@ Future<void> bootstrap(
 
       await Supabase.initialize(
         url: const String.fromEnvironment('SUPABASE_PROJECT_URL'),
-        anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+        publishableKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
         debug: false,
       );
       cTalker.info('Supabase initialized');
