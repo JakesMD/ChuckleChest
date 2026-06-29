@@ -43,3 +43,7 @@ gitGraph
    builds, deploys)
 3. **After release** → CI recreates `develop` from `main` (clean slate, no
    drift)
+
+---
+
+**See also:** [Deployment](Deployment)
