@@ -78,9 +78,9 @@ class CGemEditCubit extends Cubit<CGemEditState> {
     emit(CGemEditState(gem: state.gem, deletedLines: state.deletedLines));
   }
 
-  /// Deletes the last line of the gem.
-  void deleteLastLine() {
-    final deletedLine = state.gem.lines.removeLast();
+  /// Deletes the line at the given [index].
+  void deleteLine(int index) {
+    final deletedLine = state.gem.lines.removeAt(index);
 
     if (deletedLine.id != null) state.deletedLines.add(deletedLine);
 

@@ -10,7 +10,7 @@ tasks:
       - call: dart:setup
       - call: dart:analyze
       - call: dart:test
-      # - call: db:test
+      - call: db:test
       - call: dart:build
       - call: website:update
 

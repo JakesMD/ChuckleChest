@@ -12,6 +12,7 @@ tasks:
   test:
     info: Run tests against the local Supabase database.
     steps:
+      - call: start
       - run: supabase db test
 
   reset:
