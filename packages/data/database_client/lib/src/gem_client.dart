@@ -93,66 +93,31 @@ class CGemClient {
     required CGemsTableUpsert gem,
     required List<BigInt> deletedLineIDs,
     required List<CLinesTableInsert> lines,
-  }) =>
-      BobsJob.attempt(
-            run: () => gemsTable.upsertAndFetchValue(
-              upserts: [gem],
-              column: CGemsTable.id,
-            ),
-            onError: CRawGemSaveException.fromError,
-          )
-          .thenAttempt(
-            run: (gemID) async {
-              await linesTable.delete(
-                filter: CLinesTable.id.includedIn(deletedLineIDs),
-                modifier: linesTable.none(),
-              );
-              return gemID;
-            },
-            onError: CRawGemSaveException.fromError,
-          )
-          .thenAttempt(
-            run: (gemID) async {
-              await linesTable.insert(
-                inserts: lines
-                    .where((line) => line.id == null)
-                    .map(
-                      (line) => CLinesTableInsert(
-                        id: line.id,
-                        gemID: gemID,
-                        chestID: gem.chestID,
-                        text: line.text,
-                        personID: line.personID,
-                      ),
-                    )
-                    .toList(),
-                modifier: linesTable.none(),
-              );
-              return gemID;
-            },
-            onError: CRawGemSaveException.fromError,
-          )
-          .thenAttempt(
-            run: (gemID) async {
-              await linesTable.upsert(
-                upserts: lines
-                    .where((line) => line.id != null)
-                    .map(
-                      (line) => CLinesTableInsert(
-                        id: line.id,
-                        gemID: gemID,
-                        chestID: gem.chestID,
-                        text: line.text,
-                        personID: line.personID,
-                      ),
-                    )
-                    .toList(),
-                modifier: linesTable.none(),
-              );
-              return gemID;
-            },
-            onError: CRawGemSaveException.fromError,
-          );
+  }) => BobsJob.attempt(
+    run: () async {
+      final response = await supabaseClient.rpc<String>(
+        'save_gem',
+        params: {
+          'gem_id_param': gem.id,
+          'occurred_at_param': gem.occurredAt.toIso8601String(),
+          'chest_id_param': gem.chestID,
+          'deleted_line_ids_param':
+              deletedLineIDs.map((id) => id.toString()).toList(),
+          'lines_param': lines
+              .map(
+                (line) => {
+                  'id': line.id?.toString(),
+                  'text': line.text,
+                  'person_id': line.personID?.value?.toString(),
+                },
+              )
+              .toList(),
+        },
+      );
+      return response;
+    },
+    onError: CRawGemSaveException.fromError,
+  );
 
   /// Fetches the `limit` gem IDs by random for the given `chestID` from the
   /// database.

@@ -4,10 +4,70 @@
 
 ChuckleChest uses a layered testing approach:
 
-| Layer      | Location              | What's Tested                      |
-| ---------- | --------------------- | ---------------------------------- |
-| Unit tests | `packages/*/test/`    | Repositories, clients in isolation |
-| E2E tests  | `app/test/pages/*/`   | Full app flows with mocked clients |
+| Layer          | Location              | What's Tested                        |
+| -------------- | --------------------- | ------------------------------------ |
+| Supabase tests | `supabase/tests/`     | DB functions, triggers, RLS policies |
+| Unit tests     | `packages/*/test/`    | Repositories, clients in isolation   |
+| E2E tests      | `app/test/pages/*/`   | Full app flows with mocked clients   |
+
+### Supabase Tests
+
+pgTAP tests for every DB function, trigger, and RLS policy change. More
+important than Dart tests — if the DB is wrong, the app is wrong.
+
+Run: `hobnob db:test`
+
+Before writing tests, read `supabase/tests/001_helpers.sql` — helpers change
+frequently, new ones can be added there (add shared helpers there, not inline).
+
+#### Structure
+
+```sql
+BEGIN;
+SELECT no_plan();  -- Always no_plan(), never plan(N)
+
+    -- Arrange (one-time setup shared across all scenarios)
+    SELECT tests.create_chucklechest_user('owner');
+    SELECT tests.create_chest('owner') AS chest_id \gset
+
+SAVEPOINT arrange_all;
+
+
+    -- Arrange
+    SELECT tests.authenticate_with_claims_as('owner');
+
+    -- Act
+    SELECT public.some_function(:'chest_id') AS result \gset
+
+    -- Assert (one is() / ok() / throws_ok() per requirement)
+    SELECT is(
+        (SELECT count(*)::int FROM public.some_table WHERE chest_id = :'chest_id'),
+        1,
+        'Given: owner authenticated. When: some_function called. Then: record created.'
+    );
+
+
+ROLLBACK TO arrange_all;
+
+
+    -- (next scenario from same base state)
+
+
+SELECT * FROM finish();
+ROLLBACK;
+```
+
+#### Rules
+
+- `no_plan()` always — never `plan(N)`
+- `SAVEPOINT arrange_all` + `ROLLBACK TO arrange_all` between scenarios — resets
+  to shared base state
+- One `is()` / `ok()` / `throws_ok()` per test — one requirement per assertion
+- Test descriptions: `'Given: ... When: ... Then: ...'`
+- AAA comments on every scenario: `-- Arrange`, `-- Act`, `-- Assert`
+- Use `\gset` to capture return values: `SELECT fn() AS var \gset` → `:var`
+- Authenticate before every Act: `tests.authenticate_with_claims_as('user')` or
+  `tests.authenticate_as_service_role()`
 
 ### E2E Tests
 
