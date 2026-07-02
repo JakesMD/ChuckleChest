@@ -45,6 +45,7 @@ void main() {
       ),
       (tester) async {
         _setupPersistedSession(clients);
+        // CGetStartedPage calls fetchUserInvitations on init.
         when(
           () => clients.chestClient.fetchUserInvitations(
             email: any(named: 'email'),
