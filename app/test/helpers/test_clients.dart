@@ -19,6 +19,7 @@ class MockCStorageClient extends Mock implements CStorageClient {}
 
 class CTestClients {
   CTestClients() {
+    when(() => authClient.currentUser).thenReturn(null);
     when(authClient.currentUserStream).thenAnswer(
       (_) => BobsStream(
         stream: () => Stream.value(bobsSuccess(bobsAbsent())),
