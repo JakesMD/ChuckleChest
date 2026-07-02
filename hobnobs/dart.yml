@@ -35,7 +35,7 @@ tasks:
         if: '[ "$CI" = "true" ]'
       - run: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define-from-file=secrets.{{.FLAVOR}}.json --release --base-href "/app/"
         if: '[ "$CI" != "true" ]'
-      - run: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define=SUPABASE_PROJECT_URL=${{.SUPABASE_PROJECT_URL}} --dart-define=SUPABASE_ANON_KEY=${{.SUPABASE_ANON_KEY}} --release --base-href "/app/"
+      - run: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define=SUPABASE_PROJECT_URL={{.SUPABASE_PROJECT_URL}} --dart-define=SUPABASE_ANON_KEY={{.SUPABASE_ANON_KEY}} --release --base-href "/app/"
         if: '[ "$CI" = "true" ]'
 
   pub-upgrade:
