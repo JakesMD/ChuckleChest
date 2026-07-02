@@ -1,0 +1,60 @@
+tasks:
+  start:
+    info: Starts the local Supabase database.
+    steps:
+      - run: supabase start
+
+  stop:
+    info: Stops the local Supabase database.
+    steps:
+      - run: supabase stop
+
+  test:
+    info: Run tests against the local Supabase database.
+    steps:
+      - call: start
+      - run: supabase db test
+
+  reset:
+    info: Resets the local Supabase database.
+    steps:
+      - run: supabase db reset
+
+  diff:
+    info: Diff the current migration files with the current state of the schema, local or linked database.
+    steps:
+      - get:
+          - LOCATION:
+              info: The location to diff against.
+              options: [schemas, local, linked]
+              default: schemas
+          - NAME:
+              info: A name for the migration.
+      - run: echo "{{.NAME}}" | sed 's/[^a-zA-Z0-9]/_/g' | sed 's/__*/_/g' | sed 's/^_//;s/_$//' | tr '[:upper:]' '[:lower:]'
+        into:
+          - SNAKE_NAME: stdout | trim
+      - call: stop
+        if: '[ "{{.LOCATION}}" = "schemas" ]'
+      - loop: [public, auth, storage]
+        steps:
+          - run: supabase db diff {{if ne .LOCATION "schemas"}}--{{.LOCATION}}{{end}} --schema {{.ITEM}} -f {{.SNAKE_NAME}}_{{.ITEM}}
+      - run: ls -1 supabase/migrations/*_{{.SNAKE_NAME}}_*.sql 2>/dev/null | head -1 | sed 's/.*\///' | cut -d'_' -f1
+        into:
+          - TIMESTAMP: stdout | trim
+      - run: cat supabase/migrations/*_{{.SNAKE_NAME}}_*.sql > supabase/migrations/{{.TIMESTAMP}}_{{.SNAKE_NAME}}.sql
+        if: '[ -n "{{.TIMESTAMP}}" ]'
+      - run: find supabase/migrations -name "*_{{.SNAKE_NAME}}_*.sql" -delete
+        if: '[ -n "{{.TIMESTAMP}}" ]'
+
+  push:
+    info: Push the database changes to the linked Supabase project.
+    steps:
+      - get:
+          - SUPABASE_PROJECT_ID:
+              info: The Supabase project ID.
+          - DRY_RUN:
+              info: Whether to do a dry run of the push.
+              enum: [true, false]
+              default: true
+      - run: supabase link --project-ref {{.SUPABASE_PROJECT_ID}}
+      - run: supabase db push {{if eq .DRY_RUN "true"}}--dry-run{{end}}

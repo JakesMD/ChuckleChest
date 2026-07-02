@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ccore/ccore.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:chuckle_chest/localization/l10n.dart';
@@ -6,6 +7,7 @@ import 'package:chuckle_chest/shared/views/collection/logic/_logic.dart';
 import 'package:chuckle_chest/shared/views/collection/widgets/_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mallard_bloc/mallard_bloc.dart';
 
 /// {@template CCollectionView}
 ///
@@ -21,7 +23,7 @@ class CCollectionView<
   F,
   O
 >
-    extends CWrappedWidget {
+    extends StatefulWidget {
   /// {@macro CCollectionView}
   const CCollectionView({
     required this.gemTokens,
@@ -55,85 +57,42 @@ class CCollectionView<
   /// The function to call to fetch the gem with the given token.
   final void Function(BuildContext context, String token) triggerFetchGem;
 
+  @override
+  State<CCollectionView<C, S, F, O>> createState() =>
+      _CCollectionViewState<C, S, F, O>();
+}
+
+class _CCollectionViewState<
+  C extends Cubit<S>,
+  S extends CRequestCubitState<F, O>,
+  F,
+  O
+>
+    extends State<CCollectionView<C, S, F, O>> {
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   void _onPageChanged(BuildContext context, int index) =>
       context.read<CCollectionViewCubit>().onPageChanged(index);
 
-  @override
-  Widget wrapper(BuildContext context) {
-    if (gemTokens.isEmpty) return builder(context);
-
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => CCollectionViewCubit(
-            gemTokens: gemTokens,
-            onNewGem: (token) => triggerFetchGem(context, token),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => CGemShareCubit(gemRepository: context.read()),
-        ),
-        if (userRole != CUserRole.viewer)
-          BlocProvider(
-            create: (context) => CGemShareTokenCreationCubit(
-              gemRepository: context.read(),
-              chestID: context.read<CCurrentChestCubit>().state.id,
-            ),
-          ),
-      ],
-      child: Builder(
-        builder: (context) => MultiBlocListener(
-          listeners: [
-            BlocListener<C, S>(
-              listener: (context, state) => switch (state.status) {
-                CRequestCubitStatus.initial => null,
-                CRequestCubitStatus.inProgress => null,
-                CRequestCubitStatus.failed => onFetchFailed(state.failure),
-                CRequestCubitStatus.succeeded =>
-                  context.read<CCollectionViewCubit>().onGemFetched(
-                    gemFromState(state),
-                    gemTokenFromState(state),
-                  ),
-              },
-            ),
-            BlocListener<CGemShareCubit, CGemShareState>(
-              listener: (context, state) => switch (state.status) {
-                CRequestCubitStatus.initial => null,
-                CRequestCubitStatus.inProgress => null,
-                CRequestCubitStatus.failed => const CErrorSnackBar().show(
-                  context,
-                ),
-                CRequestCubitStatus.succeeded =>
-                  state.shareMethod == CGemShareMethod.clipboard
-                      ? CInfoSnackBar(
-                          message: context.cAppL10n.copiedToClipboard,
-                        ).show(context)
-                      : null,
-              },
-            ),
-            if (userRole != CUserRole.viewer)
-              BlocListener<
-                CGemShareTokenCreationCubit,
-                CGemShareTokenCreationState
-              >(
-                listener: (context, state) => switch (state.status) {
-                  CRequestCubitStatus.initial => null,
-                  CRequestCubitStatus.inProgress => null,
-                  CRequestCubitStatus.failed => const CErrorSnackBar().show(
-                    context,
-                  ),
-                  CRequestCubitStatus.succeeded => _updateGemShareToken(
-                    context,
-                    state.gemID,
-                    state.shareToken,
-                  ),
-                },
-              ),
-          ],
-          child: builder(context),
-        ),
-      ),
-    );
+  void _onGemDeleted(BuildContext context, String gemID) {
+    final cubit = context.read<CCollectionViewCubit>()..removeGem(gemID);
+    if (cubit.state.gems.isEmpty) {
+      context.router.maybePop();
+    } else {
+      _pageController.jumpToPage(cubit.state.currentIndex);
+    }
   }
 
   void _updateGemShareToken(
@@ -157,9 +116,8 @@ class CCollectionView<
     );
   }
 
-  @override
-  Widget builder(BuildContext context) {
-    if (gemTokens.isEmpty) {
+  Widget _buildBody(BuildContext context) {
+    if (widget.gemTokens.isEmpty) {
       return Scaffold(
         appBar: CAppBar(
           context: context,
@@ -168,43 +126,148 @@ class CCollectionView<
       );
     }
     return Scaffold(
-      appBar: CCollectionViewAppBar(userRole: userRole),
-      body: PageView.builder(
-        onPageChanged: (index) => _onPageChanged(context, index),
-        itemCount: gemTokens.length,
-        itemBuilder: (context, index) => BlocBuilder<C, S>(
-          buildWhen: (_, state) => gemTokenFromState(state) == gemTokens[index],
-          builder: (context, fetchState) => switch (fetchState.status) {
-            CRequestCubitStatus.initial => const Center(
-              child: CCradleLoadingIndicator(),
-            ),
-            CRequestCubitStatus.inProgress => const Center(
-              child: CCradleLoadingIndicator(),
-            ),
-            CRequestCubitStatus.failed => const Center(
-              child: Icon(Icons.error_rounded),
-            ),
-            CRequestCubitStatus.succeeded =>
-              BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
-                buildWhen: (_, state) =>
-                    state.currentGem?.id == gemFromState(fetchState).id ||
-                    state.needsRestart,
-                builder: (context, state) => state.currentGem != null
-                    ? CAnimatedGem(
-                        key: UniqueKey(),
-                        gem: state.currentGem!,
-                        isLastGem: state.isLastGem,
-                      )
-                    : const SizedBox(),
+      appBar: CCollectionViewAppBar(userRole: widget.userRole),
+      body: BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
+        buildWhen: (prev, curr) => prev.gems.length != curr.gems.length,
+        builder: (context, collectionState) => PageView.builder(
+          controller: _pageController,
+          onPageChanged: (index) => _onPageChanged(context, index),
+          itemCount: collectionState.gems.length,
+          itemBuilder: (context, index) => BlocBuilder<C, S>(
+            buildWhen: (_, state) =>
+                widget.gemTokenFromState(state) ==
+                collectionState.gems[index].$1,
+            builder: (context, fetchState) => switch (fetchState.status) {
+              CRequestCubitStatus.initial => const Center(
+                child: CCradleLoadingIndicator(),
               ),
-          },
+              CRequestCubitStatus.inProgress => const Center(
+                child: CCradleLoadingIndicator(),
+              ),
+              CRequestCubitStatus.failed => const Center(
+                child: Icon(Icons.error_rounded),
+              ),
+              CRequestCubitStatus.succeeded =>
+                BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
+                  buildWhen: (_, state) =>
+                      state.currentGem?.id ==
+                          widget.gemFromState(fetchState).id ||
+                      state.needsRestart,
+                  builder: (context, state) => state.currentGem != null
+                      ? CAnimatedGem(
+                          key: UniqueKey(),
+                          gem: state.currentGem!,
+                          isLastGem: state.isLastGem,
+                        )
+                      : const SizedBox(),
+                ),
+            },
+          ),
         ),
       ),
-      bottomNavigationBar: userRole != CUserRole.viewer
+      bottomNavigationBar: widget.userRole != CUserRole.viewer
           ? CCollectionViewBottomAppBar(
               onShared: (token) => _shareGem(context, token),
             )
           : null,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.gemTokens.isEmpty) return _buildBody(context);
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CCollectionViewCubit(
+            gemTokens: widget.gemTokens,
+            onNewGem: (token) => widget.triggerFetchGem(context, token),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CGemShareCubit(gemRepository: context.read()),
+        ),
+        if (widget.userRole != CUserRole.viewer) ...[
+          BlocProvider(
+            create: (context) => CGemShareTokenCreationCubit(
+              gemRepository: context.read(),
+              chestID: context.read<CCurrentChestCubit>().state.id,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => CGemDeleteCubit(gemRepository: context.read()),
+          ),
+        ],
+      ],
+      child: Builder(
+        builder: (context) => MultiBlocListener(
+          listeners: [
+            BlocListener<C, S>(
+              listener: (context, state) => switch (state.status) {
+                CRequestCubitStatus.initial => null,
+                CRequestCubitStatus.inProgress => null,
+                CRequestCubitStatus.failed => widget.onFetchFailed(
+                  state.failure,
+                ),
+                CRequestCubitStatus.succeeded =>
+                  context.read<CCollectionViewCubit>().onGemFetched(
+                    widget.gemFromState(state),
+                    widget.gemTokenFromState(state),
+                  ),
+              },
+            ),
+            BlocListener<CGemShareCubit, CGemShareState>(
+              listener: (context, state) => switch (state.status) {
+                CRequestCubitStatus.initial => null,
+                CRequestCubitStatus.inProgress => null,
+                CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                  context,
+                ),
+                CRequestCubitStatus.succeeded =>
+                  state.shareMethod == CGemShareMethod.clipboard
+                      ? CInfoSnackBar(
+                          message: context.cAppL10n.copiedToClipboard,
+                        ).show(context)
+                      : null,
+              },
+            ),
+            if (widget.userRole != CUserRole.viewer) ...[
+              BlocListener<
+                CGemShareTokenCreationCubit,
+                CGemShareTokenCreationState
+              >(
+                listener: (context, state) => switch (state.status) {
+                  CRequestCubitStatus.initial => null,
+                  CRequestCubitStatus.inProgress => null,
+                  CRequestCubitStatus.failed => const CErrorSnackBar().show(
+                    context,
+                  ),
+                  CRequestCubitStatus.succeeded => _updateGemShareToken(
+                    context,
+                    state.gemID,
+                    state.shareToken,
+                  ),
+                },
+              ),
+              BlocListener<CGemDeleteCubit, CGemDeleteState>(
+                listener: (context, state) => switch (state.status) {
+                  TaskBlocStatus.initial => null,
+                  TaskBlocStatus.inProgress => null,
+                  TaskBlocStatus.failed => const CErrorSnackBar().show(
+                    context,
+                  ),
+                  TaskBlocStatus.succeeded => _onGemDeleted(
+                    context,
+                    state.success!,
+                  ),
+                },
+              ),
+            ],
+          ],
+          child: _buildBody(context),
+        ),
+      ),
     );
   }
 }

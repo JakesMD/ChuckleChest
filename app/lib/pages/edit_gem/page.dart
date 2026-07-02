@@ -63,7 +63,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   void _onLineDeletePressed(BuildContext context, int index) =>
-      context.read<CGemEditCubit>().deleteLastLine();
+      context.read<CGemEditCubit>().deleteLine(index);
 
   void _onSaved(BuildContext context, String gemID) {
     if (initialGem == null) {
@@ -109,7 +109,7 @@ class CEditGemPage extends StatelessWidget implements AutoRouteWrapper {
                   line: state.gem.lines[index],
                   people: people,
                   occurredAt: state.gem.occurredAt,
-                  isDeleteEnabled: index == state.gem.lines.length - 1,
+                  isDeleteEnabled: state.gem.lines.length > 1,
                   isAnimated: false,
                   onPressed: () => _onLinePressed(context, state.gem, index),
                   onDeletePressed: () => _onLineDeletePressed(context, index),

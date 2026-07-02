@@ -8,7 +8,8 @@ resolution: workspace
 dependencies:
   bobs_jobs: any
   ccore:
-  supabase: ^2.10.6
+  mallard: any
+  supabase: ^2.13.0
   typesafe_supabase: ^0.2.0
 
 dev_dependencies:

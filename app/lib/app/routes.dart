@@ -39,8 +39,11 @@ class CAppRouter extends RootStackRouter implements AutoRouteGuard {
   }
 
   /// The configuration for the app.
-  RouterConfig<UrlState> configure() => config(
+  RouterConfig<UrlState> configure({
+    DeepLinkBuilder? deepLinkBuilder,
+  }) => config(
     includePrefixMatches: true,
+    deepLinkBuilder: deepLinkBuilder,
     reevaluateListenable: ReevaluateListenable.stream(
       currentUserCubit.isSignedInStream,
     ),

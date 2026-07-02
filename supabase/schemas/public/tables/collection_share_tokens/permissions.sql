@@ -1,0 +1,7 @@
+ALTER TABLE "public"."collection_share_tokens" OWNER TO "postgres";
+
+GRANT ALL ON TABLE "public"."collection_share_tokens" TO "anon";
+
+GRANT ALL ON TABLE "public"."collection_share_tokens" TO "authenticated";
+
+GRANT ALL ON TABLE "public"."collection_share_tokens" TO "service_role";

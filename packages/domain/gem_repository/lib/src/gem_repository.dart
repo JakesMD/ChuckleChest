@@ -4,6 +4,7 @@ import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cgem_repository/cgem_repository.dart';
 import 'package:cplatform_client/cplatform_client.dart';
+import 'package:mallard/mallard.dart';
 
 /// {@template CGemRepository}
 ///
@@ -66,6 +67,12 @@ class CGemRepository {
         lines: gem.lines.map((line) => line.toInsert()).toList(),
       )
       .thenConvertFailure(CGemSaveException.fromRaw);
+
+  /// Deletes the gem with the given [gemID].
+  Task<String, CGemDeleteException> deleteGem({required String gemID}) =>
+      gemClient
+          .deleteGem(gemID: gemID)
+          .convertFailure(CGemDeleteException.fromRaw);
 
   /// Shares the gem with the given [shareToken].
   BobsJob<CGemShareException, CGemShareMethod> shareGem({

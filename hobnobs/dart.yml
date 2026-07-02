@@ -1,0 +1,109 @@
+tasks:
+  setup:
+    info: Sets up the dev or CI environment. Run this after pulling from a branch.
+    dir: ../
+    steps:
+      - run: flutter upgrade --force
+        if: '[ "$CI" != "true" ]'
+      - run: |
+          flutter pub global activate melos
+          flutter pub global activate combine_coverage
+          flutter pub global activate remove_from_coverage
+      - run: dart pub get
+      - run: dart format .
+
+  analyze:
+    info: Analyzes the code for all of the packages.
+    dir: ../
+    steps:
+      - run: dart analyze
+
+  build:
+    info: Builds the app.
+    dir: ../app
+    steps:
+      - get:
+          - FLAVOR:
+              info: The flavor to build.
+              default: production
+              options: [development, staging, production]
+      - get:
+          - SUPABASE_PROJECT_URL:
+              info: The Supabase project URL. Required if running in CI.
+          - SUPABASE_ANON_KEY:
+              info: The Supabase anon key. Required if running in CI.
+        if: '[ "$CI" = "true" ]'
+      - run: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define-from-file=secrets.{{.FLAVOR}}.json --release --base-href "/app/"
+        if: '[ "$CI" != "true" ]'
+      - run: flutter build web --target=lib/main_{{.FLAVOR}}.dart --dart-define=SUPABASE_PROJECT_URL=${{.SUPABASE_PROJECT_URL}} --dart-define=SUPABASE_ANON_KEY=${{.SUPABASE_ANON_KEY}} --release --base-href "/app/"
+        if: '[ "$CI" = "true" ]'
+
+  pub-upgrade:
+    info: Upgrades the pub dependencies.
+    dir: ../
+    steps:
+      - run: flutter pub upgrade --major-versions
+      - run: flutter pub outdated
+
+  test:
+    info: Runs the tests for all of the packages.
+    dir: ../
+    steps:
+      - call: _run-cmd-in-packages
+        with:
+          - CMD: flutter test --coverage --no-pub --test-randomize-ordering-seed random
+          - FILTER_FILE: test
+      - run: |
+          mkdir -p coverage
+          true > coverage/lcov.info
+          dart pub global run combine_coverage --repo-path=.
+          sed -i.bak 's|SF:.*/ChuckleChest/|SF:/|' coverage/lcov.info
+          rm -f coverage/lcov.info.bak
+      - run: dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='\.g\.dart$'
+      - run: dart pub global run remove_from_coverage --file=coverage/lcov.info --remove='^/app/'
+      - run: dart bin/check_coverage.dart coverage/lcov.info
+
+  localize:
+    info: Generates the translations for the specified package(s).
+    steps:
+      - call: _run-cmd-in-packages
+        with:
+          - CMD: dart {{.HOBNOB_FILE_DIR}}/bin/sort_l10n.dart l10n.yaml && flutter gen-l10n
+          - FILTER_FILE: l10n.yaml
+
+  build_runner:
+    info: Runs build runner in the specified package(s).
+    steps:
+      - call: _run-cmd-in-packages
+        with:
+          - CMD: dart run build_runner build --delete-conflicting-outputs
+          - FILTER_FILE: pubspec.yaml
+
+  _run-cmd-in-packages:
+    info: Runs a Dart command in the specified package(s).
+    steps:
+      - get:
+          - CMD:
+              info: The command to run.
+          - FILTER_FILE:
+              info: An optional file to filter the packages by. Only packages that depend on this file will be included.
+              default: pubspec.yaml
+      - run: dart pub workspace list | awk 'NR>1 && system("[ -e \"" $2 "/{{.FILTER_FILE}}\" ]") == 0 {print $2}'
+        into:
+          - PACKAGES: stdout | lines
+      - get:
+          - SELECTED_PACKAGES:
+              info: The packages to run the command in. Leave empty to run in all packages.
+              options: .PACKAGES
+              optional: true
+              multi: true
+          - CMD:
+              info: The command to run.
+      - set:
+          - SELECTED_PACKAGES: .PACKAGES
+        if: '[ "{{.SELECTED_PACKAGES}}" = "[]" ]'
+      - run: echo "{{.SELECTED_PACKAGES}}"
+      - loop: .SELECTED_PACKAGES
+        steps:
+          - run: .CMD
+            dir: ../{{.ITEM}}

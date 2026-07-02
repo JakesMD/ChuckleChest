@@ -40,6 +40,13 @@ class CAppL10nEn extends CAppL10n {
   String get close => 'Close';
 
   @override
+  String get collectionView_deleteGemDialog_message =>
+      'This gem and all its lines will be permanently deleted. This can\'t be undone.';
+
+  @override
+  String get collectionView_deleteGemDialog_title => 'Delete this gem?';
+
+  @override
   String get collectionView_noGemsTitle => 'No gems to show';
 
   @override
@@ -82,6 +89,9 @@ class CAppL10nEn extends CAppL10n {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get edit => 'Edit';
 
   @override
   String get editGemPage_addNarrationButton => 'Add a narration';

@@ -7,8 +7,8 @@ runs:
   steps:
     - name: 🕵️ Run checks
       shell: bash
-      run: task ci SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
+      run: hobnob ci SUPABASE_PROJECT_URL=${{ env.SUPABASE_PROJECT_URL }} SUPABASE_ANON_KEY=${{ env.SUPABASE_ANON_KEY }}
 
     - name: 🗃️ Push database changes (dry run)
       shell: bash
-      run: task db:push SUPABASE_PROJECT_ID=${{ env.SUPABASE_PROJECT_ID }} DRY_RUN=true
+      run: hobnob db:push SUPABASE_PROJECT_ID=${{ env.SUPABASE_PROJECT_ID }} DRY_RUN=true

@@ -32,10 +32,12 @@ dependencies:
     sdk: flutter
   formz: ^0.8.0
   hydrated_bloc: ^11.0.0
+  mallard: any
+  mallard_bloc: any
   meta: ^1.15.0
   pinput: ^6.0.2
   signed_spacing_flex: ^1.1.0
-  supabase_flutter: ^2.6.0
+  supabase_flutter: ^2.15.0
   talker_bloc_logger: ^5.1.17
   talker_flutter: ^5.1.17
   transparent_image: ^2.0.1
