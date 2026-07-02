@@ -175,8 +175,9 @@ void main() {
           then: 'returns [unknown] exception',
         ),
         () async {
-          when(mockFetch)
-              .thenReturn(bobsFakeFailureJob(CRawGemIDsFetchException.unknown));
+          when(
+            mockFetch,
+          ).thenReturn(bobsFakeFailureJob(CRawGemIDsFetchException.unknown));
 
           final result = await fetchJob().run();
 
@@ -231,8 +232,9 @@ void main() {
           then: 'returns [unknown] exception',
         ),
         () async {
-          when(mockFetchGem)
-              .thenReturn(bobsFakeFailureJob(CRawGemFetchException.unknown));
+          when(
+            mockFetchGem,
+          ).thenReturn(bobsFakeFailureJob(CRawGemFetchException.unknown));
 
           final result = await fetchGemJob().run();
 
@@ -244,12 +246,11 @@ void main() {
     group('saveGem', () {
       final fakeGem = CGem.fromRaw(_fakeRawGem());
 
-      BobsJob<CRawGemSaveException, String> mockSaveGem() =>
-          gemClient.saveGem(
-            gem: any(named: 'gem'),
-            deletedLineIDs: any(named: 'deletedLineIDs'),
-            lines: any(named: 'lines'),
-          );
+      BobsJob<CRawGemSaveException, String> mockSaveGem() => gemClient.saveGem(
+        gem: any(named: 'gem'),
+        deletedLineIDs: any(named: 'deletedLineIDs'),
+        lines: any(named: 'lines'),
+      );
 
       BobsJob<CGemSaveException, String> saveGemJob() =>
           repo.saveGem(gem: fakeGem, deletedLines: []);
@@ -276,8 +277,9 @@ void main() {
           then: 'returns [unknown] exception',
         ),
         () async {
-          when(mockSaveGem)
-              .thenReturn(bobsFakeFailureJob(CRawGemSaveException.unknown));
+          when(
+            mockSaveGem,
+          ).thenReturn(bobsFakeFailureJob(CRawGemSaveException.unknown));
 
           final result = await saveGemJob().run();
 
@@ -367,8 +369,7 @@ void main() {
           then: 'copies to clipboard and returns [clipboard] method',
         ),
         () async {
-          when(() => platformClient.deviceType)
-              .thenReturn(CDeviceType.desktop);
+          when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
           when(mockCopyToClipboard).thenReturn(bobsFakeSuccessJob(bobsNothing));
 
           final result = await shareGemJob().run();
@@ -385,8 +386,9 @@ void main() {
         ),
         () async {
           when(() => platformClient.deviceType).thenReturn(CDeviceType.mobile);
-          when(mockShare)
-              .thenReturn(bobsFakeFailureJob(CShareException.unknown));
+          when(
+            mockShare,
+          ).thenReturn(bobsFakeFailureJob(CShareException.unknown));
 
           final result = await shareGemJob().run();
 
@@ -401,10 +403,10 @@ void main() {
           then: 'returns [unknown] exception',
         ),
         () async {
-          when(() => platformClient.deviceType)
-              .thenReturn(CDeviceType.desktop);
-          when(mockCopyToClipboard)
-              .thenReturn(bobsFakeFailureJob(CClipboardCopyException.unknown));
+          when(() => platformClient.deviceType).thenReturn(CDeviceType.desktop);
+          when(
+            mockCopyToClipboard,
+          ).thenReturn(bobsFakeFailureJob(CClipboardCopyException.unknown));
 
           final result = await shareGemJob().run();
 
