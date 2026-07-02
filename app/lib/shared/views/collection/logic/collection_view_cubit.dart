@@ -40,7 +40,7 @@ class CCollectionViewState {
   }
 
   /// The currently displayed gem.
-  CGem? get currentGem => gems.elementAt(currentIndex).$2;
+  CGem? get currentGem => gems.isEmpty ? null : gems.elementAt(currentIndex).$2;
 
   /// Whether the current gem is the last gem.
   bool get isLastGem => currentIndex == gems.length - 1;
@@ -111,5 +111,25 @@ class CCollectionViewCubit extends Cubit<CCollectionViewState> {
     state.gems.insert(state.currentIndex, (record.$1, gem));
 
     emit(state.copyWith(gems: state.gems));
+  }
+
+  /// Removes the gem with the given [gemID] from the list.
+  ///
+  /// Adjusts [CCollectionViewState.currentIndex] so it stays in bounds.
+  /// If the list becomes empty the index resets to 0.
+  void removeGem(String gemID) {
+    final index = state.gems.indexWhere((r) => r.$2?.id == gemID);
+    if (index == -1) return;
+
+    state.gems.removeAt(index);
+    gemTokens.removeAt(index);
+
+    if (state.gems.isEmpty) {
+      emit(state.copyWith(gems: state.gems, currentIndex: 0));
+      return;
+    }
+
+    final newIndex = index.clamp(0, state.gems.length - 1);
+    emit(state.copyWith(gems: state.gems, currentIndex: newIndex));
   }
 }

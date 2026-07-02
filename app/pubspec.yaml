@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   formz: ^0.8.0
   hydrated_bloc: ^11.0.0
+  mallard: any
+  mallard_bloc: any
   meta: ^1.15.0
   pinput: ^6.0.2
   signed_spacing_flex: ^1.1.0

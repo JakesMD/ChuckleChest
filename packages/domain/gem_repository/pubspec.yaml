@@ -12,6 +12,7 @@ dependencies:
   cperson_repository: # Only used for the CPerson model.
   cplatform_client:
   equatable: ^2.0.5
+  mallard: any
 
 dev_dependencies:
   flutter_test:

@@ -151,6 +151,18 @@ abstract class CAppL10n {
   /// **'Close'**
   String get close;
 
+  /// No description provided for @collectionView_deleteGemDialog_message.
+  ///
+  /// In en, this message translates to:
+  /// **'This gem and all its lines will be permanently deleted. This can\'t be undone.'**
+  String get collectionView_deleteGemDialog_message;
+
+  /// No description provided for @collectionView_deleteGemDialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this gem?'**
+  String get collectionView_deleteGemDialog_title;
+
   /// No description provided for @collectionView_noGemsTitle.
   ///
   /// In en, this message translates to:
@@ -234,6 +246,12 @@ abstract class CAppL10n {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
 
   /// No description provided for @editGemPage_addNarrationButton.
   ///
