@@ -46,7 +46,11 @@ class CCurrentUserCubit
         > {
   /// {@macro CCurrentUserCubit}
   CCurrentUserCubit({required this.authRepository})
-    : super(const CCurrentUserState(outcome: null));
+    : super(
+        CCurrentUserState(
+          outcome: BobsSuccess(BobsMaybe.from(authRepository.currentUser)),
+        ),
+      );
 
   /// The repository this cubit uses to stream the auth user.
   final CAuthRepository authRepository;
