@@ -5,6 +5,7 @@ export 'chest_invitations_fetch.dart';
 export 'chest_members_fetch.dart';
 export 'chest_people_fetch.dart';
 export 'chest_update.dart';
+export 'gem_delete.dart';
 export 'gem_fetch.dart';
 export 'gem_fetch_from_share_token.dart';
 export 'gem_ids_fetch.dart';

@@ -1,5 +1,6 @@
 import 'package:bobs_jobs/bobs_jobs.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
+import 'package:mallard/mallard.dart';
 import 'package:supabase/supabase.dart';
 import 'package:typesafe_supabase/typesafe_supabase.dart';
 
@@ -101,8 +102,9 @@ class CGemClient {
           'gem_id_param': gem.id,
           'occurred_at_param': gem.occurredAt.toIso8601String(),
           'chest_id_param': gem.chestID,
-          'deleted_line_ids_param':
-              deletedLineIDs.map((id) => id.toString()).toList(),
+          'deleted_line_ids_param': deletedLineIDs
+              .map((id) => id.toString())
+              .toList(),
           'lines_param': lines
               .map(
                 (line) => {
@@ -118,6 +120,16 @@ class CGemClient {
     },
     onError: CRawGemSaveException.fromError,
   );
+
+  /// Deletes the gem with the given `gemID` from the database.
+  Task<String, CRawGemDeleteException> deleteGem({required String gemID}) =>
+      Task.attempt(
+        run: () async {
+          await gemsTable.delete<void>(filter: CGemsTable.id.equals(gemID));
+          return gemID;
+        },
+        handle: CRawGemDeleteException.fromError,
+      );
 
   /// Fetches the `limit` gem IDs by random for the given `chestID` from the
   /// database.

@@ -40,6 +40,13 @@ class CAppL10nDe extends CAppL10n {
   String get close => 'Schließen';
 
   @override
+  String get collectionView_deleteGemDialog_message =>
+      'Diese Gemme und alle ihre Zeilen werden endgültig gelöscht. Dies kann nicht rückgängig gemacht werden.';
+
+  @override
+  String get collectionView_deleteGemDialog_title => 'Diese Gemme löschen?';
+
+  @override
   String get collectionView_noGemsTitle => 'Keine Gemme zu zeigen';
 
   @override
@@ -81,6 +88,9 @@ class CAppL10nDe extends CAppL10n {
 
   @override
   String get delete => 'Löschen';
+
+  @override
+  String get edit => 'Bearbeiten';
 
   @override
   String get editGemPage_addNarrationButton => 'Neue Erzählung';

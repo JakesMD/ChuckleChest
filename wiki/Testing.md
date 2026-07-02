@@ -168,10 +168,10 @@ void main() {
         await tester.pumpChuckleChestApp(clients: clients);
 
         // Interact
-        await tester.tap(find.byType(SomeButton));
+        await tester.tap(find.byKey(const Key('some_button')));
         await tester.pumpAndSettle();
 
-        // Assert
+        // Assert (find.byType() OK only for unique codebase-owned page widgets)
         expect(find.byType(ExpectedPage), findsOneWidget);
       },
     );
@@ -182,8 +182,12 @@ void main() {
 ### Guidelines
 
 - **Mock at the client level** — repositories, cubits, and routing stay real
-- **Use `find.byType()`** over `find.text()` — avoids coupling to localized
-  strings
+- **Use `find.byKey()`** for all widget lookups. Only use `find.byType()` when
+  the type is unique _and_ defined in this codebase (e.g. page widgets like
+  `CHomePage`). Never use `find.byText()` or `find.byIcon()` — they couple
+  tests to localized strings or icon choices. Add `key:` parameters to
+  production widgets as needed and define the key constants at the top of the
+  test file with explicit types: `const Key _myKey = Key('my_key');`
 - **State management agnostic** — tests interact via widgets, not via
   cubits/blocs directly
 - **No UI appearance tests** — only verify widget presence and navigation
