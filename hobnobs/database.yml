@@ -12,7 +12,7 @@ tasks:
   test:
     info: Run tests against the local Supabase database.
     steps:
-      - call: start
+      - run: supabase db start # Only start db in CI pipeline.
       - run: supabase db test
 
   reset:
