@@ -348,6 +348,22 @@ class CEditPersonRouteArgs {
 }
 
 /// generated route for
+/// [CFavouritesCollectionPage]
+class CFavouritesCollectionRoute extends PageRouteInfo<void> {
+  const CFavouritesCollectionRoute({List<PageRouteInfo>? children})
+    : super(CFavouritesCollectionRoute.name, initialChildren: children);
+
+  static const String name = 'CFavouritesCollectionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const CFavouritesCollectionPage());
+    },
+  );
+}
+
+/// generated route for
 /// [CGemPage]
 class CGemRoute extends PageRouteInfo<CGemRouteArgs> {
   CGemRoute({required String gemID, Key? key, List<PageRouteInfo>? children})

@@ -32,6 +32,7 @@ class CCollectionView<
     required this.gemTokenFromState,
     required this.onFetchFailed,
     required this.triggerFetchGem,
+    this.isShared = false,
     super.key,
   });
 
@@ -44,6 +45,12 @@ class CCollectionView<
   ///
   /// If the user is not authenticated, this should be [CUserRole.viewer].
   final CUserRole userRole;
+
+  /// Whether this view is being shown on the public shared-gem page.
+  ///
+  /// When `true`, no bottom app bar is displayed, since sharing and liking
+  /// gems both require the user to be viewing gems within a chest.
+  final bool isShared;
 
   /// The function to extract the gem from the state.
   final CGem Function(S state) gemFromState;
@@ -165,11 +172,12 @@ class _CCollectionViewState<
           ),
         ),
       ),
-      bottomNavigationBar: widget.userRole != CUserRole.viewer
-          ? CCollectionViewBottomAppBar(
+      bottomNavigationBar: widget.isShared
+          ? null
+          : CCollectionViewBottomAppBar(
+              showShareButton: widget.userRole != CUserRole.viewer,
               onShared: (token) => _shareGem(context, token),
-            )
-          : null,
+            ),
     );
   }
 

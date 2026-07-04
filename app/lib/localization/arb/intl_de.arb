@@ -22,6 +22,7 @@
   "collectionView_shareSheet_createLinkButton": "Link erstellen",
   "collectionView_shareSheet_deleteLinkButton": "Link löschen",
   "collectionView_shareSheet_shareLinkButton": "Link teilen",
+  "collectionsPage_collection_favourites": "Deine Favoriten",
   "collectionsPage_collection_random": "Zufällig ausgewählt",
   "collectionsPage_collection_recents": "Zuletzt hinzugefügt",
   "collectionsPage_noGemsMessage": "Erstelle eine neue Gemme, um loszulegen.",

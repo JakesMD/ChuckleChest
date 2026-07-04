@@ -548,5 +548,128 @@ void main() {
         },
       );
     });
+
+    group('fetchLikedGemIDs', () {
+      Task<List<String>, CRawGemIDsFetchException> mockFetch() =>
+          gemClient.fetchLikedGemIDs(chestID: any(named: 'chestID'));
+
+      Task<List<String>, CGemIDsFetchException> fetchTask() =>
+          repo.fetchLikedGemIDs(chestID: _chestID);
+
+      test(
+        requirement(
+          given: 'chest ID',
+          whenever: 'fetchLikedGemIDs succeeds',
+          then: 'returns liked gem IDs list',
+        ),
+        () async {
+          when(mockFetch).thenReturn(Task.succeed([_gemID]));
+
+          final result = await fetchTask().run();
+
+          expect(result.asSuccess, equals([_gemID]));
+        },
+      );
+
+      test(
+        requirement(
+          given: 'chest ID',
+          whenever: 'fetchLikedGemIDs fails for unknown reason',
+          then: 'returns [unknown] exception',
+        ),
+        () async {
+          when(
+            mockFetch,
+          ).thenReturn(Task.fail(CRawGemIDsFetchException.unknown));
+
+          final result = await fetchTask().run();
+
+          expect(result.asFailure, CGemIDsFetchException.unknown);
+        },
+      );
+    });
+
+    group('likeGem', () {
+      Task<String, CRawGemLikeInsertException> mockLikeGem() =>
+          gemClient.likeGem(
+            chestID: any(named: 'chestID'),
+            gemID: any(named: 'gemID'),
+          );
+
+      Task<String, CGemLikeInsertException> likeGemTask() =>
+          repo.likeGem(chestID: _chestID, gemID: _gemID);
+
+      test(
+        requirement(
+          given: 'chest ID and gem ID',
+          whenever: 'likeGem succeeds',
+          then: 'returns liked gem ID',
+        ),
+        () async {
+          when(mockLikeGem).thenReturn(Task.succeed(_gemID));
+
+          final result = await likeGemTask().run();
+
+          expect(result.asSuccess, _gemID);
+        },
+      );
+
+      test(
+        requirement(
+          given: 'chest ID and gem ID',
+          whenever: 'likeGem fails for unknown reason',
+          then: 'returns [unknown] exception',
+        ),
+        () async {
+          when(
+            mockLikeGem,
+          ).thenReturn(Task.fail(CRawGemLikeInsertException.unknown));
+
+          final result = await likeGemTask().run();
+
+          expect(result.asFailure, CGemLikeInsertException.unknown);
+        },
+      );
+    });
+
+    group('unlikeGem', () {
+      Task<String, CRawGemLikeDeleteException> mockUnlikeGem() =>
+          gemClient.unlikeGem(gemID: any(named: 'gemID'));
+
+      Task<String, CGemLikeDeleteException> unlikeGemTask() =>
+          repo.unlikeGem(gemID: _gemID);
+
+      test(
+        requirement(
+          given: 'gem ID',
+          whenever: 'unlikeGem succeeds',
+          then: 'returns unliked gem ID',
+        ),
+        () async {
+          when(mockUnlikeGem).thenReturn(Task.succeed(_gemID));
+
+          final result = await unlikeGemTask().run();
+
+          expect(result.asSuccess, _gemID);
+        },
+      );
+
+      test(
+        requirement(
+          given: 'gem ID',
+          whenever: 'unlikeGem fails for unknown reason',
+          then: 'returns [unknown] exception',
+        ),
+        () async {
+          when(
+            mockUnlikeGem,
+          ).thenReturn(Task.fail(CRawGemLikeDeleteException.unknown));
+
+          final result = await unlikeGemTask().run();
+
+          expect(result.asFailure, CGemLikeDeleteException.unknown);
+        },
+      );
+    });
   });
 }

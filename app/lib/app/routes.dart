@@ -135,6 +135,10 @@ class CAppRouter extends RootStackRouter implements AutoRouteGuard {
               page: CRandomCollectionRoute.page,
             ),
             AutoRoute(
+              path: 'collections/favourites',
+              page: CFavouritesCollectionRoute.page,
+            ),
+            AutoRoute(
               path: 'people/edit-person',
               page: CEditPersonRoute.page,
               guards: [CCollaboratorGuard()],

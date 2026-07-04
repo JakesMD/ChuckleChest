@@ -15,6 +15,7 @@ class CGemClient {
     required this.gemsTable,
     required this.linesTable,
     required this.gemShareTokensTable,
+    required this.gemLikesTable,
     required this.supabaseClient,
   });
 
@@ -26,6 +27,9 @@ class CGemClient {
 
   /// The table that represents the `gem_share_tokens` table in the database.
   final CGemShareTokensTable gemShareTokensTable;
+
+  /// The table that represents the `gem_likes` table in the database.
+  final CGemLikesTable gemLikesTable;
 
   /// The supabase client.
   final SupabaseClient supabaseClient;
@@ -178,4 +182,43 @@ class CGemClient {
         ),
         onError: CRawGemShareTokenInsertException.fromError,
       );
+
+  /// Fetches the liked gem IDs for the given `chestID` from the database.
+  Task<List<String>, CRawGemIDsFetchException> fetchLikedGemIDs({
+    required String chestID,
+  }) => Task.attempt(
+    run: () => gemLikesTable.fetchValues(
+      column: CGemLikesTable.gemID,
+      filter: CGemLikesTable.chestID.equals(chestID),
+      modifier: gemLikesTable.order(CGemLikesTable.likedAt, ascending: false),
+    ),
+    handle: CRawGemIDsFetchException.fromError,
+  );
+
+  /// Likes the gem with the given `gemID` in the given `chestID`.
+  Task<String, CRawGemLikeInsertException> likeGem({
+    required String chestID,
+    required String gemID,
+  }) => Task.attempt(
+    run: () async {
+      await gemLikesTable.insert<void>(
+        inserts: [CGemLikesTableInsert(chestID: chestID, gemID: gemID)],
+      );
+      return gemID;
+    },
+    handle: CRawGemLikeInsertException.fromError,
+  );
+
+  /// Unlikes the gem with the given `gemID`.
+  Task<String, CRawGemLikeDeleteException> unlikeGem({
+    required String gemID,
+  }) => Task.attempt(
+    run: () async {
+      await gemLikesTable.delete<void>(
+        filter: CGemLikesTable.gemID.equals(gemID),
+      );
+      return gemID;
+    },
+    handle: CRawGemLikeDeleteException.fromError,
+  );
 }

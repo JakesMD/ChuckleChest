@@ -30,6 +30,7 @@ class CDemoPage extends StatelessWidget implements AutoRouteWrapper {
       body: CCollectionView<CDemoCubit, CDemoState, BobsNothing, CSharedGem>(
         gemTokens: cubit.gemTokens,
         userRole: CUserRole.viewer,
+        isShared: true,
         gemFromState: (state) => state.gem,
         gemTokenFromState: (state) => state.gemID,
         triggerFetchGem: (context, token) => cubit.emitGemWithToken(token),

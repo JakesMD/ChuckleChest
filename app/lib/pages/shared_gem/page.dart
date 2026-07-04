@@ -42,6 +42,7 @@ class CSharedGemPage extends StatelessWidget implements AutoRouteWrapper {
           >(
             gemTokens: [shareToken ?? ''],
             userRole: CUserRole.viewer,
+            isShared: true,
             gemFromState: (state) => state.gem,
             gemTokenFromState: (state) => shareToken ?? '',
             triggerFetchGem: (context, token) => context

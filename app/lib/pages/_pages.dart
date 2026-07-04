@@ -7,6 +7,7 @@ export 'create_gem/page.dart';
 export 'demo/page.dart';
 export 'edit_gem/page.dart';
 export 'edit_person/page.dart';
+export 'favourites_collection/page.dart';
 export 'gem/page.dart';
 export 'get_started/page.dart';
 export 'home/page.dart';
