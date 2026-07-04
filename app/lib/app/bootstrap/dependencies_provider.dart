@@ -92,6 +92,7 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
       final invitationsTable = CInvitationsTable(supabaseClient);
       final userRolesTable = CUserRolesTable(supabaseClient);
       final gemShareTokensTable = CGemShareTokensTable(supabaseClient);
+      final gemLikesTable = CGemLikesTable(supabaseClient);
 
       platformClient = CPlatformClient();
       authClient = CAuthClient(authClient: supabaseClient.auth);
@@ -105,6 +106,7 @@ class _CAppDependenciesProviderState extends State<CAppDependenciesProvider> {
         gemsTable: gemsTable,
         linesTable: linesTable,
         gemShareTokensTable: gemShareTokensTable,
+        gemLikesTable: gemLikesTable,
         supabaseClient: supabaseClient,
       );
       personClient = CPersonClient(

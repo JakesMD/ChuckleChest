@@ -4,6 +4,7 @@ export 'current_chest_cubit.dart';
 export 'current_user_cubit.dart';
 export 'gem_fetch_cubit.dart';
 export 'gem_fetch_from_share_token.dart';
+export 'gem_likes_cubit.dart';
 export 'invitation_accept_cubit.dart';
 export 'request_cubit.dart';
 export 'signout_cubit.dart';

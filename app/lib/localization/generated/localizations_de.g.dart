@@ -59,6 +59,9 @@ class CAppL10nDe extends CAppL10n {
   String get collectionView_shareSheet_shareLinkButton => 'Link teilen';
 
   @override
+  String get collectionsPage_collection_favourites => 'Deine Favoriten';
+
+  @override
   String get collectionsPage_collection_random => 'Zufällig ausgewählt';
 
   @override

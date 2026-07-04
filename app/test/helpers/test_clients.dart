@@ -3,6 +3,7 @@ import 'package:cauth_client/cauth_client.dart';
 import 'package:cdatabase_client/cdatabase_client.dart';
 import 'package:cplatform_client/cplatform_client.dart';
 import 'package:cstorage_client/cstorage_client.dart';
+import 'package:mallard/mallard.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockCAuthClient extends Mock implements CAuthClient {}
@@ -25,6 +26,9 @@ class CTestClients {
         stream: () => Stream.value(bobsSuccess(bobsAbsent())),
       ),
     );
+    when(
+      () => gemClient.fetchLikedGemIDs(chestID: any(named: 'chestID')),
+    ).thenReturn(Task.succeed(<String>[]));
   }
 
   final authClient = MockCAuthClient();

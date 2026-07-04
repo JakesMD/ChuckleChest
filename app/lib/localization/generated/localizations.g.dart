@@ -187,6 +187,12 @@ abstract class CAppL10n {
   /// **'Share the link'**
   String get collectionView_shareSheet_shareLinkButton;
 
+  /// No description provided for @collectionsPage_collection_favourites.
+  ///
+  /// In en, this message translates to:
+  /// **'Your favourites'**
+  String get collectionsPage_collection_favourites;
+
   /// No description provided for @collectionsPage_collection_random.
   ///
   /// In en, this message translates to:
