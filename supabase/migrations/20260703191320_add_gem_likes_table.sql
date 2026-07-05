@@ -83,3 +83,7 @@ with check ((public.authorize('gem_likes.insert'::public.app_permission, chest_i
   for select
   to authenticated
 using ((public.authorize('gem_likes.select'::public.app_permission, chest_id) AND (user_id = auth.uid())));
+
+alter table "public"."gem_likes" add constraint "gem_likes_chest_id_fkey" FOREIGN KEY (chest_id) REFERENCES public.chests(id) ON UPDATE CASCADE ON DELETE CASCADE not valid;
+
+alter table "public"."gem_likes" validate constraint "gem_likes_chest_id_fkey";

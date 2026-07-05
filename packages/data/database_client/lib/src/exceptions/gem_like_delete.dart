@@ -3,7 +3,7 @@
 
 /// Represents an exception that occurs when deleting a gem like fails.
 enum CRawGemLikeDeleteException {
-  /// The failure was unitentifiable.
+  /// The failure was unidentifiable.
   unknown;
 
   factory CRawGemLikeDeleteException.fromError(Object error) {

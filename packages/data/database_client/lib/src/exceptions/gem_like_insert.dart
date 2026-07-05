@@ -3,7 +3,7 @@
 
 /// Represents an exception that occurs when inserting a gem like fails.
 enum CRawGemLikeInsertException {
-  /// The failure was unitentifiable.
+  /// The failure was unidentifiable.
   unknown;
 
   factory CRawGemLikeInsertException.fromError(Object error) {

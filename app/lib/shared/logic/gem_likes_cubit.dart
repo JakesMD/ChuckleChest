@@ -100,6 +100,8 @@ class CGemLikesCubit extends Cubit<CGemLikesState> {
 
   /// Toggles the liked status of the gem with the given [gemID].
   Future<void> toggle(String gemID) async {
+    if (state.pendingGemIDs.contains(gemID)) return;
+
     final wasLiked = state.likedGemIDs.contains(gemID);
 
     emit(
