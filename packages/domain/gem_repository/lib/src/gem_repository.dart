@@ -135,4 +135,26 @@ class CGemRepository {
         onFailure: CGemShareTokenCreationException.fromRaw,
         onSuccess: (success) => success.token,
       );
+
+  /// Fetches the IDs of the liked gems in the chest with the given [chestID].
+  Task<List<String>, CGemIDsFetchException> fetchLikedGemIDs({
+    required String chestID,
+  }) => gemClient
+      .fetchLikedGemIDs(chestID: chestID)
+      .convertFailure(CGemIDsFetchException.fromRaw);
+
+  /// Likes the gem with the given [gemID] in the chest with the given
+  /// [chestID].
+  Task<String, CGemLikeInsertException> likeGem({
+    required String chestID,
+    required String gemID,
+  }) => gemClient
+      .likeGem(chestID: chestID, gemID: gemID)
+      .convertFailure(CGemLikeInsertException.fromRaw);
+
+  /// Unlikes the gem with the given [gemID].
+  Task<String, CGemLikeDeleteException> unlikeGem({required String gemID}) =>
+      gemClient.unlikeGem(gemID: gemID).convertFailure(
+        CGemLikeDeleteException.fromRaw,
+      );
 }

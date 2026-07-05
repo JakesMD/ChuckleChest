@@ -22,6 +22,7 @@
   "collectionView_shareSheet_createLinkButton": "Create a share link",
   "collectionView_shareSheet_deleteLinkButton": "Delete the link",
   "collectionView_shareSheet_shareLinkButton": "Share the link",
+  "collectionsPage_collection_favourites": "Your favourites",
   "collectionsPage_collection_random": "Randomly selected",
   "collectionsPage_collection_recents": "Recently added",
   "collectionsPage_noGemsMessage": "Create a new gem to get started.",

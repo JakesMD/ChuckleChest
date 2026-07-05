@@ -45,7 +45,10 @@ CREATE TYPE "public"."app_permission" AS enum(
     'collection_share_tokens.insert',
     'collection_share_tokens.select',
     'collection_share_tokens.update',
-    'collection_share_tokens.delete'
+    'collection_share_tokens.delete',
+    'gem_likes.insert',
+    'gem_likes.select',
+    'gem_likes.delete'
 );
 
 CREATE TYPE "public"."app_role" AS enum(

@@ -72,5 +72,14 @@ INSERT INTO role_permissions(ROLE, permission)
 ('owner', 'collection_share_tokens.select'),
 ('collaborator', 'collection_share_tokens.select'),
 ('owner', 'collection_share_tokens.delete'),
-('collaborator', 'collection_share_tokens.delete');
+('collaborator', 'collection_share_tokens.delete'),
+('owner', 'gem_likes.insert'),
+('collaborator', 'gem_likes.insert'),
+('viewer', 'gem_likes.insert'),
+('owner', 'gem_likes.select'),
+('collaborator', 'gem_likes.select'),
+('viewer', 'gem_likes.select'),
+('owner', 'gem_likes.delete'),
+('collaborator', 'gem_likes.delete'),
+('viewer', 'gem_likes.delete');
 

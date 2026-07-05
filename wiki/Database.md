@@ -81,8 +81,12 @@ Three roles exist per chest, defined as `app_role` enum:
 | Person avatars | CRUD  | CRUD         | R      |
 | Collections    | CRUD  | CRUD         | R      |
 | Share tokens   | CRD   | CRD          | —      |
+| Gem likes      | CRD*  | CRD*         | CRD*   |
 | Invitations    | CRUD  | —            | —      |
 | User roles     | RU    | —            | —      |
+
+\* Gem likes: users can only create/read/delete their own like — RLS policies
+also require `user_id = auth.uid()`.
 
 Note: owners cannot modify their own `user_roles` row (policy enforces
 `user_id <> auth.uid()`).

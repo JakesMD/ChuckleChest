@@ -15,7 +15,14 @@ import 'package:signed_spacing_flex/signed_spacing_flex.dart';
 /// {@endtemplate}
 class CCollectionViewBottomAppBar extends StatelessWidget {
   /// {@macro CCollectionViewBottomAppBar}
-  const CCollectionViewBottomAppBar({required this.onShared, super.key});
+  const CCollectionViewBottomAppBar({
+    required this.showShareButton,
+    required this.onShared,
+    super.key,
+  });
+
+  /// Whether the share button should be displayed.
+  final bool showShareButton;
 
   /// Called when the share button is pressed.
   final void Function(String token) onShared;
@@ -26,38 +33,40 @@ class CCollectionViewBottomAppBar extends StatelessWidget {
       child: SignedSpacingRow(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
-            builder: (context, viewState) =>
-                BlocBuilder<CGemShareCubit, CGemShareState>(
-                  builder: (context, shareState) =>
-                      BlocBuilder<
-                        CGemShareTokenCreationCubit,
-                        CGemShareTokenCreationState
-                      >(
-                        builder: (context, tokenState) => IconButton(
-                          onPressed:
-                              viewState.currentGem != null &&
-                                  shareState.status !=
-                                      CRequestCubitStatus.inProgress &&
-                                  tokenState.status !=
-                                      CRequestCubitStatus.inProgress
-                              ? () => CShareSheet(
-                                  gem: viewState.currentGem!,
-                                  onShared: onShared,
-                                  shareTokenCreationCubit: context.read(),
-                                ).show(context)
-                              : null,
-                          icon:
-                              shareState.status !=
-                                      CRequestCubitStatus.inProgress &&
-                                  tokenState.status !=
-                                      CRequestCubitStatus.inProgress
-                              ? const Icon(Icons.share_rounded)
-                              : const CBouncyBallLoadingIndicator(),
+          const CGemLikeButton(),
+          if (showShareButton)
+            BlocBuilder<CCollectionViewCubit, CCollectionViewState>(
+              builder: (context, viewState) =>
+                  BlocBuilder<CGemShareCubit, CGemShareState>(
+                    builder: (context, shareState) =>
+                        BlocBuilder<
+                          CGemShareTokenCreationCubit,
+                          CGemShareTokenCreationState
+                        >(
+                          builder: (context, tokenState) => IconButton(
+                            onPressed:
+                                viewState.currentGem != null &&
+                                    shareState.status !=
+                                        CRequestCubitStatus.inProgress &&
+                                    tokenState.status !=
+                                        CRequestCubitStatus.inProgress
+                                ? () => CShareSheet(
+                                    gem: viewState.currentGem!,
+                                    onShared: onShared,
+                                    shareTokenCreationCubit: context.read(),
+                                  ).show(context)
+                                : null,
+                            icon:
+                                shareState.status !=
+                                        CRequestCubitStatus.inProgress &&
+                                    tokenState.status !=
+                                        CRequestCubitStatus.inProgress
+                                ? const Icon(Icons.share_rounded)
+                                : const CBouncyBallLoadingIndicator(),
+                          ),
                         ),
-                      ),
-                ),
-          ),
+                  ),
+            ),
         ],
       ),
     );
