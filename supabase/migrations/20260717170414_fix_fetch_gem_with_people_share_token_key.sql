@@ -1,3 +1,5 @@
+set check_function_bodies = off;
+
 CREATE OR REPLACE FUNCTION public.fetch_gem_with_people(gem_id_param uuid)
   RETURNS jsonb
   LANGUAGE plpgsql
@@ -40,4 +42,5 @@ BEGIN
   -- Combine gem_data, lines_data, and people_data into a single JSONB object
   RETURN jsonb_build_object('gem', jsonb_set(gem_data_var, '{lines}', lines_data_var, TRUE), 'people', people_data_var);
 END;
-$function$;
+$function$
+;
