@@ -40,7 +40,7 @@ BEGIN
       WHERE
         l.gem_id = gem_id_param);
   -- Combine gem_data, lines_data, and people_data into a single JSONB object
-  RETURN jsonb_build_object('gem', jsonb_set(gem_data_var, '{lines}', lines_data_var, TRUE), 'people', people_data_var);
+  RETURN jsonb_build_object('gem', jsonb_set(gem_data_var, '{lines}', coalesce(lines_data_var, '[]'::jsonb), TRUE), 'people', people_data_var);
 END;
 $function$
 ;
