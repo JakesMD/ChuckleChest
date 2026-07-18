@@ -50,6 +50,12 @@ SAVEPOINT arrange_all;
         'Given: line assigned to a person. When: fetch_gem_with_people called. Then: people array contains that person.'
     );
 
+    SELECT is(
+        (:'result'::jsonb -> 'people' -> 0 -> 'avatars'),
+        'null'::jsonb,
+        'Given: line assigned to a person. When: fetch_gem_with_people called. Then: avatars key is present on the person with a JSON null value (client model requires the key to exist).'
+    );
+
 
 ROLLBACK TO arrange_all;
 
